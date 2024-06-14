@@ -1,0 +1,187 @@
+
+
+.header {
+    width: 100%;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: #ffffff; 
+    color: #000000; 
+    z-index: 1000;
+    /* box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Легкая тень для отделения от контента */
+  } */
+  
+  .header-logo {
+    display: block;
+    text-align: start;
+}
+
+    .logo-image {
+        width: 330px;
+    }
+    .header-slogan {
+        margin-top: -0.1rem;
+        font-size: 1.62rem;
+    }
+
+  
+  .header-contacts {
+    display: block;
+    margin: 20px;
+}
+  
+  .header-contacts p {
+    margin-right: 10px;
+  }
+  
+  .contact-icon {
+    width: 24px;
+    height: 24px;
+    margin-left: 10px;
+    transition: transform 0.2s; /* Анимация при наведении */
+    position: relative; /* Для позиционирования подсказки */
+  }
+
+  .header-contacts a {
+    color: #000000; 
+    text-decoration: none; 
+    margin-right: 10px;
+    font-size: 30px;
+    transition: transform 0.2s;
+  }
+
+  .contact-icon {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .contact-icon:hover {
+    transform: scale(1.2); /* Увеличение при наведении */
+  }
+  
+  .contact-icon::after {
+    content: attr(data-tooltip); /* Содержимое подсказки */
+    position: absolute;
+    bottom: 100%; /* Позиционирование над иконкой */
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #000; /* Цвет фона подсказки */
+    color: #fff; /* Цвет текста подсказки */
+    padding: 5px;
+    border-radius: 5px;
+    white-space: nowrap;
+    opacity: 0; /* Скрытие подсказки по умолчанию */
+    transition: opacity 0.2s; /* Анимация при наведении */
+    pointer-events: none; /* Чтобы подсказка не перекрывала иконку */
+    font-size: 12px;
+  }
+  
+  .contact-icon:hover::after {
+    opacity: 1; /* Показ подсказки при наведении */
+  }
+  
+  .header-language-switcher {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    position: relative;
+    /* margin: 20px; */
+    /* text-align: end; */
+    justify-content: space-around;
+}
+  
+  .language-selected {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+  }
+  
+  .globe-icon {
+    width: 24px;
+    height: 24px;
+    margin-right: 5px;
+  }
+  
+  .language-dropdown {
+    position: absolute;
+    background-color: #ffffff;
+    color: #000000;
+    list-style: none;
+    padding: 5px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    z-index: 1000;
+  }
+  
+  .language-dropdown li {
+    padding: 5px 10px;
+    cursor: pointer;
+  }
+  
+  .language-dropdown li:hover {
+    background-color: #f0f0f0;
+  }
+  
+
+  .header-contacts {
+    display: flex; /* Flex для выравнивания в строку */
+    flex-direction: column;
+    align-items: center;
+    margin: 20px;
+  }
+  .div_icons {
+    display: block;
+  }
+  .header-contacts a {
+    text-decoration: none; /* Убирает подчеркивание текста */
+    margin-right: 10px;
+    font-size: 30px;
+    position: relative; /* Для позиционирования подсказки */
+    transition: transform 0.2s; /* Анимация при наведении */
+  }
+  
+  .header-contacts a:hover {
+    transform: scale(1.2); /* Увеличение при наведении */
+  }
+  
+  .contact-icon {
+    width: 45px;
+    height: 45px;
+    margin-left: 10px;
+    transition: transform 0.2s; /* Анимация при наведении */
+    position: relative; /* Для позиционирования подсказки */
+  }
+  
+  .contact-icon:hover {
+    transform: scale(1.2); /* Увеличение при наведении */
+  }
+  
+  .contact-link {
+    color: #000000; 
+  }
+  
+  .tooltip {
+    visibility: hidden;
+    background-color: #000; /* Цвет фона подсказки */
+    color: #fff; /* Цвет текста подсказки */
+    text-align: center;
+    border-radius: 5px;
+    padding: 5px;
+    position: absolute;
+    z-index: 1;
+    bottom: 150%; /* Позиционирование над элементом */
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0; /* Скрытие подсказки по умолчанию */
+    transition: opacity 0.3s; /* Анимация при наведении */
+    font-size: 12px;
+    white-space: nowrap;
+  }
+  
+  a:hover .tooltip {
+    visibility: visible;
+    opacity: 1; /* Показ подсказки при наведении */
+  }
