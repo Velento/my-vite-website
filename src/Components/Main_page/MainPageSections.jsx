@@ -5,7 +5,7 @@ import './MainPageSections.css';
 import telegramIcon from '../images/telegram.png';
 import whatsappIcon from '../images/whatsapp.png';
 import viberIcon from '../images/viber.png';
-import kateFoto from '../images/Kate_foto.jpg'; // Импортируем фотографию
+import kateFoto from '../images/Kate_foto1.jpg'; // Импортируем фотографию
 
 function openViberChat(e) {
     e.preventDefault();
@@ -31,7 +31,7 @@ const Modal = ({ show, onClose }) => {
     <div className="modal">
       <div className="modal-content">
         <span className="close" onClick={onClose}>&times;</span>
-        <h2>Выберите удобный тип связи с нами</h2>
+        <h2>Выберите удобный тип связи</h2>
         <p>Позвонить: <a href="tel:+48777888999">+48 777 888 999</a></p>
         <div className="contact-icons">
           <a href="https://t.me/katringoncharuk" target="_blank" rel="noopener noreferrer">
@@ -41,7 +41,6 @@ const Modal = ({ show, onClose }) => {
             <img src={whatsappIcon} alt="WhatsApp" className="contact-icon" />
           </a>
           <a href="#!" onClick={openViberChat}>
-          <span className="tooltip">Viber</span>
           <img src={viberIcon} alt="Viber" className="contact-icon" />
         </a>
         </div>
@@ -59,9 +58,9 @@ const Section = ({ title, content, imgSrc }) => {
   return (
     <div className="section">
       <h3>{title}</h3>
+       {imgSrc && <img src={imgSrc} alt="Section" className="kate_foto" />}
       <div className="section-content">
         <p>{content}</p>
-        {imgSrc && <img src={imgSrc} alt="Section" className="kate_foto" />}
       </div>
       <button onClick={handleShowModal}>ХОЧУ!</button>
       <Modal show={showModal} onClose={handleCloseModal} />
@@ -73,24 +72,28 @@ const MainPageSections = () => {
   return (
     <div className="main-page-sections">
       <div className="left-column">
-        <Section
-          title="Получи персональный план по легализации в Польше."
-          content=""
+      <Section
+          title="Доведем до результата или вернем деньги!"
+          content="Мы работаем по договору с гарантией возврата денег. Это значит, что если что-то пойдет не по плану и если по нашей вине ты не получишь конечного результата, то мы вернем тебе всю сумму за наши услуги. "
         />
         <Section
           title="Свяжись сейчас и узнай как решить твой вопрос максимально быстро!"
-          content=""
+          content="Свяжись с нами прямо сейчас! Смело задавай вопрос нашему специалисту. Мы ответим на него максимально быстро."
         />
         <Section
           title="Участвуй в розыгрыше пожизненной бесплатной юридической помощи. Розыгрыш каждый месяц"
-          content=""
+          content="Мы хотим дать максимально пользы с нашей стороны. Мы часто консультируем людей бесплатно. Однако многие нуждаются в оказании коммплексной юридической помощи, на которую не всегда находятся финансы. Поэтому не упускай свой шанс! Ты можешь стать победителем розыгрыша в нашей группе Инстаграмм. Подписывайся и играй!"
         />
       </div>
       <div className="right-column">
         <Section
           title="Я Катя."
-          content="Я помогу тебе получить временный либо постоянный вид на жительство. Я прослежу за твоим делом, помогу подготовить и донести недостающие документы в Ужонд, составлю тебе правильно письма для Ужонда и многое другое."
           imgSrc={kateFoto}
+          content="Я помогу тебе получить временный либо постоянный вид на жительство. Я прослежу за твоим делом, помогу подготовить и донести недостающие документы в Ужонд, составлю тебе правильно письма для Ужонда и многое другое."
+        />
+         <Section
+          title="Получи персональный план по легализации в Польше."
+          content="Напиши нам в один из трех мессенджеров. Опиши свою ситуацию и укажи какая помощь тебе нужна. Наши специалисты изучат твою ситуацию и отправят четкий план действий."
         />
       </div>
     </div>

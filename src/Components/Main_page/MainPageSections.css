@@ -1,6 +1,10 @@
 .main-page-sections {
     display: flex;
-  }
+    font-family: Arial;
+    font-size: 25px;
+    font-weight: 500;
+    margin-top: 2rem;
+}
   
   .left-column, .right-column {
     flex: 1;
@@ -15,8 +19,6 @@
     background-color: #f9f9f9;
     padding: 20px;
     border-radius: 8px;
-    /* border-color: black;
-    border-style: solid; */
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
   }
   
@@ -29,9 +31,9 @@
   }
   
   .section img.kate_foto {
-    width: 100px;
+    width: 300px;
     height: auto;
-    margin-left: 20px;
+    margin-left: 20px; 
   }
   
   .section button {
@@ -61,7 +63,7 @@
     padding: 20px;
     border-radius: 10px;
     position: relative;
-    width: 300px;
+    width: 340px;
     text-align: center;
   }
   
@@ -74,6 +76,8 @@
   
   .modal-content h2 {
     margin-bottom: 10px;
+    font-weight: 600;
+    font-size: 2rem;
   }
   
   .modal-content p {
@@ -95,7 +99,7 @@
   }
   
   .section-content {
-    display: flex;
+    display: block;
     align-items: center;
   }
   
