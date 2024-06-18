@@ -1,0 +1,70 @@
+.services {
+    margin: 20px;
+}
+
+.services-h{
+    font-size: 40px;
+    font-family: Arial;
+    font-weight: 700;
+}
+.service-item {
+    cursor: pointer;
+    font-size: 30px;
+    font-family: Arial;
+    font-weight: 600;
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #000;
+    transition: background-color 0.3s ease;
+}
+
+.service-details {
+    margin-top: 10px;
+    font-size: 25px;
+    font-family: Arial;
+    font-weight: 100;
+}
+
+.service-p {
+    cursor: pointer;
+    color: #555; /* темно-серый цвет */
+    transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.service-p:hover {
+    transform: scale(1.05); /* увеличивает текст при наведении */
+    color: #333; /* более темный цвет при наведении */
+}
+
+.service-btn {
+    margin: 5px 15px;
+    position: relative;
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 25px;
+    color: #fff;
+    background-color: #454545;
+    cursor: pointer;
+    overflow: hidden;
+    transition: background-color 0.4s ease;
+}
+
+.service-btn:hover {
+    background-color: #161d2c;
+}
+
+.service-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+    transform: translateX(-100%);
+    transition: transform 0.4s ease;
+}
+
+.service-btn:hover::before {
+    transform: translateX(100%);
+}

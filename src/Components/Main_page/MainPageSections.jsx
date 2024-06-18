@@ -1,5 +1,3 @@
-// src/Components/Main_page/MainPageSections.jsx
-
 import React, { useState } from 'react';
 import './MainPageSections.css';
 import telegramIcon from '../images/telegram.png';
@@ -22,7 +20,7 @@ function openViberChat(e) {
       }
       window.location.href = fallbackUrl;
     }, 500);
-  }
+}
 
 const Modal = ({ show, onClose }) => {
   if (!show) return null;
@@ -41,15 +39,15 @@ const Modal = ({ show, onClose }) => {
             <img src={whatsappIcon} alt="WhatsApp" className="contact-icon" />
           </a>
           <a href="#!" onClick={openViberChat}>
-          <img src={viberIcon} alt="Viber" className="contact-icon" />
-        </a>
+            <img src={viberIcon} alt="Viber" className="contact-icon" />
+          </a>
         </div>
       </div>
     </div>
   );
 };
 
-const Section = ({ title, content, imgSrc }) => {
+const Section = ({ title, content, imgSrc, buttonText, buttonLink }) => {
   const [showModal, setShowModal] = useState(false);
 
   const handleShowModal = () => setShowModal(true);
@@ -58,11 +56,17 @@ const Section = ({ title, content, imgSrc }) => {
   return (
     <div className="section">
       <h3>{title}</h3>
-       {imgSrc && <img src={imgSrc} alt="Section" className="kate_foto" />}
       <div className="section-content">
         <p>{content}</p>
+        {imgSrc && <img src={imgSrc} alt="Section" className="kate_foto" />}
       </div>
-      <button onClick={handleShowModal}>ХОЧУ!</button>
+      {buttonLink ? (
+        <a href={buttonLink} target="_blank" rel="noopener noreferrer">
+          <button>{buttonText}</button>
+        </a>
+      ) : (
+        <button className="button-i-want" onClick={handleShowModal}>{buttonText} </button>
+      )}
       <Modal show={showModal} onClose={handleCloseModal} />
     </div>
   );
@@ -72,28 +76,34 @@ const MainPageSections = () => {
   return (
     <div className="main-page-sections">
       <div className="left-column">
-      <Section
+        <Section
           title="Доведем до результата или вернем деньги!"
-          content="Мы работаем по договору с гарантией возврата денег. Это значит, что если что-то пойдет не по плану и если по нашей вине ты не получишь конечного результата, то мы вернем тебе всю сумму за наши услуги. "
+          content="Мы работаем по договору с гарантией возврата денег. Это значит, что если что-то пойдет не по плану и если по нашей вине ты не получишь конечного результата, то мы вернем тебе всю сумму за наши услуги."
+          buttonText="ХОЧУ ЗАКЛЮЧИТЬ ДОГОВОР"
         />
         <Section
           title="Свяжись сейчас и узнай как решить твой вопрос максимально быстро!"
           content="Свяжись с нами прямо сейчас! Смело задавай вопрос нашему специалисту. Мы ответим на него максимально быстро."
+          buttonText="ХОЧУ БЫСТРЫЙ ОТВЕТ"
         />
         <Section
           title="Участвуй в розыгрыше пожизненной бесплатной юридической помощи. Розыгрыш каждый месяц"
-          content="Мы хотим дать максимально пользы с нашей стороны. Мы часто консультируем людей бесплатно. Однако многие нуждаются в оказании коммплексной юридической помощи, на которую не всегда находятся финансы. Поэтому не упускай свой шанс! Ты можешь стать победителем розыгрыша в нашей группе Инстаграмм. Подписывайся и играй!"
+          content="Мы хотим дать максимально пользы с нашей стороны. Мы часто консультируем людей бесплатно. Однако многие нуждаются в оказании комплексной юридической помощи, на которую не всегда находятся финансы. Поэтому не упускай свой шанс! Ты можешь стать победителем розыгрыша в нашей группе Инстаграм. Подписывайся и играй!"
+          buttonText="ХОЧУ БЕСПЛАТНУЮ ЮРИДИЧЕСКУЮ ПОМОЩЬ НА ВСЮ ЖИЗНЬ"
+          buttonLink="https://www.instagram.com/katringoncharuk/"
         />
       </div>
       <div className="right-column">
         <Section
           title="Я Катя."
           imgSrc={kateFoto}
-          content="Я помогу тебе получить временный либо постоянный вид на жительство. Я прослежу за твоим делом, помогу подготовить и донести недостающие документы в Ужонд, составлю тебе правильно письма для Ужонда и многое другое."
+          content="Я помогу тебе получить временный либо постоянный вид на жительство (czasowy pobyt, stały pobyt). Я прослежу за твоим делом, помогу подготовить и донести недостающие документы в Ужонд, составлю тебе правильно письма для Ужонда, аппеляции или жалобы, а также многое другое."
+          buttonText="ХОЧУ КАРТУ ОТ 400 зл."
         />
-         <Section
+        <Section
           title="Получи персональный план по легализации в Польше."
-          content="Напиши нам в один из трех мессенджеров. Опиши свою ситуацию и укажи какая помощь тебе нужна. Наши специалисты изучат твою ситуацию и отправят четкий план действий."
+          content="Напиши нам в один из трех мессенджеров. Опиши свою ситуацию и укажи, какая помощь тебе нужна. Наши специалисты изучат твою ситуацию и отправят четкий план действий."
+          buttonText="ХОЧУ ПЛАН"
         />
       </div>
     </div>
@@ -101,4 +111,3 @@ const MainPageSections = () => {
 };
 
 export default MainPageSections;
-

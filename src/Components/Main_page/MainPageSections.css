@@ -102,4 +102,7 @@
     display: block;
     align-items: center;
   }
+  .button-i-want:hover {
+      transform: scale(1.2); /* Увеличение при наведении */
+    }
   
