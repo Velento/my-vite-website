@@ -7,6 +7,12 @@
     font-family: Arial;
     font-weight: 700;
 }
+
+.services-h3 {
+    font-size: 30px;
+    font-family: Arial;
+    font-weight: 700;
+}
 .service-item {
     cursor: pointer;
     font-size: 30px;
@@ -14,7 +20,7 @@
     font-weight: 600;
     padding: 10px;
     margin: 5px 0;
-    border: 1px solid #000;
+    border: 1px solid #686868;
     transition: background-color 0.3s ease;
 }
 
@@ -67,4 +73,8 @@
 
 .service-btn:hover::before {
     transform: translateX(100%);
+}
+.cost-details-btn {
+    background-color: #5c5b5b;
+    color: white;
 }

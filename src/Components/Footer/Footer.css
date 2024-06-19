@@ -1,6 +1,105 @@
-footer {
-    background-color: #282c34;
-    color: white;
-    padding: 20px;
+/* src/components/Footer.css */
+
+.footer {
+    background-color: #333;
+    color: #fff;
+    padding: 20px 0;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 0 50px;
+    max-width: 1200px;
+    margin: 0 auto;
+    font-size: 20px;
+}
+
+.footer-section {
+    flex: 1;
+    margin: 20px;
+}
+
+.footer-section h2 {
+    font-size: 30px; /* Размер шрифта заголовков */
+    margin-bottom: 10px;
+}
+
+.footer-section p, .footer-section ul {
+    font-size: 20px; /* Размер шрифта контента */
+}
+
+.footer-section ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-section ul li {
+    margin-bottom: 10px;
+}
+
+.footer-section ul li a {
+    color: #8c8c8c; /* Белый цвет текста */
+    text-decoration: none;
+    transition: color 0.3s, font-size 0.3s; /* Добавлено увеличение текста при наведении */
+}
+
+.footer-section ul li a:hover {
+    color: #00bcd4;
+    font-size: 22px; /* Увеличение текста при наведении */
+}
+
+.footer-section .contact-icons {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.footer-section .icon-text {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.footer-section .contact-icon {
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+}
+
+.footer-section .contact-link {
+    color: #fff;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.footer-section .contact-link:hover {
+    color: #00bcd4;
+}
+
+.footer-section button {
+    background-color: #777; /* Серый цвет кнопки */
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s, box-shadow 0.3s;
+    font-size: 14px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Добавление тени */
+}
+
+.footer-section button:hover {
+    background-color: #555;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Увеличение тени при наведении */
+}
+
+.footer-bottom {
     text-align: center;
+    padding: 10px 0;
+    background-color: #222;
+    color: #bbb;
+    font-size: 14px;
 }

@@ -16,22 +16,35 @@ const ServiceDetails = ({ onShowCostDetails, onShowMoreInfo, onShowProcessingTim
 const CostDetails = ({ onShowContactModal }) => (
     <div className="cost-details">
         <div className="cost-column">
-            <h3>Базовый пакет</h3>
-            <p>В базовый пакет входит подготовка документов, запись на подачу документов.</p>
-            <button onClick={(e) => { e.stopPropagation(); onShowContactModal(); }}>ХОЧУ БАЗОВЫЙ ПАКЕТ</button>
+            <h3 className="services-h3">Базовый пакет: 500 zl</h3>
+            <p>1)Консультация. 2)Анализ актуальных документов и составление списка недостающих. 
+                3)Проверка пакета документов перед подачей. 4)Сбор и изготовление полного пакета документов.
+                5)Заполнение всех бланков. 6)Регистрация на личную подачу.</p>
+            <button className="cost-details-btn" onClick={(e) => { e.stopPropagation(); onShowContactModal(); }}>ХОЧУ БАЗОВЫЙ ПАКЕТ</button>
         </div>
         <div className="cost-column">
-            <h3>Пакет "Под ключ"</h3>
-            <p>В данный пакет входит подготовка, регистрация, сопровождение и другое.</p>
-            <button onClick={(e) => { e.stopPropagation(); onShowContactModal(); }}>ХОЧУ ПАКЕТ "ПОД КЛЮЧ"</button>
+            <h3 className="services-h3">Пакет "Под ключ": 1500 zl</h3>
+            <p>1)Консультация. 2)Помощь в изготовлении документов от работодателя.  3)Сбор и изготовление полного пакета документов.
+            4)Заполнение всех бланков. 5)Регистрация на личную подачу. 6)Получение печати в паспорт. 7)Сдача отпечатков. 
+            8)Контроль дела, получение корреспонденции, донесение всех необходимых документов. 9)Контакт с инспектором, который ведет ваше дело.
+            10)Комплексное сопровождение вашего дела до получения децизии. 11)Изготовление номер PESEL при необходимости.
+            12)Регистрация профиля зауфанего (profil zaufany) при необходимости. 13)<strong>В случае негативной децизии по нашей вине, помощь в оформлении документов на апелляцию и полный возврат денежных средств.</strong></p>
+            <button className="cost-details-btn" onClick={(e) => { e.stopPropagation(); onShowContactModal(); }}>ХОЧУ ПАКЕТ "ПОД КЛЮЧ"</button>
         </div>
     </div>
 );
 
-const MoreInfo = () => (
+const MoreInfoService1 = () => (
     <div>
         <h3>Karta czasowego pobytu</h3>
         <p>Карта временного пребывания или ВНЖ — это документ, который подтверждает личность иностранца во время его пребывания на территории Польши, а также дает ему право неоднократно пересекать границу без получения визы, официально работать, приобретать движимое и недвижимое имущество в Польше.</p>
+    </div>
+);
+
+const MoreInfoService2 = () => (
+    <div>
+        <h3>Karta stałego pobytu</h3>
+        <p>Карта постоянного пребывания или ПМЖ – постоянный вид на жительство, документ дающий право без визы пересекать границу и легально находиться на территории Польши без ограничений, имея все права гражданина Польши.</p>
     </div>
 );
 
@@ -43,19 +56,19 @@ const ProcessingTime = () => (
 );
 
 const Services = () => {
-    const [showServiceDetails, setShowServiceDetails] = useState(false);
+    const [activeService, setActiveService] = useState(null);
     const [showCostDetails, setShowCostDetails] = useState(false);
     const [showMoreInfo, setShowMoreInfo] = useState(false);
     const [showProcessingTime, setShowProcessingTime] = useState(false);
     const [showContactModal, setShowContactModal] = useState(false);
 
-    const handleServiceClick = () => {
-        console.log('Clicked on: Услуга 1');
-        setShowServiceDetails(!showServiceDetails);
-        setShowCostDetails(false); // Скрыть CostDetails при переключении услуги
-        setShowMoreInfo(false); // Скрыть MoreInfo при переключении услуги
-        setShowProcessingTime(false); // Скрыть ProcessingTime при переключении услуги
-        setShowContactModal(false); // Скрыть ContactModal при переключении услуги
+    const handleServiceClick = (serviceName) => {
+        console.log('Clicked on:', serviceName);
+        setActiveService(serviceName === activeService ? null : serviceName);
+        setShowCostDetails(false);
+        setShowMoreInfo(false);
+        setShowProcessingTime(false);
+        setShowContactModal(false);
     };
 
     const handleShowCostDetails = () => {
@@ -88,13 +101,27 @@ const Services = () => {
 
     return (
         <div className="services">
-            <h2>Мы оказываем следующие услуги в Гданьске</h2>
+            <h2 className="services-h">Мы оказываем следующие услуги в Гданьске</h2>
             <div
-                className={`service-item ${showServiceDetails ? 'active' : ''}`}
-                onClick={handleServiceClick}
+                className={`service-item ${activeService === 'Услуга 1' ? 'active' : ''}`}
+                onClick={() => handleServiceClick('Услуга 1')}
             >
-                Услуга 1
-                {showServiceDetails && (
+                Karta czasowego pobytu
+                {activeService === 'Услуга 1' && (
+                    <ServiceDetails
+                        onShowCostDetails={handleShowCostDetails}
+                        onShowMoreInfo={handleShowMoreInfo}
+                        onShowProcessingTime={handleShowProcessingTime}
+                        onShowContactModal={handleShowContactModal}
+                    />
+                )}
+            </div>
+            <div
+                className={`service-item ${activeService === 'Услуга 2' ? 'active' : ''}`}
+                onClick={() => handleServiceClick('Услуга 2')}
+            >
+                Karta stałego pobytu
+                {activeService === 'Услуга 2' && (
                     <ServiceDetails
                         onShowCostDetails={handleShowCostDetails}
                         onShowMoreInfo={handleShowMoreInfo}
@@ -106,7 +133,8 @@ const Services = () => {
             {(showCostDetails || showMoreInfo || showProcessingTime || showContactModal) && (
                 <Modal show={showCostDetails || showMoreInfo || showProcessingTime || showContactModal} onClose={handleCloseModal}>
                     {showCostDetails && <CostDetails onShowContactModal={handleShowContactModal} />}
-                    {showMoreInfo && <MoreInfo />}
+                    {showMoreInfo && activeService === 'Услуга 1' && <MoreInfoService1 />}
+                    {showMoreInfo && activeService === 'Услуга 2' && <MoreInfoService2 />}
                     {showProcessingTime && <ProcessingTime />}
                     {showContactModal && <ContactModal show={showContactModal} onClose={handleCloseModal} />}
                 </Modal>
@@ -116,4 +144,6 @@ const Services = () => {
 };
 
 export default Services;
+
+
 
