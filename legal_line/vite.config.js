@@ -3,7 +3,7 @@ import react from '@vitejs/plugin-react';
 
 export default defineConfig({
   plugins: [react()],
-  base: '/legal_line/', // Укажите базовый путь до корня вашего проекта
+  base: '/my-vite-website/legal_line/', // Обновленный базовый путь
   build: {
     rollupOptions: {
       input: 'index.html' // Путь к index.html относительно папки legal_line
