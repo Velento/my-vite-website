@@ -1,9 +1,9 @@
 {
-  "name": "legal_line",
+  "name": "my-vite-website",
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://velento.github.io/my-vite-website/legal_line/",
+  "homepage": "https://velento.github.io/legal_line/",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
