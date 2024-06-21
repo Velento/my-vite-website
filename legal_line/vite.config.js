@@ -6,7 +6,7 @@ export default defineConfig({
   base: '/legal_line/', // Укажите базовый путь до корня вашего проекта
   build: {
     rollupOptions: {
-      input: './legal_line/index.html' // Путь к index.html в корне папки legal_line
+      input: 'index.html' // Путь к index.html относительно папки legal_line
     }
   }
 });
