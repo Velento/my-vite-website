@@ -1,8 +1,12 @@
+
+// src/Components/LanguageSwitcher/LanguageSwitcher.jsx
 import React, { useState } from 'react';
 import './Header.css';
 import globeIcon from '../images/globe.png';
+import { useTranslation } from 'react-i18next';
 
 function LanguageSwitcher() {
+  const { i18n, t } = useTranslation();
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [selectedLanguage, setSelectedLanguage] = useState('RU');
 
@@ -13,6 +17,7 @@ function LanguageSwitcher() {
   const selectLanguage = (lang) => {
     setSelectedLanguage(lang);
     setDropdownOpen(false);
+    i18n.changeLanguage(lang.toLowerCase());
   };
 
   return (
@@ -27,9 +32,10 @@ function LanguageSwitcher() {
           <li onClick={() => selectLanguage('UA')}>UA</li>
           <li onClick={() => selectLanguage('PL')}>PL</li>
           <li onClick={() => selectLanguage('EN')}>EN</li>
+          <li onClick={() => selectLanguage('BY')}>BY</li>
         </ul>
       )}
-        <a href="#footer" className="contact-link">Контакты</a>
+      <a href="#footer" className="contact-link">{t('header.contacts')}</a>
     </div>
   );
 }

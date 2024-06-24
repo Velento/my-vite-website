@@ -11,12 +11,15 @@
 }
 
 .modal-content {
+    max-height: 80%; /* Пример фиксированной высоты */
+    overflow-y: auto;
     background: white;
     padding: 20px;
     border-radius: 4px;
     max-width: 500px;
     width: 100%;
     position: relative;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
 .close {
@@ -26,3 +29,17 @@
     cursor: pointer;
     font-size: 24px;
 }
+
+
+  
+  .modal-content {
+    /* Добавляем фиксированную высоту и стили прокрутки */
+    max-height: 80%; /* Пример фиксированной высоты */
+    overflow-y: auto; /* Добавляем вертикальную прокрутку */
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  }
+  
+  

@@ -77,4 +77,8 @@
 .cost-details-btn {
     background-color: #5c5b5b;
     color: white;
+    box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.8);
+}
+.cost-details-btn:hover {
+    background-color: #161d2c;
 }

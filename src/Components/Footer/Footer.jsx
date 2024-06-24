@@ -1,6 +1,7 @@
+// src/Components/Footer/Footer.jsx
 import React, { useState } from 'react';
 import './Footer.css';
-import '../Main_page//Modal.css';
+import '../Main_page/Modal.css';
 import phoneIcon from '../images/phone-white.png';
 import telegramIcon from '../images/telegram-white.png';
 import whatsappIcon from '../images/whatsapp-white.png';
@@ -8,8 +9,10 @@ import viberIcon from '../images/viber-white.png';
 import instagramIcon from '../images/instagram-white.png';
 import locationIcon from '../images/location-white.png';
 import ContactModal from '../Main_page/ContactModal';
+import { useTranslation } from 'react-i18next';
 
 const Footer = () => {
+    const { t } = useTranslation();
     const [showContactModal, setShowContactModal] = useState(false);
 
     const handleContactClick = () => {
@@ -24,7 +27,7 @@ const Footer = () => {
         <footer className="footer" id="footer">
             <div className="footer-content">
                 <div className="footer-section contacts">
-                    <h2>Контакты</h2>
+                    <h2>{t('footer.contacts')}</h2>
                     <div className="icon-text">
                         <img src={phoneIcon} alt="Phone" className="contact-icon" />
                         <a href="tel:+48728279837" className="contact-link">+48728279837</a>
@@ -47,24 +50,24 @@ const Footer = () => {
                     </div>
                 </div>
                 <div className="footer-section info">
-                    <h2>Информация</h2>
+                    <h2>{t('footer.info')}</h2>
                     <div className="icon-text">
                         <img src={locationIcon} alt="Location" className="contact-icon" />
-                        <p>Гданьск, ул. Грюнвальдская 122</p>
+                        <p>{t('footer.address')}</p>
                     </div>
-                    <p>ООО "Оминор", NIP 233455678</p>
-                    <p><a href="#!">Политика конфиденциальности</a></p>
+                    <p>{t('footer.company')}</p>
+                    <p><a href="#!">{t('footer.privacyPolicy')}</a></p>
                 </div>
                 <div className="footer-section services">
-                    <h2>Услуги</h2>
+                    <h2>{t('footer.services')}</h2>
                     <p style={{ color: 'white' }}><a href="#services">Karta czasowego pobytu</a></p>
                     <p style={{ color: 'white' }}><a href="#services">Karta stałego pobytu</a></p>
-                    <button onClick={handleContactClick}>Задать вопрос бесплатно</button>
+                    <button onClick={handleContactClick}>{t('footer.question')}</button>
                     <ContactModal show={showContactModal} onClose={handleCloseModal} />
                 </div>
             </div>
             <div className="footer-bottom">
-                &copy; 2024 Все права защищены.
+                &copy; 2024 {t('footer.rights')}
             </div>
         </footer>
     );
