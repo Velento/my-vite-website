@@ -1,0 +1,13 @@
+.contact-icons {
+    display: flex;
+    justify-content: center;
+    gap: 10px; /* Дополнительно: расстояние между кнопками */
+  }
+  
+  .modal-content {
+    text-align: center; /* Для центровки текста */
+  }
+  .contact-icons img {
+    width: 30px;
+    height: 30px;
+}

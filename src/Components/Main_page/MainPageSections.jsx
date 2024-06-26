@@ -115,11 +115,9 @@
 
 import React, { useState } from 'react';
 import './MainPageSections.css';
-import telegramIcon from '../images/telegram.png';
-import whatsappIcon from '../images/whatsapp.png';
-import viberIcon from '../images/viber.png';
 import kateFoto from '../images/Kate_foto1.jpg'; // Импортируем фотографию
 import { useTranslation } from 'react-i18next';
+import ContactModal from './ContactModal';
 
 function openViberChat(e) {
     e.preventDefault();
@@ -138,37 +136,19 @@ function openViberChat(e) {
     }, 500);
 }
 
-const Modal = ({ show, onClose }) => {
-  const { t } = useTranslation();
-  if (!show) return null;
+// const Modal = ({ show, onClose }) => {
+//   const { t } = useTranslation();
+//   if (!show) return null;
 
-  return (
-    <div className="modal">
-      <div className="modal-content">
-        <span className="close" onClick={onClose}>&times;</span>
-        <h2>{t('modal.title')}</h2>
-        <p>{t('modal.call')} <a href="tel:+48777888999">+48 777 888 999</a></p>
-        <div className="contact-icons">
-          <a href="https://t.me/katringoncharuk" target="_blank" rel="noopener noreferrer">
-            <img src={telegramIcon} alt="Telegram" className="contact-icon"/>
-          </a>
-          <a href="https://wa.me/yourwhatsapp" target="_blank" rel="noopener noreferrer">
-            <img src={whatsappIcon} alt="WhatsApp" className="contact-icon" />
-          </a>
-          <a href="#!" onClick={openViberChat}>
-            <img src={viberIcon} alt="Viber" className="contact-icon" />
-          </a>
-        </div>
-      </div>
-    </div>
-  );
-};
+//   return (
 
+//   );
+// };
 const Section = ({ title, content, imgSrc, buttonText, buttonLink }) => {
-  const [showModal, setShowModal] = useState(false);
+  const [showContactModal, setShowContactModal] = useState(false);
 
-  const handleShowModal = () => setShowModal(true);
-  const handleCloseModal = () => setShowModal(false);
+  const handleShowModal = () => setShowContactModal(true);
+  const handleCloseModal = () => setShowContactModal(false);
 
   return (
     <div className="section">
@@ -184,7 +164,8 @@ const Section = ({ title, content, imgSrc, buttonText, buttonLink }) => {
       ) : (
         <button className="button-i-want" onClick={handleShowModal}>{buttonText}</button>
       )}
-      <Modal show={showModal} onClose={handleCloseModal} />
+      
+      <ContactModal show={showContactModal} onClose={handleCloseModal} />
     </div>
   );
 };
@@ -229,3 +210,96 @@ const MainPageSections = () => {
 };
 
 export default MainPageSections;
+
+// import React, { useState } from 'react';
+// import './MainPageSections.css';
+// import telegramIcon from '../images/telegram.png';
+// import whatsappIcon from '../images/whatsapp.png';
+// import viberIcon from '../images/viber.png';
+// import kateFoto from '../images/Kate_foto1.jpg'; // Импортируем фотографию
+// import { useTranslation } from 'react-i18next';
+// import ContactModal from './Main_page/ContactModal';
+
+// function openViberChat(e) {
+//   e.preventDefault();
+//   const viberUrl = "viber://chat?number=%2B375295817240";
+//   const fallbackUrl = "https://www.viber.com/download/";
+
+//   // Попытка открыть Viber
+//   window.location.href = viberUrl;
+
+//   // Если Viber не установлен, перенаправляем на fallback URL
+//   setTimeout(() => {
+//     if (!document.hasFocus()) {
+//       return;
+//     }
+//     window.location.href = fallbackUrl;
+//   }, 500);
+// }
+
+// const Section = ({ title, content, imgSrc, buttonText, buttonLink }) => {
+//   const [showContactModal, setShowContactModal] = useState(false);
+
+//   const handleShowModal = () => setShowContactModal(true);
+//   const handleCloseModal = () => setShowContactModal(false);
+
+//   return (
+//     <div className="section">
+//       <h3>{title}</h3>
+//       <div className="section-content">
+//         <p>{content}</p>
+//         {imgSrc && <img src={imgSrc} alt="Section" className="kate_foto" />}
+//       </div>
+//       {buttonLink ? (
+//         <a href={buttonLink} target="_blank" rel="noopener noreferrer">
+//           <button>{buttonText}</button>
+//         </a>
+//       ) : (
+//         <button className="button-i-want" onClick={handleShowModal}>{buttonText}</button>
+//       )}
+      
+//       <ContactModal show={showContactModal} onClose={handleCloseModal} />
+//     </div>
+//   );
+// };
+
+// const MainPageSections = () => {
+//   const { t } = useTranslation();
+//   return (
+//     <div className="main-page-sections">
+//       <div className="left-column">
+//         <Section
+//           title={t('section1.title')}
+//           content={t('section1.content')}
+//           buttonText={t('section1.buttonText')}
+//         />
+//         <Section
+//           title={t('section2.title')}
+//           content={t('section2.content')}
+//           buttonText={t('section2.buttonText')}
+//         />
+//         <Section
+//           title={t('section3.title')}
+//           content={t('section3.content')}
+//           buttonText={t('section3.buttonText')}
+//           buttonLink="https://www.instagram.com/katringoncharuk/"
+//         />
+//       </div>
+//       <div className="right-column">
+//         <Section
+//           title={t('section4.title')}
+//           imgSrc={kateFoto}
+//           content={t('section4.content')}
+//           buttonText={t('section4.buttonText')}
+//         />
+//         <Section
+//           title={t('section5.title')}
+//           content={t('section5.content')}
+//           buttonText={t('section5.buttonText')}
+//         />
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default MainPageSections;

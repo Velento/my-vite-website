@@ -2,6 +2,8 @@ import React from 'react';
 import telegramIcon from '../images/telegram.png';
 import whatsappIcon from '../images/whatsapp.png';
 import viberIcon from '../images/viber.png';
+import './ContactModal.css';
+import { useTranslation } from 'react-i18next';
 
 function openViberChat(e) {
     e.preventDefault();
@@ -21,14 +23,17 @@ function openViberChat(e) {
 }
 
 const ContactModal = ({ show, onClose }) => {
+  const { t } = useTranslation();
   if (!show) return null;
 
   return (
     <div className="modal" onClick={onClose}>
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
         <span className="close" onClick={onClose}>&times;</span>
-        <h2>Выберите удобный тип связи</h2>
-        <p>Позвонить: <a href="tel:+48777888999">+48 777 888 999</a></p>
+        <h2>{t('modal.title')}</h2>
+        <p style={{ textAlign: 'center' }}>
+          {t('modal.call')} <a href="tel:+48777888999">+48 777 888 999</a>
+        </p>
         <div className="contact-icons">
           <a href="https://t.me/katringoncharuk" target="_blank" rel="noopener noreferrer">
             <img src={telegramIcon} alt="Telegram" className="contact-icon" />

@@ -2,60 +2,76 @@ import React, { useState } from 'react';
 import './MainService.css';
 import Modal from './Modal';
 import ContactModal from './ContactModal';
+import { useTranslation } from 'react-i18next';
 
-const ServiceDetails = ({ onShowCostDetails, onShowMoreInfo, onShowProcessingTime, onShowContactModal }) => (
-    <div className="service-details">
-        <p className="service-p" onClick={(e) => { e.stopPropagation(); onShowCostDetails(); }}>Стоимость</p>
-        <p className="service-p" onClick={(e) => { e.stopPropagation(); onShowProcessingTime(); }}>Срок получения карты</p>
-        <p className="service-p" onClick={(e) => { e.stopPropagation(); onShowMoreInfo(); }}>Узнать больше о карте</p>
-        <button className="service-btn" onClick={(e) => { e.stopPropagation(); onShowContactModal(); }}>Заказать услугу</button>
-        <button className="service-btn" onClick={(e) => { e.stopPropagation(); onShowContactModal(); }}>Получить консультацию</button>
-    </div>
-);
-
-const CostDetails = ({ onShowContactModal }) => (
-    <div className="cost-details">
-        <div className="cost-column">
-            <h3 className="services-h3">Базовый пакет: 500 zl</h3>
-            <p>1)Консультация. 2)Анализ актуальных документов и составление списка недостающих. 
-                3)Проверка пакета документов перед подачей. 4)Сбор и изготовление полного пакета документов.
-                5)Заполнение всех бланков. 6)Регистрация на личную подачу.</p>
-            <button className="cost-details-btn" onClick={(e) => { e.stopPropagation(); onShowContactModal(); }}>ХОЧУ БАЗОВЫЙ ПАКЕТ</button>
+const ServiceDetails = ({ onShowCostDetails, onShowMoreInfo, onShowProcessingTime, onShowContactModal }) => {
+    const { t } = useTranslation();
+    
+    return (
+        <div className="service-details">
+            <p className="service-p" onClick={(e) => { e.stopPropagation(); onShowCostDetails(); }}>{t('services.cost')}</p>
+            <p className="service-p" onClick={(e) => { e.stopPropagation(); onShowProcessingTime(); }}>{t('services.terming')}</p>
+            <p className="service-p" onClick={(e) => { e.stopPropagation(); onShowMoreInfo(); }}>{t('services.learnMore')}</p>
+            <button className="service-btn" onClick={(e) => { e.stopPropagation(); onShowContactModal(); }}>{t('services.orderService')}</button>
+            <button className="service-btn" onClick={(e) => { e.stopPropagation(); onShowContactModal(); }}>{t('services.getConsultation')}</button>
         </div>
-        <div className="cost-column">
-            <h3 className="services-h3">Пакет "Под ключ": 1500 zl</h3>
-            <p>1)Консультация. 2)Помощь в изготовлении документов от работодателя.  3)Сбор и изготовление полного пакета документов.
-            4)Заполнение всех бланков. 5)Регистрация на личную подачу. 6)Получение печати в паспорт. 7)Сдача отпечатков. 
-            8)Контроль дела, получение корреспонденции, донесение всех необходимых документов. 9)Контакт с инспектором, который ведет ваше дело.
-            10)Комплексное сопровождение вашего дела до получения децизии. 11)Изготовление номер PESEL при необходимости.
-            12)Регистрация профиля зауфанего (profil zaufany) при необходимости. 13)<strong>В случае негативной децизии по нашей вине, помощь в оформлении документов на апелляцию и полный возврат денежных средств.</strong></p>
-            <button className="cost-details-btn" onClick={(e) => { e.stopPropagation(); onShowContactModal(); }}>ХОЧУ ПАКЕТ "ПОД КЛЮЧ"</button>
+    );
+};
+
+const CostDetails = ({ onShowContactModal }) => {
+    const { t } = useTranslation();
+
+    return (
+        <div className="cost-details">
+            <div className="cost-column">
+                <h3 className="services-h3">{t('services.basicPackage.title')}</h3>
+                <p>{t('services.basicPackage.content')}</p>
+                <button className="cost-details-btn" onClick={(e) => { e.stopPropagation(); onShowContactModal(); }}>{t('services.basicPackage.button')}</button>
+            </div>
+            <div className="cost-column">
+                <h3 className="services-h3">{t('services.allInclusivePackage.title')}</h3>
+                <p>{t('services.allInclusivePackage.content')}</p>
+                <button className="cost-details-btn" onClick={(e) => { e.stopPropagation(); onShowContactModal(); }}>{t('services.allInclusivePackage.button')}</button>
+            </div>
         </div>
-    </div>
-);
+    );
+};
 
-const MoreInfoService1 = () => (
-    <div>
-        <h3>Karta czasowego pobytu</h3>
-        <p>Карта временного пребывания или ВНЖ — это документ, который подтверждает личность иностранца во время его пребывания на территории Польши, а также дает ему право неоднократно пересекать границу без получения визы, официально работать, приобретать движимое и недвижимое имущество в Польше.</p>
-    </div>
-);
+const MoreInfoService1 = () => {
+    const { t } = useTranslation();
 
-const MoreInfoService2 = () => (
-    <div>
-        <h3>Karta stałego pobytu</h3>
-        <p>Карта постоянного пребывания или ПМЖ – постоянный вид на жительство, документ дающий право без визы пересекать границу и легально находиться на территории Польши без ограничений, имея все права гражданина Польши.</p>
-    </div>
-);
+    return (
+        <div>
+            <h3>{t('services.moreInfoService1.title')}</h3>
+            <p>{t('services.moreInfoService1.content')}</p>
+        </div>
+    );
+};
 
-const ProcessingTime = () => (
-    <div>
-        <h3>Срок получения</h3>
-        <p>Срок получения Карты побыту В Гданьске в среднем составляет 7 месяцев.</p>
-    </div>
-);
+const MoreInfoService2 = () => {
+    const { t } = useTranslation();
+
+    return (
+        <div>
+            <h3>{t('services.moreInfoService2.title')}</h3>
+            <p>{t('services.moreInfoService2.content')}</p>
+        </div>
+    );
+};
+
+const ProcessingTime = () => {
+    const { t } = useTranslation();
+
+    return (
+        <div>
+            <h3>{t('services.processingTime.title')}</h3>
+            <p>{t('services.processingTime.content')}</p>
+        </div>
+    );
+};
 
 const Services = () => {
+    const { t } = useTranslation();
     const [activeService, setActiveService] = useState(null);
     const [showCostDetails, setShowCostDetails] = useState(false);
     const [showMoreInfo, setShowMoreInfo] = useState(false);
@@ -101,13 +117,13 @@ const Services = () => {
 
     return (
         <div className="services">
-            <h2 className="services-h">Мы оказываем следующие услуги в Гданьске</h2>
+            <h2 className="services-h">{t('services.servicesTitle')}</h2>
             <div
-                className={`service-item ${activeService === 'Услуга 1' ? 'active' : ''}`}
-                onClick={() => handleServiceClick('Услуга 1')}
+                className={`service-item ${activeService === 'Service1' ? 'active' : ''}`}
+                onClick={() => handleServiceClick('Service1')}
             >
-                Karta czasowego pobytu
-                {activeService === 'Услуга 1' && (
+                {t('services.temporaryResidenceCard')}
+                {activeService === 'Service1' && (
                     <ServiceDetails
                         onShowCostDetails={handleShowCostDetails}
                         onShowMoreInfo={handleShowMoreInfo}
@@ -117,11 +133,11 @@ const Services = () => {
                 )}
             </div>
             <div
-                className={`service-item ${activeService === 'Услуга 2' ? 'active' : ''}`}
-                onClick={() => handleServiceClick('Услуга 2')}
+                className={`service-item ${activeService === 'Service2' ? 'active' : ''}`}
+                onClick={() => handleServiceClick('Service2')}
             >
-                Karta stałego pobytu
-                {activeService === 'Услуга 2' && (
+                {t('services.permanentResidenceCard')}
+                {activeService === 'Service2' && (
                     <ServiceDetails
                         onShowCostDetails={handleShowCostDetails}
                         onShowMoreInfo={handleShowMoreInfo}
@@ -133,8 +149,8 @@ const Services = () => {
             {(showCostDetails || showMoreInfo || showProcessingTime || showContactModal) && (
                 <Modal show={showCostDetails || showMoreInfo || showProcessingTime || showContactModal} onClose={handleCloseModal}>
                     {showCostDetails && <CostDetails onShowContactModal={handleShowContactModal} />}
-                    {showMoreInfo && activeService === 'Услуга 1' && <MoreInfoService1 />}
-                    {showMoreInfo && activeService === 'Услуга 2' && <MoreInfoService2 />}
+                    {showMoreInfo && activeService === 'Service1' && <MoreInfoService1 />}
+                    {showMoreInfo && activeService === 'Service2' && <MoreInfoService2 />}
                     {showProcessingTime && <ProcessingTime />}
                     {showContactModal && <ContactModal show={showContactModal} onClose={handleCloseModal} />}
                 </Modal>
@@ -144,6 +160,7 @@ const Services = () => {
 };
 
 export default Services;
+
 
 
 

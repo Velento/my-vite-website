@@ -53,21 +53,10 @@
     font-size: 22px; /* Увеличение текста при наведении */
 }
 
-.footer-section .contact-icons {
-    display: flex;
-    justify-content: flex-start;
-}
-
 .footer-section .icon-text {
     display: flex;
     align-items: center;
     margin-bottom: 10px;
-}
-
-.footer-section .contact-icon {
-    width: 30px;
-    height: 30px;
-    margin-right: 10px;
 }
 
 .footer-section .contact-link {
@@ -102,4 +91,14 @@
     background-color: #222;
     color: #bbb;
     font-size: 14px;
+}
+.modal-content {
+    background-color: #fff;
+    color: black;
+    padding: 20px;
+    border-radius: 10px;
+    position: relative;
+    width: 450px;
+    text-align: center;
+    font-size: 20px;
 }
