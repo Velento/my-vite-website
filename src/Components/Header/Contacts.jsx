@@ -24,10 +24,9 @@ function openViberChat(e) {
 function Contacts() {
   return (
     <div className="header-contacts">
-      <a href="tel:+48777888999" className="contact-link">
-        <span className="tooltip">Позвонить</span>
-        +48 777 888 999
-      </a>
+            <button class="contact-btn" onclick="window.location.href='tel:+48777888999'">Позвонить</button>
+            <a href="tel:+48777888999" class="contact-link">+48 777 888 999</a>
+            <span class="tooltip">Позвонить</span>
       <div className="div_icons">
         <a href="https://t.me/katringoncharuk" target="_blank" rel="noopener noreferrer">
           <span className="tooltip">Telegram</span>

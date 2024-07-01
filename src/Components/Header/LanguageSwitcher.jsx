@@ -35,7 +35,7 @@ function LanguageSwitcher() {
           <li onClick={() => selectLanguage('BY')}>BY</li>
         </ul>
       )}
-      <a href="#footer" className="contact-link">{t('header.contacts')}</a>
+      <a href="#footer" className="contact-link-infooter">{t('header.contacts')}</a>
     </div>
   );
 }
