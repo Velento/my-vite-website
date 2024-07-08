@@ -1,0 +1,35 @@
+.image-carousel {
+    display: flex;
+    overflow-x: hidden; /* Скрывает горизонтальный скролл */
+    overflow-y: hidden; /* Скрывает вертикальный скролл */
+    scroll-snap-type: x mandatory; /* Обеспечивает прокрутку по горизонтали */
+    -webkit-overflow-scrolling: touch; /* Для поддержки плавной прокрутки на мобильных устройствах */
+  }
+  
+  .carousel-image {
+    flex: 0 0 auto;
+    width: 100%; /* Изображения занимают всю доступную ширину */
+    height: auto;
+    scroll-snap-align: start; /* Привязка изображений к ленте при прокрутке */
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out; /* Добавляет плавность при прокрутке */
+  }
+  
+  .carousel-image:hover {
+    transform: scale(1.05); /* Увеличивает размер изображения при наведении */
+  }
+  
+  .carousel-image:active {
+    transform: scale(1.1); /* Увеличивает размер изображения при клике */
+  }
+  
+  /* Скрываем скроллбар для Webkit браузеров */
+  .image-carousel::-webkit-scrollbar {
+    display: none;
+  }
+  
+  /* Скрываем скроллбар для Firefox */
+  .image-carousel {
+    scrollbar-width: none;
+  }
+  
