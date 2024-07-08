@@ -13,7 +13,8 @@
     z-index: 1000;
     /* box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Легкая тень для отделения от контента */
   } */
-  
+
+
   .header-logo {
     display: block;
     text-align: start;
@@ -38,8 +39,10 @@
   }
   
   .contact-icon {
-    width: 24px;
-    height: 24px;
+    /* width: 24px;
+    height: 24px; */
+    width: 40px;
+    height: 40px;
     margin-left: 10px;
     transition: transform 0.2s; /* Анимация при наведении */
     position: relative; /* Для позиционирования подсказки */
@@ -53,10 +56,10 @@
     transition: transform 0.2s;
   }
 
-  .contact-icon {
+  /* .contact-icon {
     width: 40px;
     height: 40px;
-  }
+  } */
   
   .contact-icon:hover {
     transform: scale(1.2); /* Увеличение при наведении */
@@ -133,7 +136,7 @@
     margin: 20px;
   }
   .div_icons {
-    display: block;
+    display: flex;
   }
   .header-contacts a {
     text-decoration: none; /* Убирает подчеркивание текста */
@@ -147,13 +150,7 @@
     transform: scale(1.2); /* Увеличение при наведении */
   }
   
-  .contact-icon {
-    width: 45px;
-    height: 45px;
-    margin-left: 10px;
-    transition: transform 0.2s; /* Анимация при наведении */
-    position: relative; /* Для позиционирования подсказки */
-  }
+
   
   .contact-icon:hover {
     transform: scale(1.2); /* Увеличение при наведении */
@@ -195,7 +192,7 @@
     display: none;
   }
 
-  @media (min-width: 1025px) and (max-width: 1199px) {
+   @media (min-width: 1025px) and (max-width: 1199px) {
     .contact-btn {
       text-align: center;
       height: 3rem;
@@ -211,8 +208,9 @@
     .contact-link {
       display: none;
     }
-      .header-logo {
-        margin: 1px 0;
+
+      .header {
+        padding: 0%;
       }
       .logo-image {
         width: 10rem;
@@ -229,9 +227,12 @@
           height: 35px;
       }
       .header-language-switcher {
-        margin-right: 25rem;
         font-size: 2rem;
       }
+      .header-slogan {
+        display: block;
+        font-size: 0.8rem;
+    }
       
       }
   
@@ -253,9 +254,9 @@
     .contact-link {
       display: none;
     }
-      .header-logo {
-        margin: 1px 0;
-      }
+    .header {
+      padding: 0%;
+    }
       .logo-image {
         width: 10rem;
       }
@@ -271,16 +272,17 @@
           height: 35px;
       }
       .header-language-switcher {
-        margin-right: 35rem;
+     
         font-size: 1.5rem;
       }
-      
+      .header-slogan {
+        display: block;
+        font-size: 0.8rem;
+    }
       }
   
 
-
-/* Планшеты (601px до 768px) */
-@media (min-width: 601px) and (max-width: 768px) {
+@media (min-width: 481px) and (max-width: 768px) {
   .contact-btn {
     text-align: center;
     height: 3rem;
@@ -296,61 +298,64 @@
   .contact-link {
     display: none;
   }
-    .header-logo {
-      margin: 1px 0;
-    }
+  .header {
+    padding: 0%;
+  }
     .logo-image {
-      width: 10rem;
+      width: 7rem;
     }
     .header-slogan {
       display: none;
   }
     
     .header-contacts a {
-        font-size: 26px;
+        font-size: 16px;
     }
     .contact-icon {
-        width: 35px;
-        height: 35px;
+        width: 25px;
+        height: 25px;
+        margin-right: 0;
     }
     .header-language-switcher {
-      margin-right: 50rem;
-      font-size: 1.5rem;
+      font-size: 1.2rem;
     }
     
     }
 
-
-
-
-
-  /* Мобильные устройства  */
-  @media (max-width: 600px) {
-    .header {
-        flex-direction: column;
+ 
+    @media (max-width: 480px) {
+      .header {
+        padding: 0;
+      }
+      .contact-btn {
         text-align: center;
-    }
-    .header-logo {
-        margin-bottom: 10px;
-    }
-    .logo-image {
-        width: 200px;
-    }
-    .header-slogan {
+        height: 3rem;
+        width: 14rem;
+        display: block;
+        margin: 0.5rem;
+        border: 1px solid;
+        background-color: white;
         font-size: 1.2rem;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     }
-    .header-contacts {
-        margin: 10px 0;
+      
+      .contact-link {
+        display: none;
+      }
+      .logo-image {
+        width: 13rem;
+      }
+      .header-slogan {
+        display: block;
+        font-size: 1rem;
     }
-    .header-contacts a {
-        font-size: 24px;
-    }
-    .contact-icon {
-        width: 30px;
-        height: 30px;
-    }
+    .header-contacts,
     .header-language-switcher {
-        align-items: center;
+      display: block;
     }
-}
+    .burger_menu_content_active {
+      display: flex;
+      flex-direction: column-reverse;
+  }
+    }
   

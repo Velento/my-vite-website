@@ -23,7 +23,7 @@ function openViberChat(e) {
 
 function Contacts() {
   return (
-    <div className="header-contacts">
+    <div className="header-contacts burger-header-contacts">
             <button class="contact-btn" onclick="window.location.href='tel:+48777888999'">Позвонить</button>
             <a href="tel:+48777888999" class="contact-link">+48 777 888 999</a>
             <span class="tooltip">Позвонить</span>
@@ -46,4 +46,5 @@ function Contacts() {
 }
 
 export default Contacts;
+
 

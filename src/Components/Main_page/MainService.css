@@ -1,5 +1,7 @@
 .services {
-    margin: 20px;
+    margin-bottom: 20px;
+    width: 100%;
+
 }
 
 .services-h{
@@ -21,6 +23,7 @@
     padding: 10px;
     margin: 5px 0;
     border: 1px solid #686868;
+    border-radius: 5px;
     transition: background-color 0.3s ease;
 }
 
@@ -82,3 +85,44 @@
 .cost-details-btn:hover {
     background-color: #161d2c;
 }
+
+@media (min-width: 1025px) and (max-width: 1199px) {
+
+}
+  
+  @media (min-width: 769px) and (max-width: 1024px) {
+    .services-h {
+        font-size: 30px;
+        font-family: Arial;
+        font-weight: 700;
+    }
+    .service-item {
+        font-size: 25px;
+        font-weight: 600;
+  }
+}
+
+  @media (min-width: 481px) and (max-width: 768px) {
+    .services-h {
+        font-size: 30px;
+        font-family: Arial;
+        font-weight: 700;
+    }
+    .service-item {
+        font-size: 25px;
+        font-weight: 600;
+  }
+  }
+
+  @media (max-width: 480px)  {
+
+    .services-h {
+        font-size: 30px;
+        font-family: Arial;
+        font-weight: 500;
+    }
+    .service-item {
+        font-size: 20px;
+        font-weight: 600;
+  }
+  }

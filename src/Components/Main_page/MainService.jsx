@@ -116,7 +116,7 @@ const Services = () => {
     };
 
     return (
-        <div className="services">
+        <div className="services" id="services">
             <h2 className="services-h">{t('services.servicesTitle')}</h2>
             <div
                 className={`service-item ${activeService === 'Service1' ? 'active' : ''}`}

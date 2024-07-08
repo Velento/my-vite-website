@@ -7,10 +7,32 @@
   .slick-slide img {
     width: 100%;
     height: auto;
-    /* border-radius: 10px; Закругленные углы */
   }
   
   .slick-prev:before, .slick-next:before {
     color: black; /* Цвет стрелок */
   }
+
+  @media (min-width: 1025px) and (max-width: 1199px) {
+    .slider-container {
+      margin: 0;
+  }
+}
   
+  @media (min-width: 769px) and (max-width: 1024px) {
+    .slider-container {
+      margin: 0;
+  }
+  }
+
+  @media (min-width: 481px) and (max-width: 768px) {
+    .slider-container {
+      margin: 0;
+  }
+  }
+
+  @media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
+    .slider-container {
+      margin: 0;
+  }
+  }

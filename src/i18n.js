@@ -65,7 +65,7 @@ i18n
             },
             "allInclusivePackage": {
               title: 'All-Inclusive Package: 1500 zl',
-              content: "1) Consultation. 2) Assistance in preparing documents from the employer. 3) Collecting and preparing a complete package of documents. 4) Filling in all forms. 5) Registration for personal submission. 6) Obtaining a stamp in the passport. 7) Fingerprint submission. 8) Case control, receiving correspondence, submitting all necessary documents. 9) Contact with the inspector handling your case. 10) Comprehensive support of your case until a decision is obtained. 11) Preparation of a PESEL number if necessary. 12) Registration of a trusted profile (profil zaufany) if necessary. 13) <strong>In the event of a negative decision due to our fault, assistance in preparing documents for appeal and full refund of funds.</strong>",
+              content: "1) Consultation. 2) Assistance in preparing documents from the employer. 3) Collecting and preparing a complete package of documents. 4) Filling in all forms. 5) Registration for personal submission. 6) Obtaining a stamp in the passport. 7) Fingerprint submission. 8) Case control, receiving correspondence, submitting all necessary documents. 9) Contact with the inspector handling your case. 10) Comprehensive support of your case until a decision is obtained. 11) Preparation of a PESEL number if necessary. 12) Registration of a trusted profile (profil zaufany) if necessary. 13) In the event of a negative decision due to our fault, assistance in preparing documents for appeal and full refund of funds.",
               button: "I WANT THE ALL-INCLUSIVE PACKAGE"
               },
               moreInfoService1: {
@@ -144,7 +144,7 @@ i18n
               },
               "allInclusivePackage": {
                 "title": "Pakiet 'Wszystko w cenie': 1500 zł",
-                "content": "1) Konsultacja. 2) Pomoc w przygotowaniu dokumentów od pracodawcy. 3) Zebranie i przygotowanie pełnego pakietu dokumentów. 4) Wypełnienie wszystkich formularzy. 5) Rejestracja na osobiste złożenie wniosku. 6) Uzyskanie pieczęci w paszporcie. 7) Złożenie odcisków palców. 8) Kontrola sprawy, odbiór korespondencji, złożenie wszystkich niezbędnych dokumentów. 9) Kontakt z inspektorem prowadzącym twoją sprawę. 10) Kompleksowa obsługa twojej sprawy do uzyskania decyzji. 11) Przygotowanie numeru PESEL w razie potrzeby. 12) Rejestracja profilu zaufanego w razie potrzeby. 13) <strong>W przypadku negatywnej decyzji z naszej winy - pomoc w przygotowaniu dokumentów do odwołania i pełny zwrot kosztów.</strong>",
+                "content": "1) Konsultacja. 2) Pomoc w przygotowaniu dokumentów od pracodawcy. 3) Zebranie i przygotowanie pełnego pakietu dokumentów. 4) Wypełnienie wszystkich formularzy. 5) Rejestracja na osobiste złożenie wniosku. 6) Uzyskanie pieczęci w paszporcie. 7) Złożenie odcisków palców. 8) Kontrola sprawy, odbiór korespondencji, złożenie wszystkich niezbędnych dokumentów. 9) Kontakt z inspektorem prowadzącym twoją sprawę. 10) Kompleksowa obsługa twojej sprawy do uzyskania decyzji. 11) Przygotowanie numeru PESEL w razie potrzeby. 12) Rejestracja profilu zaufanego w razie potrzeby. 13) W przypadku negatywnej decyzji z naszej winy - pomoc w przygotowaniu dokumentów do odwołania i pełny zwrot kosztów.",
                 "button": "CHCĘ PAKIET 'WSZYSTKO W CENIE'"
               },
               "moreInfoService1": {
@@ -223,7 +223,7 @@ i18n
               },
               "allInclusivePackage": {
                 "title": "Пакет \"Все включено\": 1500 зл",
-                "content": "1) Консультація. 2) Допомога в підготовці документів від роботодавця. 3) Збір та підготовка повного пакету документів. 4) Заповнення всіх анкет. 5) Реєстрація на особисте подання заяви. 6) Отримання штампа в паспорт. 7) Здача відбитків пальців. 8) Контроль справи, отримання кореспонденції, подання всіх необхідних документів. 9) Контакт з інспектором, який веде вашу справу. 10) Комплексний супровід вашої справи до отримання рішення. 11) Підготовка номера PESEL у разі потреби. 12) Реєстрація довіреного профілю (profil zaufany) у разі потреби. 13) <strong>У разі негативного рішення з нашої вини - допомога у підготовці документів на апеляцію та повне повернення коштів.</strong>",
+                "content": "1) Консультація. 2) Допомога в підготовці документів від роботодавця. 3) Збір та підготовка повного пакету документів. 4) Заповнення всіх анкет. 5) Реєстрація на особисте подання заяви. 6) Отримання штампа в паспорт. 7) Здача відбитків пальців. 8) Контроль справи, отримання кореспонденції, подання всіх необхідних документів. 9) Контакт з інспектором, який веде вашу справу. 10) Комплексний супровід вашої справи до отримання рішення. 11) Підготовка номера PESEL у разі потреби. 12) Реєстрація довіреного профілю (profil zaufany) у разі потреби. 13) У разі негативного рішення з нашої вини - допомога у підготовці документів на апеляцію та повне повернення коштів.",
                 "button": "ХОЧУ ПАКЕТ \"ВСЕ ВКЛЮЧЕНО\""
               },
               "moreInfoService1": {
@@ -302,7 +302,7 @@ i18n
         },
         "allInclusivePackage": {
           "title": "Пакет \"Усё ўключана\": 1500 зл",
-          "content": "1) Кансультацыя. 2) Дапамога ў падрыхтоўцы дакументаў ад працадаўцы. 3) Збор і падрыхтоўка поўнага пакета дакументаў. 4) Запаўненне ўсіх анкет. 5) Рэгістрацыя на асабістую падачу. 6) Атрыманне штампа ў пашпарт. 7) Сдача адбіткаў пальцаў. 8) Кантроль справы, атрымання карэспандэнцыі, здача ўсіх неабходных дакументаў. 9) Кантакт з інспектарам, які вядзе вашу справу. 10) Комплекснае суправаджэнне вашай справы да атрымання рашэння. 11) Падрыхтоўка нумара PESEL пры неабходнасці. 12) Рэгістрацыя даверанага профілю (profil zaufany) пры неабходнасці. 13) <strong>У выпадку негатыўнага рашэння па нашай віне - дапамога ў падрыхтоўцы дакументаў на апеляцыю і поўны вяртанне сродкаў.</strong>",
+          "content": "1) Кансультацыя. 2) Дапамога ў падрыхтоўцы дакументаў ад працадаўцы. 3) Збор і падрыхтоўка поўнага пакета дакументаў. 4) Запаўненне ўсіх анкет. 5) Рэгістрацыя на асабістую падачу. 6) Атрыманне штампа ў пашпарт. 7) Сдача адбіткаў пальцаў. 8) Кантроль справы, атрымання карэспандэнцыі, здача ўсіх неабходных дакументаў. 9) Кантакт з інспектарам, які вядзе вашу справу. 10) Комплекснае суправаджэнне вашай справы да атрымання рашэння. 11) Падрыхтоўка нумара PESEL пры неабходнасці. 12) Рэгістрацыя даверанага профілю (profil zaufany) пры неабходнасці. 13) У выпадку негатыўнага рашэння па нашай віне - дапамога ў падрыхтоўцы дакументаў на апеляцыю і поўны вяртанне сродкаў.",
           "button": "ХАЧУ ПАКЕТ \"УСЁ ЎКЛЮЧАНА\""
         },
         "moreInfoService1": {
@@ -381,7 +381,7 @@ i18n
                   },
                   allInclusivePackage: {
                     title: 'Пакет "Всё включено": 1500 зл',
-                    content: "1) Консультация. 2) Помощь в подготовке документов от работодателя. 3) Сбор и подготовка полного пакета документов. 4) Заполнение всех анкет. 5) Регистрация на личную подачу. 6) Получение штампа в паспорт. 7) Сдача отпечатков пальцев. 8) Контроль дела, получение корреспонденции, сдача всех необходимых документов. 9) Контакт с инспектором, который ведет твое дело. 10) Комплексное сопровождение твоего дела до получения решения. 11) Подготовка номера PESEL при необходимости. 12) Регистрация доверенного профиля (profil zaufany) при необходимости. 13) <strong>В случае негативного решения по нашей вине - помощь в подготовке документов на аппеляцию и полный возврат средств.</strong>",
+                    content: "1) Консультация. 2) Помощь в подготовке документов от работодателя. 3) Сбор и подготовка полного пакета документов. 4) Заполнение всех анкет. 5) Регистрация на личную подачу. 6) Получение штампа в паспорт. 7) Сдача отпечатков пальцев. 8) Контроль дела, получение корреспонденции, сдача всех необходимых документов. 9) Контакт с инспектором, который ведет твое дело. 10) Комплексное сопровождение твоего дела до получения решения. 11) Подготовка номера PESEL при необходимости. 12) Регистрация доверенного профиля (profil zaufany) при необходимости. 13) В случае негативного решения по нашей вине - помощь в подготовке документов на аппеляцию и полный возврат средств.",
                     button: "ХОЧУ ПАКЕТ \"ВСЁ ВКЛЮЧЕНО\""
                   },
                   moreInfoService1: {
