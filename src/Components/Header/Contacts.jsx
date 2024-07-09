@@ -3,6 +3,7 @@ import './Header.css';
 import telegramIcon from '../images/telegram.png';
 import whatsappIcon from '../images/whatsapp.png';
 import viberIcon from '../images/viber.png';
+import { useTranslation } from 'react-i18next';
 
 function openViberChat(e) {
   e.preventDefault();
@@ -22,11 +23,15 @@ function openViberChat(e) {
 }
 
 function Contacts() {
+  const { t } = useTranslation();
+
   return (
     <div className="header-contacts burger-header-contacts">
-            <button class="contact-btn" onclick="window.location.href='tel:+48777888999'">Позвонить</button>
-            <a href="tel:+48777888999" class="contact-link">+48 777 888 999</a>
-            <span class="tooltip">Позвонить</span>
+      <button className="contact-btn" onClick={() => window.location.href = 'tel:+48777888999'}>
+        {t('actionToCall')}
+      </button>
+      <a href="tel:+48777888999" className="contact-link">+48 777 888 999</a>
+      <span className="tooltip">{t('actionToCall')}</span>
       <div className="div_icons">
         <a href="https://t.me/katringoncharuk" target="_blank" rel="noopener noreferrer">
           <span className="tooltip">Telegram</span>

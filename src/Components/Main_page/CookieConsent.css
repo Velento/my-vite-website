@@ -1,0 +1,68 @@
+.cookie-consent-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  .cookie-consent, .cookie-settings {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 500px;
+    width: 90%;
+    position: relative;
+  }
+  
+  .close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: transparent;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+  }
+  
+  .settings-button, .accept-button, .decline-button {
+    margin: 10px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .accept-button {
+    background-color: #333;
+    color: white;
+  }
+  
+  .accept-button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  
+  .decline-button {
+    background-color: #eee;
+    color: #333;
+  }
+  
+  .cookie-option {
+    margin: 10px 0;
+  }
+  
+  .cookie-option label {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .cookie-option input {
+    margin-left: 10px;
+  }
+  

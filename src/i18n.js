@@ -8,6 +8,18 @@ i18n
     resources: {
       en: {
         translation: {
+          "actionToCall": "Call now",
+          "cookieMessage": "We use cookies! This site uses essential cookies to ensure its proper operation and tracking cookies to understand how you interact with it. The latter will only be set after consent.",
+                "allowMeToChoose": "Allow me to choose",
+                "acceptAll": "Accept All",
+                "decline": "Decline",
+                "cookieSettings": "Cookie Settings",
+                "cookieUsageDescription": "We use cookies to ensure the basic functionalities of the website and to enhance your online experience. You can choose for each category to opt-in/out whenever you want. For more details about cookies and other sensitive data.",
+                "essentialCookies": "Essential Cookies",
+                "analyticsCookies": "Performance and Analytics Cookies",
+                "marketingCookies": "Marketing and Targeting Cookies",
+                "acceptSelected": "Accept Selected",
+                "necessaryCookies": "Necessary cookies",
           footer: {
             contacts: "Contact Us",
             info: "Information",
@@ -87,6 +99,18 @@ i18n
       },
       pl: {
         translation: {
+          "actionToCall": "Zadzwoń teraz",
+          "cookieMessage": "Używamy pliki cookie! Ta strona używa niezbędnych plików cookie, aby zapewnić jej prawidłowe działanie i śledzących plików cookie, aby zrozumieć, w jaki sposób wchodzisz z nią w interakcję. Te ostatnie zostaną ustawione dopiero po wyrażeniu zgody.",
+          "allowMeToChoose": "Pozwól mi wybrać",
+          "acceptAll": "Akceptuj wszystkie",
+          "decline": "Odrzuć",
+          "cookieSettings": "Ustawienia plików cookie",
+          "cookieUsageDescription": "Używamy plików cookie, aby zapewnić podstawowe funkcje strony internetowej i poprawić Twoje doświadczenia online. Możesz wybrać wyrazić zgodę/zrezygnować dla każdej kategorii w dowolnym momencie. Więcej szczegółów dotyczących plików cookie i innych danych wrażliwych.",
+          "essentialCookies": "Niezbędne pliki cookie",
+          "analyticsCookies": "Pliki cookie wydajności i analityki",
+          "marketingCookies": "Marketingowe oraz targetowe pliki cookies",
+          "acceptSelected": "Akceptuj wybrane",
+          "necessaryCookies": "Niezbędne pliki cookie",
           footer: {
             contacts: "Kontakty",
             info: "Informacje",
@@ -166,6 +190,18 @@ i18n
       },
       ua: {
         translation: {
+          "actionToCall": "Зателефонувати",
+          "cookieMessage": "Ми використовуємо файли cookie! Цей сайт використовує необхідні файли cookie для забезпечення його правильної роботи і файли cookie для відстеження, щоб зрозуміти, як ви взаємодієте з ним. Останні будуть встановлені лише після згоди.",
+          "allowMeToChoose": "Дозвольте мені вибрати",
+          "acceptAll": "Прийняти всі",
+          "decline": "Відхилити",
+          "cookieSettings": "Налаштування файлів cookie",
+          "cookieUsageDescription": "Ми використовуємо файли cookie, щоб забезпечити основні функції веб-сайту і покращити ваш онлайн-досвід. Ви можете вибрати для кожної категорії, дати згоду або відмовитися в будь-який час. Докладніше про файли cookie та інші конфіденційні дані.",
+          "essentialCookies": "Необхідні файли cookie",
+          "analyticsCookies": "Файли cookie продуктивності та аналітики",
+          "marketingCookies": "Маркетингові та таргетингові файли cookie",
+          "acceptSelected": "Прийняти вибрані",
+          "necessaryCookies": "Необхідні файли cookie",
           footer: {
             contacts: "Контакти",
             info: "Інформація",
@@ -245,6 +281,18 @@ i18n
     },
     by: {
       translation: {
+        "actionToCall": "Патэлефанаваць",
+        "cookieMessage": "Мы выкарыстоўваем файлы cookie! Гэты сайт выкарыстоўвае неабходныя файлы cookie для забеспячэння яго правільнай працы і файлы cookie для адсочвання, каб зразумець, як вы ўзаемадзейнічаеце з ім. Апошнія будуць устаноўлены толькі пасля згоды.",
+        "allowMeToChoose": "Дазвольце мне выбраць",
+        "acceptAll": "Прыняць усе",
+        "decline": "Адхіліць",
+        "cookieSettings": "Налады файлаў cookie",
+        "cookieUsageDescription": "Мы выкарыстоўваем файлы cookie, каб забяспечыць асноўныя функцыі вэб-сайта і палепшыць ваш онлайн-вопыт. Вы можаце выбраць для кожнай катэгорыі, даць згоду або адмовіцца ў любы час. Падрабязней пра файлы cookie і іншыя канфідэнцыйныя даныя.",
+        "essentialCookies": "Неабходныя файлы cookie",
+        "analyticsCookies": "Файлы cookie прадукцыйнасці і аналітыкі",
+        "marketingCookies": "Маркетынгавыя і таргетынгавыя файлы cookie",
+        "acceptSelected": "Прыняць выбраныя",
+        "necessaryCookies": "Неабходныя файлы cookie",
         footer: {
           contacts: "Кантакты",
           info: "Інфармацыя",
@@ -324,6 +372,18 @@ i18n
   },    
      ru: {
                 translation: {
+                  "actionToCall": "Позвонить",
+                  "cookieMessage": "Мы используем файлы cookie! Этот сайт использует необходимые файлы cookie для обеспечения его правильной работы и файлы cookie для отслеживания, чтобы понять, как вы взаимодействуете с ним. Последние будут установлены только после согласия.",
+                  "allowMeToChoose": "Позвольте мне выбрать",
+                  "acceptAll": "Принять все",
+                  "decline": "Отклонить",
+                  "cookieSettings": "Настройки файлов cookie",
+                  "cookieUsageDescription": "Мы используем файлы cookie, чтобы обеспечить основные функции веб-сайта и улучшить ваш онлайн-опыт. Вы можете выбрать для каждой категории, дать согласие или отказаться в любое время. Подробнее о файлах cookie и других конфиденциальных данных.",
+                  "essentialCookies": "Необходимые файлы cookie",
+                  "analyticsCookies": "Файлы cookie производительности и аналитики",
+                  "marketingCookies": "Маркетинговые и таргетинговые файлы cookie",
+                  "acceptSelected": "Принять выбранные",
+                  "necessaryCookies": "Необходимые файлы cookie",
                   footer: {
                     contacts: "Контакты",
                     info: "Информация",
@@ -413,4 +473,46 @@ i18n
 export default i18n;
 
 
+
+// import i18n from 'i18next';
+// import { initReactI18next } from 'react-i18next';
+
+// // Тексты на разных языках
+// const resources = {
+//   en: {
+//     translation: {
+//      
+//     }
+//   },
+//   ru: {
+//     translation: {
+     
+//     }
+//   },
+//   pl: {
+//     translation: {
+     
+//     }
+//   },
+//   uk: {
+//     translation: {
+ 
+//     }
+//   },
+//   be: {
+//     translation: {
+//       "cookieMessage": "Мы выкарыстоўваем файлы cookie! Гэты сайт выкарыстоўвае неабходныя файлы cookie для забеспячэння яго правільнай працы і файлы cookie для адсочвання, каб зразумець, як вы ўзаемадзейнічаеце з ім. Апошнія будуць устаноўлены толькі пасля згоды.",
+//       "allowMeToChoose": "Дазвольце мне выбраць",
+//       "acceptAll": "Прыняць усе",
+//       "decline": "Адхіліць",
+//       "cookieSettings": "Налады файлаў cookie",
+//       "cookieUsageDescription": "Мы выкарыстоўваем файлы cookie, каб забяспечыць асноўныя функцыі вэб-сайта і палепшыць ваш онлайн-вопыт. Вы можаце выбраць для кожнай катэгорыі, даць згоду або адмовіцца ў любы час. Падрабязней пра файлы cookie і іншыя канфідэнцыйныя даныя.",
+//       "essentialCookies": "Неабходныя файлы cookie",
+//       "analyticsCookies": "Файлы cookie прадукцыйнасці і аналітыкі",
+//       "marketingCookies": "Маркетынгавыя і таргетынгавыя файлы cookie",
+//       "acceptSelected": "Прыняць выбраныя",
+//       "necessaryCookies": "Неабходныя файлы cookie"
+//     }
+//   }
+// };
 

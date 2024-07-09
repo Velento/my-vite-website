@@ -31,7 +31,7 @@
   
   .header-contacts {
     display: block;
-    margin: 20px;
+    margin:20px;
 }
   
   .header-contacts p {
@@ -129,12 +129,6 @@
   }
   
 
-  .header-contacts {
-    display: flex; /* Flex для выравнивания в строку */
-    flex-direction: column;
-    align-items: center;
-    margin: 20px;
-  }
   .div_icons {
     display: flex;
   }
