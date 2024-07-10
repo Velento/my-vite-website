@@ -56,7 +56,7 @@ const CookieConsent = () => {
         <button className="close-button" onClick={() => setIsVisible(false)}>✕</button>
         {!isSettingsOpen ? (
           <>
-            <p>{t('cookieMessage')}</p>
+            <p className="cookie-settings-p">{t('cookieMessage')}</p>
             <button className="settings-button" onClick={() => setIsSettingsOpen(true)}>{t('allowMeToChoose')}</button>
             <button className="accept-button" onClick={handleAcceptAll}>{t('acceptAll')}</button>
             <button className="decline-button" onClick={handleDecline}>{t('decline')}</button>
@@ -65,7 +65,7 @@ const CookieConsent = () => {
           <div className="cookie-settings">
             <button className="close-button" onClick={() => setIsSettingsOpen(false)}>✕</button>
             <h3>{t('cookieSettings')}</h3>
-            <p>{t('cookieUsageDescription')}</p>
+            <p className="cookie-settings-p">{t('cookieUsageDescription')}</p>
             <div className="cookie-option">
               <label>
                 {t('essentialCookies')}

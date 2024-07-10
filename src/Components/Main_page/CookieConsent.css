@@ -12,14 +12,17 @@
   }
   
   .cookie-consent, .cookie-settings {
-    background: white;
+    background: rgb(213, 201, 201);
     padding: 20px;
     border-radius: 8px;
     max-width: 500px;
     width: 90%;
     position: relative;
+    text-align: start;
   }
-  
+  .cookie-settings-p {
+    margin-top: 10px;
+  }
   .close-button {
     position: absolute;
     top: 10px;
@@ -28,6 +31,10 @@
     border: none;
     font-size: 20px;
     cursor: pointer;
+  }
+  
+  .close-button + p {
+    margin-top: 30px; /* добавляем отступ сверху для текста после кнопки закрытия */
   }
   
   .settings-button, .accept-button, .decline-button {
@@ -65,4 +72,6 @@
   .cookie-option input {
     margin-left: 10px;
   }
+  
+ 
   
