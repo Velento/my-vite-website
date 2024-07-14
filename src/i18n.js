@@ -8,6 +8,15 @@ i18n
     resources: {
       en: {
         translation: {
+          "modal.feedbackButton": "Leave a request", 
+          feedbackForm: {
+            title: "Leave a Request",
+            name: "Your Name",
+            phone: "Mobile Number",
+            submit: "Submit",
+            cancel: "Cancel"
+          },
+           "messageAlert": "Thank you for your request! Our specialists are already fighting to see who will call you first:)",
           "actionToCall": "Call now",
           "cookieMessage": "We use cookies! This site uses essential cookies to ensure its proper operation and tracking cookies to understand how you interact with it. The latter will only be set after consent.",
                 "allowMeToChoose": "Allow me to choose",
@@ -99,7 +108,16 @@ i18n
       },
       pl: {
         translation: {
-          "actionToCall": "Zadzwoń teraz",
+          "modal.feedbackButton": "Zostaw zapytanie", 
+          feedbackForm: {
+            title: "Zostaw zapytanie",
+            name: "Twoje imię",
+            phone: "Numer telefonu komórkowego",
+            submit: "Zatwierdź",
+            cancel: "Anuluj"
+          },
+          "messageAlert": "Dziękujemy za zgłoszenie! Nasi specjaliści już walczą o to, kto pierwszy do ciebie zadzwoni:)",
+          "actionToCall": "Zadzwoń",
           "cookieMessage": "Używamy pliki cookie! Ta strona używa niezbędnych plików cookie, aby zapewnić jej prawidłowe działanie i śledzących plików cookie, aby zrozumieć, w jaki sposób wchodzisz z nią w interakcję. Te ostatnie zostaną ustawione dopiero po wyrażeniu zgody.",
           "allowMeToChoose": "Pozwól mi wybrać",
           "acceptAll": "Akceptuj wszystkie",
@@ -190,6 +208,15 @@ i18n
       },
       ua: {
         translation: {
+          "modal.feedbackButton": "Залишити запит", 
+          feedbackForm: {
+            title: "Залишити запит",
+            name: "Ваше ім'я",
+            phone: "Мобільний номер",
+            submit: "Відправити",
+            cancel: "Скасувати"
+          },
+          "messageAlert": "Дякуємо за запит! Наші спеціалісти вже змагаються за те, хто швидше до вас зателефонує:)",
           "actionToCall": "Зателефонувати",
           "cookieMessage": "Ми використовуємо файли cookie! Цей сайт використовує необхідні файли cookie для забезпечення його правильної роботи і файли cookie для відстеження, щоб зрозуміти, як ви взаємодієте з ним. Останні будуть встановлені лише після згоди.",
           "allowMeToChoose": "Дозвольте мені вибрати",
@@ -281,6 +308,15 @@ i18n
     },
     by: {
       translation: {
+        "modal.feedbackButton": "Пакінуць заяўку", 
+        feedbackForm: {
+          title: "Пакінуць заяўку",
+          name: "Вашае імя",
+          phone: "Мабільны нумар",
+          submit: "Адправіць",
+          cancel: "Адмяніць"
+        },
+        "messageAlert": "Дзякуй за заяўку! Нашы спецыялісты ўжо змагаюцца, хто хутчэй да вас патэлефануе:)",
         "actionToCall": "Патэлефанаваць",
         "cookieMessage": "Мы выкарыстоўваем файлы cookie! Гэты сайт выкарыстоўвае неабходныя файлы cookie для забеспячэння яго правільнай працы і файлы cookie для адсочвання, каб зразумець, як вы ўзаемадзейнічаеце з ім. Апошнія будуць устаноўлены толькі пасля згоды.",
         "allowMeToChoose": "Дазвольце мне выбраць",
@@ -372,6 +408,15 @@ i18n
   },    
      ru: {
                 translation: {
+                  "modal.feedbackButton": "Оставить заявку", 
+                  feedbackForm: {
+                    title: "Оставить заявку",
+                    name: "Ваше имя",
+                    phone: "Мобильный номер",
+                    submit: "Отправить",
+                    cancel: "Отмена"
+                  },
+                  "messageAlert" : "Спасибо за заявку! Наши специалисты уже бьются за то, кто быстрее до вас дозвонится:)",
                   "actionToCall": "Позвонить",
                   "cookieMessage": "Мы используем файлы cookie! Этот сайт использует необходимые файлы cookie для обеспечения его правильной работы и файлы cookie для отслеживания, чтобы понять, как вы взаимодействуете с ним. Последние будут установлены только после согласия.",
                   "allowMeToChoose": "Позвольте мне выбрать",

@@ -30,8 +30,10 @@
 
   
   .header-contacts {
-    display: block;
-    margin:20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 20rem;
 }
   
   .header-contacts p {
@@ -39,8 +41,6 @@
   }
   
   .contact-icon {
-    /* width: 24px;
-    height: 24px; */
     width: 40px;
     height: 40px;
     margin-left: 10px;
@@ -56,11 +56,6 @@
     transition: transform 0.2s;
   }
 
-  /* .contact-icon {
-    width: 40px;
-    height: 40px;
-  } */
-  
   .contact-icon:hover {
     transform: scale(1.2); /* Увеличение при наведении */
   }
@@ -133,15 +128,15 @@
     display: flex;
   }
   .header-contacts a {
-    text-decoration: none; /* Убирает подчеркивание текста */
+    text-decoration: none; 
     margin-right: 10px;
     font-size: 30px;
-    position: relative; /* Для позиционирования подсказки */
-    transition: transform 0.2s; /* Анимация при наведении */
+    position: relative; 
+    transition: transform 0.2s; 
   }
   
   .header-contacts a:hover {
-    transform: scale(1.2); /* Увеличение при наведении */
+    transform: scale(1.2); 
   }
   
 
@@ -190,7 +185,7 @@
     .contact-btn {
       text-align: center;
       height: 3rem;
-      width: 9rem;
+      width: 12rem;
       display: block;
       margin: 0.4rem;
       border: 1px solid;
@@ -216,6 +211,9 @@
       .header-contacts a {
           font-size: 26px;
       }
+      .header-contacts {
+        margin-right: 0;
+      }
       .contact-icon {
           width: 35px;
           height: 35px;
@@ -236,7 +234,7 @@
     .contact-btn {
       text-align: center;
       height: 3rem;
-      width: 9rem;
+      width: 12rem;
       display: block;
       margin: 0.4rem;
       border: 1px solid;
@@ -261,6 +259,12 @@
       .header-contacts a {
           font-size: 26px;
       }
+      .header-contacts {
+        margin-right: 0;
+      }
+    .header-contacts {
+      margin-right: 0;
+    }
       .contact-icon {
           width: 35px;
           height: 35px;
@@ -280,7 +284,7 @@
   .contact-btn {
     text-align: center;
     height: 3rem;
-    width: 9rem;
+    width: 12rem;
     display: block;
     margin: 0.4rem;
     border: 1px solid;
@@ -304,6 +308,9 @@
     
     .header-contacts a {
         font-size: 16px;
+    }
+    .header-contacts {
+      margin-right: 0;
     }
     .contact-icon {
         width: 25px;
@@ -331,6 +338,9 @@
         background-color: white;
         font-size: 1.2rem;
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    }
+    .header-contacts {
+      margin-right: 0;
     }
       
       .contact-link {

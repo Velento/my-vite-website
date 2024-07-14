@@ -36,8 +36,9 @@
   }
   
   .section img.kate_foto {
-    width: 300px;
+    width: 260px;
     height: auto;
+    margin-bottom: 0.4rem;
   }
   
   .section button {
@@ -155,8 +156,5 @@
       font-weight: 400;
       margin-top: 2rem;
   }
-  .section img.kate_foto {
-    width: 280px;
-    height: auto;
-  }
+
   }

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './MainPageSections.css';
-import kateFoto from '../images/Kate_foto1.jpg'; 
+import kateFoto from '../images/Kate.png'; 
 import { useTranslation } from 'react-i18next';
 import ContactModal from './ContactModal';
 
