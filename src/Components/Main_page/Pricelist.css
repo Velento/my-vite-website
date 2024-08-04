@@ -1,0 +1,291 @@
+.columns {
+  display: flex;
+}
+
+.right-column {
+  flex: 0.8;
+  padding: 20px;
+  position: relative;
+}
+
+.left-column {
+  flex: 1;
+  padding: 20px;
+}
+
+.service-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.service {
+  margin-top: 3rem;
+}
+
+.service-icon {
+  width: 50px;
+  height: 50px;
+  margin-right: 10px;
+}
+
+.service-title {
+  font-size: 24px;
+  font-family: 'Arial', sans-serif;
+  font-weight: 500;
+  margin: 0;
+  text-transform: uppercase;
+  text-align: start;
+}
+
+.service-points {
+  list-style: none;
+  padding: 0;
+}
+
+.service-points li {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+  font-size: 18px;
+  font-family: 'Arial', sans-serif;
+  font-weight: 500;
+}
+
+.point-icon {
+  width: 25px;
+  height: 25px;
+  margin-right: 8px;
+  padding-left: 10px;
+}
+
+.point-text {
+  text-align: start;
+}
+
+.buttons {
+  margin-top: 15px;
+}
+
+.price-button {
+  background-color: #ffffff;
+  color: #000000;
+  border: 1px dashed #000000;
+  padding: 15px 20px;
+  border-radius: 0;
+  line-height: 1;
+  font-family: 'Arial', sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  margin: 10px;
+}
+
+.consult-button {
+  background-color: #ffffff;
+  color: #000000;
+  border: 1px solid #000000;
+  padding: 15px 20px;
+  border-radius: 0;
+  line-height: 1;
+  font-family: 'Arial', sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+  margin: 10px;
+}
+
+.consult-button:hover {
+  color: #004d05;
+  border-color: #898989;
+  background-color: white;
+}
+
+.slip-button {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  margin-bottom: 20px;
+  animation: spin 3s linear infinite; /* Анимация вращения */
+  position: sticky;
+  top: 100px; /* Отступ вниз на 100px */
+  left: 10px; /* Сместить немного влево */
+  z-index: 10;
+}
+
+.slip-button img {
+  width: 50px;
+  height: 50px;
+}
+
+.reason-buttons {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 30px; /* Отступ между кнопками */
+  margin-left: 80px; /* Отступ от slip-button */
+  position: sticky;
+  top: 100px; /* Зафиксировать с отступом 100px */
+}
+
+.reason-button {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.reason-button img {
+  width: 40px;
+  height: 40px;
+}
+
+.reason-text {
+  position: absolute;
+  background: white;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  margin-top: 10px;
+  z-index: 1;
+}
+
+.arrow {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+}
+
+.arrow-1 {
+  top: 30px;
+  left: 30px;
+  transform: rotate(0deg);
+}
+
+.arrow-2 {
+  top: 90px;
+  left: 90px;
+  transform: rotate(0deg);
+}
+
+.arrow-3 {
+  top: 150px;
+  left: 30px;
+  transform: rotate(0deg);
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+
+
+
+/* 
+
+.columns {
+    display: flex;
+  }
+  
+  .right-column {
+    flex: 0.8; 
+    padding: 20px;
+  }
+  
+  .left-column {
+    flex: 1; 
+    padding: 20px;
+  }
+  
+  .service-header {
+    display: flex;
+    align-items: center; 
+    margin-bottom: 10px;
+  }
+  .service {
+    margin-top: 3rem;
+  }
+  
+  .service-icon {
+    width: 50px;
+    height: 50px;
+    margin-right: 10px; 
+  }
+  
+  .service-title {
+    font-size: 24px;
+    font-family: 'Arial', sans-serif;
+    font-weight: 500; 
+    margin: 0; 
+    text-transform: uppercase;
+    text-align: start;
+  }
+  
+  .service-points {
+    list-style: none; 
+    padding: 0;
+  }
+  
+  .service-points li {
+    display: flex;
+    align-items: center; 
+    margin-bottom: 15px;
+    font-size: 18px;
+    font-family: 'Arial', sans-serif;
+    font-weight: 500; 
+  }
+  
+  .point-icon {
+    width: 25px;
+    height: 25px;
+    margin-right: 8px; 
+    padding-left: 10px;
+  }
+  point-text {
+    text-align: start;
+  }
+  
+  .buttons {
+    margin-top: 15px; 
+  }
+  
+  .price-button {
+    background-color: #ffffff;
+    color: #000000;
+    border: 1px dashed    #000000;
+    padding: 15px 20px;
+    border-radius: 0;
+    line-height: 1;
+    font-family: 'Arial', sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    margin: 10px;
+  }
+  .consult-button {
+    background-color: #ffffff;
+    color: #000000;
+    border: 1px solid #000000;
+    padding: 15px 20px;
+    border-radius: 0;
+    line-height: 1;
+    font-family: 'Arial', sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    margin: 10px;
+  }
+
+  .consult-button:hover {
+ 
+    color: #004d05; 
+    border-color: #898989; 
+    background-color: white;
+  }
+   */
+
+  

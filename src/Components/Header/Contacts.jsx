@@ -5,9 +5,12 @@ import whatsappIcon from '../images/whatsapp.png';
 import viberIcon from '../images/viber.png';
 import { useTranslation } from 'react-i18next';
 
+
+
+
 function openViberChat(e) {
   e.preventDefault();
-  const viberUrl = "viber://chat?number=%2B375295817240";
+  const viberUrl = "viber://chat?number=%2B48883734171";
   const fallbackUrl = "https://www.viber.com/download/";
 
   // Попытка открыть Viber
@@ -25,19 +28,20 @@ function openViberChat(e) {
 function Contacts() {
   const { t } = useTranslation();
 
+
   return (
     <div className="header-contacts burger-header-contacts">
-      <button className="contact-btn" onClick={() => window.location.href = 'tel:+48777888999'}>
+      <button className="contact-btn" onClick={() => window.location.href = 'tel:+48883734171'}>
         {t('actionToCall')}
       </button>
-      <a href="tel:+48777888999" className="contact-link">+48 777 888 999</a>
+      <a href="tel:+48883734171" className="contact-link">+48883734171</a>
       <span className="tooltip">{t('actionToCall')}</span>
       <div className="div_icons">
-        <a href="https://t.me/katringoncharuk" target="_blank" rel="noopener noreferrer">
+        <a href="https://t.me/LegalLine_pl" target="_blank" rel="noopener noreferrer">
           <span className="tooltip">Telegram</span>
           <img src={telegramIcon} alt="Telegram" className="contact-icon" />
         </a>
-        <a href="https://wa.me/yourwhatsapp" target="_blank" rel="noopener noreferrer">
+        <a href="https://wa.me/+48883734171" target="_blank" rel="noopener noreferrer">
           <span className="tooltip">WhatsApp</span>
           <img src={whatsappIcon} alt="WhatsApp" className="contact-icon" />
         </a>
