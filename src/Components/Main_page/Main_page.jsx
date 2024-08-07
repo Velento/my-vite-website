@@ -4,6 +4,7 @@ import MainPageSections from './MainPageSections';
 import Services from './MainService'; 
 import ImageCarousel from './ImageCarousel';
 import Pricelist from './Pricelist';
+import Promotions from './Promotions';
 
 const MainPage = () => {
   return (
@@ -12,6 +13,7 @@ const MainPage = () => {
       {/* <ImageCarousel /> */}
       <Pricelist />
       <MainPageSections />
+      <Promotions />
       <Services />
     </div>
   );

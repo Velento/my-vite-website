@@ -6,7 +6,15 @@
   
   .modal-content {
     text-align: center; /* Для центровки текста */
+    font-family: 'Arial', sans-serif;
   }
+
+  .modal-content h2 {
+    margin-bottom: 10px;
+    font-size: 24px;
+    font-family: 'Arial', sans-serif;
+    font-weight: 500;
+}
   .contact-icons img {
     width: 30px;
     height: 30px;

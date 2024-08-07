@@ -8,7 +8,7 @@ import FeedbackForm from './FeedBackForm';
 
 function openViberChat(e) {
     e.preventDefault();
-    const viberUrl = "viber://chat?number=%2B375295817240";
+    const viberUrl = "viber://chat?number=%2B48883734171";
     const fallbackUrl = "https://www.viber.com/download/";
 
     // Попытка открыть Viber
@@ -43,13 +43,13 @@ const ContactModal = ({ show, onClose }) => {
                 <span className="close" onClick={onClose}>&times;</span>
                 <h2>{t('modal.title')}</h2>
                 <p style={{ textAlign: 'center' }}>
-                    {t('modal.call')} <a href="tel:+48777888999">+48 777 888 999</a>
+                    {t('modal.call')} <a href="tel:+48883734171">+48883734171</a>
                 </p>
                 <div className="contact-icons">
-                    <a href="https://t.me/katringoncharuk" target="_blank" rel="noopener noreferrer">
+                    <a href="https://t.me/LegalLine_pl" target="_blank" rel="noopener noreferrer">
                         <img src={telegramIcon} alt="Telegram" className="contact-icon" />
                     </a>
-                    <a href="https://wa.me/yourwhatsapp" target="_blank" rel="noopener noreferrer">
+                    <a href="https://wa.me/+48883734171" target="_blank" rel="noopener noreferrer">
                         <img src={whatsappIcon} alt="WhatsApp" className="contact-icon" />
                     </a>
                     <a href="#!" onClick={openViberChat}>

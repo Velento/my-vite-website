@@ -30,23 +30,23 @@ const Footer = () => {
                     <h2>{t('footer.contacts')}</h2>
                     <div className="icon-text">
                         <img src={phoneIcon} alt="Phone" className="contact-icon" />
-                        <a href="tel:+48728279837" className="footer-contact-link"> +48728279837</a>
+                        <a href="tel:+48" className="footer-contact-link"> +48883734171</a>
                     </div>
                     <div className="icon-text">
                         <img src={telegramIcon} alt="Telegram" className="contact-icon" />
-                        <a href="https://t.me/katringoncharuk" className="footer-contact-link" target="_blank" rel="noopener noreferrer"> Telegram</a>
+                        <a href="https://t.me/LegalLine_pl" className="footer-contact-link" target="_blank" rel="noopener noreferrer"> Telegram</a>
                     </div>
                     <div className="icon-text">
                         <img src={whatsappIcon} alt="WhatsApp" className="contact-icon" />
-                        <a href="https://wa.me/yourwhatsapp" className="footer-contact-link" target="_blank" rel="noopener noreferrer"> WhatsApp</a>
+                        <a href="https://wa.me/+48883734171" className="footer-contact-link" target="_blank" rel="noopener noreferrer"> WhatsApp</a>
                     </div>
                     <div className="icon-text">
                         <img src={viberIcon} alt="Viber" className="contact-icon" />
-                        <a href="viber://chat?number=%2B375295817240" className="footer-contact-link" target="_blank" rel="noopener noreferrer"> Viber</a>
+                        <a href="viber://chat?number=%2B48883734171" className="footer-contact-link" target="_blank" rel="noopener noreferrer"> Viber</a>
                     </div>
                     <div className="icon-text">
                         <img src={instagramIcon} alt="Instagram" className="contact-icon" />
-                        <a href="https://instagram.com/yourinstagram" className="footer-contact-link" target="_blank" rel="noopener noreferrer"> Instagram</a>
+                        <a href="https://www.instagram.com/legal_line_pl/" className="footer-contact-link" target="_blank" rel="noopener noreferrer"> Instagram</a>
                     </div>
                 </div>
                 <div className="footer-section info">

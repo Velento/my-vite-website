@@ -8,6 +8,50 @@ i18n
     resources: {
       en: {
         translation: {
+          "servicespromo.0.title": "PROMOTIONS",
+          "servicespromo.0.points.0":  "Residence card for 400 PLN. Get the Basic package for 400 PLN. To take advantage of the promotion, tell our customer service specialist the promo code: Start24. The promotion is valid only until the end of September 2024.",
+          "servicespromo.0.points.1":  "Residence card for 750 PLN. Get the 'All inclusive' package for 750 PLN. To take advantage of the promotion, tell our customer service specialist the promo code 'Start24'. The promotion is valid only until the end of September 2024.",
+          "servicespromo.0.points.2": "Citizenship documents for 1500 PLN. 'All inclusive' package. To take advantage of the promotion, tell our customer service specialist the promo code 'Start24'. The promotion is valid only until the end of September 2024.",
+
+          "pricelistservices.0.title": "Comprehensive assistance with documents for residence card application",
+          "pricelistservices.0.points.0": "Based on employment",
+          "pricelistservices.0.points.1": "Based on business",
+          "pricelistservices.0.points.2": "Based on family residence",
+          "pricelistservices.0.points.3": "Based on marriage with a Polish citizen",
+          "pricelistservices.0.price": "From 500 to 1500 PLN",
+
+          "pricelistservices.1.title": "Assistance with citizenship application documents",
+          "pricelistservices.1.price": "From 750 to 1500 PLN (Price until 30.09.2024)",
+
+          "pricelistservices.2.title": "Labor disputes: From 'Umowy zlecenia' to 'Umowy o pracę'",
+          "pricelistservices.2.points.0": "Achieve transition from 'Umowy zlecenia' to 'Umowy o pracę'",
+          "pricelistservices.2.points.1": "Submit complaints to employer",
+          "pricelistservices.2.points.2": "File lawsuits",
+          "pricelistservices.2.points.3": "Demand compensation for illegal employment",
+          "pricelistservices.2.price": "From 2500 to 3500 PLN",
+
+          "pricelistservices.3.title": "Preparation of documents for marriage registration",
+          "pricelistservices.3.price": "From 500 to 1500 PLN",
+
+          "pricelistservices.4.title": "Driver's license replacement",
+          "pricelistservices.4.price": "From 500 to 1500 PLN",
+
+          "pricelistservices.5.title": "Legal consultation",
+          "pricelistservices.5.points.0": "Consultation duration up to 60 minutes",
+          "pricelistservices.5.points.1": "Online or by phone",
+          "pricelistservices.5.price": "From 200 PLN",
+
+          "pricelistservices.6.title": "Resume (CV) preparation",
+          "pricelistservices.6.points.0": "With cover letter",
+          "pricelistservices.6.points.1": "Without cover letter",
+          "pricelistservices.6.price": "From 150 to 250 PLN",
+
+          "consult_button": "Get consultation",
+
+          "reason_texts.reason1": "We ensure price accessibility! Price is key!",
+          "reason_texts.reason2": "If we don't call you back within 45 minutes after you submit a request on the site, we will give you a 250 PLN discount on the purchase of a service.",
+          "reason_texts.reason3": "If you do not achieve the result, we will refund your money within 7 days. We work under contract!",
+
           "modal.feedbackButton": "Leave a request", 
           feedbackForm: {
             title: "Leave a Request",
@@ -33,7 +77,7 @@ i18n
             contacts: "Contact Us",
             info: "Information",
             services: "Services",
-            address: "Gdansk, Grunwaldzka Street 122",
+            address: "80-369 Gdańsk, al. Rzeczypospolitej 4/152",
             company: "LLC 'Ominor', NIP 233455678",
             privacyPolicy: "Privacy Policy",
             question: "Ask a question for free",
@@ -72,6 +116,10 @@ i18n
             content: "Write to us in one of three messengers. Describe your situation and indicate what kind of help you need. Our specialists will study your case and send a clear plan of action.",
             buttonText: "I WANT A PLAN"
           },
+
+        
+          
+
             "services": {
               "temporaryResidenceCard": "Temporary Residence Card (Karta czasowego pobytu)",
               "permanentResidenceCard": "Permanent Residence Card (Karta stałego pobytu)",
@@ -266,12 +314,108 @@ i18n
               "Service8.processingTime": {
                 "title": "Civil Document Preparation Processing Time",
                 "content": "The processing time for the preparation of civil documents in Gdańsk is on average 10 months."          
-          }
+          },
+          pricelistservices: [
+            {
+              title: "Comprehensive assistance with documents for residence card application",
+              points: [
+                "Based on employment",
+                "Based on business",
+                "Based on family residence",
+                "Based on marriage with a Polish citizen"
+              ],
+              price: "From 500 to 1500 PLN"
+            },
+            {
+              title: "Assistance with citizenship application documents",
+              points: [],
+              price: "From 750 to 1500 PLN (Price until 30.09.2024)"
+            },
+            {
+              title: "Labor disputes: From 'Umowy zlecenia' to 'Umowy o pracę'",
+              points: [
+                "Achieve transition from 'Umowy zlecenia' to 'Umowy o pracę'",
+                "Submit complaints to employer",
+                "File lawsuits",
+                "Demand compensation for illegal employment"
+              ],
+              price: "From 2500 to 3500 PLN"
+            },
+            {
+              title: "Preparation of documents for marriage registration",
+              points: [],
+              price: "From 500 to 1500 PLN"
+            },
+            {
+              title: "Driver's license replacement",
+              points: [],
+              price: "From 500 to 1500 PLN"
+            },
+            {
+              title: "Legal consultation",
+              points: [
+                "Consultation duration up to 60 minutes",
+                "Online or by phone"
+              ],
+              price: "From 200 PLN"
+            },
+            {
+              title: "Resume (CV) preparation",
+              points: [
+                "With cover letter",
+                "Without cover letter"
+              ],
+              price: "From 150 to 250 PLN"
+            }
+          ],
         }
-        }  
+        }
       },
       pl: {
         translation: {
+          "servicespromo.0.title": "PROMOCJE",
+          "servicespromo.0.points.0": "Karta pobytu za 400 zł. Uzyskaj pakiet \"Podstawowy\" za 400 zł. Aby skorzystać z promocji, podaj naszemu specjaliście ds. obsługi klienta kod promocyjny \"Start24\". Promocja obowiązuje tylko do końca września 2024 roku.",
+           "servicespromo.0.points.1": "Karta pobytu za 750 zł. Uzyskaj pakiet \"Wszystko w cenie\" za 750 zł. Aby skorzystać z promocji, podaj naszemu specjaliście ds. obsługi klienta kod promocyjny \"Start24\". Promocja obowiązuje tylko do końca września 2024 roku.",
+           "servicespromo.0.points.2": "Dokumenty obywatelstwa za 1500 zł. Pakiet \"Wszystko w cenie\". Aby skorzystać z promocji, podaj naszemu specjaliście ds. obsługi klienta kod promocyjny \"Start24\". Promocja obowiązuje tylko do końca września 2024 roku.",     
+   
+"pricelistservices.0.title": "Kompleksowa pomoc w przygotowaniu dokumentów do złożenia wniosku o kartę pobytu",
+"pricelistservices.0.points.0": "Na podstawie zatrudnienia",
+"pricelistservices.0.points.1": "Na podstawie działalności gospodarczej",
+"pricelistservices.0.points.2": "Na podstawie pobytu rodzinnego",
+"pricelistservices.0.points.3": "Na podstawie małżeństwa z obywatelem Polski",
+"pricelistservices.0.price": "Od 500 do 1500 PLN",
+
+"pricelistservices.1.title": "Pomoc w przygotowaniu dokumentów do złożenia wniosku o obywatelstwo",
+"pricelistservices.1.price": "Od 750 do 1500 PLN (Cena do 30.09.2024)",
+
+"pricelistservices.2.title": "Spory pracownicze: Od 'Umowy zlecenia' do 'Umowy o pracę'",
+"pricelistservices.2.points.0": "Przejście z 'Umowy zlecenia' do 'Umowy o pracę'",
+"pricelistservices.2.points.1": "Złożenie skarg do pracodawcy",
+"pricelistservices.2.points.2": "Złożenie pozwów",
+"pricelistservices.2.points.3": "Żądanie odszkodowania za nielegalne zatrudnienie",
+"pricelistservices.2.price": "Od 2500 do 3500 PLN",
+
+"pricelistservices.3.title": "Przygotowanie dokumentów do rejestracji małżeństwa",
+"pricelistservices.3.price": "Od 500 do 1500 PLN",
+
+"pricelistservices.4.title": "Wymiana prawa jazdy",
+"pricelistservices.4.price": "Od 500 do 1500 PLN",
+
+"pricelistservices.5.title": "Konsultacja prawna",
+"pricelistservices.5.points.0": "Czas trwania konsultacji do 60 minut",
+"pricelistservices.5.points.1": "Online lub telefonicznie",
+"pricelistservices.5.price": "Od 200 PLN",
+
+"pricelistservices.6.title": "Przygotowanie CV",
+"pricelistservices.6.points.0": "Z listem motywacyjnym",
+"pricelistservices.6.points.1": "Bez listu motywacyjnego",
+"pricelistservices.6.price": "Od 150 do 250 PLN",
+
+"consult_button": "Uzyskaj konsultację",
+
+"reason_texts.reason1": "Zapewniamy dostępność cenową! Cena ma znaczenie!",
+"reason_texts.reason2": "Jeśli nie oddzwonimy do Ciebie w ciągu 45 minut od wysłania zapytania na stronie, otrzymasz 250 PLN zniżki na zakup usługi.",
+"reason_texts.reason3": "Jeśli nie osiągniesz rezultatu, zwrócimy Ci pieniądze w ciągu 7 dni. Pracujemy na podstawie umowy!",
           "modal.feedbackButton": "Zostaw zapytanie", 
           feedbackForm: {
             title: "Zostaw zapytanie",
@@ -297,7 +441,7 @@ i18n
             contacts: "Kontakty",
             info: "Informacje",
             services: "Usługi",
-            address: "Gdańsk, ul. Grunwaldzka 122",
+            address: "80-369 Gdańsk, al. Rzeczypospolitej 4/152",
             company: "Sp. z o.o. 'Ominor', NIP 233455678",
             privacyPolicy: "Polityka prywatności",
             question: "Zadaj pytanie za darmo",
@@ -535,6 +679,50 @@ i18n
       },
       ua: {
         translation: {
+          "servicespromo.0.title": "АКЦІЇ",
+          "servicespromo.0.points.0": "Карта побиту за 400 зл. Встигніть придбати пакет \"Базовий\" за 400 зл. Щоб скористатися акцією, назвіть нашому спеціалісту по роботі з клієнтами промокод \"Старт24\". Акція діє тільки до кінця вересня 2024 року.",
+          "servicespromo.0.points.1": "Карта побиту за 750 зл. Встигніть придбати пакет \"Все включено\" за 750 зл. Щоб скористатися акцією, назвіть нашому спеціалісту по роботі з клієнтами промокод \"Старт24\". Акція діє тільки до кінця вересня 2024 року.",
+          "servicespromo.0.points.2": "Документи на громадянство за 1500 зл. Пакет \"Все включено\". Щоб скористатися акцією, назвіть нашому спеціалісту по роботі з клієнтами промокод \"Старт24\". Акція діє тільки до кінця вересня 2024 року.",
+     
+          "pricelistservices.0.title": "Комплексна допомога в підготовці документів для подачі на карту проживання",
+"pricelistservices.0.points.0": "На основі зайнятості",
+"pricelistservices.0.points.1": "На основі бізнесу",
+"pricelistservices.0.points.2": "На основі сімейного проживання",
+"pricelistservices.0.points.3": "На основі шлюбу з громадянином Польщі",
+"pricelistservices.0.price": "Від 500 до 1500 PLN",
+
+"pricelistservices.1.title": "Допомога в підготовці документів для подачі на громадянство",
+"pricelistservices.1.price": "Від 750 до 1500 PLN (Ціна до 30.09.2024)",
+
+"pricelistservices.2.title": "Трудові спори: Від 'Umowy zlecenia' до 'Umowy o pracę'",
+"pricelistservices.2.points.0": "Перехід від 'Umowy zlecenia' до 'Umowy o pracę'",
+"pricelistservices.2.points.1": "Подати скарги роботодавцю",
+"pricelistservices.2.points.2": "Подати позови",
+"pricelistservices.2.points.3": "Вимагати компенсацію за незаконне працевлаштування",
+"pricelistservices.2.price": "Від 2500 до 3500 PLN",
+
+"pricelistservices.3.title": "Підготовка документів для реєстрації шлюбу",
+"pricelistservices.3.price": "Від 500 до 1500 PLN",
+
+"pricelistservices.4.title": "Заміна водійського посвідчення",
+"pricelistservices.4.price": "Від 500 до 1500 PLN",
+
+"pricelistservices.5.title": "Юридична консультація",
+"pricelistservices.5.points.0": "Тривалість консультації до 60 хвилин",
+"pricelistservices.5.points.1": "Онлайн або по телефону",
+"pricelistservices.5.price": "Від 200 PLN",
+
+"pricelistservices.6.title": "Підготовка резюме (CV)",
+"pricelistservices.6.points.0": "З супровідним листом",
+"pricelistservices.6.points.1": "Без супровідного листа",
+"pricelistservices.6.price": "Від 150 до 250 PLN",
+
+"consult_button": "Отримати консультацію",
+
+"reason_texts.reason1": "Ми забезпечуємо доступність цін! Ціна — це ключ!",
+"reason_texts.reason2": "Якщо ми не передзвонимо вам протягом 45 хвилин після відправки запиту на сайті, ми надамо вам знижку 250 PLN на покупку послуги.",
+"reason_texts.reason3": "Якщо ви не досягнете результату, ми повернемо ваші гроші протягом 7 днів. Ми працюємо за договором!",
+
           "modal.feedbackButton": "Залишити запит", 
           feedbackForm: {
             title: "Залишити запит",
@@ -560,7 +748,7 @@ i18n
             contacts: "Контакти",
             info: "Інформація",
             services: "Послуги",
-            address: "Гданськ, вул. Грюнвальдська 122",
+            address: "80-369 Gdańsk, al. Rzeczypospolitej 4/152",
             company: "ТОВ 'Омінор', NIP 233455678",
             privacyPolicy: "Політика конфіденційності",
             question: "Задати питання безкоштовно",
@@ -799,6 +987,49 @@ i18n
           },
     by: {
       translation: {
+        "servicespromo.0.title": "АКЦЫІ",
+        "servicespromo.0.points.0": "Карта побыту за 400 зл. Паспейце набыць пакет \"Базавы\" за 400 зл. Каб скарыстацца акцыяй, назавіце нашаму спецыялісту па працы з кліентамі промакод \"Старт24\". Акцыя дзейнічае толькі да канца верасня 2024 года.",
+        "servicespromo.0.points.1": "Карта побыту за 750 зл. Паспейце набыць пакет \"Усё ўключана\" за 750 зл. Каб скарыстацца акцыяй, назавіце нашаму спецыялісту па працы з кліентамі промакод \"Старт24\". Акцыя дзейнічае толькі да канца верасня 2024 года.",
+        "servicespromo.0.points.2": "Дакументы на грамадзянства за 1500 зл. Пакет \"Усё ўключана\". Каб скарыстацца акцыяй, назавіце нашаму спецыялісту па працы з кліентамі промакод \"Старт24\". Акцыя дзейнічае толькі да канца верасня 2024 года.",      
+       
+        "pricelistservices.0.title": "Комплексная дапамога ў падрыхтоўцы дакументаў для падачы на карту пражывання",
+"pricelistservices.0.points.0": "На аснове занятасці",
+"pricelistservices.0.points.1": "На аснове бізнесу",
+"pricelistservices.0.points.2": "На аснове сямейнага пражывання",
+"pricelistservices.0.points.3": "На аснове шлюбу з грамадзянінам Польшчы",
+"pricelistservices.0.price": "Ад 500 да 1500 PLN",
+
+"pricelistservices.1.title": "Дапамога ў падрыхтоўцы дакументаў для падачы на грамадзянства",
+"pricelistservices.1.price": "Ад 750 да 1500 PLN (Цана да 30.09.2024)",
+
+"pricelistservices.2.title": "Працоўныя спрэчкі: Ад 'Umowy zlecenia' да 'Umowy o pracę'",
+"pricelistservices.2.points.0": "Пераход ад 'Umowy zlecenia' да 'Umowy o pracę'",
+"pricelistservices.2.points.1": "Падаць скаргі наймальніку",
+"pricelistservices.2.points.2": "Падаць пазовы",
+"pricelistservices.2.points.3": "Патрабаваць кампенсацыі за незаконнае працаўладкаванне",
+"pricelistservices.2.price": "Ад 2500 да 3500 PLN",
+
+"pricelistservices.3.title": "Падрыхтоўка дакументаў для рэгістрацыі шлюбу",
+"pricelistservices.3.price": "Ад 500 да 1500 PLN",
+
+"pricelistservices.4.title": "Замена вадзіцельскага пасведчання",
+"pricelistservices.4.price": "Ад 500 да 1500 PLN",
+
+"pricelistservices.5.title": "Юрыдычная кансультацыя",
+"pricelistservices.5.points.0": "Працягласць кансультацыі да 60 хвілін",
+"pricelistservices.5.points.1": "Анлайн або па тэлефоне",
+"pricelistservices.5.price": "Ад 200 PLN",
+
+"pricelistservices.6.title": "Падрыхтоўка рэзюмэ (CV)",
+"pricelistservices.6.points.0": "З суправаджальным лістом",
+"pricelistservices.6.points.1": "Без суправаджальнага ліста",
+"pricelistservices.6.price": "Ад 150 да 250 PLN",
+
+"consult_button": "Атрымаць кансультацыю",
+
+"reason_texts.reason1": "Мы забяспечваем даступнасць цэн! Цана — гэта ключ!",
+"reason_texts.reason2": "Калі мы не ператэлефануем вам на працягу 45 хвілін пасля адпраўкі запыту на сайце, мы дамо вам зніжку 250 PLN на куплю паслугі.",
+"reason_texts.reason3": "Калі вы не дасягнеце выніку, мы вернем вашы грошы на працягу 7 дзён. Мы працуем па дагаворы!",
         "modal.feedbackButton": "Пакінуць заяўку", 
         feedbackForm: {
           title: "Пакінуць заяўку",
@@ -824,7 +1055,7 @@ i18n
           contacts: "Кантакты",
           info: "Інфармацыя",
           services: "Паслугі",
-          address: "Гданьск, вул. Грунвальдская 122",
+          address: "80-369 Gdańsk, al. Rzeczypospolitej 4/152",
           company: "ТАА 'Омінор', NIP 233455678",
           privacyPolicy: "Палітыка прыватнасці",
           question: "Задаць пытанне бясплатна",
@@ -1062,6 +1293,49 @@ i18n
   },    
      ru: {
                 translation: {
+                  "servicespromo.0.title": "АКЦИИ",
+                  "servicespromo.0.points.0": "Карта побыту за 400 зл. Успейте приобрести пакет \"Базовый\" за 400 зл. Чтобы воспользоваться акцией, назовите нашему специалисту по работе с клиентами промокод \"Старт24\". Акция действует только до конца сентября 2024 года.",
+                  "servicespromo.0.points.1": "Карта побыту за 750 зл. Успейте приобрести пакет \"Все включено\" за 750 зл. Чтобы воспользоваться акцией, назовите нашему специалисту по работе с клиентами промокод \"Старт24\". Акция действует только до конца сентября 2024 года.",
+                  "servicespromo.0.points.2": "Документы на гражданство за 1500 зл. Пакет \"Все включено\". Чтобы воспользоваться акцией, назовите нашему специалисту по работе с клиентами промокод \"Старт24\". Акция действует только до конца сентября 2024 года.",
+                       
+                  "pricelistservices.0.title": "Комплексная помощь в подготовке документов для подачи на карту проживания",
+                  "pricelistservices.0.points.0": "На основе занятости",
+                  "pricelistservices.0.points.1": "На основе бизнеса",
+                  "pricelistservices.0.points.2": "На основе семейного проживания",
+                  "pricelistservices.0.points.3": "На основе брака с гражданином Польши",
+                  "pricelistservices.0.price": "От 500 до 1500 PLN",
+        
+                  "pricelistservices.1.title": "Помощь в подготовке документов для подачи на гражданство",
+                  "pricelistservices.1.price": "От 750 до 1500 PLN (Цена до 30.09.2024)",
+        
+                  "pricelistservices.2.title": "Трудовые споры: От 'Umowy zlecenia' к 'Umowy o pracę'",
+                  "pricelistservices.2.points.0": "Переход от 'Umowy zlecenia' к 'Umowy o pracę'",
+                  "pricelistservices.2.points.1": "Подать жалобы работодателю",
+                  "pricelistservices.2.points.2": "Подать иски",
+                  "pricelistservices.2.points.3": "Требовать компенсации за незаконное трудоустройство",
+                  "pricelistservices.2.price": "От 2500 до 3500 PLN",
+        
+                  "pricelistservices.3.title": "Подготовка документов для регистрации брака",
+                  "pricelistservices.3.price": "От 500 до 1500 PLN",
+        
+                  "pricelistservices.4.title": "Замена водительского удостоверения",
+                  "pricelistservices.4.price": "От 500 до 1500 PLN",
+        
+                  "pricelistservices.5.title": "Юридическая консультация",
+                  "pricelistservices.5.points.0": "Продолжительность консультации до 60 минут",
+                  "pricelistservices.5.points.1": "Онлайн или по телефону",
+                  "pricelistservices.5.price": "От 200 PLN",
+        
+                  "pricelistservices.6.title": "Подготовка резюме (CV)",
+                  "pricelistservices.6.points.0": "С сопроводительным письмом",
+                  "pricelistservices.6.points.1": "Без сопроводительного письма",
+                  "pricelistservices.6.price": "От 150 до 250 PLN",
+        
+                  "consult_button": "Получить консультацию",
+        
+                  "reason_texts.reason1": "Мы обеспечиваем доступность цен! Цена — это ключ!",
+                  "reason_texts.reason2": "Если мы не перезвоним вам в течение 45 минут после отправки запроса на сайте, мы дадим вам скидку 250 PLN на покупку услуги.",
+                  "reason_texts.reason3": "Если вы не добьетесь результата, мы вернем ваши деньги в течение 7 дней. Мы работаем по договору!",        
                   "modal.feedbackButton": "Оставить заявку", 
                   feedbackForm: {
                     title: "Оставить заявку",
@@ -1087,7 +1361,7 @@ i18n
                     contacts: "Контакты",
                     info: "Информация",
                     services: "Услуги",
-                    address: "Гданьск, ул. Грюнвальдская 122",
+                    address: "80-369 Gdańsk, al. Rzeczypospolitej 4/152",
                     company: "ООО 'Оминор', NIP 233455678",
                     privacyPolicy: "Политика конфиденциальности",
                     question: "Задать вопрос бесплатно",
@@ -1317,7 +1591,7 @@ i18n
                       title: "Срок получения",
                       content: "В среднем ожидание гражданства занимает 10 месяцев",
                      }
-                  }
+                    } 
                 }
               }
             },
@@ -1325,7 +1599,8 @@ i18n
     fallbackLng: "ru",
     interpolation: {
       escapeValue: false
-    }
+    },
+    debug: true
   });
 
 export default i18n;

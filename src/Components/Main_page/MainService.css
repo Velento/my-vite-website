@@ -1,43 +1,53 @@
 .services {
-    margin-bottom: 20px;
+    margin-bottom: 5rem;
+    margin-top: 10rem;
     width: 100%;
 
 }
 
 .services-h{
-    font-size: 40px;
-    font-family: Arial;
-    font-weight: 700;
+    font-family: 'Arial', sans-serif;
+    font-size: 24px;
+    font-weight: 500;
+    text-transform: uppercase;
 }
 
 .services-h3 {
-    font-size: 30px;
-    font-family: Arial;
-    font-weight: 700;
+    font-size: 18px;
+    font-family: 'Arial', sans-serif;
+    font-weight: 600;
+    text-transform: uppercase;
 }
 .service-item {
+    font-size: 18px;
+    font-weight: 400;
+    font-family: 'Arial', sans-serif;
+    text-transform: uppercase;
     cursor: pointer;
-    font-size: 30px;
-    font-family: Arial;
-    font-weight: 600;
     padding: 10px;
     margin: 5px 0;
     border: 1px solid #686868;
     border-radius: 5px;
-    transition: background-color 0.3s ease;
+    transition: transform 0.2s ease, color 0.2s ease;
 }
 
 .service-details {
     margin-top: 10px;
-    font-size: 25px;
-    font-family: Arial;
+    font-size: 18px;
+    font-family: 'Arial', sans-serif;
     font-weight: 100;
 }
 
 .service-p {
     cursor: pointer;
-    color: #555; /* темно-серый цвет */
+    color: #555;
     transition: transform 0.2s ease, color 0.2s ease;
+    font-family: 'Arial', sans-serif;
+    text-transform: lowercase;
+}
+.modal-content p {
+    font-family: 'Arial', sans-serif;
+    font-size: 14px;
 }
 
 .service-p:hover {
@@ -56,6 +66,8 @@
     cursor: pointer;
     overflow: hidden;
     transition: background-color 0.4s ease;
+    font-family: 'Arial', sans-serif;
+    font-size: 16px;
 }
 
 .service-btn:hover {
@@ -81,6 +93,8 @@
     background-color: #5c5b5b;
     color: white;
     box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.8);
+    font-family: 'Arial', sans-serif;
+    font-size: 16px;
 }
 .cost-details-btn:hover {
     background-color: #161d2c;
@@ -91,38 +105,11 @@
 }
   
   @media (min-width: 769px) and (max-width: 1024px) {
-    .services-h {
-        font-size: 30px;
-        font-family: Arial;
-        font-weight: 700;
-    }
-    .service-item {
-        font-size: 25px;
-        font-weight: 600;
   }
-}
 
   @media (min-width: 481px) and (max-width: 768px) {
-    .services-h {
-        font-size: 30px;
-        font-family: Arial;
-        font-weight: 700;
-    }
-    .service-item {
-        font-size: 25px;
-        font-weight: 600;
-  }
   }
 
   @media (max-width: 480px)  {
 
-    .services-h {
-        font-size: 30px;
-        font-family: Arial;
-        font-weight: 500;
-    }
-    .service-item {
-        font-size: 20px;
-        font-weight: 600;
-  }
   }

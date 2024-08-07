@@ -7,6 +7,8 @@
     position: relative;
     bottom: 0;
     width: 100%;
+    font-family: 'Arial', sans-serif;
+    font-size: 18px;
 }
     .contact-icon {
         margin-right: 1rem;
@@ -21,24 +23,28 @@
     padding: 0 50px;
     max-width: 1200px;
     margin: 0 auto;
-    font-size: 20px;
+    font-size: 16px;
 }
 
 .footer-section {
     flex: 1;
-    margin: 20px;
+    margin: 18px;
 }
 .footer-section.services {
     width: 90%;
+    margin-top: 1rem;
 }
 
 .footer-section h2 {
-    font-size: 30px; /* Размер шрифта заголовков */
+    font-size: 20px; 
+    font-weight: 600;
     margin-bottom: 10px;
+    text-transform: uppercase;
+    font-family: 'Arial', sans-serif;
 }
 
 .footer-section p, .footer-section ul {
-    font-size: 20px; /* Размер шрифта контента */
+    font-size: 18px; 
 }
 
 .footer-section ul {
@@ -65,6 +71,7 @@
     display: flex;
     align-items: center;
     margin-bottom: 10px;
+    font-size: 18px;
 }
 
 .footer-section .contact-link {
@@ -85,7 +92,7 @@
     cursor: pointer;
     transition: background-color 0.3s, box-shadow 0.3s;
     font-size: 14px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Добавление тени */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
 }
 
 .footer-section button:hover {
