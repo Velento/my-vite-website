@@ -22,6 +22,18 @@ const Footer = () => {
     const handleCloseModal = () => {
         setShowContactModal(false);
     };
+// С ООО изменить на <ZOO>
+// </ZOO>
+
+// Под ценой коротко указать что мы будем делать за одну стоимость и за другую 
+// Найти на отзовиках отзывы о том что не понравилось и собрать список претензий людей 
+// Возвращаем ли деньги , если человек передумал
+// перезваниваем ли людям или пропадаем 
+// Блок о нас Фото сотрудников 
+// квиз сделать. он дает до 5% конверсии. 3 вопроса. На какой вид ходите податься?. в конце оставь заявку.
+// Создать раздел наши преимущества. Пойдем в ужонд и будем разговаривать по польски. Поможем сосотавить письмо для воеводы и тд
+
+
 
     return (
         <footer className="footer" id="footer">
@@ -53,9 +65,10 @@ const Footer = () => {
                     <h2>{t('footer.info')}</h2>
                     <div className="icon-text">
                         {/* <img src={locationIcon} alt="Location" className="contact-icon" /> */}
-                        <p>{t('footer.address')}</p>
-                    </div>
                     <p>{t('footer.company')}</p>
+                    </div>
+                        <p>{t('footer.address')}</p>
+                        <p>{t('footer.timework')}</p>
                     <p><a href="https://docs.google.com/document/d/16JRprD0eDLu8pWrwxZxPboOX6q2ZrptjAw5_CMQENSE/edit" >{t('footer.privacyPolicy')}</a></p>
                 </div>
                 <div className="footer-section services">

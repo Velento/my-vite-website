@@ -39,7 +39,7 @@ const MainPageSections = () => {
   };
 
   return (
-    <div className="main-page-sections">
+    <div className="main-page-sections" id= "advantages">
       <div className="left-column">
         <Section
           title={t('section1.title')}
@@ -69,7 +69,7 @@ const MainPageSections = () => {
           // iconSrc={sectionInsta}
           buttonText={t('section4.buttonText')}
         />
-        <Section
+        <Section className = "rightColumnSection_2"
           title={t('section5.title')}
           content={t('section5.content')}
           iconSrc={sectionPlan}

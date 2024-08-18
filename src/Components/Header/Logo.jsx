@@ -13,11 +13,13 @@ function Logo() {
   const { t } = useTranslation();
 
   return (
-    <div className="header-logo" onClick={scrollToTop} style={{ cursor: 'pointer' }}>
-      <img src={logo} alt="Legal Cat Logo" className="logo-image" />
-      <div className="logo-text">
-        <p className="header-slogan">{t('header.slogan')}</p>
-      </div>
+    <div className="header-logo-text">
+    <div className="header-logo" onClick={scrollToTop}>
+      <img src={logo} alt="Legal Logo" className="logo-image" />
+    </div>
+    <div className="logo-text">
+    <h1 className="header-slogan">{t('header.slogan')}</h1>
+    </div>
     </div>
   );
 }

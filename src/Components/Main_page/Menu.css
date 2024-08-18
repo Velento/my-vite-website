@@ -1,0 +1,51 @@
+.menu {
+  font-family: 'Arial', sans-serif;
+   font-size: 30px;
+    background-color: #fff;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 3rem;
+    margin-bottom: 1rem;
+  }
+  
+  .menu ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+  }
+  
+  .menu li {
+    margin-right: 35px;
+  }
+  
+  .menu li a {
+    text-decoration: none;
+    color: #000000;
+    font-weight: bold;
+    transition: color 0.3s;
+    font-weight: 500;
+  }
+  
+  .menu li a:hover {
+    color: #007bff;
+  }
+  
+
+  @media (min-width: 1025px) and (max-width: 1199px) {
+
+  }
+    
+    @media (min-width: 769px) and (max-width: 1024px) {
+    }
+  
+    @media (min-width: 481px) and (max-width: 768px) {
+    }
+  
+    @media (max-width: 480px)  {
+        .menu {
+          display: none;
+      }
+    }
+  

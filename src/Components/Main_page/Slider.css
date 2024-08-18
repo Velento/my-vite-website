@@ -12,6 +12,10 @@
   .slick-prev:before, .slick-next:before {
     color: black; /* Цвет стрелок */
   }
+  .slick-arrow {
+    margin: 2rem;
+    z-index: 10;
+  }
 
   @media (min-width: 1025px) and (max-width: 1199px) {
     .slider-container {
@@ -34,5 +38,8 @@
   @media (max-width: 480px)  {
     .slider-container {
       margin: 0;
+  }
+  .slick-arrow {
+    z-index: -1;
   }
   }

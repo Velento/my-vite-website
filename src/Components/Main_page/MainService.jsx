@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 
 const ServiceDetails = ({ serviceName, onShowCostDetails, onShowMoreInfo, onShowProcessingTime, onShowContactModal, t }) => {
     return (
-        <div className="service-details">
+        <div className="service-details" id = "services">
             <p className="service-p" onClick={(e) => { e.stopPropagation(); onShowCostDetails(); }}>{t(`services.${serviceName}.cost`)}</p>
             <p className="service-p" onClick={(e) => { e.stopPropagation(); onShowProcessingTime(); }}>{t(`services.${serviceName}.terming`)}</p>
             <p className="service-p" onClick={(e) => { e.stopPropagation(); onShowMoreInfo(); }}>{t(`services.${serviceName}.learnMore`)}</p>

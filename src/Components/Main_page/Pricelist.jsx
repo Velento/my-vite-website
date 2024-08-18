@@ -87,7 +87,7 @@ const Pricelist = () => {
   const handleCloseModal = () => setShowContactModal(false);
 
   return (
-    <div className="pricelist">
+    <div className="pricelist" id="pricelist">
       <h1 className="pricelist-title"></h1>
       <div className="columns">
         <div className="left-column">

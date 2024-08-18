@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './Burger.css';
 import Contacts from './Contacts';
+import Menu from "../Main_page/Menu";
 import LanguageSwitcher from './LanguageSwitcher';
 import { useTranslation } from 'react-i18next';
 import ContactModal from '../Main_page/ContactModal';
@@ -31,8 +32,8 @@ function Burger() {
       {isOpen && (
         <div className={`burger_menu_content ${isOpen ? 'burger_menu_content_active' : ''}`}>
           <LanguageSwitcher />
+          <Menu />
           <div className="footer-section services">
-          <h2><a href="#services">{t('footer.services')}</a></h2>
             <button onClick={handleContactClick}>{t('footer.question')}</button>
             <ContactModal show={showContactModal} onClose={handleCloseModal} />
           </div>

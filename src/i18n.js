@@ -8,6 +8,13 @@ i18n
     resources: {
       en: {
         translation: {
+          "menu.pricelist" : "Price List",
+          "menu.advantages": "Advantages",
+          "menu.promotions": "Promotions",
+          "menu.services": "Services",
+          "menu.about": "About Us",
+          "menu.contact": "Information",
+
           "servicespromo.0.title": "PROMOTIONS",
           "servicespromo.0.points.0":  "Residence card for 400 PLN. Get the Basic package for 400 PLN. To take advantage of the promotion, tell our customer service specialist the promo code: Start24. The promotion is valid only until the end of September 2024.",
           "servicespromo.0.points.1":  "Residence card for 750 PLN. Get the 'All inclusive' package for 750 PLN. To take advantage of the promotion, tell our customer service specialist the promo code 'Start24'. The promotion is valid only until the end of September 2024.",
@@ -50,7 +57,7 @@ i18n
 
           "reason_texts.reason1": "We ensure price accessibility! Price is key!",
           "reason_texts.reason2": "If we don't call you back within 45 minutes after you submit a request on the site, we will give you a 250 PLN discount on the purchase of a service.",
-          "reason_texts.reason3": "If you do not achieve the result, we will refund your money within 7 days. We work under contract!",
+          "reason_texts.reason3": "1. Payment after the service is completed! You are not taking any risks. 2. If you do not achieve the result, we will refund your money within 7 days. We work under contract!",
 
           "modal.feedbackButton": "Leave a request", 
           feedbackForm: {
@@ -78,13 +85,14 @@ i18n
             info: "Information",
             services: "Services",
             address: "80-369 Gdańsk, al. Rzeczypospolitej 4/152",
-            company: "LLC 'Ominor', NIP 233455678",
+            company: "Sp. z o.o. \"Ominor\", NIP: 5842805362",
+            timework: "Daily from 9:00 AM to 5:00 PM, closed on Sat-Sun",
             privacyPolicy: "Privacy Policy",
             question: "Ask a question for free",
             rights: "All rights reserved."
           },
           header: {
-            slogan: "Live legally in Poland",
+            slogan: "Legalization in Poland at an affordable price",
             contacts: "Contacts"
           },
           modal: {
@@ -373,6 +381,12 @@ i18n
       },
       pl: {
         translation: {
+          "menu.pricelist" : "Cennik",
+          "menu.advantages": "Zalety",
+          "menu.promotions": "Promocje",
+          "menu.services": "Usługi",
+          "menu.about": "O nas",
+          "menu.contact": "Informacje",
           "servicespromo.0.title": "PROMOCJE",
           "servicespromo.0.points.0": "Karta pobytu za 400 zł. Uzyskaj pakiet \"Podstawowy\" za 400 zł. Aby skorzystać z promocji, podaj naszemu specjaliście ds. obsługi klienta kod promocyjny \"Start24\". Promocja obowiązuje tylko do końca września 2024 roku.",
            "servicespromo.0.points.1": "Karta pobytu za 750 zł. Uzyskaj pakiet \"Wszystko w cenie\" za 750 zł. Aby skorzystać z promocji, podaj naszemu specjaliście ds. obsługi klienta kod promocyjny \"Start24\". Promocja obowiązuje tylko do końca września 2024 roku.",
@@ -415,7 +429,7 @@ i18n
 
 "reason_texts.reason1": "Zapewniamy dostępność cenową! Cena ma znaczenie!",
 "reason_texts.reason2": "Jeśli nie oddzwonimy do Ciebie w ciągu 45 minut od wysłania zapytania na stronie, otrzymasz 250 PLN zniżki na zakup usługi.",
-"reason_texts.reason3": "Jeśli nie osiągniesz rezultatu, zwrócimy Ci pieniądze w ciągu 7 dni. Pracujemy na podstawie umowy!",
+"reason_texts.reason3": "1.Płatność po wykonaniu usługi! Nie ryzykujesz niczym. 2.Jeśli nie osiągniesz rezultatu, zwrócimy Ci pieniądze w ciągu 7 dni. Pracujemy na podstawie umowy!",
           "modal.feedbackButton": "Zostaw zapytanie", 
           feedbackForm: {
             title: "Zostaw zapytanie",
@@ -442,7 +456,8 @@ i18n
             info: "Informacje",
             services: "Usługi",
             address: "80-369 Gdańsk, al. Rzeczypospolitej 4/152",
-            company: "Sp. z o.o. 'Ominor', NIP 233455678",
+            company: "Sp. z o.o. \"Ominor\", NIP: 5842805362",
+            timework: "Codziennie od 9:00 do 17:00, sobota-niedziela - nieczynne",
             privacyPolicy: "Polityka prywatności",
             question: "Zadaj pytanie za darmo",
             rights: "Wszelkie prawa zastrzeżone."
@@ -452,7 +467,7 @@ i18n
             call: "Zadzwoń:"
           },
           "header": {
-            "slogan": "Żyj legalnie w Polsce",
+            "slogan": " Legalizacja w Polsce w przystępnej cenie",
             "contacts": "Kontakty"
           },
           section1: {
@@ -679,6 +694,13 @@ i18n
       },
       ua: {
         translation: {
+          "menu.pricelist" : "Прайс-лист",
+          "menu.advantages": "Переваги",
+          "menu.promotions": "Акції",
+          "menu.services": "Послуги",
+          "menu.about": "Про нас",
+          "menu.contact": "Інформація",
+
           "servicespromo.0.title": "АКЦІЇ",
           "servicespromo.0.points.0": "Карта побиту за 400 зл. Встигніть придбати пакет \"Базовий\" за 400 зл. Щоб скористатися акцією, назвіть нашому спеціалісту по роботі з клієнтами промокод \"Старт24\". Акція діє тільки до кінця вересня 2024 року.",
           "servicespromo.0.points.1": "Карта побиту за 750 зл. Встигніть придбати пакет \"Все включено\" за 750 зл. Щоб скористатися акцією, назвіть нашому спеціалісту по роботі з клієнтами промокод \"Старт24\". Акція діє тільки до кінця вересня 2024 року.",
@@ -721,7 +743,7 @@ i18n
 
 "reason_texts.reason1": "Ми забезпечуємо доступність цін! Ціна — це ключ!",
 "reason_texts.reason2": "Якщо ми не передзвонимо вам протягом 45 хвилин після відправки запиту на сайті, ми надамо вам знижку 250 PLN на покупку послуги.",
-"reason_texts.reason3": "Якщо ви не досягнете результату, ми повернемо ваші гроші протягом 7 днів. Ми працюємо за договором!",
+"reason_texts.reason3": "1. Оплата після виконання послуги! Ви нічим не ризикуєте. 2. Якщо ви не досягнете результату, ми повернемо ваші гроші протягом 7 днів. Ми працюємо за договором!",
 
           "modal.feedbackButton": "Залишити запит", 
           feedbackForm: {
@@ -744,12 +766,14 @@ i18n
           "marketingCookies": "Маркетингові та таргетингові файли cookie",
           "acceptSelected": "Прийняти вибрані",
           "necessaryCookies": "Необхідні файли cookie",
+         
           footer: {
             contacts: "Контакти",
             info: "Інформація",
             services: "Послуги",
             address: "80-369 Gdańsk, al. Rzeczypospolitej 4/152",
-            company: "ТОВ 'Омінор', NIP 233455678",
+            company: "Sp. z o.o. \"Ominor\", NIP: 5842805362",
+            timework: "Щодня з 9:00 до 17:00, сб-нд вихідний",
             privacyPolicy: "Політика конфіденційності",
             question: "Задати питання безкоштовно",
             rights: "Всі права захищені."
@@ -759,7 +783,7 @@ i18n
             call: "Подзвонити:"
           },
           "header": {
-            "slogan": "Живіть легально в Польщі",
+            "slogan": "Легалізація в Польщі за доступною ціною",
             "contacts": "Контакти"
           },
           section1: {
@@ -987,6 +1011,13 @@ i18n
           },
     by: {
       translation: {
+        "menu.pricelist" : "Прайс-ліст",
+        "menu.advantages": "Перавагі",
+        "menu.promotions": "Акцыі",
+        "menu.services": "Паслугі",
+        "menu.about": "Пра нас",
+        "menu.contact": "Інфармацыя",
+
         "servicespromo.0.title": "АКЦЫІ",
         "servicespromo.0.points.0": "Карта побыту за 400 зл. Паспейце набыць пакет \"Базавы\" за 400 зл. Каб скарыстацца акцыяй, назавіце нашаму спецыялісту па працы з кліентамі промакод \"Старт24\". Акцыя дзейнічае толькі да канца верасня 2024 года.",
         "servicespromo.0.points.1": "Карта побыту за 750 зл. Паспейце набыць пакет \"Усё ўключана\" за 750 зл. Каб скарыстацца акцыяй, назавіце нашаму спецыялісту па працы з кліентамі промакод \"Старт24\". Акцыя дзейнічае толькі да канца верасня 2024 года.",
@@ -1029,7 +1060,7 @@ i18n
 
 "reason_texts.reason1": "Мы забяспечваем даступнасць цэн! Цана — гэта ключ!",
 "reason_texts.reason2": "Калі мы не ператэлефануем вам на працягу 45 хвілін пасля адпраўкі запыту на сайце, мы дамо вам зніжку 250 PLN на куплю паслугі.",
-"reason_texts.reason3": "Калі вы не дасягнеце выніку, мы вернем вашы грошы на працягу 7 дзён. Мы працуем па дагаворы!",
+"reason_texts.reason3": "1. Аплата пасля выканання паслугі! Вы нічым не рызыкуеце. 2. Калі вы не дасягнеце выніку, мы вернем вашы грошы на працягу 7 дзён. Мы працуем па дагаворы!",
         "modal.feedbackButton": "Пакінуць заяўку", 
         feedbackForm: {
           title: "Пакінуць заяўку",
@@ -1056,13 +1087,14 @@ i18n
           info: "Інфармацыя",
           services: "Паслугі",
           address: "80-369 Gdańsk, al. Rzeczypospolitej 4/152",
-          company: "ТАА 'Омінор', NIP 233455678",
+          company: "Sp. z o.o. \"Ominor\", NIP: 5842805362",
+          timework: "Штодня з 9:00 да 17:00, субота-нядзеля - выхадны",
           privacyPolicy: "Палітыка прыватнасці",
           question: "Задаць пытанне бясплатна",
           rights: "Усе правы абаронены."
         },
         header: {
-          slogan: "Жывіце ў Польшчы легальна",
+          slogan: "Легалізацыя ў Польшчы па даступнай цане",
           contacts: "Кантакты"
         },
         "modal": {
@@ -1293,12 +1325,18 @@ i18n
   },    
      ru: {
                 translation: {
+                  "menu.pricelist" : "Прайс-Лист",
+                  "menu.advantages": "Преимущества",
+                  "menu.promotions": "Акции",
+                  "menu.services": "Услуги",
+                  "menu.about": "О нас",
+                  "menu.contact": "Информация",
                   "servicespromo.0.title": "АКЦИИ",
                   "servicespromo.0.points.0": "Карта побыту за 400 зл. Успейте приобрести пакет \"Базовый\" за 400 зл. Чтобы воспользоваться акцией, назовите нашему специалисту по работе с клиентами промокод \"Старт24\". Акция действует только до конца сентября 2024 года.",
                   "servicespromo.0.points.1": "Карта побыту за 750 зл. Успейте приобрести пакет \"Все включено\" за 750 зл. Чтобы воспользоваться акцией, назовите нашему специалисту по работе с клиентами промокод \"Старт24\". Акция действует только до конца сентября 2024 года.",
                   "servicespromo.0.points.2": "Документы на гражданство за 1500 зл. Пакет \"Все включено\". Чтобы воспользоваться акцией, назовите нашему специалисту по работе с клиентами промокод \"Старт24\". Акция действует только до конца сентября 2024 года.",
                        
-                  "pricelistservices.0.title": "Комплексная помощь в подготовке документов для подачи на карту проживания",
+                  "pricelistservices.0.title": "Комплексная помощь в подготовке документов для подачи на Карту Побыта",
                   "pricelistservices.0.points.0": "На основе занятости",
                   "pricelistservices.0.points.1": "На основе бизнеса",
                   "pricelistservices.0.points.2": "На основе семейного проживания",
@@ -1335,7 +1373,7 @@ i18n
         
                   "reason_texts.reason1": "Мы обеспечиваем доступность цен! Цена — это ключ!",
                   "reason_texts.reason2": "Если мы не перезвоним вам в течение 45 минут после отправки запроса на сайте, мы дадим вам скидку 250 PLN на покупку услуги.",
-                  "reason_texts.reason3": "Если вы не добьетесь результата, мы вернем ваши деньги в течение 7 дней. Мы работаем по договору!",        
+                  "reason_texts.reason3": "1.Оплата после выполнения услуги! Вы ничем не рискуете. 2. Если вы не добьетесь результата, мы вернем ваши деньги в течение 7 дней. Мы работаем по договору!",        
                   "modal.feedbackButton": "Оставить заявку", 
                   feedbackForm: {
                     title: "Оставить заявку",
@@ -1362,13 +1400,14 @@ i18n
                     info: "Информация",
                     services: "Услуги",
                     address: "80-369 Gdańsk, al. Rzeczypospolitej 4/152",
-                    company: "ООО 'Оминор', NIP 233455678",
+                    company: "Sp. z o.o. \"Ominor\", NIP: 5842805362",
+                    timework: "Ежедневно с 9:00 по 17:00, Сб-Вс выходной",
                     privacyPolicy: "Политика конфиденциальности",
                     question: "Задать вопрос бесплатно",
                     rights: "Все права защищены."
                   },
                   header: {
-                    slogan: "Живите в Польше легально",
+                    slogan: "Легализация в Польше по доступной цене",
                     contacts: "Контакты"
                   },
                   modal: {

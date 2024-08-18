@@ -223,5 +223,11 @@
   .right-column {
     padding-top: 100px;
 }
+.slip-button {
+  position: relative;
+}
+.slip-button img {
+  padding: 5rem 0;
+}
 }
 

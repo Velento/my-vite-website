@@ -43,7 +43,7 @@
     color: #555;
     transition: transform 0.2s ease, color 0.2s ease;
     font-family: 'Arial', sans-serif;
-    text-transform: lowercase;
+    text-transform: math-auto;
 }
 .modal-content p {
     font-family: 'Arial', sans-serif;
