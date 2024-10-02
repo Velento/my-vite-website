@@ -3,7 +3,7 @@ html {
 }
 
 #root {
-  max-width: 95%;
+  max-width: 100%;
   margin: 0 auto;
   padding: 1rem;
   text-align: center;
@@ -53,24 +53,24 @@ html {
 
 
   @media (min-width: 1025px) and (max-width: 1199px) {
-    #root {
+    /* #root {
       max-width: 91%;
-    }
+    } */
 }
   @media (min-width: 769px) and (max-width: 1024px) {
-    #root {
+    /* #root {
       max-width: 91%;
-    }
+    } */
   }
 
   @media (min-width: 481px) and (max-width: 768px) {
-    #root {
+    /* #root {
       max-width: 91%;
-    }
+    } */
   }
 
   @media only screen and (min-device-width : 320px) and (max-device-width : 480px){
-    #root {
+    /* #root {
       max-width: 91%;
-    }
+    } */
   }

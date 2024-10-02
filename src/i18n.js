@@ -16,9 +16,9 @@ i18n
           "menu.contact": "Information",
 
           "servicespromo.0.title": "PROMOTIONS",
-          "servicespromo.0.points.0":  "Residence card for 400 PLN. Get the Basic package for 400 PLN. To take advantage of the promotion, tell our customer service specialist the promo code: Start24. The promotion is valid only until the end of September 2024.",
-          "servicespromo.0.points.1":  "Residence card for 750 PLN. Get the 'All inclusive' package for 750 PLN. To take advantage of the promotion, tell our customer service specialist the promo code 'Start24'. The promotion is valid only until the end of September 2024.",
-          "servicespromo.0.points.2": "Citizenship documents for 1500 PLN. 'All inclusive' package. To take advantage of the promotion, tell our customer service specialist the promo code 'Start24'. The promotion is valid only until the end of September 2024.",
+         "servicespromo.0.points.0": "Residence card for 400 PLN. Get the \"Basic\" package for 400 PLN. To take advantage of the promotion, mention the promo code \"Start24\" to our customer service specialist. The promotion is valid only until the end of November 2024.",
+          "servicespromo.0.points.1": "Residence card for 750 PLN. Get the \"All-Inclusive\" package for 1000 PLN. To take advantage of the promotion, mention the promo code \"Start24\" to our customer service specialist. The promotion is valid only until the end of November 2024.",
+          "servicespromo.0.points.2": "Citizenship documents for 1500 PLN. \"All-Inclusive\" package. To take advantage of the promotion, mention the promo code \"Start24\" to our customer service specialist. The promotion is valid only until the end of November 2024.",
 
           "pricelistservices.0.title": "Comprehensive assistance with documents for residence card application",
           "pricelistservices.0.points.0": "Based on employment",
@@ -388,10 +388,10 @@ i18n
           "menu.about": "O nas",
           "menu.contact": "Informacje",
           "servicespromo.0.title": "PROMOCJE",
-          "servicespromo.0.points.0": "Karta pobytu za 400 zł. Uzyskaj pakiet \"Podstawowy\" za 400 zł. Aby skorzystać z promocji, podaj naszemu specjaliście ds. obsługi klienta kod promocyjny \"Start24\". Promocja obowiązuje tylko do końca września 2024 roku.",
-           "servicespromo.0.points.1": "Karta pobytu za 750 zł. Uzyskaj pakiet \"Wszystko w cenie\" za 750 zł. Aby skorzystać z promocji, podaj naszemu specjaliście ds. obsługi klienta kod promocyjny \"Start24\". Promocja obowiązuje tylko do końca września 2024 roku.",
-           "servicespromo.0.points.2": "Dokumenty obywatelstwa za 1500 zł. Pakiet \"Wszystko w cenie\". Aby skorzystać z promocji, podaj naszemu specjaliście ds. obsługi klienta kod promocyjny \"Start24\". Promocja obowiązuje tylko do końca września 2024 roku.",     
-   
+         "servicespromo.0.points.0": "Karta pobytu za 400 zł. Zdobądź pakiet \"Podstawowy\" za 400 zł. Aby skorzystać z promocji, podaj naszemu specjaliście ds. obsługi klienta kod promocyjny \"Start24\". Promocja obowiązuje tylko do końca listopada 2024 roku.",
+"servicespromo.0.points.1": "Karta pobytu za 750 zł. Zdobądź pakiet \"Wszystko w cenie\" za 1000 zł. Aby skorzystać z promocji, podaj naszemu specjaliście ds. obsługi klienta kod promocyjny \"Start24\". Promocja obowiązuje tylko do końca listopada 2024 roku.",
+"servicespromo.0.points.2": "Dokumenty na obywatelstwo za 1500 zł. Pakiet \"Wszystko w cenie\". Aby skorzystać z promocji, podaj naszemu specjaliście ds. obsługi klienta kod promocyjny \"Start24\". Promocja obowiązuje tylko do końca listopada 2024 roku.",
+
 "pricelistservices.0.title": "Kompleksowa pomoc w przygotowaniu dokumentów do złożenia wniosku o kartę pobytu",
 "pricelistservices.0.points.0": "Na podstawie zatrudnienia",
 "pricelistservices.0.points.1": "Na podstawie działalności gospodarczej",
@@ -702,10 +702,10 @@ i18n
           "menu.contact": "Інформація",
 
           "servicespromo.0.title": "АКЦІЇ",
-          "servicespromo.0.points.0": "Карта побиту за 400 зл. Встигніть придбати пакет \"Базовий\" за 400 зл. Щоб скористатися акцією, назвіть нашому спеціалісту по роботі з клієнтами промокод \"Старт24\". Акція діє тільки до кінця вересня 2024 року.",
-          "servicespromo.0.points.1": "Карта побиту за 750 зл. Встигніть придбати пакет \"Все включено\" за 750 зл. Щоб скористатися акцією, назвіть нашому спеціалісту по роботі з клієнтами промокод \"Старт24\". Акція діє тільки до кінця вересня 2024 року.",
-          "servicespromo.0.points.2": "Документи на громадянство за 1500 зл. Пакет \"Все включено\". Щоб скористатися акцією, назвіть нашому спеціалісту по роботі з клієнтами промокод \"Старт24\". Акція діє тільки до кінця вересня 2024 року.",
-     
+         "servicespromo.0.points.0": "Карта побиту за 400 зл. Встигніть придбати пакет \"Базовий\" за 400 зл. Щоб скористатися акцією, назвіть нашому спеціалісту з роботи з клієнтами промокод \"Старт24\". Акція діє лише до кінця листопада 2024 року.",
+          "servicespromo.0.points.1": "Карта побиту за 750 зл. Встигніть придбати пакет \"Все включено\" за 1000 зл. Щоб скористатися акцією, назвіть нашому спеціалісту з роботи з клієнтами промокод \"Старт24\". Акція діє лише до кінця листопада 2024 року.",
+          "servicespromo.0.points.2": "Документи на громадянство за 1500 зл. Пакет \"Все включено\". Щоб скористатися акцією, назвіть нашому спеціалісту з роботи з клієнтами промокод \"Старт24\". Акція діє лише до кінця листопада 2024 року.",
+
           "pricelistservices.0.title": "Комплексна допомога в підготовці документів для подачі на карту проживання",
 "pricelistservices.0.points.0": "На основі зайнятості",
 "pricelistservices.0.points.1": "На основі бізнесу",
@@ -1019,10 +1019,10 @@ i18n
         "menu.contact": "Інфармацыя",
 
         "servicespromo.0.title": "АКЦЫІ",
-        "servicespromo.0.points.0": "Карта побыту за 400 зл. Паспейце набыць пакет \"Базавы\" за 400 зл. Каб скарыстацца акцыяй, назавіце нашаму спецыялісту па працы з кліентамі промакод \"Старт24\". Акцыя дзейнічае толькі да канца верасня 2024 года.",
-        "servicespromo.0.points.1": "Карта побыту за 750 зл. Паспейце набыць пакет \"Усё ўключана\" за 750 зл. Каб скарыстацца акцыяй, назавіце нашаму спецыялісту па працы з кліентамі промакод \"Старт24\". Акцыя дзейнічае толькі да канца верасня 2024 года.",
-        "servicespromo.0.points.2": "Дакументы на грамадзянства за 1500 зл. Пакет \"Усё ўключана\". Каб скарыстацца акцыяй, назавіце нашаму спецыялісту па працы з кліентамі промакод \"Старт24\". Акцыя дзейнічае толькі да канца верасня 2024 года.",      
-       
+       "servicespromo.0.points.0": "Карта побыту за 400 зл. Спяшайцеся набыць пакет \"Базавы\" за 400 зл. Каб скарыстацца акцыяй, назавіце нашаму спецыялісту па працы з кліентамі прома-код \"Старт24\". Акцыя дзейнічае толькі да канца лістапада 2024 года.",
+        "servicespromo.0.points.1": "Карта побыту за 750 зл. Спяшайцеся набыць пакет \"Усё ўключана\" за 1000 зл. Каб скарыстацца акцыяй, назавіце нашаму спецыялісту па працы з кліентамі прома-код \"Старт24\". Акцыя дзейнічае толькі да канца лістапада 2024 года.",
+        "servicespromo.0.points.2": "Дакументы на грамадзянства за 1500 зл. Пакет \"Усё ўключана\". Каб скарыстацца акцыяй, назавіце нашаму спецыялісту па працы з кліентамі прома-код \"Старт24\". Акцыя дзейнічае толькі да канца лістапада 2024 года.",
+
         "pricelistservices.0.title": "Комплексная дапамога ў падрыхтоўцы дакументаў для падачы на карту пражывання",
 "pricelistservices.0.points.0": "На аснове занятасці",
 "pricelistservices.0.points.1": "На аснове бізнесу",
@@ -1332,9 +1332,9 @@ i18n
                   "menu.about": "О нас",
                   "menu.contact": "Информация",
                   "servicespromo.0.title": "АКЦИИ",
-                  "servicespromo.0.points.0": "Карта побыту за 400 зл. Успейте приобрести пакет \"Базовый\" за 400 зл. Чтобы воспользоваться акцией, назовите нашему специалисту по работе с клиентами промокод \"Старт24\". Акция действует только до конца сентября 2024 года.",
-                  "servicespromo.0.points.1": "Карта побыту за 750 зл. Успейте приобрести пакет \"Все включено\" за 750 зл. Чтобы воспользоваться акцией, назовите нашему специалисту по работе с клиентами промокод \"Старт24\". Акция действует только до конца сентября 2024 года.",
-                  "servicespromo.0.points.2": "Документы на гражданство за 1500 зл. Пакет \"Все включено\". Чтобы воспользоваться акцией, назовите нашему специалисту по работе с клиентами промокод \"Старт24\". Акция действует только до конца сентября 2024 года.",
+                  "servicespromo.0.points.0": "Карта побыту за 400 зл. Успейте приобрести пакет \"Базовый\" за 400 зл. Чтобы воспользоваться акцией, назовите нашему специалисту по работе с клиентами промокод \"Старт24\". Акция действует только до конца ноября 2024 года.",
+                  "servicespromo.0.points.1": "Карта побыту за 750 зл. Успейте приобрести пакет \"Все включено\" за 1000 зл. Чтобы воспользоваться акцией, назовите нашему специалисту по работе с клиентами промокод \"Старт24\". Акция действует только до конца ноября 2024 года.",
+                  "servicespromo.0.points.2": "Документы на гражданство за 1500 зл. Пакет \"Все включено\". Чтобы воспользоваться акцией, назовите нашему специалисту по работе с клиентами промокод \"Старт24\". Акция действует только до конца ноября 2024 года.",
                        
                   "pricelistservices.0.title": "Комплексная помощь в подготовке документов для подачи на Карту Побыта",
                   "pricelistservices.0.points.0": "На основе занятости",

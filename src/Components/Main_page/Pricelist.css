@@ -211,7 +211,8 @@
     display: block;
   }
   .right-column {
-    padding-top: 100px;
+    /* padding-top: 100px; */
+    display: none;
 }
 }
 
@@ -221,7 +222,8 @@
     display: block;
   }
   .right-column {
-    padding-top: 100px;
+    /* padding-top: 100px; */
+    display: none;
 }
 .slip-button {
   position: relative;

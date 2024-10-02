@@ -4,7 +4,7 @@
     border-radius: 100px;
     border: 2px solid #665f55;
     position: absolute;
-    top: 1rem;
+    top: 2rem;
     right: 1rem;
     cursor: pointer;
     display: none;
@@ -77,6 +77,24 @@
   
   .burger_menu_content_active .menu li:last-child {
     margin-bottom: 0;
+  }
+
+  @media (min-width: 481px) and (max-width: 768px) {
+    .header-contacts, .header-language-switcher{
+      display: none;
+    }
+    .burger_menu_content_active .header-language-switcher {
+      display: block;
+    }
+    .header_burger {
+        display: block;
+    }
+    .footer-section.services {
+      margin-bottom: 1rem;
+  }
+  .language-dropdown {
+    background-color: #c9c9c9;
+  }
   }
   
   @media (max-width: 480px) {

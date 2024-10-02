@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import './Footer.css';
 import '../Main_page/Modal.css';
 import phoneIcon from '../images/phone-white.png';
-
 import telegramIcon from '../images/telegram-white.png';
 import whatsappIcon from '../images/whatsapp-white.png';
 import viberIcon from '../images/viber-white.png';
@@ -11,6 +10,8 @@ import instagramIcon from '../images/instagram-white.png';
 import locationIcon from '../images/location-white.png';
 import ContactModal from '../Main_page/ContactModal';
 import { useTranslation } from 'react-i18next';
+import goUpImage from '../images/goUpImage.svg';
+
 
 const Footer = () => {
     const { t } = useTranslation();
@@ -70,16 +71,20 @@ const Footer = () => {
                     </div>
                         <p>{t('footer.address')}</p>
                         <p>{t('footer.timework')}</p>
-                    <p><a href="https://docs.google.com/document/d/16JRprD0eDLu8pWrwxZxPboOX6q2ZrptjAw5_CMQENSE/edit" >{t('footer.privacyPolicy')}</a></p>
+                    <p><a target="_blank"  href="https://docs.google.com/document/d/16JRprD0eDLu8pWrwxZxPboOX6q2ZrptjAw5_CMQENSE/edit" >{t('footer.privacyPolicy')}</a></p>
                 </div>
                 <div className="footer-section services">
                     <h2>{t('footer.services')}</h2>
-                    <p style={{ color: 'white' }}><a href="#services" className="footer-contact-link">Karta czasowego pobytu</a></p>
-                    <p style={{ color: 'white' }}><a href="#services" className="footer-contact-link">Karta stałego pobytu</a></p>
+                    <p style={{ color: 'white' }}><a href="#pricelist" className="footer-contact-link">Karta czasowego pobytu</a></p>
+                    <p style={{ color: 'white' }}><a href="#pricelist" className="footer-contact-link">Karta stałego pobytu</a></p>
                     <button onClick={handleContactClick}>{t('footer.question')}</button>
                     <ContactModal show={showContactModal} onClose={handleCloseModal} />
+               
                 </div>
             </div>
+            <button className="go-up" onClick={() => document.getElementById("pricelist").scrollIntoView({ behavior: 'smooth' })}>
+                <img src={goUpImage} alt="Go Up" />
+                </button>
             <div className="footer-bottom">
                 &copy; 2024 {t('footer.rights')}
             </div>

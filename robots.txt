@@ -1,0 +1,8 @@
+User-agent: *
+Disallow: /images/
+
+Allow: /
+
+Sitemap: https://www.legalline.pl/sitemap.xml
+
+
