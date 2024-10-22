@@ -33,6 +33,9 @@
     .slider-container {
       margin: 0;
   }
+  .slick-arrow {
+    z-index: -1;
+  }
   }
 
   @media (max-width: 480px)  {

@@ -118,6 +118,11 @@
     font-size: 20px;
 }
 
+.go-up {
+ background-color: #1a1a1a;
+ margin-bottom: 1rem;
+}
+
 @media (min-width: 1025px) and (max-width: 1199px) {
     .footer-content {
         text-align: start;

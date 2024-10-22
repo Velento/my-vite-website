@@ -44,7 +44,7 @@ const Footer = () => {
                     <h2>{t('footer.contacts')}</h2>
                     <div className="icon-text">
                         <img src={phoneIcon} alt="Phone" className="contact-icon" />
-                        <a href="tel:+48" className="footer-contact-link"> +48883734171</a>
+                        <a href="tel:+48883734171" className="footer-contact-link"> +48883734171</a>
                     </div>
                     <div className="icon-text">
                         <img src={telegramIcon} alt="Telegram" className="contact-icon" />
@@ -71,15 +71,17 @@ const Footer = () => {
                     </div>
                         <p>{t('footer.address')}</p>
                         <p>{t('footer.timework')}</p>
+                        <p><a href="mailto:legalline.pl@gmail.com">legalline.pl@gmail.com</a></p>
                     <p><a target="_blank"  href="https://docs.google.com/document/d/16JRprD0eDLu8pWrwxZxPboOX6q2ZrptjAw5_CMQENSE/edit" >{t('footer.privacyPolicy')}</a></p>
                 </div>
                 <div className="footer-section services">
                     <h2>{t('footer.services')}</h2>
                     <p style={{ color: 'white' }}><a href="#pricelist" className="footer-contact-link">Karta czasowego pobytu</a></p>
                     <p style={{ color: 'white' }}><a href="#pricelist" className="footer-contact-link">Karta stałego pobytu</a></p>
-                    <button onClick={handleContactClick}>{t('footer.question')}</button>
+                    {/* <button onClick={handleContactClick}>{t('footer.question')}</button>
                     <ContactModal show={showContactModal} onClose={handleCloseModal} />
-               
+                Кнопка задать вопрос импортирует контаск модал, отличающийся от должного модуля, который всплывает в других компонентах. Отличаются си сс параметры
+                */}
                 </div>
             </div>
             <button className="go-up" onClick={() => document.getElementById("pricelist").scrollIntoView({ behavior: 'smooth' })}>

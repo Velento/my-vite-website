@@ -11,10 +11,8 @@ function openViberChat(e) {
     const viberUrl = "viber://chat?number=%2B48883734171";
     const fallbackUrl = "https://www.viber.com/download/";
 
-    // Попытка открыть Viber
     window.location.href = viberUrl;
 
-    // Если Viber не установлен, перенаправляем на fallback URL
     setTimeout(() => {
         if (!document.hasFocus()) {
             return;
@@ -27,7 +25,7 @@ const ContactModal = ({ show, onClose }) => {
     const { t } = useTranslation();
     const [isFeedbackFormVisible, setIsFeedbackFormVisible] = useState(false);
 
-    if (!show) return null;
+    if (!show && !isFeedbackFormVisible) return null;
 
     const handleOpenFeedbackForm = () => {
         setIsFeedbackFormVisible(true);
@@ -35,32 +33,40 @@ const ContactModal = ({ show, onClose }) => {
 
     const handleCloseFeedbackForm = () => {
         setIsFeedbackFormVisible(false);
+        onClose(); // Закрываем ContactModal, если FeedBackForm закрывается
     };
 
     return (
-        <div className="modal" onClick={onClose}>
-            <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-                <span className="close" onClick={onClose}>&times;</span>
-                <h2>{t('modal.title')}</h2>
-                <p style={{ textAlign: 'center' }}>
-                    {t('modal.call')} <a href="tel:+48883734171">+48883734171</a>
-                </p>
-                <div className="contact-icons">
-                    <a href="https://t.me/LegalLine_pl" target="_blank" rel="noopener noreferrer">
-                        <img src={telegramIcon} alt="Telegram" className="contact-icon" />
-                    </a>
-                    <a href="https://wa.me/+48883734171" target="_blank" rel="noopener noreferrer">
-                        <img src={whatsappIcon} alt="WhatsApp" className="contact-icon" />
-                    </a>
-                    <a href="#!" onClick={openViberChat}>
-                        <img src={viberIcon} alt="Viber" className="contact-icon" />
-                    </a>
+        <>
+            {!isFeedbackFormVisible && (
+                <div className="modal" onClick={onClose}>
+                    <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+                        <span className="close" onClick={onClose}>&times;</span>
+                        <h2>{t('modal.title')}</h2>
+                        <p style={{ textAlign: 'center' }}>
+                            {t('modal.call')} <a href="tel:+48883734171">+48883734171</a>
+                        </p>
+                        <div className="contact-icons">
+                            <a href="https://t.me/LegalLine_pl" target="_blank" rel="noopener noreferrer">
+                                <img src={telegramIcon} alt="Telegram" className="contact-icon" />
+                            </a>
+                            <a href="https://wa.me/+48883734171" target="_blank" rel="noopener noreferrer">
+                                <img src={whatsappIcon} alt="WhatsApp" className="contact-icon" />
+                            </a>
+                            <a href="#!" onClick={openViberChat}>
+                                <img src={viberIcon} alt="Viber" className="contact-icon" />
+                            </a>
+                        </div>
+                        <button className="feedback-button" onClick={handleOpenFeedbackForm}>
+                            {t('modal.feedbackButton')}
+                        </button>
+                    </div>
                 </div>
-                <button className="feedback-button" onClick={handleOpenFeedbackForm}>{t('modal.feedbackButton')}</button>
-                {isFeedbackFormVisible && <FeedbackForm onClose={handleCloseFeedbackForm} />}
-            </div>
-        </div>
+            )}
+            {isFeedbackFormVisible && <FeedbackForm onClose={handleCloseFeedbackForm} />}
+        </>
     );
 };
 
 export default ContactModal;
+

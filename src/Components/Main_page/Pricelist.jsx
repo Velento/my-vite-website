@@ -117,7 +117,8 @@ const Pricelist = () => {
                 <button className="price-button" disabled>
                   {service.price}
                 </button>
-                <button className="consult-button" onClick={handleShowModal}>
+                {/* Кнопка измененеа consult-button на service-btn чтобы была лучше видмость кнопи */}
+                <button className="service-btn" onClick={handleShowModal}>
                   {t("consult_button")}
                 </button>
               </div>

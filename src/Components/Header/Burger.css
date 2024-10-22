@@ -4,7 +4,7 @@
     border-radius: 100px;
     border: 2px solid #665f55;
     position: absolute;
-    top: 2rem;
+    top: 3rem;
     right: 1rem;
     cursor: pointer;
     display: none;
@@ -106,6 +106,7 @@
     }
     .header_burger {
         display: block;
+        top: 4.6rem;
     }
     .footer-section.services {
       margin-bottom: 1rem;

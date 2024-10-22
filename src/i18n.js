@@ -56,7 +56,7 @@ i18n
           "consult_button": "Get consultation",
 
           "reason_texts.reason1": "We ensure price accessibility! Price is key!",
-          "reason_texts.reason2": "If we don't call you back within 45 minutes after you submit a request on the site, we will give you a 250 PLN discount on the purchase of a service.",
+          "reason_texts.reason2": "If we don't call you back within 45 minutes after you submit a request on the site, we will give you a 50 PLN discount on the purchase of a service.",
           "reason_texts.reason3": "1. Payment after the service is completed! You are not taking any risks. 2. If you do not achieve the result, we will refund your money within 7 days. We work under contract!",
 
           "modal.feedbackButton": "Leave a request", 
@@ -65,8 +65,13 @@ i18n
             name: "Your Name",
             phone: "Mobile Number",
             submit: "Submit",
-            cancel: "Cancel"
+            cancel: "Cancel",
+            promo: "Use promo code",
+            nameError: "Name must consist of letters only",
+            phoneError: "Enter at least 9 digits of your phone number"
           },
+            "textThankYou": "Thank you",
+            "textThank":  "Your application has been successfully submitted. We will call you!",
            "messageAlert": "Thank you for your request! Our specialists are already fighting to see who will call you first:)",
           "actionToCall": "Call now",
           "cookieMessage": "We use cookies! This site uses essential cookies to ensure its proper operation and tracking cookies to understand how you interact with it. The latter will only be set after consent.",
@@ -99,6 +104,41 @@ i18n
             title: "Choose a convenient contact method",
             call: "Call:"
           },
+
+            "benefits": {
+              "title": "What are the benefits for you?",
+              "reason1": {
+                "title": "Affordable price.",
+                "content": "We consider price affordability to be the most important criterion in our work. We always have special offers on popular services that you can check out on this website."
+              },
+              "reason2": {
+                "title": "Installment payment of 100 PLN per month.",
+                "content": "If you prefer to pay for the service in stages, you can arrange an 8-month installment plan. In this case, the monthly payment will be only 100 PLN."
+              },
+              "reason3": {
+                "title": "Money-back guarantee.",
+                "content": "If, through our fault, you receive a refusal for the residence permit, we will refund the full amount. Additionally, if we did everything correctly but you were still denied the permit, we will file an appeal or process a new permit for free."
+              },
+              "reason4": {
+                "title": "Communication with the office in Polish on your behalf.",
+                "content": "When you sign a contract with us, you will not need to visit the office. We will handle all communications in Polish, write letters to officials, and file complaints or lawsuits if necessary."
+              },
+              "reason5": {
+                "title": "We are always in touch.",
+                "content": "You can rest assured, as we take care of all legalization matters. However, if you have any questions, you are always welcome to visit our office or call us. Our contact details and working hours are listed on the website."
+              },
+              "reason6": {
+                "title": "Access to a personal account.",
+                "content": "If you prefer to monitor the status of your case yourself, we will provide you with access to a personal account on the official government website."
+              }
+            },
+            "team": {
+    "title": "Our Team",
+    "mission": {
+        "content": "The mission of the entire Legal Line team is to offer the most affordable service prices. Our specialists monitor market prices and make them as affordable as possible. Additionally, the core principle of the Legal Line team is trust. We trust you and want you to trust us. Therefore, we do not require prepayment for our services. You pay after assistance in solving your problem is provided. We also guarantee a refund within 7 days if we do not achieve a positive result."
+    }
+},
+          
           section1: {
             title: "We will achieve results or refund your money!",
             content: "We work under a contract with a money-back guarantee. This means that if something goes wrong and if you do not receive the final result due to our fault, we will refund you the full amount for our services.",
@@ -428,7 +468,7 @@ i18n
 "consult_button": "Uzyskaj konsultację",
 
 "reason_texts.reason1": "Zapewniamy dostępność cenową! Cena ma znaczenie!",
-"reason_texts.reason2": "Jeśli nie oddzwonimy do Ciebie w ciągu 45 minut od wysłania zapytania na stronie, otrzymasz 250 PLN zniżki na zakup usługi.",
+"reason_texts.reason2": "Jeśli nie oddzwonimy do Ciebie w ciągu 45 minut od wysłania zapytania na stronie, otrzymasz 50 PLN zniżki na zakup usługi.",
 "reason_texts.reason3": "1.Płatność po wykonaniu usługi! Nie ryzykujesz niczym. 2.Jeśli nie osiągniesz rezultatu, zwrócimy Ci pieniądze w ciągu 7 dni. Pracujemy na podstawie umowy!",
           "modal.feedbackButton": "Zostaw zapytanie", 
           feedbackForm: {
@@ -436,8 +476,13 @@ i18n
             name: "Twoje imię",
             phone: "Numer telefonu komórkowego",
             submit: "Zatwierdź",
-            cancel: "Anuluj"
+            cancel: "Anuluj",
+            promo: "Użyj kodu promocyjnego",
+            nameError: "Imię musi składać się tylko z liter",
+            phoneError: "Wprowadź co najmniej 9 cyfr swojego numeru telefonu"
           },
+          "textThankYou": "Dziękuję",
+          "textThank": "Twoje zgłoszenie zostało pomyślnie złożone. Zadzwonimy do Ciebie!",
           "messageAlert": "Dziękujemy za zgłoszenie! Nasi specjaliści już walczą o to, kto pierwszy do ciebie zadzwoni:)",
           "actionToCall": "Zadzwoń",
           "cookieMessage": "Używamy pliki cookie! Ta strona używa niezbędnych plików cookie, aby zapewnić jej prawidłowe działanie i śledzących plików cookie, aby zrozumieć, w jaki sposób wchodzisz z nią w interakcję. Te ostatnie zostaną ustawione dopiero po wyrażeniu zgody.",
@@ -466,6 +511,41 @@ i18n
             title: "Wybierz dogodną metodę kontaktu",
             call: "Zadzwoń:"
           },
+
+          "benefits": {
+  "title": "Jakie korzyści dla Ciebie?",
+  "reason1": {
+    "title": "Przystępna cena.",
+    "content": "Uważamy przystępność cen za najważniejsze kryterium w naszej pracy. Zawsze mamy promocje na popularne usługi, które można znaleźć na naszej stronie."
+  },
+  "reason2": {
+    "title": "Płatność w ratach po 100 zł miesięcznie.",
+    "content": "Jeśli wolisz płacić za usługę etapami, możesz rozłożyć płatność na 8 miesięcy. W takim przypadku miesięczna rata wyniesie jedynie 100 złotych."
+  },
+  "reason3": {
+    "title": "Zwrot pieniędzy.",
+    "content": "Jeśli z naszej winy otrzymasz odmowę wydania karty pobytu, zwrócimy Ci całą kwotę. Co więcej, jeśli wszystko zrobiliśmy poprawnie, ale z jakiegoś powodu odmówiono Ci wydania karty, bezpłatnie złożymy odwołanie lub przygotujemy nową kartę pobytu."
+  },
+  "reason4": {
+    "title": "Komunikacja w urzędzie po polsku za Ciebie.",
+    "content": "Podpisując z nami umowę, nie musisz osobiście odwiedzać urzędu. Prowadzimy negocjacje po polsku, piszemy pisma do urzędników, składamy skargi lub pozwy do sądu."
+  },
+  "reason5": {
+    "title": "Jesteśmy zawsze w kontakcie.",
+    "content": "Możesz być spokojny, ponieważ zajmiemy się wszystkimi kwestiami związanymi z legalizacją. Jednak jeśli pojawi się pytanie, zawsze możesz nas odwiedzić w biurze lub zadzwonić. Nasze dane kontaktowe i godziny otwarcia znajdują się na stronie."
+  },
+  "reason6": {
+    "title": "Zapewniamy dostęp do panelu klienta.",
+    "content": "Jeśli chcesz samodzielnie monitorować status swojej sprawy, zapewniamy Ci dostęp do panelu klienta na oficjalnej stronie urzędu."
+  }
+},
+"team": {
+    "title": "Nasz zespół",
+    "mission": {
+        "content": "Misją całego zespołu Legal Line jest zaoferowanie jak najbardziej przystępnych cen za usługi. Nasi specjaliści monitorują ceny na rynku i starają się, aby były one jak najniższe. Dodatkowo, główną zasadą zespołu Legal Line jest zaufanie. My ufamy Tobie i chcemy, abyś nam ufał. Dlatego nie wymagamy zaliczki za nasze usługi. Płacisz po udzieleniu pomocy w rozwiązaniu Twojego problemu. Gwarantujemy również zwrot pieniędzy w ciągu 7 dni, jeśli nie osiągniemy pozytywnego rezultatu."
+    }
+},
+
           "header": {
             "slogan": " Legalizacja w Polsce w przystępnej cenie",
             "contacts": "Kontakty"
@@ -742,7 +822,7 @@ i18n
 "consult_button": "Отримати консультацію",
 
 "reason_texts.reason1": "Ми забезпечуємо доступність цін! Ціна — це ключ!",
-"reason_texts.reason2": "Якщо ми не передзвонимо вам протягом 45 хвилин після відправки запиту на сайті, ми надамо вам знижку 250 PLN на покупку послуги.",
+"reason_texts.reason2": "Якщо ми не передзвонимо вам протягом 45 хвилин після відправки запиту на сайті, ми надамо вам знижку 50 PLN на покупку послуги.",
 "reason_texts.reason3": "1. Оплата після виконання послуги! Ви нічим не ризикуєте. 2. Якщо ви не досягнете результату, ми повернемо ваші гроші протягом 7 днів. Ми працюємо за договором!",
 
           "modal.feedbackButton": "Залишити запит", 
@@ -751,8 +831,13 @@ i18n
             name: "Ваше ім'я",
             phone: "Мобільний номер",
             submit: "Відправити",
-            cancel: "Скасувати"
+            cancel: "Скасувати",
+            promo: "Використовуйте промокод",
+            nameError: "Ім'я повинно складатися лише з літер",
+            phoneError: "Введіть не менше 9 цифр вашого номера телефону"
           },
+          "textThankYou": "Дякую",
+          "textThank": "Ваша заявка успішно оформлена. Ми вам зателефонуємо!",
           "messageAlert": "Дякуємо за запит! Наші спеціалісти вже змагаються за те, хто швидше до вас зателефонує:)",
           "actionToCall": "Зателефонувати",
           "cookieMessage": "Ми використовуємо файли cookie! Цей сайт використовує необхідні файли cookie для забезпечення його правильної роботи і файли cookie для відстеження, щоб зрозуміти, як ви взаємодієте з ним. Останні будуть встановлені лише після згоди.",
@@ -782,6 +867,40 @@ i18n
             title: "Виберіть зручний спосіб зв'язку",
             call: "Подзвонити:"
           },
+            "benefits": {
+              "title": "Які вигоди для вас?",
+              "reason1": {
+                "title": "Доступна ціна.",
+                "content": "Доступність цін ми вважаємо найголовнішим критерієм у нашій роботі. У нас завжди є акції на популярні послуги, які ви зможете переглянути на цьому сайті."
+              },
+              "reason2": {
+                "title": "Оплата в РОЗСТРОЧКУ по 100 злотих на місяць.",
+                "content": "Якщо вам зручніше оплачувати послугу поетапно, ви можете оформити розстрочку на 8 місяців. При цьому щомісячна оплата становитиме лише 100 злотих."
+              },
+              "reason3": {
+                "title": "Повернення коштів.",
+                "content": "Якщо з нашої вини вам відмовлять у видачі карти побиту, ми повернемо вам всю суму. Крім того, якщо ми все зробили правильно, але з якоїсь причини вам відмовили у карті, ми безкоштовно подамо апеляцію або зробимо вам нову карту побиту безкоштовно."
+              },
+              "reason4": {
+                "title": "Спілкування в Ужонді за вас польською мовою.",
+                "content": "При укладенні договору з нами, ви не будете відвідувати Ужонд. Ми самі проведемо переговори польською мовою, напишемо листи посадовим особам, подамо скаргу або позов до суду."
+              },
+              "reason5": {
+                "title": "Ми завжди на зв’язку.",
+                "content": "Ви можете бути спокійні, адже всі питання щодо легалізації ми беремо на себе. Однак, якщо у вас виникне питання, ви завжди можете прийти до нас в офіс або зателефонувати. Наші контакти та режим роботи вказані на сайті."
+              },
+              "reason6": {
+                "title": "Надаємо доступ до особистого кабінету.",
+                "content": "Якщо ви хочете самі контролювати статус вашої справи, ми надамо вам доступ до особистого кабінету на державному сайті Ужонда."
+              }
+            },  
+            "team": {
+    "title": "Наша команда",
+    "mission": {
+        "content": "Місія всієї команди Legal Line полягає в тому, щоб запропонувати максимально доступні ціни на послуги. Наші фахівці стежать за цінами на ринку і роблять їх максимально доступними настільки, наскільки це можливо. Крім того, основний принцип для команди Legal Line - це довіра. Ми довіряємо вам і хочемо, щоб ви довіряли нам. Тому ми не вимагаємо передоплати за наші послуги. Ви платите після надання допомоги у вирішенні вашої проблеми. Також ми гарантуємо повернення грошей протягом 7 днів, якщо ми не досягнемо позитивного результату."
+    }
+},
+        
           "header": {
             "slogan": "Легалізація в Польщі за доступною ціною",
             "contacts": "Контакти"
@@ -1059,7 +1178,7 @@ i18n
 "consult_button": "Атрымаць кансультацыю",
 
 "reason_texts.reason1": "Мы забяспечваем даступнасць цэн! Цана — гэта ключ!",
-"reason_texts.reason2": "Калі мы не ператэлефануем вам на працягу 45 хвілін пасля адпраўкі запыту на сайце, мы дамо вам зніжку 250 PLN на куплю паслугі.",
+"reason_texts.reason2": "Калі мы не ператэлефануем вам на працягу 45 хвілін пасля адпраўкі запыту на сайце, мы дамо вам зніжку 50 PLN на куплю паслугі.",
 "reason_texts.reason3": "1. Аплата пасля выканання паслугі! Вы нічым не рызыкуеце. 2. Калі вы не дасягнеце выніку, мы вернем вашы грошы на працягу 7 дзён. Мы працуем па дагаворы!",
         "modal.feedbackButton": "Пакінуць заяўку", 
         feedbackForm: {
@@ -1067,8 +1186,14 @@ i18n
           name: "Вашае імя",
           phone: "Мабільны нумар",
           submit: "Адправіць",
-          cancel: "Адмяніць"
+          cancel: "Адмяніць",
+          promo: "Выкарыстоўвайце прома-код",
+          nameError: "Імя павінна складацца толькі з літар",
+          phoneError: "Увядзіце не менш за 9 цифраў вашага нумара тэлефона"
+
         },
+        "textThankYou": "Дякуй",
+        "textThank": "Ваша заяўка паспяхова аформлена. Мы вам патэлефонуем!",
         "messageAlert": "Дзякуй за заяўку! Нашы спецыялісты ўжо змагаюцца, хто хутчэй да вас патэлефануе:)",
         "actionToCall": "Патэлефанаваць",
         "cookieMessage": "Мы выкарыстоўваем файлы cookie! Гэты сайт выкарыстоўвае неабходныя файлы cookie для забеспячэння яго правільнай працы і файлы cookie для адсочвання, каб зразумець, як вы ўзаемадзейнічаеце з ім. Апошнія будуць устаноўлены толькі пасля згоды.",
@@ -1101,6 +1226,39 @@ i18n
           "title": "Выберыце зручны тып звароту",
           "call": "Патэлефанаваць:"
         },
+        "benefits": {
+  "title": "Якія выгады для вас?",
+  "reason1": {
+    "title": "Даступная цана.",
+    "content": "Даступнасць цэн мы лічым самым галоўным крытэрыем у нашай працы. У нас заўсёды ёсць акцыі на папулярныя паслугі, якія вы зможаце паглядзець на гэтым сайце."
+  },
+  "reason2": {
+    "title": "Аплата ў растэрміноўку па 100 зл. у месяц.",
+    "content": "Калі вам зручней аплачваць паслугу паэтапна, то вы можаце аформіць растэрміноўку на 8 месяцаў. Пры гэтым штомесячны плацёж складзе ўсяго толькі 100 злотых."
+  },
+  "reason3": {
+    "title": "Вяртанне грашовых сродкаў.",
+    "content": "Калі па нашай віне вам адмовяць у выдачы карты побыту, то мы вернем вам усю суму. Акрамя таго, калі мы зрабілі ўсё правільна, але па якой-небудзь прычыне вам адмовілі ў карце, то мы бясплатна пададзім апеляцыю або зробім новую карту побыту бясплатна."
+  },
+  "reason4": {
+    "title": "Зносіны ў Ужондзе за вас на польскай мове.",
+    "content": "Пры заключэнні дамовы з намі, вы не будзеце наведваць Ужонд. Мы самі правядзем перамовы на польскай мове, напішам лісты службовым асобам, пададзім скаргу або іск у суд."
+  },
+  "reason5": {
+    "title": "Мы заўсёды на сувязі.",
+    "content": "Вы можаце быць спакойныя, бо ўсе пытанні па легалізацыі мы бярэм на сябе. Аднак, калі ў вас узнікне пытанне, вы заўсёды можаце прыйсці да нас у офіс або патэлефанаваць. Нашы кантакты і рэжым працы паказаны на сайце."
+  },
+  "reason6": {
+    "title": "Прадастаўляем доступ да асабістага кабінета.",
+    "content": "Калі вы хочаце самі кантраляваць статус вашай справы, то мы прадаставім вам доступ да асабістага кабінета на дзяржаўным сайце Ужонда."
+  }
+},
+"team": {
+    "title": "Наша каманда",
+    "mission": {
+        "content": "Місія ўсёй каманды Legal Line заключаецца ў тым, каб прапанаваць максімальна даступныя цэны на паслугі. Нашы спецыялісты сочаць за цэнамі на рынку і робяць іх максімальна даступнымі наколькі гэта магчыма. Акрамя таго, асноўны прынцып для каманды Legal Line - гэта давер. Мы давяраем вам і хочам, каб вы давяралі нам. Таму мы не патрабуем перадаплаты за нашы паслугі. Вы плаціце пасля аказання дапамогі ў вырашэнні вашай праблемы. Таксама мы гарантуем вяртанне грошай на працягу 7 дзён, калі мы не дасягнем пазітыўнага выніку."
+    }
+},
          section1: {
       title: "Давядзем да выніку або вярнем грошы!",
       content: "Мы працуем па дагаворы з гарантыяй вяртання грошай. Гэта значыць, што калі што-небудзь пайдзе не па плану і з нашай віны ты не атрымаеш канчатковы вынік, мы вярнем табе ўсю суму за нашыя паслугі.",
@@ -1372,7 +1530,7 @@ i18n
                   "consult_button": "Получить консультацию",
         
                   "reason_texts.reason1": "Мы обеспечиваем доступность цен! Цена — это ключ!",
-                  "reason_texts.reason2": "Если мы не перезвоним вам в течение 45 минут после отправки запроса на сайте, мы дадим вам скидку 250 PLN на покупку услуги.",
+                  "reason_texts.reason2": "Если мы не перезвоним вам в течение 45 минут после отправки запроса на сайте, мы дадим вам скидку 50 PLN на покупку услуги.",
                   "reason_texts.reason3": "1.Оплата после выполнения услуги! Вы ничем не рискуете. 2. Если вы не добьетесь результата, мы вернем ваши деньги в течение 7 дней. Мы работаем по договору!",        
                   "modal.feedbackButton": "Оставить заявку", 
                   feedbackForm: {
@@ -1380,8 +1538,14 @@ i18n
                     name: "Ваше имя",
                     phone: "Мобильный номер",
                     submit: "Отправить",
-                    cancel: "Отмена"
+                    cancel: "Отмена",
+                    promo: "Используйте промо-код",
+                    nameError: "Имя должно состоять только из букв",
+                    phoneError: "Введите не менее 9 цифр вашего номера телефона "
+
                   },
+                  "textThankYou": "Спасибо",
+                  "textThank": "Ваша заявка оформлена успешно. Мы вам позвоним!",
                   "messageAlert" : "Спасибо за заявку! Наши специалисты уже бьются за то, кто быстрее до вас дозвонится:)",
                   "actionToCall": "Позвонить",
                   "cookieMessage": "Мы используем файлы cookie! Этот сайт использует необходимые файлы cookie для обеспечения его правильной работы и файлы cookie для отслеживания, чтобы понять, как вы взаимодействуете с ним. Последние будут установлены только после согласия.",
@@ -1414,6 +1578,41 @@ i18n
                     title: "Выберите удобный тип связи",
                     call: "Позвонить:"
                   },
+
+                     "benefits": {
+                      "title": "Какие выгоды для вас?",
+                      "reason1": {
+                        "title": "Доступная цена.",
+                        "content": "Доступность цен мы считаем самым главным критерием в нашей работе. У нас всегда есть акции на популярные услуги, которые вы сможете посмотреть на данном сайте."
+                      },
+                      "reason2": {
+                        "title": "Оплата в РАССРОЧКУ по 100 зл. в месяц.",
+                        "content": "Если вам удобнее оплачивать услугу поэтапно, то вы можете оформить рассрочку на 8 месяцев. При этом месячная оплата составит всего лишь 100 злотых."
+                      },
+                      "reason3": {
+                        "title": "Возврат денежных средств.",
+                        "content": "Если по нашей вине вам дадут отказ в выдаче карты побыту, то мы возвращаем вам всю сумму. Кроме того, если мы все сделали правильно, но по какой-то причине вам отказали в карте, то мы бесплатно подадим апелляцию или сделаем вам новую карту побыту бесплатно."
+                      },
+                      "reason4": {
+                        "title": "Общение в Ужонде за вас на польском языке.",
+                        "content": "При заключении договора с нами, вы не будете посещать Ужонд. Мы сами проведем переговоры на польском языке, напишем письма должностным лицам, подадим жалобу или иск в суд."
+                      },
+                      "reason5": {
+                        "title": "Мы всегда на связи.",
+                        "content": "Вы можете быть спокойны, так как все вопросы по легализации мы берем на себя. Однако, если у вас возникнет вопрос, вы всегда можете прийти к нам в офис или позвонить. Наши контакты и режим работы указаны на сайте."
+                      },
+                      "reason6": {
+                        "title": "Предоставляем доступ к личному кабинету.",
+                        "content": "Если вы хотите сами контролировать статус вашего дела, то мы предоставим вам доступ к личному кабинету на государственном сайте Ужонда."
+                      }
+                      },
+
+                  "team": {
+    "title": "Наша команда",
+    "mission": {
+        "content": "Миссия всей команды Legal Line состоит в том, чтобы предложить максимально доступные цены на услуги. Наши специалисты следят за ценами на рынке и делают цены максимально доступными насколько это возможно. Кроме того, основной принцип для команды Legal Line - это доверие. Мы доверяем вам и хотим, чтобы вы доверяли нам. Поэтому не требуем предоплаты за наши услуги. Вы платите после оказания помощи в решении вашей проблемы. Также мы гарантируем возврат денежных средств в течение 7 дней, если мы не достигнем положительного результата работы."
+    }
+},
                   section1: {
                     title: "Доведем до результата или вернем деньги!",
                     content: "Мы работаем по договору с гарантией возврата денег. Это значит, что если что-то пойдет не по плану и если по нашей вине ты не получишь конечного результата, то мы вернем тебе всю сумму за наши услуги.",

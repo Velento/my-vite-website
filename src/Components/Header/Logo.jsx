@@ -18,7 +18,7 @@ function Logo() {
       <img src={logo} alt="Legal Logo" className="logo-image" />
     </div>
     <div className="logo-text">
-    <h1 className="header-slogan">{t('header.slogan')}</h1>
+    {/* <h1 className="header-slogan">{t('header.slogan')}</h1> */}
     </div>
     </div>
   );
