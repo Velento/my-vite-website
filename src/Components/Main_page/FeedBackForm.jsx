@@ -3,8 +3,6 @@ import axios from 'axios';
 import './FeedBackForm.css';
 import { useTranslation } from 'react-i18next';
 import ThankYou from './ThankYou';
-import { google } from 'googleapis';
-import path from 'path'; // Импортируем path для использования keyFile
 
 const FeedbackForm = ({ onClose }) => {
     const { t } = useTranslation();
@@ -15,34 +13,38 @@ const FeedbackForm = ({ onClose }) => {
     const [showThankYou, setShowThankYou] = useState(false);
 
     const isNameValid = /^[A-Za-zА-Яа-яЁё\s]+$/.test(name);
-    const isPhoneValid = /^\d{9,}$/.test(phone);
+    const isPhoneValid = /^[+\d][\d\s\-()]{8,}$/.test(phone);
     const isFormValid = isNameValid && isPhoneValid;
 
     // Функция для добавления данных в Google Таблицу
-    const appendToSheet = async (data) => {
-        console.log("Начинается подключение к Google Sheets API");
-        const auth = new google.auth.GoogleAuth({
-            keyFile: path.join(__dirname, '..', '..','..', 'credentials', 'credentials.json'),
-            scopes: ['https://www.googleapis.com/auth/spreadsheets'],
-        });
-        const client = await auth.getClient();
-        const sheets = google.sheets({ version: 'v4', auth: client });
-    
-        const spreadsheetId = '17cn8hwR1Qd1gp5vuXrLVU1mlfC8hO8n4HeEPAAHesH8';
-        const range = 'Лист1!B:C,I:I';
-        
-        console.log("Отправка данных в Google Sheets...");
-        await sheets.spreadsheets.values.append({
-            spreadsheetId,
-            range,
-            valueInputOption: 'RAW',
-            resource: {
-                values: [[data.name, data.phone, data.promo]],
-            },
-        });
-        console.log("Данные успешно отправлены");
-    };
-    
+    // const appendToSheet = async (data) => {
+    //     const accessToken = 'YOUR_ACCESS_TOKEN'; // Вставьте свой OAuth токен
+    //     const spreadsheetId = '17cn8hwR1Qd1gp5vuXrLVU1mlfC8hO8n4HeEPAAHesH8';
+    //     const range = 'Лист1!B:C,I:I';
+
+    //     try {
+    //         await axios.post(
+    //             `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${range}:append`,
+    //             {
+    //                 values: [[data.name, data.phone, data.promo]],
+    //             },
+    //             {
+    //                 headers: {
+    //                     'Content-Type': 'application/json',
+    //                     Authorization: `Bearer ${accessToken}`,
+    //                 },
+    //                 params: {
+    //                     valueInputOption: 'RAW',
+    //                 },
+    //             }
+    //         );
+    //         console.log('Данные успешно отправлены в Google Таблицу');
+    //     } catch (error) {
+    //         console.error('Ошибка при отправке данных в Google Таблицу:', error);
+    //         throw new Error('Failed to append data to Google Sheet');
+    //     }
+    // };
+
     // Обработчик отправки формы
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -58,7 +60,7 @@ const FeedbackForm = ({ onClose }) => {
             });
 
             // Отправка данных в Google Таблицу
-            await appendToSheet({ name, phone, promo });
+            // await appendToSheet({ name, phone, promo });
 
             setShowMessage(true);
             setTimeout(() => {
@@ -137,5 +139,3 @@ const FeedbackForm = ({ onClose }) => {
 };
 
 export default FeedbackForm;
-
-

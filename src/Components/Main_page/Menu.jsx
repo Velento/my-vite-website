@@ -14,6 +14,7 @@ const Menu = () => {
         <li><a href="#services">{t('menu.services')}</a></li>
         <li><a href="#about">{t('menu.about')}</a></li>
         <li><a href="#footer">{t('menu.contact')}</a></li>
+        <li><a href="#leedform">{t('menu.feedback')}</a></li>
       </ul>
     </nav>
   );

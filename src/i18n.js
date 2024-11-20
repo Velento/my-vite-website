@@ -14,6 +14,7 @@ i18n
           "menu.services": "Services",
           "menu.about": "About Us",
           "menu.contact": "Information",
+          "menu.feedback": "Submit a request",
 
           "servicespromo.0.title": "PROMOTIONS",
          "servicespromo.0.points.0": "Get the \"Basic\" package for 400 PLN. To take advantage of the promotion, mention the promo code \"Start24\" to our customer service specialist. The promotion is valid only until the end of November 2024.",
@@ -427,6 +428,7 @@ i18n
           "menu.services": "Usługi",
           "menu.about": "O nas",
           "menu.contact": "Informacje",
+          "menu.feedback": "Zostaw zapytanie",
           "servicespromo.0.title": "PROMOCJE",
          "servicespromo.0.points.0": "Zdobądź pakiet \"Podstawowy\" za 400 zł. Aby skorzystać z promocji, podaj naszemu specjaliście ds. obsługi klienta kod promocyjny \"Start24\". Promocja obowiązuje tylko do końca listopada 2024 roku.",
 "servicespromo.0.points.1": "Zdobądź pakiet \"Wszystko w cenie\" za 1000 zł. Aby skorzystać z promocji, podaj naszemu specjaliście ds. obsługi klienta kod promocyjny \"Start24\". Promocja obowiązuje tylko do końca listopada 2024 roku.",
@@ -780,6 +782,7 @@ i18n
           "menu.services": "Послуги",
           "menu.about": "Про нас",
           "menu.contact": "Інформація",
+          "menu.feedback": "Залишити заявку",
 
           "servicespromo.0.title": "АКЦІЇ",
          "servicespromo.0.points.0": "Встигніть придбати пакет \"Базовий\" за 400 зл. Щоб скористатися акцією, назвіть нашому спеціалісту з роботи з клієнтами промокод \"Старт24\". Акція діє лише до кінця листопада 2024 року.",
@@ -1136,6 +1139,7 @@ i18n
         "menu.services": "Паслугі",
         "menu.about": "Пра нас",
         "menu.contact": "Інфармацыя",
+        "menu.feedback": "Пакінуць заяўку",
 
         "servicespromo.0.title": "АКЦЫІ",
        "servicespromo.0.points.0": "Спяшайцеся набыць пакет \"Базавы\" за 400 зл. Каб скарыстацца акцыяй, назавіце нашаму спецыялісту па працы з кліентамі прома-код \"Старт24\". Акцыя дзейнічае толькі да канца лістапада 2024 года.",
@@ -1489,6 +1493,7 @@ i18n
                   "menu.services": "Услуги",
                   "menu.about": "О нас",
                   "menu.contact": "Информация",
+                  "menu.feedback": "Оставить заявку",
                   "servicespromo.0.title": "АКЦИИ",
                   "servicespromo.0.points.0": "Успейте приобрести пакет \"Базовый\" за 400 зл. Чтобы воспользоваться акцией, назовите нашему специалисту по работе с клиентами промокод \"Старт24\". Акция действует только до конца ноября 2024 года.",
                   "servicespromo.0.points.1": "Успейте приобрести пакет \"Все включено\" за 1000 зл. Чтобы воспользоваться акцией, назовите нашему специалисту по работе с клиентами промокод \"Старт24\". Акция действует только до конца ноября 2024 года.",
