@@ -18,8 +18,8 @@ i18n
 
           "servicespromo.0.title": "PROMOTIONS",
          "servicespromo.0.points.0": "Get the \"Basic\" package for 400 PLN. To take advantage of the promotion, mention the promo code \"Start24\" to our customer service specialist. The promotion is valid only until the end of November 2024.",
-          "servicespromo.0.points.1": "Get the \"All-Inclusive\" package for 1000 PLN. To take advantage of the promotion, mention the promo code \"Start24\" to our customer service specialist. The promotion is valid only until the end of November 2024.",
-          "servicespromo.0.points.2": "Citizenship documents for 1500 PLN. \"All-Inclusive\" package. To take advantage of the promotion, mention the promo code \"Start24\" to our customer service specialist. The promotion is valid only until the end of November 2024.",
+          "servicespromo.0.points.1": "Get the \"All-Inclusive\" package for 750 PLN. To take advantage of the promotion, mention the promo code \"Start24\" to our customer service specialist. The promotion is valid only until the end of November 2024.",
+          "servicespromo.0.points.2": "Citizenship documents for 1500 PLN. To take advantage of the promotion, mention the promo code \"Start24\" to our customer service specialist. The promotion is valid only until the end of November 2024.",
 
           "pricelistservices.0.title": "Comprehensive assistance with documents for residence card application",
           "pricelistservices.0.points.0": "Based on employment",
@@ -58,7 +58,7 @@ i18n
 
           "reason_texts.reason1": "We ensure price accessibility! Price is key!",
           "reason_texts.reason2": "If we don't call you back within 45 minutes after you submit a request on the site, we will give you a 50 PLN discount on the purchase of a service.",
-          "reason_texts.reason3": "1. Payment after the service is completed! You are not taking any risks. 2. If you do not achieve the result, we will refund your money within 7 days. We work under contract!",
+          "reason_texts.reason3": "If you do not achieve the result, we will refund your money within 7 days. We work under contract!",
 
           "modal.feedbackButton": "Leave a request", 
           feedbackForm: {
@@ -136,7 +136,7 @@ i18n
             "team": {
     "title": "Our Team",
     "mission": {
-        "content": "The mission of the entire Legal Line team is to offer the most affordable service prices. Our specialists monitor market prices and make them as affordable as possible. Additionally, the core principle of the Legal Line team is trust. We trust you and want you to trust us. Therefore, we do not require prepayment for our services. You pay after assistance in solving your problem is provided. We also guarantee a refund within 7 days if we do not achieve a positive result."
+        "content": "The mission of the entire Legal Line team is to offer the most affordable service prices. Our specialists monitor market prices and make them as affordable as possible. Additionally, the core principle of the Legal Line team is trust. We trust you and want you to trust us. We guarantee a refund within 7 days if we do not achieve a positive result."
     }
 },
           
@@ -431,8 +431,8 @@ i18n
           "menu.feedback": "Zostaw zapytanie",
           "servicespromo.0.title": "PROMOCJE",
          "servicespromo.0.points.0": "Zdobądź pakiet \"Podstawowy\" za 400 zł. Aby skorzystać z promocji, podaj naszemu specjaliście ds. obsługi klienta kod promocyjny \"Start24\". Promocja obowiązuje tylko do końca listopada 2024 roku.",
-"servicespromo.0.points.1": "Zdobądź pakiet \"Wszystko w cenie\" za 1000 zł. Aby skorzystać z promocji, podaj naszemu specjaliście ds. obsługi klienta kod promocyjny \"Start24\". Promocja obowiązuje tylko do końca listopada 2024 roku.",
-"servicespromo.0.points.2": "Dokumenty na obywatelstwo za 1500 zł. Pakiet \"Wszystko w cenie\". Aby skorzystać z promocji, podaj naszemu specjaliście ds. obsługi klienta kod promocyjny \"Start24\". Promocja obowiązuje tylko do końca listopada 2024 roku.",
+"servicespromo.0.points.1": "Zdobądź pakiet \"Wszystko w cenie\" za 750 zł. Aby skorzystać z promocji, podaj naszemu specjaliście ds. obsługi klienta kod promocyjny \"Start24\". Promocja obowiązuje tylko do końca listopada 2024 roku.",
+"servicespromo.0.points.2": "Dokumenty na obywatelstwo za 1500 zł. Aby skorzystać z promocji, podaj naszemu specjaliście ds. obsługi klienta kod promocyjny \"Start24\". Promocja obowiązuje tylko do końca listopada 2024 roku.",
 
 "pricelistservices.0.title": "Kompleksowa pomoc w przygotowaniu dokumentów do złożenia wniosku o kartę pobytu",
 "pricelistservices.0.points.0": "Na podstawie zatrudnienia",
@@ -471,7 +471,7 @@ i18n
 
 "reason_texts.reason1": "Zapewniamy dostępność cenową! Cena ma znaczenie!",
 "reason_texts.reason2": "Jeśli nie oddzwonimy do Ciebie w ciągu 45 minut od wysłania zapytania na stronie, otrzymasz 50 PLN zniżki na zakup usługi.",
-"reason_texts.reason3": "1.Płatność po wykonaniu usługi! Nie ryzykujesz niczym. 2.Jeśli nie osiągniesz rezultatu, zwrócimy Ci pieniądze w ciągu 7 dni. Pracujemy na podstawie umowy!",
+"reason_texts.reason3": "Jeśli nie osiągniesz rezultatu, zwrócimy Ci pieniądze w ciągu 7 dni. Pracujemy na podstawie umowy!",
           "modal.feedbackButton": "Zostaw zapytanie", 
           feedbackForm: {
             title: "Zostaw zapytanie",
@@ -544,7 +544,7 @@ i18n
 "team": {
     "title": "Nasz zespół",
     "mission": {
-        "content": "Misją całego zespołu Legal Line jest zaoferowanie jak najbardziej przystępnych cen za usługi. Nasi specjaliści monitorują ceny na rynku i starają się, aby były one jak najniższe. Dodatkowo, główną zasadą zespołu Legal Line jest zaufanie. My ufamy Tobie i chcemy, abyś nam ufał. Dlatego nie wymagamy zaliczki za nasze usługi. Płacisz po udzieleniu pomocy w rozwiązaniu Twojego problemu. Gwarantujemy również zwrot pieniędzy w ciągu 7 dni, jeśli nie osiągniemy pozytywnego rezultatu."
+        "content": "Misją całego zespołu Legal Line jest zaoferowanie jak najbardziej przystępnych cen za usługi. Nasi specjaliści monitorują ceny na rynku i starają się, aby były one jak najniższe. Dodatkowo, główną zasadą zespołu Legal Line jest zaufanie. My ufamy Tobie i chcemy, abyś nam ufał. Gwarantujemy zwrot pieniędzy w ciągu 7 dni, jeśli nie osiągniemy pozytywnego rezultatu."
     }
 },
 
@@ -786,8 +786,8 @@ i18n
 
           "servicespromo.0.title": "АКЦІЇ",
          "servicespromo.0.points.0": "Встигніть придбати пакет \"Базовий\" за 400 зл. Щоб скористатися акцією, назвіть нашому спеціалісту з роботи з клієнтами промокод \"Старт24\". Акція діє лише до кінця листопада 2024 року.",
-          "servicespromo.0.points.1": "Встигніть придбати пакет \"Все включено\" за 1000 зл. Щоб скористатися акцією, назвіть нашому спеціалісту з роботи з клієнтами промокод \"Старт24\". Акція діє лише до кінця листопада 2024 року.",
-          "servicespromo.0.points.2": "Документи на громадянство за 1500 зл. Пакет \"Все включено\". Щоб скористатися акцією, назвіть нашому спеціалісту з роботи з клієнтами промокод \"Старт24\". Акція діє лише до кінця листопада 2024 року.",
+          "servicespromo.0.points.1": "Встигніть придбати пакет \"Все включено\" за 750 зл. Щоб скористатися акцією, назвіть нашому спеціалісту з роботи з клієнтами промокод \"Старт24\". Акція діє лише до кінця листопада 2024 року.",
+          "servicespromo.0.points.2": "Документи на громадянство за 1500 зл.  Щоб скористатися акцією, назвіть нашому спеціалісту з роботи з клієнтами промокод \"Старт24\". Акція діє лише до кінця листопада 2024 року.",
 
           "pricelistservices.0.title": "Комплексна допомога в підготовці документів для подачі на карту проживання",
 "pricelistservices.0.points.0": "На основі зайнятості",
@@ -826,7 +826,7 @@ i18n
 
 "reason_texts.reason1": "Ми забезпечуємо доступність цін! Ціна — це ключ!",
 "reason_texts.reason2": "Якщо ми не передзвонимо вам протягом 45 хвилин після відправки запиту на сайті, ми надамо вам знижку 50 PLN на покупку послуги.",
-"reason_texts.reason3": "1. Оплата після виконання послуги! Ви нічим не ризикуєте. 2. Якщо ви не досягнете результату, ми повернемо ваші гроші протягом 7 днів. Ми працюємо за договором!",
+"reason_texts.reason3": "Якщо ви не досягнете результату, ми повернемо ваші гроші протягом 7 днів. Ми працюємо за договором!",
 
           "modal.feedbackButton": "Залишити запит", 
           feedbackForm: {
@@ -900,7 +900,7 @@ i18n
             "team": {
     "title": "Наша команда",
     "mission": {
-        "content": "Місія всієї команди Legal Line полягає в тому, щоб запропонувати максимально доступні ціни на послуги. Наші фахівці стежать за цінами на ринку і роблять їх максимально доступними настільки, наскільки це можливо. Крім того, основний принцип для команди Legal Line - це довіра. Ми довіряємо вам і хочемо, щоб ви довіряли нам. Тому ми не вимагаємо передоплати за наші послуги. Ви платите після надання допомоги у вирішенні вашої проблеми. Також ми гарантуємо повернення грошей протягом 7 днів, якщо ми не досягнемо позитивного результату."
+        "content": "Місія всієї команди Legal Line полягає в тому, щоб запропонувати максимально доступні ціни на послуги. Наші фахівці стежать за цінами на ринку і роблять їх максимально доступними настільки, наскільки це можливо. Крім того, основний принцип для команди Legal Line - це довіра. Ми довіряємо вам і хочемо, щоб ви довіряли нам. Ми гарантуємо повернення грошей протягом 7 днів, якщо ми не досягнемо позитивного результату."
     }
 },
         
@@ -1143,8 +1143,8 @@ i18n
 
         "servicespromo.0.title": "АКЦЫІ",
        "servicespromo.0.points.0": "Спяшайцеся набыць пакет \"Базавы\" за 400 зл. Каб скарыстацца акцыяй, назавіце нашаму спецыялісту па працы з кліентамі прома-код \"Старт24\". Акцыя дзейнічае толькі да канца лістапада 2024 года.",
-        "servicespromo.0.points.1": "Спяшайцеся набыць пакет \"Усё ўключана\" за 1000 зл. Каб скарыстацца акцыяй, назавіце нашаму спецыялісту па працы з кліентамі прома-код \"Старт24\". Акцыя дзейнічае толькі да канца лістапада 2024 года.",
-        "servicespromo.0.points.2": "Дакументы на грамадзянства за 1500 зл. Пакет \"Усё ўключана\". Каб скарыстацца акцыяй, назавіце нашаму спецыялісту па працы з кліентамі прома-код \"Старт24\". Акцыя дзейнічае толькі да канца лістапада 2024 года.",
+        "servicespromo.0.points.1": "Спяшайцеся набыць пакет \"Усё ўключана\" за 750 зл. Каб скарыстацца акцыяй, назавіце нашаму спецыялісту па працы з кліентамі прома-код \"Старт24\". Акцыя дзейнічае толькі да канца лістапада 2024 года.",
+        "servicespromo.0.points.2": "Дакументы на грамадзянства за 1500 зл.  Каб скарыстацца акцыяй, назавіце нашаму спецыялісту па працы з кліентамі прома-код \"Старт24\". Акцыя дзейнічае толькі да канца лістапада 2024 года.",
 
         "pricelistservices.0.title": "Комплексная дапамога ў падрыхтоўцы дакументаў для падачы на карту пражывання",
 "pricelistservices.0.points.0": "На аснове занятасці",
@@ -1183,7 +1183,7 @@ i18n
 
 "reason_texts.reason1": "Мы забяспечваем даступнасць цэн! Цана — гэта ключ!",
 "reason_texts.reason2": "Калі мы не ператэлефануем вам на працягу 45 хвілін пасля адпраўкі запыту на сайце, мы дамо вам зніжку 50 PLN на куплю паслугі.",
-"reason_texts.reason3": "1. Аплата пасля выканання паслугі! Вы нічым не рызыкуеце. 2. Калі вы не дасягнеце выніку, мы вернем вашы грошы на працягу 7 дзён. Мы працуем па дагаворы!",
+"reason_texts.reason3": "Калі вы не дасягнеце выніку, мы вернем вашы грошы на працягу 7 дзён. Мы працуем па дагаворы!",
         "modal.feedbackButton": "Пакінуць заяўку", 
         feedbackForm: {
           title: "Пакінуць заяўку",
@@ -1260,7 +1260,7 @@ i18n
 "team": {
     "title": "Наша каманда",
     "mission": {
-        "content": "Місія ўсёй каманды Legal Line заключаецца ў тым, каб прапанаваць максімальна даступныя цэны на паслугі. Нашы спецыялісты сочаць за цэнамі на рынку і робяць іх максімальна даступнымі наколькі гэта магчыма. Акрамя таго, асноўны прынцып для каманды Legal Line - гэта давер. Мы давяраем вам і хочам, каб вы давяралі нам. Таму мы не патрабуем перадаплаты за нашы паслугі. Вы плаціце пасля аказання дапамогі ў вырашэнні вашай праблемы. Таксама мы гарантуем вяртанне грошай на працягу 7 дзён, калі мы не дасягнем пазітыўнага выніку."
+        "content": "Місія ўсёй каманды Legal Line заключаецца ў тым, каб прапанаваць максімальна даступныя цэны на паслугі. Нашы спецыялісты сочаць за цэнамі на рынку і робяць іх максімальна даступнымі наколькі гэта магчыма. Акрамя таго, асноўны прынцып для каманды Legal Line - гэта давер. Мы давяраем вам і хочам, каб вы давяралі нам. Мы гарантуем вяртанне грошай на працягу 7 дзён, калі мы не дасягнем пазітыўнага выніку."
     }
 },
          section1: {
@@ -1496,8 +1496,8 @@ i18n
                   "menu.feedback": "Оставить заявку",
                   "servicespromo.0.title": "АКЦИИ",
                   "servicespromo.0.points.0": "Успейте приобрести пакет \"Базовый\" за 400 зл. Чтобы воспользоваться акцией, назовите нашему специалисту по работе с клиентами промокод \"Старт24\". Акция действует только до конца ноября 2024 года.",
-                  "servicespromo.0.points.1": "Успейте приобрести пакет \"Все включено\" за 1000 зл. Чтобы воспользоваться акцией, назовите нашему специалисту по работе с клиентами промокод \"Старт24\". Акция действует только до конца ноября 2024 года.",
-                  "servicespromo.0.points.2": "Документы на гражданство за 1500 зл. Пакет \"Все включено\". Чтобы воспользоваться акцией, назовите нашему специалисту по работе с клиентами промокод \"Старт24\". Акция действует только до конца ноября 2024 года.",
+                  "servicespromo.0.points.1": "Успейте приобрести пакет \"Все включено\" за 750 зл. Чтобы воспользоваться акцией, назовите нашему специалисту по работе с клиентами промокод \"Старт24\". Акция действует только до конца ноября 2024 года.",
+                  "servicespromo.0.points.2": "Документы на гражданство за 1500 зл. Чтобы воспользоваться акцией, назовите нашему специалисту по работе с клиентами промокод \"Старт24\". Акция действует только до конца ноября 2024 года.",
                        
                   "pricelistservices.0.title": "Комплексная помощь в подготовке документов для подачи на Карту Побыта",
                   "pricelistservices.0.points.0": "На основе занятости",
@@ -1536,7 +1536,7 @@ i18n
         
                   "reason_texts.reason1": "Мы обеспечиваем доступность цен! Цена — это ключ!",
                   "reason_texts.reason2": "Если мы не перезвоним вам в течение 45 минут после отправки запроса на сайте, мы дадим вам скидку 50 PLN на покупку услуги.",
-                  "reason_texts.reason3": "1.Оплата после выполнения услуги! Вы ничем не рискуете. 2. Если вы не добьетесь результата, мы вернем ваши деньги в течение 7 дней. Мы работаем по договору!",        
+                  "reason_texts.reason3": "Если вы не добьетесь результата, мы вернем ваши деньги в течение 7 дней. Мы работаем по договору!",        
                   "modal.feedbackButton": "Оставить заявку", 
                   feedbackForm: {
                     title: "Оставить заявку",
@@ -1615,7 +1615,7 @@ i18n
                   "team": {
     "title": "Наша команда",
     "mission": {
-        "content": "Миссия всей команды Legal Line состоит в том, чтобы предложить максимально доступные цены на услуги. Наши специалисты следят за ценами на рынке и делают цены максимально доступными насколько это возможно. Кроме того, основной принцип для команды Legal Line - это доверие. Мы доверяем вам и хотим, чтобы вы доверяли нам. Поэтому не требуем предоплаты за наши услуги. Вы платите после оказания помощи в решении вашей проблемы. Также мы гарантируем возврат денежных средств в течение 7 дней, если мы не достигнем положительного результата работы."
+        "content": "Миссия всей команды Legal Line состоит в том, чтобы предложить максимально доступные цены на услуги. Наши специалисты следят за ценами на рынке и делают цены максимально доступными насколько это возможно. Кроме того, основной принцип для команды Legal Line - это доверие. Мы гарантируем возврат денежных средств в течение 7 дней, если мы не достигнем положительного результата работы."
     }
 },
                   section1: {
