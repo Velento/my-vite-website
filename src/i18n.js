@@ -18,7 +18,7 @@ i18n
 
           "servicespromo.0.title": "PROMOTIONS",
          "servicespromo.0.points.0": "Get the \"Basic\" package for 400 PLN. To take advantage of the promotion, mention the promo code \"Start24\" to our customer service specialist. The promotion is valid only until the end of November 2024.",
-          "servicespromo.0.points.1": "Get the \"All-Inclusive\" package for 750 PLN. To take advantage of the promotion, mention the promo code \"Start24\" to our customer service specialist. The promotion is valid only until the end of November 2024.",
+          "servicespromo.0.points.1": "Get the \"All-Inclusive\" package for 1100 PLN. To take advantage of the promotion, mention the promo code \"Start24\" to our customer service specialist. The promotion is valid only until the end of November 2024.",
           "servicespromo.0.points.2": "Citizenship documents for 1500 PLN. To take advantage of the promotion, mention the promo code \"Start24\" to our customer service specialist. The promotion is valid only until the end of November 2024.",
 
           "pricelistservices.0.title": "Comprehensive assistance with documents for residence card application",
@@ -29,7 +29,7 @@ i18n
           "pricelistservices.0.price": "From 500 to 1500 PLN",
 
           "pricelistservices.1.title": "Assistance with citizenship application documents",
-          "pricelistservices.1.price": "From 750 to 1500 PLN (Price until 30.09.2024)",
+          "pricelistservices.1.price": "From 1500 PLN",
 
           "pricelistservices.2.title": "Labor disputes: From 'Umowy zlecenia' to 'Umowy o pracę'",
           "pricelistservices.2.points.0": "Achieve transition from 'Umowy zlecenia' to 'Umowy o pracę'",
@@ -114,7 +114,7 @@ i18n
               },
               "reason2": {
                 "title": "Installment payment of 100 PLN per month.",
-                "content": "If you prefer to pay for the service in stages, you can arrange an 8-month installment plan. In this case, the monthly payment will be only 100 PLN."
+                "content": "If you prefer to pay for the service in stages, you can arrange an 9-month installment plan. In this case, the monthly payment will be only 100 PLN."
               },
               "reason3": {
                 "title": "Money-back guarantee.",
@@ -352,7 +352,7 @@ i18n
                 "button": "I WANT THE BASIC PACKAGE"
               },
               "Service8.allInclusivePackage": {
-                "title": 'All-Inclusive Package: 1500 PLN',
+                "title": 'All-Inclusive Package: 2000 PLN',
                 "content": "1) Consultation. 2) Comprehensive analysis of documents. 3) Civil document preparation. 4) Collection and preparation of the complete document package. 5) PESEL number preparation if needed. 6) Trusted profile registration (profil zaufany) if needed. 7) In case of a negative decision due to our fault - full refund.",
                 "button": "I WANT THE ALL-INCLUSIVE PACKAGE"
               },
@@ -378,7 +378,7 @@ i18n
             {
               title: "Assistance with citizenship application documents",
               points: [],
-              price: "From 750 to 1500 PLN (Price until 30.09.2024)"
+              price: "From 1500 PLN"
             },
             {
               title: "Labor disputes: From 'Umowy zlecenia' to 'Umowy o pracę'",
@@ -431,7 +431,7 @@ i18n
           "menu.feedback": "Zostaw zapytanie",
           "servicespromo.0.title": "PROMOCJE",
          "servicespromo.0.points.0": "Zdobądź pakiet \"Podstawowy\" za 400 zł. Aby skorzystać z promocji, podaj naszemu specjaliście ds. obsługi klienta kod promocyjny \"Start24\". Promocja obowiązuje tylko do końca listopada 2024 roku.",
-"servicespromo.0.points.1": "Zdobądź pakiet \"Wszystko w cenie\" za 750 zł. Aby skorzystać z promocji, podaj naszemu specjaliście ds. obsługi klienta kod promocyjny \"Start24\". Promocja obowiązuje tylko do końca listopada 2024 roku.",
+"servicespromo.0.points.1": "Zdobądź pakiet \"Wszystko w cenie\" za 1100 zł. Aby skorzystać z promocji, podaj naszemu specjaliście ds. obsługi klienta kod promocyjny \"Start24\". Promocja obowiązuje tylko do końca listopada 2024 roku.",
 "servicespromo.0.points.2": "Dokumenty na obywatelstwo za 1500 zł. Aby skorzystać z promocji, podaj naszemu specjaliście ds. obsługi klienta kod promocyjny \"Start24\". Promocja obowiązuje tylko do końca listopada 2024 roku.",
 
 "pricelistservices.0.title": "Kompleksowa pomoc w przygotowaniu dokumentów do złożenia wniosku o kartę pobytu",
@@ -442,7 +442,7 @@ i18n
 "pricelistservices.0.price": "Od 500 do 1500 PLN",
 
 "pricelistservices.1.title": "Pomoc w przygotowaniu dokumentów do złożenia wniosku o obywatelstwo",
-"pricelistservices.1.price": "Od 750 do 1500 PLN (Cena do 30.09.2024)",
+"pricelistservices.1.price": "Od 1500 PLN",
 
 "pricelistservices.2.title": "Spory pracownicze: Od 'Umowy zlecenia' do 'Umowy o pracę'",
 "pricelistservices.2.points.0": "Przejście z 'Umowy zlecenia' do 'Umowy o pracę'",
@@ -522,7 +522,7 @@ i18n
   },
   "reason2": {
     "title": "Płatność w ratach po 100 zł miesięcznie.",
-    "content": "Jeśli wolisz płacić za usługę etapami, możesz rozłożyć płatność na 8 miesięcy. W takim przypadku miesięczna rata wyniesie jedynie 100 złotych."
+    "content": "Jeśli wolisz płacić za usługę etapami, możesz rozłożyć płatność na 9 miesięcy. W takim przypadku miesięczna rata wyniesie jedynie 100 złotych."
   },
   "reason3": {
     "title": "Zwrot pieniędzy.",
@@ -759,7 +759,7 @@ i18n
                                   "button": "ZAMÓWIĆ"
                                 },
                                 "Service8.allInclusivePackage": {
-                                  "title": "Pakiet \"Wszystko w cenie\": 1500 zł",
+                                  "title": "Pakiet \"Wszystko w cenie\": 2000 zł",
                                   "content": "1) Konsultacja. 2) Pomoc w przygotowaniu dokumentów. 3) Zbieranie i przygotowanie pełnego pakietu dokumentów. 4) Wypełnianie wszystkich formularzy. 5) Monitorowanie sprawy, odbieranie korespondencji, składanie wszystkich niezbędnych dokumentów. 6) Kompleksowe wsparcie w Twojej sprawie aż do uzyskania decyzji. 7) W przypadku negatywnej decyzji z naszej winy - pomoc w przygotowaniu dokumentów na odwołanie i pełny zwrot kosztów.",
                                   "button": "ZAMÓWIĆ"
                                 },
@@ -786,7 +786,7 @@ i18n
 
           "servicespromo.0.title": "АКЦІЇ",
          "servicespromo.0.points.0": "Встигніть придбати пакет \"Базовий\" за 400 зл. Щоб скористатися акцією, назвіть нашому спеціалісту з роботи з клієнтами промокод \"Старт24\". Акція діє лише до кінця листопада 2024 року.",
-          "servicespromo.0.points.1": "Встигніть придбати пакет \"Все включено\" за 750 зл. Щоб скористатися акцією, назвіть нашому спеціалісту з роботи з клієнтами промокод \"Старт24\". Акція діє лише до кінця листопада 2024 року.",
+          "servicespromo.0.points.1": "Встигніть придбати пакет \"Все включено\" за 1100 зл. Щоб скористатися акцією, назвіть нашому спеціалісту з роботи з клієнтами промокод \"Старт24\". Акція діє лише до кінця листопада 2024 року.",
           "servicespromo.0.points.2": "Документи на громадянство за 1500 зл.  Щоб скористатися акцією, назвіть нашому спеціалісту з роботи з клієнтами промокод \"Старт24\". Акція діє лише до кінця листопада 2024 року.",
 
           "pricelistservices.0.title": "Комплексна допомога в підготовці документів для подачі на карту проживання",
@@ -797,7 +797,7 @@ i18n
 "pricelistservices.0.price": "Від 500 до 1500 PLN",
 
 "pricelistservices.1.title": "Допомога в підготовці документів для подачі на громадянство",
-"pricelistservices.1.price": "Від 750 до 1500 PLN (Ціна до 30.09.2024)",
+"pricelistservices.1.price": "Від 1500 PLN",
 
 "pricelistservices.2.title": "Трудові спори: Від 'Umowy zlecenia' до 'Umowy o pracę'",
 "pricelistservices.2.points.0": "Перехід від 'Umowy zlecenia' до 'Umowy o pracę'",
@@ -878,7 +878,7 @@ i18n
               },
               "reason2": {
                 "title": "Оплата в РОЗСТРОЧКУ по 100 злотих на місяць.",
-                "content": "Якщо вам зручніше оплачувати послугу поетапно, ви можете оформити розстрочку на 8 місяців. При цьому щомісячна оплата становитиме лише 100 злотих."
+                "content": "Якщо вам зручніше оплачувати послугу поетапно, ви можете оформити розстрочку на 9 місяців. При цьому щомісячна оплата становитиме лише 100 злотих."
               },
               "reason3": {
                 "title": "Повернення коштів.",
@@ -1116,7 +1116,7 @@ i18n
                   "button": "ЗАМОВИТИ"
                 },
                 "Service8.allInclusivePackage": {
-                  "title": 'Пакет "Все включено": 1500 зл',
+                  "title": 'Пакет "Все включено": 2000 зл',
                   "content": "1) Консультація. 2) Допомога в підготовці документів. 3) Збір та підготовка повного пакета документів. 4) Заповнення всіх анкет. 5) Контроль справи, отримання кореспонденції, здача всіх необхідних документів. 6) Комплексний супровід вашої справи до отримання рішення. 7) У разі негативного рішення з нашої вини - допомога в підготовці документів на апеляцію та повне повернення коштів.",
                   "button": "ЗАМОВИТИ"
                 },
@@ -1143,7 +1143,7 @@ i18n
 
         "servicespromo.0.title": "АКЦЫІ",
        "servicespromo.0.points.0": "Спяшайцеся набыць пакет \"Базавы\" за 400 зл. Каб скарыстацца акцыяй, назавіце нашаму спецыялісту па працы з кліентамі прома-код \"Старт24\". Акцыя дзейнічае толькі да канца лістапада 2024 года.",
-        "servicespromo.0.points.1": "Спяшайцеся набыць пакет \"Усё ўключана\" за 750 зл. Каб скарыстацца акцыяй, назавіце нашаму спецыялісту па працы з кліентамі прома-код \"Старт24\". Акцыя дзейнічае толькі да канца лістапада 2024 года.",
+        "servicespromo.0.points.1": "Спяшайцеся набыць пакет \"Усё ўключана\" за 1100 зл. Каб скарыстацца акцыяй, назавіце нашаму спецыялісту па працы з кліентамі прома-код \"Старт24\". Акцыя дзейнічае толькі да канца лістапада 2024 года.",
         "servicespromo.0.points.2": "Дакументы на грамадзянства за 1500 зл.  Каб скарыстацца акцыяй, назавіце нашаму спецыялісту па працы з кліентамі прома-код \"Старт24\". Акцыя дзейнічае толькі да канца лістапада 2024 года.",
 
         "pricelistservices.0.title": "Комплексная дапамога ў падрыхтоўцы дакументаў для падачы на карту пражывання",
@@ -1154,7 +1154,7 @@ i18n
 "pricelistservices.0.price": "Ад 500 да 1500 PLN",
 
 "pricelistservices.1.title": "Дапамога ў падрыхтоўцы дакументаў для падачы на грамадзянства",
-"pricelistservices.1.price": "Ад 750 да 1500 PLN (Цана да 30.09.2024)",
+"pricelistservices.1.price": "Ад 1500 PLN",
 
 "pricelistservices.2.title": "Працоўныя спрэчкі: Ад 'Umowy zlecenia' да 'Umowy o pracę'",
 "pricelistservices.2.points.0": "Пераход ад 'Umowy zlecenia' да 'Umowy o pracę'",
@@ -1238,7 +1238,7 @@ i18n
   },
   "reason2": {
     "title": "Аплата ў растэрміноўку па 100 зл. у месяц.",
-    "content": "Калі вам зручней аплачваць паслугу паэтапна, то вы можаце аформіць растэрміноўку на 8 месяцаў. Пры гэтым штомесячны плацёж складзе ўсяго толькі 100 злотых."
+    "content": "Калі вам зручней аплачваць паслугу паэтапна, то вы можаце аформіць растэрміноўку на 9 месяцаў. Пры гэтым штомесячны плацёж складзе ўсяго толькі 100 злотых."
   },
   "reason3": {
     "title": "Вяртанне грашовых сродкаў.",
@@ -1470,7 +1470,7 @@ i18n
             "button": "ЗАМОВІЦЬ"
           },
           "Service8.allInclusivePackage": {
-            "title": 'Пакет "Усё ўключана": 1500 зл',
+            "title": 'Пакет "Усё ўключана": 2000 зл',
             "content": "1) Кансультацыя. 2) Дапамога ў падрыхтоўцы дакументаў. 3) Збор і падрыхтоўка поўнага пакета дакументаў. 4) Запаўненне ўсіх анкет. 5) Кантроль справы, атрыманне карэспандэнцыі, здача ўсіх неабходных дакументаў. 6) Комплекснае суправаджэнне вашай справы да атрымання рашэння. 7) У выпадку адмоўнага рашэння па нашай віне - дапамога ў падрыхтоўцы дакументаў на апеляцыю і поўны вяртанне сродкаў.",
             "button": "ЗАМОВІЦЬ"
           },
@@ -1496,7 +1496,7 @@ i18n
                   "menu.feedback": "Оставить заявку",
                   "servicespromo.0.title": "АКЦИИ",
                   "servicespromo.0.points.0": "Успейте приобрести пакет \"Базовый\" за 400 зл. Чтобы воспользоваться акцией, назовите нашему специалисту по работе с клиентами промокод \"Старт24\". Акция действует только до конца ноября 2024 года.",
-                  "servicespromo.0.points.1": "Успейте приобрести пакет \"Все включено\" за 750 зл. Чтобы воспользоваться акцией, назовите нашему специалисту по работе с клиентами промокод \"Старт24\". Акция действует только до конца ноября 2024 года.",
+                  "servicespromo.0.points.1": "Успейте приобрести пакет \"Все включено\" за 1100 зл. Чтобы воспользоваться акцией, назовите нашему специалисту по работе с клиентами промокод \"Старт24\". Акция действует только до конца ноября 2024 года.",
                   "servicespromo.0.points.2": "Документы на гражданство за 1500 зл. Чтобы воспользоваться акцией, назовите нашему специалисту по работе с клиентами промокод \"Старт24\". Акция действует только до конца ноября 2024 года.",
                        
                   "pricelistservices.0.title": "Комплексная помощь в подготовке документов для подачи на Карту Побыта",
@@ -1507,7 +1507,7 @@ i18n
                   "pricelistservices.0.price": "От 500 до 1500 PLN",
         
                   "pricelistservices.1.title": "Помощь в подготовке документов для подачи на гражданство",
-                  "pricelistservices.1.price": "От 750 до 1500 PLN (Цена до 30.09.2024)",
+                  "pricelistservices.1.price": "От 1500 PLN",
         
                   "pricelistservices.2.title": "Трудовые споры: От 'Umowy zlecenia' к 'Umowy o pracę'",
                   "pricelistservices.2.points.0": "Переход от 'Umowy zlecenia' к 'Umowy o pracę'",
@@ -1592,7 +1592,7 @@ i18n
                       },
                       "reason2": {
                         "title": "Оплата в РАССРОЧКУ по 100 зл. в месяц.",
-                        "content": "Если вам удобнее оплачивать услугу поэтапно, то вы можете оформить рассрочку на 8 месяцев. При этом месячная оплата составит всего лишь 100 злотых."
+                        "content": "Если вам удобнее оплачивать услугу поэтапно, то вы можете оформить рассрочку на 9 месяцев. При этом месячная оплата составит всего лишь 100 злотых."
                       },
                       "reason3": {
                         "title": "Возврат денежных средств.",
@@ -1823,7 +1823,7 @@ i18n
                        button: "ЗАКАЗАТЬ"
                     },
                     "Service8.allInclusivePackage": {
-                      title: 'Пакет "Всё включено": 1500 зл',
+                      title: 'Пакет "Всё включено": 2000 зл',
                       content:  "1) Консультация. 2) Помощь в подготовке документов. 3) Сбор и подготовка полного пакета документов. 4) Заполнение всех анкет. 5) Контроль дела, получение корреспонденции, сдача всех необходимых документов. 6) Комплексное сопровождение твоего дела до получения решения. 7) В случае негативного решения по нашей вине - помощь в подготовке документов на аппеляцию и полный возврат средств.",
                       button: "ЗАКАЗАТЬ"
                     },
