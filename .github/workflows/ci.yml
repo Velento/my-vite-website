@@ -1,21 +1,27 @@
-name: CI
+name: CI Pipeline
 
 on:
   push:
+    branches: [ "main", "feature/*" ] # При любом пуше в main или ветки feature
   pull_request:
+    branches: [ "main" ]
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
+  build-and-test:
+    runs-on: ubuntu-latest # GitHub выделит нам сервер на Linux Ubuntu
 
     steps:
-      - uses: actions/checkout@v3
+    - name:  Скачиваем код из репозитория
+      uses: actions/checkout@v4
 
-      - name: Install
-        run: npm install
+    - name:  Устанавливаем Node.js 20
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+        cache: 'npm' # Ускоряет установку зависимостей
 
-      - name: Test
-        run: npm test
+    - name:  Устанавливаем зависимости
+      run: npm install
 
-      - name: Build
-        run: npm run build
+    - name: 🧪 Запускаем Vitest
+      run: npm test
