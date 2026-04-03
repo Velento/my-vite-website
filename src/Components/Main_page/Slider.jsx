@@ -1,4 +1,3 @@
-import React from 'react';
 import Slider from 'react-slick';
 import { useTranslation } from 'react-i18next';
 import "slick-carousel/slick/slick.css";

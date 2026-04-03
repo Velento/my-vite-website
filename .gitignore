@@ -12,6 +12,15 @@ dist
 dist-ssr
 *.local
 
+# Environment variables — НИКОГДА не коммитить!
+.env
+.env.local
+.env.*.local
+.env.production
+
+# Coverage
+coverage/
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
@@ -22,3 +31,8 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Python agent
+agent/__pycache__/
+agent/.venv/
+agent/*.pyc

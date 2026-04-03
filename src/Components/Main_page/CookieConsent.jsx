@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import './CookieConsent.css';
 
@@ -14,7 +14,13 @@ const CookieConsent = () => {
 
   useEffect(() => {
     // Проверяем наличие сохраненного согласия в localStorage
-    const cookieConsent = JSON.parse(localStorage.getItem('cookieConsent'));
+    let cookieConsent = null;
+    try {
+      const stored = localStorage.getItem('cookieConsent');
+      if (stored) cookieConsent = JSON.parse(stored);
+    } catch {
+      localStorage.removeItem('cookieConsent');
+    }
     if (cookieConsent) {
       setCookies(cookieConsent);
       setIsVisible(false); // Скрываем окно, если согласие уже было сохранено

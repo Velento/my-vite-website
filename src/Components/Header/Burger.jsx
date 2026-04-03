@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import './Burger.css';
 import Contacts from './Contacts';
 import Menu from "../Main_page/Menu";

@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import ThankYou from './ThankYou';
 import './LeedForm.css';
@@ -17,20 +16,28 @@ const LeedForm = ({ onClose }) => {
     const isFormValid = isNameValid && isPhoneValid;
 
     // Функция отправки данных в Telegram
+    // Токены берутся из .env.local (НИКОГДА не хардкодить в коде!)
     const sendToTelegram = async (data) => {
-        const botToken = '7468472524:AAHqkzNo-VmM0DFmmtCDxF448jMgTnI_hK4';
-        const chatId = '509830008';
-        const message = `Name: ${data.name}\nPhone: ${data.phone}\nPromo: ${data.promo}`;
+        const botToken = import.meta.env.VITE_TELEGRAM_BOT_TOKEN;
+        const chatId = import.meta.env.VITE_TELEGRAM_CHAT_ID;
 
-        try {
-            await axios.post(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-                chat_id: chatId,
-                text: message,
-            });
-            console.log('Данные успешно отправлены в Telegram');
-        } catch (error) {
-            console.error('Ошибка при отправке в Telegram:', error);
-            throw new Error('Failed to send data to Telegram');
+        if (!botToken || !chatId) {
+            throw new Error('Telegram credentials not configured. Check .env.local');
+        }
+
+        const message = `📋 Новая заявка\n👤 Имя: ${data.name}\n📞 Телефон: ${data.phone}${data.promo ? `\n🎁 Промо: ${data.promo}` : ''}`;
+
+        const response = await fetch(
+            `https://api.telegram.org/bot${botToken}/sendMessage`,
+            {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ chat_id: chatId, text: message }),
+            }
+        );
+
+        if (!response.ok) {
+            throw new Error(`Telegram API error: ${response.status}`);
         }
     };
 

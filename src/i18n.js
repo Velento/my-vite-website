@@ -1838,12 +1838,13 @@ i18n
                 }
               }
             },
-    lng: "ru", // Язык по умолчанию
-    fallbackLng: "ru",
+    // Восстанавливаем язык из localStorage (если пользователь выбирал ранее)
+    lng: localStorage.getItem('legal_line_lang') ?? 'ru',
+    fallbackLng: 'ru',
     interpolation: {
-      escapeValue: false
+      escapeValue: false,
     },
-    debug: true
+    // debug: true — выключен в продакшне
   });
 
 export default i18n;

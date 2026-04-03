@@ -1,4 +1,3 @@
-import React from 'react';
 import './ImageCarousel.css';
 
 import image1 from '../images/image1.jpg';
@@ -21,7 +20,7 @@ const ImageCarousel = () => {
         <img
           key={index}
           src={image}
-          alt={`Image ${index + 1}`}
+          alt={`Slide ${index + 1}`}
           onClick={() => handleClick(image)}
           className="carousel-image"
         />

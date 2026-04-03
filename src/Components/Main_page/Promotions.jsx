@@ -1,4 +1,3 @@
-import React from "react";
 import "./Pricelist.css";
 import "./Promotions.css";
 import iconCheak from "../images/play_point.svg"; 

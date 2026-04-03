@@ -1,5 +1,4 @@
 // src/Components/Footer/Footer.jsx
-import React, { useState } from 'react';
 import './Footer.css';
 import '../Main_page/Modal.css';
 import phoneIcon from '../images/phone-white.png';
@@ -7,23 +6,12 @@ import telegramIcon from '../images/telegram-white.png';
 import whatsappIcon from '../images/whatsapp-white.png';
 import viberIcon from '../images/viber-white.png';
 import instagramIcon from '../images/instagram-white.png';
-import locationIcon from '../images/location-white.png';
-import ContactModal from '../Main_page/ContactModal';
 import { useTranslation } from 'react-i18next';
 import goUpImage from '../images/goUpImage.svg';
 
 
 const Footer = () => {
     const { t } = useTranslation();
-    const [showContactModal, setShowContactModal] = useState(false);
-
-    const handleContactClick = () => {
-        setShowContactModal(true);
-    };
-
-    const handleCloseModal = () => {
-        setShowContactModal(false);
-    };
 // С ООО изменить на <ZOO>
 // </ZOO>
 
@@ -72,7 +60,7 @@ const Footer = () => {
                         <p>{t('footer.address')}</p>
                         <p>{t('footer.timework')}</p>
                         <p><a href="mailto:legalline.pl@gmail.com">legalline.pl@gmail.com</a></p>
-                    <p><a target="_blank"  href="https://docs.google.com/document/d/16JRprD0eDLu8pWrwxZxPboOX6q2ZrptjAw5_CMQENSE/edit" >{t('footer.privacyPolicy')}</a></p>
+                    <p><a target="_blank" rel="noreferrer" href="https://docs.google.com/document/d/16JRprD0eDLu8pWrwxZxPboOX6q2ZrptjAw5_CMQENSE/edit" >{t('footer.privacyPolicy')}</a></p>
                 </div>
                 <div className="footer-section services">
                     <h2>{t('footer.services')}</h2>

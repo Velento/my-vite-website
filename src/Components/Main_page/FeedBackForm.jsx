@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import { useState } from 'react';
 import './FeedBackForm.css';
 import { useTranslation } from 'react-i18next';
 import ThankYou from './ThankYou';
@@ -45,22 +44,13 @@ const FeedbackForm = ({ onClose }) => {
     //     }
     // };
 
-    // Обработчик отправки формы
+    // Обработчик отправки формы — использует сервис telegram.js
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const message = `Name: ${name}\nPhone: ${phone}\nPromo: ${promo}`;
-        const botToken = '7468472524:AAHqkzNo-VmM0DFmmtCDxF448jMgTnI_hK4';
-        const chatId = '509830008';
 
         try {
-            // Отправка данных в Telegram
-            await axios.post(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-                chat_id: chatId,
-                text: message,
-            });
-
-            // Отправка данных в Google Таблицу
-            // await appendToSheet({ name, phone, promo });
+            const { sendLeadToTelegram } = await import('../../services/telegram');
+            await sendLeadToTelegram({ name, phone, promo: promo || undefined });
 
             setShowMessage(true);
             setTimeout(() => {

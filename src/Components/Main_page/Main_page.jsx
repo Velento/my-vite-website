@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import SliderComponent from './Slider';
 import MainPageSections from './MainPageSections';
 import Services from './MainService';
@@ -18,7 +18,7 @@ const MainPage = () => {
         if (targetElement) {
           targetElement.scrollIntoView({ behavior: 'smooth' });
         } else {
-          console.log('Элемент с id "leedform" не найден.');
+          console.error('Элемент с id "leedform" не найден.');
         }
       }
     };

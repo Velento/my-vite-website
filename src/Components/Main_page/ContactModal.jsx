@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import telegramIcon from '../images/telegram.png';
 import whatsappIcon from '../images/whatsapp.png';
 import viberIcon from '../images/viber.png';

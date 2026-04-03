@@ -1,6 +1,4 @@
-
 // src/Components/Logo.jsx
-import React from 'react';
 import './Header.css';
 import logo from '../images/logo_legal_line.png';
 import { useTranslation } from 'react-i18next';
@@ -10,7 +8,7 @@ function scrollToTop() {
 }
 
 function Logo() {
-  const { t } = useTranslation();
+  const { t: _t } = useTranslation();
 
   return (
     <div className="header-logo-text">
@@ -18,7 +16,7 @@ function Logo() {
       <img src={logo} alt="Legal Logo" className="logo-image" />
     </div>
     <div className="logo-text">
-    {/* <h1 className="header-slogan">{t('header.slogan')}</h1> */}
+    {/* <h1 className="header-slogan">{_t('header.slogan')}</h1> */}
     </div>
     </div>
   );

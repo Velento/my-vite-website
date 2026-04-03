@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useTranslation } from "react-i18next"; 
 import "./Pricelist.css";
 import iconCheak from "../images/play_point.svg";

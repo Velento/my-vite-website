@@ -1,4 +1,3 @@
-import React from 'react';
 import './Header.css';
 import telegramIcon from '../images/telegram.png';
 import whatsappIcon from '../images/whatsapp.png';
