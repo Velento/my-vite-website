@@ -1,7 +1,7 @@
 import Slider from 'react-slick';
 import { useTranslation } from 'react-i18next';
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 import './Slider.css';
 
 // Импорт картинок для слайдера

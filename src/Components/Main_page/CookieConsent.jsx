@@ -29,11 +29,14 @@ const CookieConsent = () => {
 
   const handleAcceptAll = () => {
     // Сохранение согласия на использование всех файлов cookie в localStorage
-    localStorage.setItem('cookieConsent', JSON.stringify({
-      essential: true,
-      analytics: true,
-      marketing: true,
-    }));
+    localStorage.setItem(
+      'cookieConsent',
+      JSON.stringify({
+        essential: true,
+        analytics: true,
+        marketing: true,
+      })
+    );
     setCookies({
       essential: true,
       analytics: true,
@@ -59,39 +62,69 @@ const CookieConsent = () => {
   return isVisible ? (
     <div className="cookie-consent-overlay">
       <div className="cookie-consent">
-        <button className="close-button" onClick={() => setIsVisible(false)}>✕</button>
+        <button className="close-button" onClick={() => setIsVisible(false)}>
+          ✕
+        </button>
         {!isSettingsOpen ? (
           <>
             <p className="cookie-settings-p">{t('cookieMessage')}</p>
-            <button className="settings-button" onClick={() => setIsSettingsOpen(true)}>{t('allowMeToChoose')}</button>
-            <button className="accept-button" onClick={handleAcceptAll}>{t('acceptAll')}</button>
-            <button className="decline-button" onClick={handleDecline}>{t('decline')}</button>
+            <button className="settings-button" onClick={() => setIsSettingsOpen(true)}>
+              {t('allowMeToChoose')}
+            </button>
+            <button className="accept-button" onClick={handleAcceptAll}>
+              {t('acceptAll')}
+            </button>
+            <button className="decline-button" onClick={handleDecline}>
+              {t('decline')}
+            </button>
           </>
         ) : (
           <div className="cookie-settings">
-            <button className="close-button" onClick={() => setIsSettingsOpen(false)}>✕</button>
+            <button className="close-button" onClick={() => setIsSettingsOpen(false)}>
+              ✕
+            </button>
             <h3>{t('cookieSettings')}</h3>
             <p className="cookie-settings-p">{t('cookieUsageDescription')}</p>
             <div className="cookie-option">
               <label>
                 {t('essentialCookies')}
-                <input type="checkbox" checked={cookies.essential} onChange={() => setCookies({ ...cookies, essential: !cookies.essential })} />
+                <input
+                  type="checkbox"
+                  checked={cookies.essential}
+                  onChange={() => setCookies({ ...cookies, essential: !cookies.essential })}
+                />
               </label>
             </div>
             <div className="cookie-option">
               <label>
                 {t('analyticsCookies')}
-                <input type="checkbox" checked={cookies.analytics} onChange={() => setCookies({ ...cookies, analytics: !cookies.analytics })} />
+                <input
+                  type="checkbox"
+                  checked={cookies.analytics}
+                  onChange={() => setCookies({ ...cookies, analytics: !cookies.analytics })}
+                />
               </label>
             </div>
             <div className="cookie-option">
               <label>
                 {t('marketingCookies')}
-                <input type="checkbox" checked={cookies.marketing} onChange={() => setCookies({ ...cookies, marketing: !cookies.marketing })} />
+                <input
+                  type="checkbox"
+                  checked={cookies.marketing}
+                  onChange={() => setCookies({ ...cookies, marketing: !cookies.marketing })}
+                />
               </label>
             </div>
-            <button className="accept-button" onClick={handleAcceptSelected} disabled={isAcceptButtonDisabled}>{t('acceptSelected')}</button>
-            <button className="decline-button" onClick={handleDecline}>{t('decline')}</button>
+            <button
+              className="accept-button"
+              onClick={handleAcceptSelected}
+              disabled={isAcceptButtonDisabled}
+            >
+              {t('acceptSelected')}
+            </button>
+            <button className="decline-button" onClick={handleDecline}>
+              {t('decline')}
+            </button>
           </div>
         )}
       </div>
@@ -100,5 +133,3 @@ const CookieConsent = () => {
 };
 
 export default CookieConsent;
-
-

@@ -22,12 +22,11 @@ const MainPage = () => {
         }
       }
     };
-  
+
     // Запуск после полной загрузки DOM
     window.addEventListener('load', handleScrollToHash);
     return () => window.removeEventListener('load', handleScrollToHash);
   }, []);
-  
 
   return (
     <div className="main-page">
@@ -37,13 +36,11 @@ const MainPage = () => {
       <Pricelist />
       <MainPageSections />
       <Promotions />
-            <LeedForm />
-            <Services />
+      <LeedForm />
+      <Services />
       <Team />
     </div>
   );
 };
 
 export default MainPage;
-
-

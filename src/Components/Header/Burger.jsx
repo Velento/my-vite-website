@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import './Burger.css';
 import Contacts from './Contacts';
-import Menu from "../Main_page/Menu";
+import Menu from '../Main_page/Menu';
 import LanguageSwitcher from './LanguageSwitcher';
 import { useTranslation } from 'react-i18next';
 import ContactModal from '../Main_page/ContactModal';
@@ -9,7 +9,7 @@ import ContactModal from '../Main_page/ContactModal';
 function Burger() {
   const [isOpen, setIsOpen] = useState(false);
   const { t } = useTranslation();
-  const [showContactModal, setShowContactModal] = useState(false); 
+  const [showContactModal, setShowContactModal] = useState(false);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);

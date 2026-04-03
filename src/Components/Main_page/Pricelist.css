@@ -99,16 +99,15 @@
   background-color: white;
 }
 
-
 .slip-button {
   background: none;
   border: none;
   padding: 0;
   cursor: pointer;
-  animation: spin 20s linear infinite; 
+  animation: spin 20s linear infinite;
   position: sticky;
-  top: 100px; 
-  left: 10px; 
+  top: 100px;
+  left: 10px;
   z-index: 10;
 }
 
@@ -118,14 +117,12 @@
   padding: 0.5rem;
 }
 
-
 .reason-buttons {
   position: sticky;
-  top: 300px; 
+  top: 300px;
   display: flex;
   flex-direction: column;
-  align-items: flex-start; 
-
+  align-items: flex-start;
 }
 
 .reason-button {
@@ -157,7 +154,6 @@
   width: 40px;
   height: 40px;
 }
-
 
 .reason-text1,
 .reason-text2,
@@ -204,7 +200,6 @@
   }
 }
 
-
 @media (min-width: 481px) and (max-width: 768px) {
   .columns {
     display: block;
@@ -212,23 +207,21 @@
   .right-column {
     /* padding-top: 100px; */
     display: none;
-}
+  }
 }
 
-@media (max-width: 480px)  {
-
+@media (max-width: 480px) {
   .columns {
     display: block;
   }
   .right-column {
     /* padding-top: 100px; */
     display: none;
+  }
+  .slip-button {
+    position: relative;
+  }
+  .slip-button img {
+    padding: 5rem 0;
+  }
 }
-.slip-button {
-  position: relative;
-}
-.slip-button img {
-  padding: 5rem 0;
-}
-}
-

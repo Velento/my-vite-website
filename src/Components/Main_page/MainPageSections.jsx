@@ -2,14 +2,14 @@ import { useState } from 'react';
 import './MainPageSections.css';
 import { useTranslation } from 'react-i18next';
 import ContactModal from './ContactModal';
-import kateFoto from '../images/Kate.png'; 
+import kateFoto from '../images/Kate.png';
 import sectionMoney from '../images/section_money.svg';
 import sectionService from '../images/section_service.svg';
 import icon1 from '../images/icon1.svg';
 
 const MainPageSections = () => {
   const { t } = useTranslation();
-  
+
   const Section = ({ title, content, imgSrc, iconSrc, buttonText, buttonLink }) => {
     const [showContactModal, setShowContactModal] = useState(false);
 
@@ -29,9 +29,11 @@ const MainPageSections = () => {
             <button>{buttonText}</button>
           </a>
         ) : (
-          <button className="button-i-want" onClick={handleShowModal}>{buttonText}</button>
+          <button className="button-i-want" onClick={handleShowModal}>
+            {buttonText}
+          </button>
         )}
-        
+
         <ContactModal show={showContactModal} onClose={handleCloseModal} />
       </div>
     );

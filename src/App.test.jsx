@@ -167,8 +167,8 @@ describe('sendLeadToTelegram', () => {
       json: async () => ({ description: 'Unauthorized' }),
     });
 
-    await expect(
-      sendLeadToTelegram({ name: 'Анна', phone: '+48123456789' })
-    ).rejects.toThrow('401');
+    await expect(sendLeadToTelegram({ name: 'Анна', phone: '+48123456789' })).rejects.toThrow(
+      '401'
+    );
   });
 });
