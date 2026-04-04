@@ -80,7 +80,11 @@ const CookieConsent = () => {
           </>
         ) : (
           <div className="cookie-settings">
-            <button className="close-button" aria-label="Close" onClick={() => setIsSettingsOpen(false)}>
+            <button
+              className="close-button"
+              aria-label="Close"
+              onClick={() => setIsSettingsOpen(false)}
+            >
               ✕
             </button>
             <h3>{t('cookieSettings')}</h3>

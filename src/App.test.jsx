@@ -175,7 +175,10 @@ describe('useLeadForm', () => {
 
     let resolvePromise;
     vi.mocked(global.fetch).mockImplementationOnce(
-      () => new Promise((resolve) => { resolvePromise = resolve; })
+      () =>
+        new Promise((resolve) => {
+          resolvePromise = resolve;
+        })
     );
 
     const { result } = renderHook(() => useLeadForm());
@@ -319,7 +322,9 @@ describe('sendLeadToTelegram', () => {
     vi.mocked(global.fetch).mockResolvedValueOnce({
       ok: false,
       status: 502,
-      json: async () => { throw new Error('Bad Gateway'); },
+      json: async () => {
+        throw new Error('Bad Gateway');
+      },
     });
 
     await expect(sendLeadToTelegram({ name: 'Анна', phone: '+48123456789' })).rejects.toThrow(

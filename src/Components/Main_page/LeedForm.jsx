@@ -73,7 +73,9 @@ const LeedForm = ({ onClose }) => {
               disabled={status === 'submitting'}
             />
             {!nameValid && name && (
-              <span className="form-group__error" role="alert">{t('feedbackForm.nameError')}</span>
+              <span className="form-group__error" role="alert">
+                {t('feedbackForm.nameError')}
+              </span>
             )}
           </div>
           <div className={`form-group ${!phoneValid && phone ? 'form-group--error' : ''}`}>
@@ -88,7 +90,9 @@ const LeedForm = ({ onClose }) => {
               disabled={status === 'submitting'}
             />
             {!phoneValid && phone && (
-              <span className="form-group__error" role="alert">{t('feedbackForm.phoneError')}</span>
+              <span className="form-group__error" role="alert">
+                {t('feedbackForm.phoneError')}
+              </span>
             )}
           </div>
           <div className="form-group">
@@ -108,7 +112,9 @@ const LeedForm = ({ onClose }) => {
             </div>
           )}
           {status === 'success' && (
-            <div className="message-alert" role="status">{t('messageAlert')}</div>
+            <div className="message-alert" role="status">
+              {t('messageAlert')}
+            </div>
           )}
           <div className="form-buttons">
             <button

@@ -14,7 +14,9 @@
   align-items: center;
   z-index: 1003;
   background: var(--color-bg);
-  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+  transition:
+    border-color var(--transition-fast),
+    box-shadow var(--transition-fast);
 }
 
 .header_burger:hover {
@@ -29,7 +31,9 @@
   height: 2px;
   margin: 3px auto;
   border-radius: 2px;
-  transition: transform var(--transition-base), opacity var(--transition-fast);
+  transition:
+    transform var(--transition-base),
+    opacity var(--transition-fast);
 }
 
 .slide_burger_span1 {

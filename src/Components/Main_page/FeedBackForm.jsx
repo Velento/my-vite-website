@@ -62,10 +62,22 @@ const FeedbackForm = ({ onClose }) => {
 
   return (
     // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
-    <div className="feedback-modal" id="feed-back" onClick={handleClose} onKeyDown={(e) => e.key === 'Escape' && handleClose()} role="dialog" aria-modal="true">
+    <div
+      className="feedback-modal"
+      id="feed-back"
+      onClick={handleClose}
+      onKeyDown={(e) => e.key === 'Escape' && handleClose()}
+      role="dialog"
+      aria-modal="true"
+    >
       {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */}
       <div className="feedback-modal__content" onClick={(e) => e.stopPropagation()}>
-        <button type="button" className="feedback-modal__close" onClick={handleClose} aria-label="Close">
+        <button
+          type="button"
+          className="feedback-modal__close"
+          onClick={handleClose}
+          aria-label="Close"
+        >
           &times;
         </button>
         <h2>{t('feedbackForm.title')}</h2>
@@ -83,7 +95,9 @@ const FeedbackForm = ({ onClose }) => {
                 disabled={status === 'submitting'}
               />
               {!nameValid && name && (
-                <span className="form-group__error" role="alert">{t('feedbackForm.nameError')}</span>
+                <span className="form-group__error" role="alert">
+                  {t('feedbackForm.nameError')}
+                </span>
               )}
             </div>
             <div className={`form-group ${!phoneValid && phone ? 'form-group--error' : ''}`}>
@@ -98,7 +112,9 @@ const FeedbackForm = ({ onClose }) => {
                 disabled={status === 'submitting'}
               />
               {!phoneValid && phone && (
-                <span className="form-group__error" role="alert">{t('feedbackForm.phoneError')}</span>
+                <span className="form-group__error" role="alert">
+                  {t('feedbackForm.phoneError')}
+                </span>
               )}
             </div>
             <div className="form-group">
@@ -117,7 +133,9 @@ const FeedbackForm = ({ onClose }) => {
               </div>
             )}
             {status === 'success' && (
-              <div className="message-alert" role="status">{t('messageAlert')}</div>
+              <div className="message-alert" role="status">
+                {t('messageAlert')}
+              </div>
             )}
             <div className="form-buttons">
               <button

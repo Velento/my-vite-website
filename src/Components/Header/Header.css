@@ -65,7 +65,9 @@
   width: 32px;
   height: 32px;
   margin-left: var(--space-sm);
-  transition: transform var(--transition-fast), opacity var(--transition-fast);
+  transition:
+    transform var(--transition-fast),
+    opacity var(--transition-fast);
   border-radius: 50%;
 }
 

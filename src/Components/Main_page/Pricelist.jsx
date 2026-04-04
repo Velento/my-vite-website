@@ -19,53 +19,56 @@ const Pricelist = () => {
   });
   const [showContactModal, setShowContactModal] = useState(false);
 
-  const services = useMemo(() => [
-    {
-      title: t('pricelistservices.0.title'),
-      points: [
-        t('pricelistservices.0.points.0'),
-        t('pricelistservices.0.points.1'),
-        t('pricelistservices.0.points.2'),
-        t('pricelistservices.0.points.3'),
-      ],
-      price: t('pricelistservices.0.price'),
-    },
-    {
-      title: t('pricelistservices.1.title'),
-      points: [],
-      price: t('pricelistservices.1.price'),
-    },
-    {
-      title: t('pricelistservices.2.title'),
-      points: [
-        t('pricelistservices.2.points.0'),
-        t('pricelistservices.2.points.1'),
-        t('pricelistservices.2.points.2'),
-        t('pricelistservices.2.points.3'),
-      ],
-      price: t('pricelistservices.2.price'),
-    },
-    {
-      title: t('pricelistservices.3.title'),
-      points: [],
-      price: t('pricelistservices.3.price'),
-    },
-    {
-      title: t('pricelistservices.4.title'),
-      points: [],
-      price: t('pricelistservices.4.price'),
-    },
-    {
-      title: t('pricelistservices.5.title'),
-      points: [t('pricelistservices.5.points.0'), t('pricelistservices.5.points.1')],
-      price: t('pricelistservices.5.price'),
-    },
-    {
-      title: t('pricelistservices.6.title'),
-      points: [t('pricelistservices.6.points.0'), t('pricelistservices.6.points.1')],
-      price: t('pricelistservices.6.price'),
-    },
-  ], [t]);
+  const services = useMemo(
+    () => [
+      {
+        title: t('pricelistservices.0.title'),
+        points: [
+          t('pricelistservices.0.points.0'),
+          t('pricelistservices.0.points.1'),
+          t('pricelistservices.0.points.2'),
+          t('pricelistservices.0.points.3'),
+        ],
+        price: t('pricelistservices.0.price'),
+      },
+      {
+        title: t('pricelistservices.1.title'),
+        points: [],
+        price: t('pricelistservices.1.price'),
+      },
+      {
+        title: t('pricelistservices.2.title'),
+        points: [
+          t('pricelistservices.2.points.0'),
+          t('pricelistservices.2.points.1'),
+          t('pricelistservices.2.points.2'),
+          t('pricelistservices.2.points.3'),
+        ],
+        price: t('pricelistservices.2.price'),
+      },
+      {
+        title: t('pricelistservices.3.title'),
+        points: [],
+        price: t('pricelistservices.3.price'),
+      },
+      {
+        title: t('pricelistservices.4.title'),
+        points: [],
+        price: t('pricelistservices.4.price'),
+      },
+      {
+        title: t('pricelistservices.5.title'),
+        points: [t('pricelistservices.5.points.0'), t('pricelistservices.5.points.1')],
+        price: t('pricelistservices.5.price'),
+      },
+      {
+        title: t('pricelistservices.6.title'),
+        points: [t('pricelistservices.6.points.0'), t('pricelistservices.6.points.1')],
+        price: t('pricelistservices.6.price'),
+      },
+    ],
+    [t]
+  );
 
   const toggleReasonText = (reason) => {
     setSelectedReasons((prev) => ({
