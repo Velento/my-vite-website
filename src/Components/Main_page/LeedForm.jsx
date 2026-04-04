@@ -15,12 +15,9 @@ const LeedForm = ({ onClose }) => {
   const isPhoneValid = /^[+\d][\d\s\-()]{8,}$/.test(phone);
   const isFormValid = isNameValid && isPhoneValid;
 
-  // Функция отправки данных в Telegram
-  // Токены берутся из .env.local (НИКОГДА не хардкодить в коде!)
   const sendToTelegram = async (data) => {
     const botToken = import.meta.env.VITE_TELEGRAM_BOT_TOKEN;
     const chatId = import.meta.env.VITE_TELEGRAM_CHAT_ID;
-
     if (!botToken || !chatId) {
       throw new Error('Telegram credentials not configured. Check .env.local');
     }
