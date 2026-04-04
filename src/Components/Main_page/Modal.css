@@ -1,41 +1,54 @@
+/* ── Generic Modal ── */
 .modal {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
+  background: var(--color-overlay);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 1000;
+  animation: fadeIn var(--duration-fast) var(--ease);
 }
 
 .modal-content {
-  max-height: 80%;
+  max-height: 85vh;
   overflow-y: auto;
-  background: white;
-  padding: 20px;
-  border-radius: 4px;
+  background: var(--color-bg);
+  padding: var(--space-2xl);
+  border-radius: var(--radius-lg);
   max-width: 500px;
-  width: 100%;
+  width: 90%;
   position: relative;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  box-shadow: var(--shadow-xl);
+  animation: slideUp var(--duration-slow) var(--ease);
 }
 
 .close {
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: var(--space-md);
+  right: var(--space-md);
   cursor: pointer;
-  font-size: 24px;
+  font-size: 1.3rem;
+  color: var(--color-text-tertiary);
+  background: none;
+  border: none;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-full);
+  transition: all var(--duration-fast) var(--ease);
+  padding: 0;
+  line-height: 1;
 }
 
-.modal-content {
-  /* Добавляем фиксированную высоту и стили прокрутки */
-  max-height: 80%; /* Пример фиксированной высоты */
-  overflow-y: auto; /* Добавляем вертикальную прокрутку */
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+.close:hover {
+  background-color: var(--color-bg-alt);
+  color: var(--color-text);
 }

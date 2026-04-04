@@ -5,19 +5,17 @@
 }
 
 .header {
-  font-family: var(--font-body);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: var(--space-md) var(--space-xl);
-  background-color: var(--color-bg);
-  color: var(--color-text);
-  z-index: 1000;
-  border-bottom: 1px solid var(--color-border-light);
+  padding: var(--space-md) var(--content-padding);
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   position: sticky;
   top: 0;
-  backdrop-filter: blur(12px);
-  background-color: rgba(255, 255, 255, 0.95);
+  z-index: 1000;
+  border-bottom: 1px solid var(--color-border-light);
 }
 
 /* ── Logo ── */
@@ -36,20 +34,20 @@
 }
 
 .logo-image {
-  width: 220px;
-  transition: opacity var(--transition-fast);
+  width: 200px;
+  transition: opacity var(--duration-fast) var(--ease);
 }
 
 .logo-image:hover {
-  opacity: 0.85;
+  opacity: 0.8;
 }
 
 .header-slogan {
-  margin-left: var(--space-lg);
-  font-size: 0.95rem;
+  margin-left: var(--space-xl);
+  font-size: 0.85rem;
   font-weight: 400;
-  color: var(--color-text-light);
-  max-width: 300px;
+  color: var(--color-text-tertiary);
+  max-width: 260px;
   line-height: 1.4;
 }
 
@@ -62,82 +60,77 @@
 }
 
 .contact-icon {
-  width: 32px;
-  height: 32px;
-  margin-left: var(--space-sm);
-  transition:
-    transform var(--transition-fast),
-    opacity var(--transition-fast);
-  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  margin-left: 6px;
+  transition: all var(--duration-base) var(--ease);
+  opacity: 0.7;
 }
 
 .contact-icon:hover {
-  transform: scale(1.15);
-  opacity: 0.85;
+  opacity: 1;
+  transform: scale(1.1);
 }
 
 .header-contacts a {
   color: var(--color-text);
   text-decoration: none;
-  font-size: 1rem;
+  font-size: 0.9rem;
   font-weight: 500;
-  transition: color var(--transition-fast);
+  transition: color var(--duration-fast) var(--ease);
 }
 
 .header-contacts a:hover {
-  color: var(--color-secondary);
+  color: var(--color-accent);
 }
 
 .div_icons {
   display: flex;
-  gap: var(--space-xs);
+  gap: 2px;
 }
 
 .contact-btn {
   display: none;
-  padding: var(--space-sm) var(--space-lg);
+  padding: 10px 20px;
   background-color: var(--color-primary);
-  color: var(--color-bg);
+  color: white;
   border: none;
   border-radius: var(--radius-sm);
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   font-weight: 600;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.01em;
   text-decoration: none;
   text-align: center;
-  transition: all var(--transition-base);
+  transition: all var(--duration-base) var(--ease);
 }
 
 .contact-btn:hover {
   background-color: var(--color-primary-light);
-  color: var(--color-bg);
   transform: translateY(-1px);
-  box-shadow: var(--shadow-md);
 }
 
 .contact-link {
   color: var(--color-text);
   font-weight: 600;
-  font-size: 1.1rem;
-  letter-spacing: 0.02em;
+  font-size: 1rem;
 }
 
 /* ── Tooltip ── */
 .tooltip {
   visibility: hidden;
   background-color: var(--color-primary);
-  color: var(--color-bg);
+  color: white;
   text-align: center;
   border-radius: var(--radius-sm);
-  padding: var(--space-xs) var(--space-sm);
+  padding: 4px 8px;
   position: absolute;
   z-index: 1;
   bottom: 150%;
   left: 50%;
   transform: translateX(-50%);
   opacity: 0;
-  transition: opacity var(--transition-fast);
-  font-size: 0.75rem;
+  transition: opacity var(--duration-fast) var(--ease);
+  font-size: 0.7rem;
   white-space: nowrap;
   pointer-events: none;
 }
@@ -159,21 +152,22 @@ a:hover .tooltip {
   cursor: pointer;
   display: flex;
   align-items: center;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   font-weight: 500;
-  padding: var(--space-xs) var(--space-sm);
+  padding: 6px 10px;
   border-radius: var(--radius-sm);
-  transition: background-color var(--transition-fast);
+  transition: background-color var(--duration-fast) var(--ease);
 }
 
 .language-selected:hover {
-  background-color: var(--color-bg-warm);
+  background-color: var(--color-bg-alt);
 }
 
 .globe-icon {
-  width: 20px;
-  height: 20px;
-  margin-right: var(--space-xs);
+  width: 18px;
+  height: 18px;
+  margin-right: 4px;
+  opacity: 0.6;
 }
 
 .language-dropdown {
@@ -181,61 +175,34 @@ a:hover .tooltip {
   background-color: var(--color-bg);
   color: var(--color-text);
   list-style: none;
-  padding: var(--space-xs) 0;
-  border: 1px solid var(--color-border);
+  padding: 4px;
+  border: 1px solid var(--color-border-light);
   border-radius: var(--radius-md);
   box-shadow: var(--shadow-lg);
   z-index: 4000;
-  top: 2rem;
+  top: 2.2rem;
   min-width: 100px;
   overflow: hidden;
 }
 
 .language-dropdown li {
-  padding: var(--space-sm) var(--space-md);
+  padding: 8px 14px;
   cursor: pointer;
-  font-size: 0.9rem;
-  transition: background-color var(--transition-fast);
+  font-size: 0.85rem;
+  border-radius: var(--radius-sm);
+  transition: background-color var(--duration-fast) var(--ease);
 }
 
 .language-dropdown li:hover {
-  background-color: var(--color-bg-section);
-  color: var(--color-secondary-dark);
+  background-color: var(--color-bg-alt);
 }
 
 a.contact-link-infooter {
   color: var(--color-text);
 }
 
-/* ── Responsive: Tablet Landscape ── */
-@media (min-width: 1025px) and (max-width: 1199px) {
-  .header {
-    padding: var(--space-sm) var(--space-md);
-  }
-  .logo-image {
-    width: 160px;
-  }
-  .header-slogan {
-    font-size: 0.8rem;
-    max-width: 200px;
-  }
-  .contact-btn {
-    display: block;
-  }
-  .contact-link {
-    display: none;
-  }
-  .contact-icon {
-    width: 28px;
-    height: 28px;
-  }
-}
-
-/* ── Responsive: Tablet ── */
-@media (min-width: 769px) and (max-width: 1024px) {
-  .header {
-    padding: var(--space-sm) var(--space-md);
-  }
+/* ── Responsive ── */
+@media (max-width: 1199px) {
   .logo-image {
     width: 150px;
   }
@@ -249,62 +216,44 @@ a.contact-link-infooter {
   .contact-link {
     display: none;
   }
-  .contact-icon {
-    width: 26px;
-    height: 26px;
+}
+
+@media (max-width: 1024px) {
+  .header-slogan {
+    display: none;
   }
 }
 
-/* ── Responsive: Mobile Landscape ── */
-@media (min-width: 481px) and (max-width: 768px) {
+@media (max-width: 768px) {
   .header {
-    padding: var(--space-sm) var(--space-md);
+    padding: var(--space-sm) var(--content-padding);
   }
   .logo-image {
     width: 130px;
   }
-  .header-slogan {
-    display: none;
-  }
-  .header-contacts a {
-    font-size: 0.85rem;
-  }
   .contact-icon {
-    width: 24px;
-    height: 24px;
-  }
-  .contact-btn {
-    display: block;
-    font-size: 0.85rem;
-  }
-  .contact-link {
-    display: none;
+    width: 22px;
+    height: 22px;
   }
 }
 
-/* ── Responsive: Mobile ── */
 @media (max-width: 480px) {
   .header {
-    padding: var(--space-sm) var(--space-md);
     flex-wrap: wrap;
+    gap: var(--space-sm);
   }
   .logo-image {
-    width: 160px;
-  }
-  .header-slogan {
-    display: none;
-  }
-  .header-logo-text {
-    display: flex;
+    width: 140px;
   }
   .contact-btn {
     display: block;
     width: 100%;
-    font-size: 0.9rem;
-    padding: var(--space-sm) var(--space-md);
   }
   .contact-link {
     display: none;
+  }
+  .header-logo-text {
+    display: flex;
   }
   .header-contacts {
     width: 100%;

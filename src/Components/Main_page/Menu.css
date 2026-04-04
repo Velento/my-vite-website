@@ -1,31 +1,27 @@
 /* ── Navigation Menu ── */
 .menu {
-  font-family: var(--font-body);
-  background-color: var(--color-bg);
-  padding: var(--space-md) var(--space-xl);
   display: flex;
   justify-content: center;
-  border-bottom: 1px solid var(--color-border-light);
+  padding: var(--space-md) var(--content-padding);
+  background: var(--color-bg);
 }
 
 .menu ul {
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
+  list-style: none;
   display: flex;
-  gap: var(--space-xl);
+  gap: var(--space-2xl);
 }
 
 .menu li a {
   text-decoration: none;
-  color: var(--color-text);
+  color: var(--color-text-secondary);
   font-weight: 500;
-  font-size: 0.95rem;
-  letter-spacing: 0.03em;
+  font-size: 0.85rem;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
-  transition: color var(--transition-fast);
+  transition: color var(--duration-base) var(--ease);
   position: relative;
-  padding-bottom: var(--space-xs);
+  padding-bottom: 4px;
 }
 
 .menu li a::after {
@@ -34,44 +30,29 @@
   left: 0;
   bottom: 0;
   width: 0;
-  height: 2px;
-  background-color: var(--color-secondary);
-  transition: width var(--transition-base);
+  height: 1.5px;
+  background-color: var(--color-accent);
+  transition: width var(--duration-base) var(--ease);
 }
 
 .menu li a:hover {
-  color: var(--color-secondary-dark);
+  color: var(--color-text);
 }
 
 .menu li a:hover::after {
   width: 100%;
 }
 
-@media (min-width: 1025px) and (max-width: 1199px) {
+@media (max-width: 1024px) {
   .menu ul {
     gap: var(--space-lg);
-  }
-  .menu li a {
-    font-size: 0.85rem;
-  }
-}
-
-@media (min-width: 769px) and (max-width: 1024px) {
-  .menu ul {
-    gap: var(--space-md);
   }
   .menu li a {
     font-size: 0.8rem;
   }
 }
 
-@media (min-width: 481px) and (max-width: 768px) {
-  .menu {
-    display: none;
-  }
-}
-
-@media (max-width: 480px) {
+@media (max-width: 768px) {
   .menu {
     display: none;
   }

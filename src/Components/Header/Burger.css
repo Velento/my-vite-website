@@ -3,10 +3,10 @@
   width: 44px;
   height: 44px;
   border-radius: var(--radius-md);
-  border: 2px solid var(--color-border);
+  border: 1px solid var(--color-border);
   position: absolute;
   top: 50%;
-  right: var(--space-md);
+  right: var(--content-padding);
   transform: translateY(-50%);
   cursor: pointer;
   display: none;
@@ -14,26 +14,21 @@
   align-items: center;
   z-index: 1003;
   background: var(--color-bg);
-  transition:
-    border-color var(--transition-fast),
-    box-shadow var(--transition-fast);
+  transition: all var(--duration-base) var(--ease);
 }
 
 .header_burger:hover {
-  border-color: var(--color-secondary);
-  box-shadow: var(--shadow-sm);
+  border-color: var(--color-text-tertiary);
 }
 
 .burger_line {
   display: block;
-  background-color: var(--color-primary);
-  width: 20px;
-  height: 2px;
+  background-color: var(--color-text);
+  width: 18px;
+  height: 1.5px;
   margin: 3px auto;
-  border-radius: 2px;
-  transition:
-    transform var(--transition-base),
-    opacity var(--transition-fast);
+  border-radius: 1px;
+  transition: all var(--duration-base) var(--ease);
 }
 
 .slide_burger_span1 {
@@ -44,13 +39,13 @@
   transform: rotate(-45deg) translateX(-5px) translateY(5px);
 }
 
-/* ── Burger Menu Content (slide-in panel) ── */
+/* ── Slide-in Panel ── */
 .burger_menu_content {
   position: fixed;
   top: 0;
   right: -100%;
   width: 85%;
-  max-width: 380px;
+  max-width: 360px;
   height: 100vh;
   background-color: var(--color-bg);
   z-index: 1001;
@@ -59,7 +54,7 @@
   align-items: center;
   padding: var(--space-4xl) var(--space-xl) var(--space-xl);
   box-shadow: var(--shadow-xl);
-  transition: right var(--transition-slow);
+  transition: right var(--duration-slow) var(--ease);
   overflow-y: auto;
 }
 
@@ -71,7 +66,7 @@
 .burger_menu_content_active .header-contacts,
 .burger_menu_content_active .header-language-switcher {
   display: flex;
-  margin-bottom: var(--space-lg);
+  margin-bottom: var(--space-xl);
 }
 
 .burger_menu_content_active .menu {
@@ -96,7 +91,7 @@
 }
 
 /* ── Responsive ── */
-@media (min-width: 481px) and (max-width: 768px) {
+@media (max-width: 768px) {
   .header-contacts,
   .header-language-switcher {
     display: none;
@@ -114,20 +109,8 @@
 }
 
 @media (max-width: 480px) {
-  .header-contacts,
-  .header-language-switcher {
-    display: none;
-  }
-  .burger_menu_content_active .header-language-switcher {
-    display: flex;
-  }
   .header_burger {
-    display: flex;
     top: var(--space-md);
     transform: none;
-  }
-  .language-dropdown {
-    background-color: var(--color-bg);
-    box-shadow: var(--shadow-md);
   }
 }

@@ -1,6 +1,6 @@
-/* ── Pricelist Section ── */
+/* ── Pricelist ── */
 .pricelist {
-  padding: var(--space-3xl) var(--space-xl);
+  padding: var(--space-section) var(--content-padding);
   max-width: var(--max-width);
   margin: 0 auto;
 }
@@ -15,25 +15,23 @@
 }
 
 .right-column {
-  flex: 0 0 200px;
+  flex: 0 0 180px;
   position: relative;
 }
 
-/* ── Service Card ── */
+/* ── Service Card — clean, no heavy border ── */
 .service {
   background: var(--color-bg);
-  border: 1px solid var(--color-border-light);
   border-radius: var(--radius-lg);
   padding: var(--space-2xl);
   margin-bottom: var(--space-xl);
-  transition:
-    box-shadow var(--transition-base),
-    transform var(--transition-base);
+  border: 1px solid var(--color-border-light);
+  transition: all var(--duration-base) var(--ease);
 }
 
 .service:hover {
-  box-shadow: var(--shadow-lg);
-  transform: translateY(-3px);
+  border-color: var(--color-border);
+  box-shadow: var(--shadow-sm);
 }
 
 .service-header {
@@ -43,15 +41,16 @@
 }
 
 .service-icon {
-  width: 44px;
-  height: 44px;
+  width: 40px;
+  height: 40px;
   margin-right: var(--space-md);
   flex-shrink: 0;
+  opacity: 0.7;
 }
 
 .service-title {
   font-family: var(--font-heading);
-  font-size: 1.25rem;
+  font-size: 1.15rem;
   font-weight: 600;
   color: var(--color-primary);
   margin: 0;
@@ -62,25 +61,26 @@
 .service-points {
   list-style: none;
   padding: 0;
-  margin-bottom: var(--space-lg);
+  margin-bottom: var(--space-md);
 }
 
 .service-points li {
   display: flex;
   align-items: flex-start;
-  margin-bottom: var(--space-md);
-  font-size: 0.95rem;
-  line-height: 1.6;
-  color: var(--color-text-light);
+  margin-bottom: var(--space-sm);
+  font-size: 0.9rem;
+  line-height: 1.7;
+  color: var(--color-text-secondary);
   text-align: left;
 }
 
 .point-icon {
-  width: 20px;
-  height: 20px;
+  width: 18px;
+  height: 18px;
   margin-right: var(--space-md);
-  margin-top: 2px;
+  margin-top: 3px;
   flex-shrink: 0;
+  opacity: 0.5;
 }
 
 .point-text {
@@ -93,31 +93,32 @@
   flex-wrap: wrap;
   gap: var(--space-sm);
   margin-top: var(--space-lg);
+  align-items: center;
 }
 
 .price-button {
-  padding: var(--space-sm) var(--space-lg);
-  background-color: var(--color-bg-warm);
-  color: var(--color-secondary-dark);
-  border: 2px dashed var(--color-secondary);
+  padding: 8px 20px;
+  background-color: var(--color-bg-alt);
+  color: var(--color-accent);
+  border: 1px dashed var(--color-accent);
   border-radius: var(--radius-sm);
   font-family: var(--font-heading);
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-weight: 600;
   line-height: 1.4;
+  cursor: default;
 }
 
 .consult-button {
-  padding: var(--space-sm) var(--space-lg);
+  padding: 10px 24px;
   background-color: var(--color-primary);
-  color: var(--color-bg);
+  color: white;
   border: 2px solid var(--color-primary);
   border-radius: var(--radius-sm);
-  font-family: var(--font-body);
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   font-weight: 600;
   cursor: pointer;
-  transition: all var(--transition-base);
+  transition: all var(--duration-base) var(--ease);
 }
 
 .consult-button:hover {
@@ -125,32 +126,32 @@
   color: var(--color-primary);
 }
 
-/* ── Spinning Wheel (Right Column) ── */
+/* ── Spinning Wheel ── */
 .slip-button {
   background: none;
   border: none;
   padding: 0;
   cursor: pointer;
-  animation: spin 25s linear infinite;
+  animation: spin 30s linear infinite;
   position: sticky;
   top: 120px;
   z-index: 10;
 }
 
 .slip-button img {
-  width: 140px;
-  height: 140px;
-  opacity: 0.85;
-  transition: opacity var(--transition-fast);
+  width: 120px;
+  height: 120px;
+  opacity: 0.6;
+  transition: opacity var(--duration-base) var(--ease);
 }
 
 .slip-button:hover img {
-  opacity: 1;
+  opacity: 0.9;
 }
 
 .reason-buttons {
   position: sticky;
-  top: 300px;
+  top: 280px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -160,19 +161,19 @@
 .reason-button1,
 .reason-button2,
 .reason-button3 {
-  width: 90px;
-  height: 90px;
+  width: 80px;
+  height: 80px;
   background-color: var(--color-bg);
   border-radius: var(--radius-md);
   cursor: pointer;
   border: 1px solid var(--color-border-light);
-  transition: box-shadow var(--transition-fast);
+  transition: all var(--duration-base) var(--ease);
 }
 
 .reason-button1:hover,
 .reason-button2:hover,
 .reason-button3:hover {
-  box-shadow: var(--shadow-md);
+  border-color: var(--color-border);
 }
 
 .reason-text1,
@@ -180,15 +181,15 @@
 .reason-text3 {
   background: var(--color-bg);
   padding: var(--space-md);
-  border: 1px solid var(--color-border);
+  border: 1px solid var(--color-border-light);
   border-radius: var(--radius-md);
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--shadow-sm);
   z-index: 1;
-  font-size: 0.9rem;
-  line-height: 1.5;
-  color: var(--color-text-light);
+  font-size: 0.85rem;
+  line-height: 1.6;
+  color: var(--color-text-secondary);
   margin-top: var(--space-sm);
-  max-width: 220px;
+  max-width: 200px;
 }
 
 @keyframes spin {
@@ -203,7 +204,7 @@
 /* ── Responsive ── */
 @media (max-width: 768px) {
   .pricelist {
-    padding: var(--space-xl) var(--space-md);
+    padding: var(--space-2xl) var(--content-padding);
   }
   .columns {
     flex-direction: column;
@@ -212,7 +213,7 @@
     display: none;
   }
   .service {
-    padding: var(--space-lg);
+    padding: var(--space-xl);
   }
   .buttons {
     flex-direction: column;

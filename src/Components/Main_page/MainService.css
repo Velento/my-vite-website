@@ -1,65 +1,61 @@
 /* ── Services Section ── */
 .services {
-  padding: var(--space-4xl) var(--space-xl);
+  padding: var(--space-section) var(--content-padding);
   max-width: var(--max-width);
   margin: 0 auto;
 }
 
 .services-h {
   font-family: var(--font-heading);
-  font-size: clamp(1.5rem, 3vw, 2.25rem);
+  font-size: clamp(1.4rem, 2.8vw, 2rem);
   font-weight: 600;
   color: var(--color-primary);
   text-align: center;
   margin-bottom: var(--space-2xl);
-  position: relative;
 }
 
 .services-h::after {
   content: '';
   display: block;
-  width: 60px;
-  height: 3px;
-  background: var(--color-secondary);
+  width: 40px;
+  height: 2px;
+  background: var(--color-accent);
   margin: var(--space-md) auto 0;
-  border-radius: 2px;
 }
 
 .services-h3 {
   font-family: var(--font-heading);
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-weight: 600;
   color: var(--color-primary);
   margin-bottom: var(--space-sm);
 }
 
-/* ── Service Item (Accordion) ── */
+/* ── Accordion Item ── */
 .service-item {
-  font-family: var(--font-body);
-  font-size: 1rem;
+  font-size: 0.95rem;
   font-weight: 500;
   cursor: pointer;
   padding: var(--space-lg) var(--space-xl);
-  margin-bottom: var(--space-sm);
-  border: 1px solid var(--color-border-light);
+  margin-bottom: 6px;
+  border: 1px solid transparent;
   border-radius: var(--radius-md);
   background: var(--color-bg);
-  transition: all var(--transition-base);
+  transition: all var(--duration-base) var(--ease);
   text-align: left;
+  color: var(--color-text);
 }
 
 .service-item:hover {
-  border-color: var(--color-secondary);
-  box-shadow: var(--shadow-sm);
+  background: var(--color-bg-alt);
 }
 
 .service-item.active {
-  border-color: var(--color-secondary);
-  background: var(--color-bg-warm);
-  box-shadow: var(--shadow-md);
+  background: var(--color-bg-alt);
+  border-color: var(--color-border);
 }
 
-/* ── Service Details (expanded) ── */
+/* ── Expanded Details ── */
 .service-details {
   margin-top: var(--space-md);
   padding-top: var(--space-md);
@@ -70,45 +66,41 @@
   display: block;
   width: 100%;
   text-align: left;
-  padding: var(--space-sm) var(--space-md);
-  margin-bottom: var(--space-xs);
-  color: var(--color-text-light);
-  font-size: 0.9rem;
-  font-family: var(--font-body);
+  padding: 8px 12px;
+  margin-bottom: 2px;
+  color: var(--color-text-secondary);
+  font-size: 0.85rem;
   border-radius: var(--radius-sm);
   background: none;
   border: none;
   cursor: pointer;
-  transition: all var(--transition-fast);
+  transition: all var(--duration-fast) var(--ease);
 }
 
 .service-p:hover {
-  color: var(--color-secondary-dark);
-  background-color: var(--color-bg-section);
+  color: var(--color-text);
+  background-color: var(--color-bg-subtle);
 }
 
 .modal-content p {
-  font-family: var(--font-body);
-  font-size: 0.95rem;
+  font-size: 0.9rem;
 }
 
-/* ── CTA Buttons ── */
+/* ── Primary CTA ── */
 .service-btn {
   display: inline-block;
-  padding: var(--space-sm) var(--space-xl);
-  font-size: 0.9rem;
+  padding: 10px 24px;
+  font-size: 0.85rem;
   font-weight: 600;
-  font-family: var(--font-body);
-  color: var(--color-bg);
+  color: white;
   background-color: var(--color-primary);
   border: 2px solid var(--color-primary);
   border-radius: var(--radius-sm);
   cursor: pointer;
   margin: var(--space-sm) var(--space-sm) var(--space-sm) 0;
-  transition: all var(--transition-base);
+  transition: all var(--duration-base) var(--ease);
   position: relative;
   overflow: hidden;
-  letter-spacing: 0.02em;
 }
 
 .service-btn:hover {
@@ -117,50 +109,35 @@
 }
 
 .service-btn::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
-  transform: translateX(-100%);
-  transition: transform 0.5s ease;
+  display: none;
 }
 
-.service-btn:hover::before {
-  transform: translateX(100%);
-}
-
-/* ── Cost Details ── */
+/* ── Secondary CTA ── */
 .cost-details-btn {
   display: inline-block;
-  padding: var(--space-sm) var(--space-lg);
-  background-color: var(--color-secondary);
-  color: var(--color-bg);
+  padding: 10px 24px;
+  background-color: var(--color-accent);
+  color: white;
   border: none;
   border-radius: var(--radius-sm);
-  font-family: var(--font-body);
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   font-weight: 600;
   cursor: pointer;
-  transition: all var(--transition-base);
-  box-shadow: var(--shadow-sm);
+  transition: all var(--duration-base) var(--ease);
 }
 
 .cost-details-btn:hover {
-  background-color: var(--color-secondary-dark);
-  box-shadow: var(--shadow-gold);
+  background-color: var(--color-accent-hover);
   transform: translateY(-1px);
 }
 
 /* ── Responsive ── */
 @media (max-width: 768px) {
   .services {
-    padding: var(--space-2xl) var(--space-md);
+    padding: var(--space-2xl) var(--content-padding);
   }
   .service-item {
-    padding: var(--space-md);
+    padding: var(--space-md) var(--space-lg);
   }
   .service-btn {
     width: 100%;

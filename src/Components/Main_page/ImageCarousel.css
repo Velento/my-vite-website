@@ -5,7 +5,6 @@
   overflow-y: hidden;
   scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch;
-  border-radius: var(--radius-md);
 }
 
 .carousel-image {
@@ -14,11 +13,11 @@
   height: auto;
   scroll-snap-align: start;
   cursor: pointer;
-  transition: transform var(--transition-base);
+  transition: opacity var(--duration-base) var(--ease);
 }
 
 .carousel-image:hover {
-  transform: scale(1.02);
+  opacity: 0.95;
 }
 
 .image-carousel::-webkit-scrollbar {

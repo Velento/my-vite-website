@@ -1,11 +1,11 @@
-/* ── Main Page Layout ── */
+/* ── Main Page ── */
 .main-page {
   width: 100%;
 }
 
-/* ── Benefits Intro ── */
+/* ── Benefits Section ── */
 .benefits-intro {
-  padding: var(--space-4xl) var(--space-xl);
+  padding: var(--space-section) var(--content-padding);
   max-width: var(--max-width);
   margin: 0 auto;
 }
@@ -13,71 +13,66 @@
 .benefits-intro__title,
 .benefits-h2 {
   font-family: var(--font-heading);
-  font-size: clamp(1.5rem, 3vw, 2.25rem);
+  font-size: clamp(1.4rem, 2.8vw, 2rem);
   font-weight: 600;
   color: var(--color-primary);
   text-align: center;
   margin-bottom: var(--space-3xl);
-  position: relative;
 }
 
 .benefits-intro__title::after {
   content: '';
   display: block;
-  width: 60px;
-  height: 3px;
-  background: var(--color-secondary);
+  width: 40px;
+  height: 2px;
+  background: var(--color-accent);
   margin: var(--space-md) auto 0;
-  border-radius: 2px;
 }
 
 .benefit-item {
-  margin-bottom: var(--space-2xl);
-  padding: var(--space-lg) var(--space-xl);
+  margin-bottom: var(--space-lg);
+  padding: var(--space-xl);
   background: var(--color-bg);
   border-radius: var(--radius-md);
-  border: 1px solid var(--color-border-light);
-  transition:
-    box-shadow var(--transition-base),
-    transform var(--transition-base);
+  transition: all var(--duration-base) var(--ease);
 }
 
 .benefit-item:hover {
-  box-shadow: var(--shadow-md);
-  transform: translateY(-2px);
+  background: var(--color-bg-alt);
 }
 
 .benefit-item__icon,
 .benefit-icon {
-  width: 28px;
-  height: 28px;
+  width: 24px;
+  height: 24px;
   margin-right: var(--space-sm);
   vertical-align: middle;
+  opacity: 0.6;
 }
 
 .benefit-item__title,
 .benefits-reasons-strong {
   font-family: var(--font-heading);
-  font-size: 1.15rem;
+  font-size: 1.05rem;
   font-weight: 600;
   color: var(--color-primary);
   display: block;
-  margin-bottom: var(--space-sm);
+  margin-bottom: var(--space-xs);
 }
 
 .benefit-item__content,
 .benefits-answers-p {
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   line-height: 1.7;
-  color: var(--color-text-light);
+  color: var(--color-text-secondary);
 }
 
-/* ── Two Column Sections ── */
+/* ── Two-Column Layout ── */
 .main-page-sections {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: var(--space-2xl);
-  padding: var(--space-3xl) var(--space-xl);
+  padding: var(--space-section) var(--content-padding);
   max-width: var(--max-width);
   margin: 0 auto;
 }
@@ -86,41 +81,39 @@
 .main-page-sections__right {
   display: flex;
   flex-direction: column;
-  gap: var(--space-2xl);
+  gap: var(--space-xl);
 }
 
-/* ── Section Card ── */
+/* ── Section Card — weightless ── */
 .section {
   background: var(--color-bg);
-  border: 1px solid var(--color-border-light);
   border-radius: var(--radius-lg);
   padding: var(--space-2xl);
-  transition:
-    box-shadow var(--transition-base),
-    transform var(--transition-base);
+  transition: all var(--duration-base) var(--ease);
+  border: 1px solid transparent;
 }
 
 .section:hover {
-  box-shadow: var(--shadow-lg);
-  transform: translateY(-3px);
+  background: var(--color-bg-alt);
+  border-color: var(--color-border-light);
 }
 
 .section__title,
 .section h3 {
   font-family: var(--font-heading);
-  font-size: 1.35rem;
+  font-size: 1.25rem;
   font-weight: 600;
   color: var(--color-primary);
   margin-bottom: var(--space-md);
-  text-transform: none;
 }
 
 .section__icon,
 .section-icon {
-  width: 48px;
+  width: 40px;
   height: auto;
   display: block;
   margin: 0 auto var(--space-md);
+  opacity: 0.7;
 }
 
 .section__content,
@@ -129,9 +122,9 @@
 }
 
 .section p {
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   line-height: 1.7;
-  color: var(--color-text-light);
+  color: var(--color-text-secondary);
   margin-bottom: var(--space-lg);
   text-align: left;
 }
@@ -139,29 +132,27 @@
 .section img.kate_foto,
 .section__image {
   width: 100%;
-  max-width: 300px;
+  max-width: 280px;
   height: auto;
   border-radius: var(--radius-md);
   margin: var(--space-md) auto;
   display: block;
-  box-shadow: var(--shadow-sm);
 }
 
-/* ── Section CTA Button ── */
+/* ── CTA Button ── */
 .section__cta,
 .section button {
   display: inline-block;
-  padding: var(--space-md) var(--space-xl);
+  padding: 12px 28px;
   background-color: var(--color-primary);
-  color: var(--color-bg);
+  color: white;
   font-family: var(--font-body);
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   font-weight: 600;
-  letter-spacing: 0.02em;
   border: 2px solid var(--color-primary);
   border-radius: var(--radius-sm);
   cursor: pointer;
-  transition: all var(--transition-base);
+  transition: all var(--duration-base) var(--ease);
   text-decoration: none;
   text-align: center;
 }
@@ -172,7 +163,7 @@
   color: var(--color-primary);
 }
 
-/* ── Modal (inline from MainPageSections context) ── */
+/* ── Modal ── */
 .modal {
   position: fixed;
   z-index: 1000;
@@ -181,11 +172,12 @@
   width: 100%;
   height: 100%;
   background-color: var(--color-overlay);
-  backdrop-filter: blur(6px);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   display: flex;
   justify-content: center;
   align-items: center;
-  animation: fadeIn 0.2s ease;
+  animation: fadeIn var(--duration-fast) var(--ease);
 }
 
 @keyframes fadeIn {
@@ -205,17 +197,16 @@
   width: 90%;
   max-width: 480px;
   text-align: center;
-  font-family: var(--font-body);
-  font-size: 1rem;
+  font-size: 0.95rem;
   box-shadow: var(--shadow-xl);
-  animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  animation: slideUp var(--duration-slow) var(--ease);
   max-height: 85vh;
   overflow-y: auto;
 }
 
 @keyframes slideUp {
   from {
-    transform: translateY(20px);
+    transform: translateY(12px);
     opacity: 0;
   }
   to {
@@ -229,8 +220,8 @@
   top: var(--space-md);
   right: var(--space-md);
   cursor: pointer;
-  font-size: 1.5rem;
-  color: var(--color-text-muted);
+  font-size: 1.3rem;
+  color: var(--color-text-tertiary);
   background: none;
   border: none;
   width: 36px;
@@ -238,29 +229,29 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 50%;
-  transition:
-    background-color var(--transition-fast),
-    color var(--transition-fast);
+  border-radius: var(--radius-full);
+  transition: all var(--duration-fast) var(--ease);
+  padding: 0;
+  line-height: 1;
 }
 
 .modal-content .close:hover {
-  background-color: var(--color-bg-section);
+  background-color: var(--color-bg-alt);
   color: var(--color-text);
 }
 
 .modal-content h2 {
   font-family: var(--font-heading);
-  font-size: 1.5rem;
+  font-size: 1.35rem;
   font-weight: 600;
   color: var(--color-primary);
   margin-bottom: var(--space-md);
 }
 
 .modal-content p {
-  font-size: 0.95rem;
-  color: var(--color-text-light);
-  line-height: 1.6;
+  font-size: 0.9rem;
+  color: var(--color-text-secondary);
+  line-height: 1.7;
   margin-bottom: var(--space-md);
   text-align: left;
 }
@@ -268,21 +259,19 @@
 .contact-icons {
   display: flex;
   justify-content: center;
-  gap: var(--space-md);
-}
-
-.contact-icons a {
-  margin: 0;
+  gap: var(--space-lg);
 }
 
 .contact-icons img {
-  width: 32px;
-  height: 32px;
-  transition: transform var(--transition-fast);
+  width: 30px;
+  height: 30px;
+  opacity: 0.7;
+  transition: all var(--duration-base) var(--ease);
 }
 
 .contact-icons img:hover {
-  transform: scale(1.15);
+  opacity: 1;
+  transform: scale(1.1);
 }
 
 .section-content .rightColumnSection_2 {
@@ -294,22 +283,21 @@
 }
 
 /* ── Responsive ── */
-@media (min-width: 769px) and (max-width: 1024px) {
+@media (max-width: 1024px) {
   .main-page-sections {
     gap: var(--space-lg);
-    padding: var(--space-2xl) var(--space-md);
   }
 }
 
 @media (max-width: 768px) {
   .main-page-sections {
     grid-template-columns: 1fr;
-    padding: var(--space-xl) var(--space-md);
+    padding: var(--space-2xl) var(--content-padding);
   }
   .benefits-intro {
-    padding: var(--space-2xl) var(--space-md);
+    padding: var(--space-2xl) var(--content-padding);
   }
   .section {
-    padding: var(--space-lg);
+    padding: var(--space-xl);
   }
 }
