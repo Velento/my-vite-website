@@ -1,99 +1,138 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import './FeedBackForm.css';
 import { useTranslation } from 'react-i18next';
 import ThankYou from './ThankYou';
+import { sendLeadToTelegram } from '../../services/telegram';
 import { trackLeadConversion } from '../../services/analytics';
+import { isValidName, isValidPhone, canSubmitForm } from '../../services/validation';
 
 const FeedbackForm = ({ onClose }) => {
   const { t } = useTranslation();
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
   const [promo, setPromo] = useState('');
-  const [showMessage, setShowMessage] = useState(false);
+  const [status, setStatus] = useState('idle');
+  const [errorMsg, setErrorMsg] = useState('');
   const [showThankYou, setShowThankYou] = useState(false);
+  const timerRef = useRef(null);
 
-  const isNameValid = /^[A-Za-zА-Яа-яЁё\s]+$/.test(name);
-  const isPhoneValid = /^[+\d][\d\s\-()]{8,}$/.test(phone);
-  const isFormValid = isNameValid && isPhoneValid;
+  const nameValid = isValidName(name);
+  const phoneValid = isValidPhone(phone);
+  const formReady = canSubmitForm(name, phone) && status !== 'submitting';
+
+  useEffect(() => {
+    return () => {
+      if (timerRef.current) clearTimeout(timerRef.current);
+    };
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!formReady) return;
+
+    setStatus('submitting');
+    setErrorMsg('');
 
     try {
-      const { sendLeadToTelegram } = await import('../../services/telegram');
-      await sendLeadToTelegram({ name, phone, promo: promo || undefined });
+      await sendLeadToTelegram({
+        name: name.trim(),
+        phone: phone.trim(),
+        promo: promo.trim() || undefined,
+      });
       trackLeadConversion();
-
-      setShowMessage(true);
-      setTimeout(() => {
-        setShowMessage(false);
+      setStatus('success');
+      timerRef.current = setTimeout(() => {
         setShowThankYou(true);
       }, 5000);
     } catch (error) {
       console.error('Error sending message:', error);
-      alert(t('feedbackForm.errorMessage', 'Failed to send message.'));
+      setStatus('error');
+      setErrorMsg(t('feedbackForm.errorMessage', 'Failed to send message.'));
     }
   };
 
   const handleThankYouClose = () => {
     setShowThankYou(false);
-    onClose();
+    onClose?.();
+  };
+
+  const handleClose = () => {
+    onClose?.();
   };
 
   return (
     // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
-    <div className="feedback-modal" id="feed-back" onClick={onClose} onKeyDown={(e) => e.key === 'Escape' && onClose()} role="dialog" aria-modal="true">
+    <div className="feedback-modal" id="feed-back" onClick={handleClose} onKeyDown={(e) => e.key === 'Escape' && handleClose()} role="dialog" aria-modal="true">
       {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */}
-      <div className="feedback-modal-content" onClick={(e) => e.stopPropagation()}>
-        <button type="button" className="close" onClick={onClose} aria-label="Close">
+      <div className="feedback-modal__content" onClick={(e) => e.stopPropagation()}>
+        <button type="button" className="feedback-modal__close" onClick={handleClose} aria-label="Close">
           &times;
         </button>
         <h2>{t('feedbackForm.title')}</h2>
         {!showThankYou ? (
-          <form onSubmit={handleSubmit}>
-            <div className="form-group">
-              <label>{t('feedbackForm.name')}</label>
+          <form onSubmit={handleSubmit} noValidate>
+            <div className={`form-group ${!nameValid && name ? 'form-group--error' : ''}`}>
+              <label htmlFor="feedback-name">{t('feedbackForm.name')}</label>
               <input
+                id="feedback-name"
                 type="text"
                 placeholder="Anna"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
+                aria-invalid={!nameValid && name !== ''}
+                disabled={status === 'submitting'}
               />
-              {!isNameValid && name && (
-                <span className="error-message">{t('feedbackForm.nameError')}</span>
+              {!nameValid && name && (
+                <span className="form-group__error" role="alert">{t('feedbackForm.nameError')}</span>
               )}
             </div>
-            <div className="form-group">
-              <label>{t('feedbackForm.phone')}</label>
+            <div className={`form-group ${!phoneValid && phone ? 'form-group--error' : ''}`}>
+              <label htmlFor="feedback-phone">{t('feedbackForm.phone')}</label>
               <input
-                type="text"
+                id="feedback-phone"
+                type="tel"
                 placeholder="+48123123123"
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
+                aria-invalid={!phoneValid && phone !== ''}
+                disabled={status === 'submitting'}
               />
-              {!isPhoneValid && phone && (
-                <span className="error-message">{t('feedbackForm.phoneError')}</span>
+              {!phoneValid && phone && (
+                <span className="form-group__error" role="alert">{t('feedbackForm.phoneError')}</span>
               )}
             </div>
             <div className="form-group">
-              <label>{t('feedbackForm.promo')}</label>
-              <input type="text" value={promo} onChange={(e) => setPromo(e.target.value)} />
+              <label htmlFor="feedback-promo">{t('feedbackForm.promo')}</label>
+              <input
+                id="feedback-promo"
+                type="text"
+                value={promo}
+                onChange={(e) => setPromo(e.target.value)}
+                disabled={status === 'submitting'}
+              />
             </div>
+            {errorMsg && (
+              <div className="form-group__error form-group__error--block" role="alert">
+                {errorMsg}
+              </div>
+            )}
+            {status === 'success' && (
+              <div className="message-alert" role="status">{t('messageAlert')}</div>
+            )}
             <div className="form-buttons">
               <button
                 type="submit"
-                disabled={!isFormValid}
-                className={`submit-button ${isFormValid ? 'active' : ''}`}
+                disabled={!formReady}
+                className={`submit-button ${formReady ? 'submit-button--active' : ''}`}
               >
-                {t('feedbackForm.submit')}
+                {status === 'submitting' ? '...' : t('feedbackForm.submit')}
               </button>
-              <button type="button" className="cancel-button" onClick={onClose}>
+              <button type="button" className="cancel-button" onClick={handleClose}>
                 {t('feedbackForm.cancel')}
               </button>
             </div>
           </form>
         ) : null}
-        {showMessage && <div className="message-alert">{t('messageAlert')}</div>}
         {showThankYou && <ThankYou name={name} onClose={handleThankYouClose} />}
       </div>
     </div>

@@ -1,23 +1,20 @@
 import { useState, useCallback } from 'react';
 import { sendLeadToTelegram } from '../../services/telegram';
 import { trackLeadConversion } from '../../services/analytics';
+import { NAME_REGEX, PHONE_REGEX } from '../../services/validation';
 
-const NAME_REGEX = /^[A-Za-zА-Яа-яЁёЄєІіЇїҐґ\s'-]{2,}$/u;
-const PHONE_REGEX = /^\+?[\d\s\-()]{9,}$/;
-
-// Rate limiting: не более одной заявки в минуту
 let lastSubmitTime = 0;
 const SUBMIT_COOLDOWN_MS = 60_000;
 
 /**
- * Хук управляет состоянием формы заявки.
- * UI-компонент не содержит бизнес-логику — только отображение.
+ * Hook for lead form state and submission logic.
+ * UI component renders only — no business logic.
  *
  * @param {{ onSuccess?: () => void }} options
  */
 export function useLeadForm({ onSuccess } = {}) {
   const [fields, setFields] = useState({ name: '', phone: '', promo: '' });
-  const [status, setStatus] = useState('idle'); // 'idle' | 'submitting' | 'success' | 'error'
+  const [status, setStatus] = useState('idle');
   const [errorMessage, setErrorMessage] = useState('');
 
   const isNameValid = fields.name === '' || NAME_REGEX.test(fields.name.trim());
@@ -37,7 +34,6 @@ export function useLeadForm({ onSuccess } = {}) {
       e.preventDefault();
       if (!canSubmit) return;
 
-      // Rate limiting на клиентской стороне
       const now = Date.now();
       if (now - lastSubmitTime < SUBMIT_COOLDOWN_MS) {
         setStatus('error');

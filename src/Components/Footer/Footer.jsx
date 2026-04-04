@@ -108,7 +108,7 @@ const Footer = () => {
       </div>
       <button
         className="go-up"
-        onClick={() => document.getElementById('pricelist').scrollIntoView({ behavior: 'smooth' })}
+        onClick={() => document.getElementById('pricelist')?.scrollIntoView({ behavior: 'smooth' })}
         aria-label="Scroll to top"
       >
         <img src={goUpImage} alt="" />

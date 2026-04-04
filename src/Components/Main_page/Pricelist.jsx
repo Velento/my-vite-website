@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import './Pricelist.css';
 import iconCheak from '../images/play_point.svg';
@@ -19,8 +19,7 @@ const Pricelist = () => {
   });
   const [showContactModal, setShowContactModal] = useState(false);
 
-  // Данные для прайс-листа
-  const services = [
+  const services = useMemo(() => [
     {
       title: t('pricelistservices.0.title'),
       points: [
@@ -66,9 +65,8 @@ const Pricelist = () => {
       points: [t('pricelistservices.6.points.0'), t('pricelistservices.6.points.1')],
       price: t('pricelistservices.6.price'),
     },
-  ];
+  ], [t]);
 
-  // Функция для переключения состояния отображения текста причин
   const toggleReasonText = (reason) => {
     setSelectedReasons((prev) => ({
       ...prev,

@@ -24,7 +24,7 @@ const ServiceDetails = ({
   t,
 }) => {
   return (
-    <div className="service-details" id="services">
+    <div className="service-details">
       <button
         type="button"
         className="service-p"

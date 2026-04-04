@@ -5,21 +5,7 @@ import viberIcon from '../images/viber.png';
 import './ContactModal.css';
 import { useTranslation } from 'react-i18next';
 import FeedbackForm from './FeedBackForm';
-
-function openViberChat(e) {
-  e.preventDefault();
-  const viberUrl = 'viber://chat?number=%2B48883734171';
-  const fallbackUrl = 'https://www.viber.com/download/';
-
-  window.location.href = viberUrl;
-
-  setTimeout(() => {
-    if (!document.hasFocus()) {
-      return;
-    }
-    window.location.href = fallbackUrl;
-  }, 500);
-}
+import { openViberChat } from '../../services/viber';
 
 const ContactModal = ({ show, onClose }) => {
   const { t } = useTranslation();
@@ -33,14 +19,14 @@ const ContactModal = ({ show, onClose }) => {
 
   const handleCloseFeedbackForm = () => {
     setIsFeedbackFormVisible(false);
-    onClose();
+    onClose?.();
   };
 
   return (
     <>
       {!isFeedbackFormVisible && (
         // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
-        <div className="modal" onClick={onClose} onKeyDown={(e) => e.key === 'Escape' && onClose()} role="dialog" aria-modal="true">
+        <div className="modal" onClick={() => onClose?.()} onKeyDown={(e) => e.key === 'Escape' && onClose?.()} role="dialog" aria-modal="true">
           {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */}
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
             <button type="button" className="close" onClick={onClose} aria-label="Close">

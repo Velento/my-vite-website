@@ -34,50 +34,34 @@ import slide2Blr from '../images/slider2-blr.jpg';
 import mobileSlide1Blr from '../images/image1-blr.jpg';
 import mobileSlide2Blr from '../images/image2-blr.jpg';
 
+const SLIDER_SETTINGS = {
+  dots: true,
+  infinite: true,
+  speed: 300,
+  slidesToShow: 1,
+  slidesToScroll: 1,
+  autoplay: true,
+  autoplaySpeed: 3000,
+};
+
+const SLIDES_BY_LANG = {
+  ua: { slides: [slide1Ukr, slide2Ukr], mobile: [mobileSlide1Ukr, mobileSlide2Ukr] },
+  en: { slides: [slide1Eng, slide2Eng], mobile: [mobileSlide1Eng, mobileSlide2Eng] },
+  pl: { slides: [slide1Pl, slide2Pl], mobile: [mobileSlide1Pl, mobileSlide2Pl] },
+  by: { slides: [slide1Blr, slide2Blr], mobile: [mobileSlide1Blr, mobileSlide2Blr] },
+  ru: { slides: [slide1Ru, slide2Ru], mobile: [mobileSlide1Ru, mobileSlide2Ru] },
+};
+
 const SliderComponent = () => {
   const { i18n, t } = useTranslation();
-  const language = i18n.language; // Получаем текущий язык
+  const language = i18n.language;
 
-  // Определяем картинки в зависимости от выбранного языка
-  let slides, mobileSlides;
-
-  switch (language) {
-    case 'ua':
-      slides = [slide1Ukr, slide2Ukr];
-      mobileSlides = [mobileSlide1Ukr, mobileSlide2Ukr];
-      break;
-    case 'en':
-      slides = [slide1Eng, slide2Eng];
-      mobileSlides = [mobileSlide1Eng, mobileSlide2Eng];
-      break;
-    case 'pl':
-      slides = [slide1Pl, slide2Pl];
-      mobileSlides = [mobileSlide1Pl, mobileSlide2Pl];
-      break;
-    case 'by':
-      slides = [slide1Blr, slide2Blr];
-      mobileSlides = [mobileSlide1Blr, mobileSlide2Blr];
-      break;
-    default: // 'ru' — язык по умолчанию
-      slides = [slide1Ru, slide2Ru];
-      mobileSlides = [mobileSlide1Ru, mobileSlide2Ru];
-      break;
-  }
-
-  const settings = {
-    dots: true,
-    infinite: true,
-    speed: 300,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    autoplay: true,
-    autoplaySpeed: 3000,
-  };
+  const { slides, mobile: mobileSlides } = SLIDES_BY_LANG[language] ?? SLIDES_BY_LANG.ru;
 
   return (
     <section className="slider-container" aria-label="Banner">
       <h1 className="visually-hidden">{t('seo.h1')}</h1>
-      <Slider {...settings}>
+      <Slider {...SLIDER_SETTINGS}>
         {slides.map((slide, index) => (
           <div key={index}>
             <picture>

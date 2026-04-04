@@ -3,32 +3,16 @@ import telegramIcon from '../images/telegram.png';
 import whatsappIcon from '../images/whatsapp.png';
 import viberIcon from '../images/viber.png';
 import { useTranslation } from 'react-i18next';
-
-function openViberChat(e) {
-  e.preventDefault();
-  const viberUrl = 'viber://chat?number=%2B48883734171';
-  const fallbackUrl = 'https://www.viber.com/download/';
-
-  // Попытка открыть Viber
-  window.location.href = viberUrl;
-
-  // Если Viber не установлен, перенаправляем на fallback URL
-  setTimeout(() => {
-    if (!document.hasFocus()) {
-      return;
-    }
-    window.location.href = fallbackUrl;
-  }, 500);
-}
+import { openViberChat } from '../../services/viber';
 
 function Contacts() {
   const { t } = useTranslation();
 
   return (
     <div className="header-contacts burger-header-contacts">
-      <button className="contact-btn" onClick={() => (window.location.href = 'tel:+48883734171')}>
+      <a href="tel:+48883734171" className="contact-btn">
         {t('actionToCall')}
-      </button>
+      </a>
       <a href="tel:+48883734171" className="contact-link">
         +48883734171
       </a>
