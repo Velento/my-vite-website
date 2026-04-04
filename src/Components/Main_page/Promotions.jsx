@@ -19,20 +19,20 @@ const Pricelist = () => {
   ];
 
   return (
-    <div className="pricelist" id="promotions">
+    <section className="pricelist" id="promotions">
       <div className="columns">
         <div className="right-column"></div>
         <div className="left-column">
           {servicespromo.map((service, index) => (
             <div className="service" key={index}>
               <div className="service-header">
-                <img src={iconPromo} alt="Promo Icon" className="service-icon" />
+                <img src={iconPromo} alt="" className="service-icon" />
                 <h2 className="service-title">{service.title}</h2>
               </div>
               <ul className="service-points">
                 {service.points.map((point, pointIndex) => (
                   <li key={pointIndex}>
-                    <img src={iconCheak} alt="Point Icon" className="point-icon" />
+                    <img src={iconCheak} alt="" className="point-icon" />
                     {point}
                   </li>
                 ))}
@@ -41,7 +41,7 @@ const Pricelist = () => {
           ))}
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

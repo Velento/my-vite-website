@@ -25,10 +25,16 @@ function Burger() {
 
   return (
     <div>
-      <div className={`header_burger ${isOpen ? 'slide_burger_menu' : ''}`} onClick={toggleMenu}>
+      <button
+        type="button"
+        className={`header_burger ${isOpen ? 'slide_burger_menu' : ''}`}
+        onClick={toggleMenu}
+        aria-label={isOpen ? 'Close menu' : 'Open menu'}
+        aria-expanded={isOpen}
+      >
         <span className={`burger_line ${isOpen ? 'slide_burger_span1' : ''}`}></span>
         <span className={`burger_line ${isOpen ? 'slide_burger_span2' : ''}`}></span>
-      </div>
+      </button>
       {isOpen && (
         <div className={`burger_menu_content ${isOpen ? 'burger_menu_content_active' : ''}`}>
           <LanguageSwitcher />

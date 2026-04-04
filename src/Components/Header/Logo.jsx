@@ -1,4 +1,3 @@
-// src/Components/Logo.jsx
 import './Header.css';
 import logo from '../images/logo_legal_line.png';
 import { useTranslation } from 'react-i18next';
@@ -8,16 +7,19 @@ function scrollToTop() {
 }
 
 function Logo() {
-  const { t: _t } = useTranslation();
+  const { t } = useTranslation();
 
   return (
     <div className="header-logo-text">
-      <div className="header-logo" onClick={scrollToTop}>
-        <img src={logo} alt="Legal Logo" className="logo-image" />
-      </div>
-      <div className="logo-text">
-        {/* <h1 className="header-slogan">{_t('header.slogan')}</h1> */}
-      </div>
+      <button
+        type="button"
+        className="header-logo"
+        onClick={scrollToTop}
+        aria-label={t('seo.h1')}
+      >
+        <img src={logo} alt="Legal Line" className="logo-image" />
+      </button>
+      <div className="logo-text" />
     </div>
   );
 }

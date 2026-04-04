@@ -1,4 +1,3 @@
-// src/Components/Footer/Footer.jsx
 import './Footer.css';
 import '../Main_page/Modal.css';
 import phoneIcon from '../images/phone-white.png';
@@ -11,16 +10,6 @@ import goUpImage from '../images/goUpImage.svg';
 
 const Footer = () => {
   const { t } = useTranslation();
-  // С ООО изменить на <ZOO>
-  // </ZOO>
-
-  // Под ценой коротко указать что мы будем делать за одну стоимость и за другую
-  // Найти на отзовиках отзывы о том что не понравилось и собрать список претензий людей
-  // Возвращаем ли деньги , если человек передумал
-  // перезваниваем ли людям или пропадаем
-  // Блок о нас Фото сотрудников
-  // квиз сделать. он дает до 5% конверсии. 3 вопроса. На какой вид ходите податься?. в конце оставь заявку.
-  // Создать раздел наши преимущества. Пойдем в ужонд и будем разговаривать по польски. Поможем сосотавить письмо для воеводы и тд
 
   return (
     <footer className="footer" id="footer">
@@ -28,14 +17,14 @@ const Footer = () => {
         <div className="footer-section contacts">
           <h2>{t('footer.contacts')}</h2>
           <div className="icon-text">
-            <img src={phoneIcon} alt="Phone" className="contact-icon" />
+            <img src={phoneIcon} alt="" className="contact-icon" />
             <a href="tel:+48883734171" className="footer-contact-link">
               {' '}
               +48883734171
             </a>
           </div>
           <div className="icon-text">
-            <img src={telegramIcon} alt="Telegram" className="contact-icon" />
+            <img src={telegramIcon} alt="" className="contact-icon" />
             <a
               href="https://t.me/LegalLine_pl"
               className="footer-contact-link"
@@ -47,7 +36,7 @@ const Footer = () => {
             </a>
           </div>
           <div className="icon-text">
-            <img src={whatsappIcon} alt="WhatsApp" className="contact-icon" />
+            <img src={whatsappIcon} alt="" className="contact-icon" />
             <a
               href="https://wa.me/+48883734171"
               className="footer-contact-link"
@@ -59,7 +48,7 @@ const Footer = () => {
             </a>
           </div>
           <div className="icon-text">
-            <img src={viberIcon} alt="Viber" className="contact-icon" />
+            <img src={viberIcon} alt="" className="contact-icon" />
             <a
               href="viber://chat?number=%2B48883734171"
               className="footer-contact-link"
@@ -71,7 +60,7 @@ const Footer = () => {
             </a>
           </div>
           <div className="icon-text">
-            <img src={instagramIcon} alt="Instagram" className="contact-icon" />
+            <img src={instagramIcon} alt="" className="contact-icon" />
             <a
               href="https://www.instagram.com/legal_line_pl/"
               className="footer-contact-link"
@@ -86,7 +75,6 @@ const Footer = () => {
         <div className="footer-section info">
           <h2>{t('footer.info')}</h2>
           <div className="icon-text">
-            {/* <img src={locationIcon} alt="Location" className="contact-icon" /> */}
             <p>{t('footer.company')}</p>
           </div>
           <p>{t('footer.address')}</p>
@@ -116,17 +104,14 @@ const Footer = () => {
               Karta stałego pobytu
             </a>
           </p>
-          {/* <button onClick={handleContactClick}>{t('footer.question')}</button>
-                    <ContactModal show={showContactModal} onClose={handleCloseModal} />
-                Кнопка задать вопрос импортирует контаск модал, отличающийся от должного модуля, который всплывает в других компонентах. Отличаются си сс параметры
-                */}
         </div>
       </div>
       <button
         className="go-up"
         onClick={() => document.getElementById('pricelist').scrollIntoView({ behavior: 'smooth' })}
+        aria-label="Scroll to top"
       >
-        <img src={goUpImage} alt="Go Up" />
+        <img src={goUpImage} alt="" />
       </button>
       <div className="footer-bottom">&copy; 2024 {t('footer.rights')}</div>
     </footer>

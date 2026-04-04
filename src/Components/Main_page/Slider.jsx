@@ -35,7 +35,7 @@ import mobileSlide1Blr from '../images/image1-blr.jpg';
 import mobileSlide2Blr from '../images/image2-blr.jpg';
 
 const SliderComponent = () => {
-  const { i18n } = useTranslation(); // Получаем объект i18n
+  const { i18n, t } = useTranslation();
   const language = i18n.language; // Получаем текущий язык
 
   // Определяем картинки в зависимости от выбранного языка
@@ -75,18 +75,19 @@ const SliderComponent = () => {
   };
 
   return (
-    <div className="slider-container">
+    <section className="slider-container" aria-label="Banner">
+      <h1 className="visually-hidden">{t('seo.h1')}</h1>
       <Slider {...settings}>
         {slides.map((slide, index) => (
           <div key={index}>
             <picture>
               <source media="(max-width: 480px)" srcSet={mobileSlides[index]} />
-              <img src={slide} alt={`Slide ${index + 1}`} />
+              <img src={slide} alt={t('slider.alt', { index: index + 1 })} />
             </picture>
           </div>
         ))}
       </Slider>
-    </div>
+    </section>
   );
 };
 

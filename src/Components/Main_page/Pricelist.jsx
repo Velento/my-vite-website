@@ -81,20 +81,19 @@ const Pricelist = () => {
   const handleCloseModal = () => setShowContactModal(false);
 
   return (
-    <div className="pricelist" id="pricelist">
-      <h1 className="pricelist-title"></h1>
+    <section className="pricelist" id="pricelist">
       <div className="columns">
         <div className="left-column">
           {services.map((service, index) => (
             <div className="service" key={index}>
               <div className="service-header">
-                <img src={iconPobit} alt="Service Icon" className="service-icon" />
+                <img src={iconPobit} alt="" className="service-icon" />
                 <h2 className="service-title">{service.title}</h2>
               </div>
               <ul className="service-points">
                 {service.points.map((point, pointIndex) => (
                   <li key={pointIndex}>
-                    <img src={iconCheak} alt="Point Icon" className="point-icon" />
+                    <img src={iconCheak} alt="" className="point-icon" />
                     <span className="point-text">{point}</span>
                   </li>
                 ))}
@@ -158,7 +157,7 @@ const Pricelist = () => {
         </div>
       </div>
       <ContactModal show={showContactModal} onClose={handleCloseModal} />
-    </div>
+    </section>
   );
 };
 

@@ -62,7 +62,7 @@ const CookieConsent = () => {
   return isVisible ? (
     <div className="cookie-consent-overlay">
       <div className="cookie-consent">
-        <button className="close-button" onClick={() => setIsVisible(false)}>
+        <button className="close-button" aria-label="Close" onClick={() => setIsVisible(false)}>
           ✕
         </button>
         {!isSettingsOpen ? (
@@ -80,7 +80,7 @@ const CookieConsent = () => {
           </>
         ) : (
           <div className="cookie-settings">
-            <button className="close-button" onClick={() => setIsSettingsOpen(false)}>
+            <button className="close-button" aria-label="Close" onClick={() => setIsSettingsOpen(false)}>
               ✕
             </button>
             <h3>{t('cookieSettings')}</h3>

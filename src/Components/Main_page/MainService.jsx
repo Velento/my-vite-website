@@ -4,6 +4,17 @@ import Modal from './Modal';
 import ContactModal from './ContactModal';
 import { useTranslation } from 'react-i18next';
 
+const SERVICE_KEYS = [
+  { id: 'Service1', labelKey: 'services.temporaryResidenceCard' },
+  { id: 'Service2', labelKey: 'services.permanentResidenceCard' },
+  { id: 'Service3', labelKey: 'services.marriageAgreement' },
+  { id: 'Service4', labelKey: 'services.businessVisa' },
+  { id: 'Service5', labelKey: 'services.familyReunion' },
+  { id: 'Service6', labelKey: 'services.konsultation' },
+  { id: 'Service7', labelKey: 'services.resume' },
+  { id: 'Service8', labelKey: 'services.civilDocs' },
+];
+
 const ServiceDetails = ({
   serviceName,
   onShowCostDetails,
@@ -14,7 +25,8 @@ const ServiceDetails = ({
 }) => {
   return (
     <div className="service-details" id="services">
-      <p
+      <button
+        type="button"
         className="service-p"
         onClick={(e) => {
           e.stopPropagation();
@@ -22,8 +34,9 @@ const ServiceDetails = ({
         }}
       >
         {t(`services.${serviceName}.cost`)}
-      </p>
-      <p
+      </button>
+      <button
+        type="button"
         className="service-p"
         onClick={(e) => {
           e.stopPropagation();
@@ -31,8 +44,9 @@ const ServiceDetails = ({
         }}
       >
         {t(`services.${serviceName}.terming`)}
-      </p>
-      <p
+      </button>
+      <button
+        type="button"
         className="service-p"
         onClick={(e) => {
           e.stopPropagation();
@@ -40,8 +54,9 @@ const ServiceDetails = ({
         }}
       >
         {t(`services.${serviceName}.learnMore`)}
-      </p>
+      </button>
       <button
+        type="button"
         className="service-btn"
         onClick={(e) => {
           e.stopPropagation();
@@ -51,6 +66,7 @@ const ServiceDetails = ({
         {t(`services.${serviceName}.orderService`)}
       </button>
       <button
+        type="button"
         className="service-btn"
         onClick={(e) => {
           e.stopPropagation();
@@ -70,6 +86,7 @@ const CostDetails = ({ serviceName, onShowContactModal, t }) => {
         <h3 className="services-h3">{t(`services.${serviceName}.basicPackage.title`)}</h3>
         <p>{t(`services.${serviceName}.basicPackage.content`)}</p>
         <button
+          type="button"
           className="cost-details-btn"
           onClick={(e) => {
             e.stopPropagation();
@@ -83,6 +100,7 @@ const CostDetails = ({ serviceName, onShowContactModal, t }) => {
         <h3 className="services-h3">{t(`services.${serviceName}.allInclusivePackage.title`)}</h3>
         <p>{t(`services.${serviceName}.allInclusivePackage.content`)}</p>
         <button
+          type="button"
           className="cost-details-btn"
           onClick={(e) => {
             e.stopPropagation();
@@ -130,22 +148,6 @@ const Services = () => {
     setShowContactModal(false);
   };
 
-  const handleShowCostDetails = () => {
-    setShowCostDetails(true);
-  };
-
-  const handleShowMoreInfo = () => {
-    setShowMoreInfo(true);
-  };
-
-  const handleShowProcessingTime = () => {
-    setShowProcessingTime(true);
-  };
-
-  const handleShowContactModal = () => {
-    setShowContactModal(true);
-  };
-
   const handleCloseModal = () => {
     setShowCostDetails(false);
     setShowMoreInfo(false);
@@ -154,136 +156,30 @@ const Services = () => {
   };
 
   return (
-    <div className="services" id="services">
+    <section className="services" id="services">
       <h2 className="services-h">{t('services.servicesTitle')}</h2>
-      <div
-        className={`service-item ${activeService === 'Service1' ? 'active' : ''}`}
-        onClick={() => handleServiceClick('Service1')}
-      >
-        {t('services.temporaryResidenceCard')}
-        {activeService === 'Service1' && (
-          <ServiceDetails
-            serviceName="Service1"
-            onShowCostDetails={handleShowCostDetails}
-            onShowMoreInfo={handleShowMoreInfo}
-            onShowProcessingTime={handleShowProcessingTime}
-            onShowContactModal={handleShowContactModal}
-            t={t}
-          />
-        )}
-      </div>
-      <div
-        className={`service-item ${activeService === 'Service2' ? 'active' : ''}`}
-        onClick={() => handleServiceClick('Service2')}
-      >
-        {t('services.permanentResidenceCard')}
-        {activeService === 'Service2' && (
-          <ServiceDetails
-            serviceName="Service2"
-            onShowCostDetails={handleShowCostDetails}
-            onShowMoreInfo={handleShowMoreInfo}
-            onShowProcessingTime={handleShowProcessingTime}
-            onShowContactModal={handleShowContactModal}
-            t={t}
-          />
-        )}
-      </div>
-      <div
-        className={`service-item ${activeService === 'Service3' ? 'active' : ''}`}
-        onClick={() => handleServiceClick('Service3')}
-      >
-        {t('services.marriageAgreement')}
-        {activeService === 'Service3' && (
-          <ServiceDetails
-            serviceName="Service3"
-            onShowCostDetails={handleShowCostDetails}
-            onShowMoreInfo={handleShowMoreInfo}
-            onShowProcessingTime={handleShowProcessingTime}
-            onShowContactModal={handleShowContactModal}
-            t={t}
-          />
-        )}
-      </div>
-      <div
-        className={`service-item ${activeService === 'Service4' ? 'active' : ''}`}
-        onClick={() => handleServiceClick('Service4')}
-      >
-        {t('services.businessVisa')}
-        {activeService === 'Service4' && (
-          <ServiceDetails
-            serviceName="Service4"
-            onShowCostDetails={handleShowCostDetails}
-            onShowMoreInfo={handleShowMoreInfo}
-            onShowProcessingTime={handleShowProcessingTime}
-            onShowContactModal={handleShowContactModal}
-            t={t}
-          />
-        )}
-      </div>
-      <div
-        className={`service-item ${activeService === 'Service5' ? 'active' : ''}`}
-        onClick={() => handleServiceClick('Service5')}
-      >
-        {t('services.familyReunion')}
-        {activeService === 'Service5' && (
-          <ServiceDetails
-            serviceName="Service5"
-            onShowCostDetails={handleShowCostDetails}
-            onShowMoreInfo={handleShowMoreInfo}
-            onShowProcessingTime={handleShowProcessingTime}
-            onShowContactModal={handleShowContactModal}
-            t={t}
-          />
-        )}
-      </div>
-      <div
-        className={`service-item ${activeService === 'Service6' ? 'active' : ''}`}
-        onClick={() => handleServiceClick('Service6')}
-      >
-        {t('services.konsultation')}
-        {activeService === 'Service6' && (
-          <ServiceDetails
-            serviceName="Service6"
-            onShowCostDetails={handleShowCostDetails}
-            onShowMoreInfo={handleShowMoreInfo}
-            onShowProcessingTime={handleShowProcessingTime}
-            onShowContactModal={handleShowContactModal}
-            t={t}
-          />
-        )}
-      </div>
-      <div
-        className={`service-item ${activeService === 'Service7' ? 'active' : ''}`}
-        onClick={() => handleServiceClick('Service7')}
-      >
-        {t('services.resume')}
-        {activeService === 'Service7' && (
-          <ServiceDetails
-            serviceName="Service7"
-            onShowCostDetails={handleShowCostDetails}
-            onShowMoreInfo={handleShowMoreInfo}
-            onShowProcessingTime={handleShowProcessingTime}
-            onShowContactModal={handleShowContactModal}
-            t={t}
-          />
-        )}
-      </div>
-      <div
-        className={`service-item ${activeService === 'Service8' ? 'active' : ''}`}
-        onClick={() => handleServiceClick('Service8')}
-      >
-        {t('services.civilDocs')}
-        {activeService === 'Service8' && (
-          <ServiceDetails
-            serviceName="Service8"
-            onShowCostDetails={handleShowCostDetails}
-            onShowMoreInfo={handleShowMoreInfo}
-            onShowProcessingTime={handleShowProcessingTime}
-            onShowContactModal={handleShowContactModal}
-            t={t}
-          />
-        )}
-      </div>
+      {SERVICE_KEYS.map(({ id, labelKey }) => (
+        <div
+          key={id}
+          className={`service-item ${activeService === id ? 'active' : ''}`}
+          onClick={() => handleServiceClick(id)}
+          role="button"
+          tabIndex={0}
+          onKeyDown={(e) => e.key === 'Enter' && handleServiceClick(id)}
+        >
+          {t(labelKey)}
+          {activeService === id && (
+            <ServiceDetails
+              serviceName={id}
+              onShowCostDetails={() => setShowCostDetails(true)}
+              onShowMoreInfo={() => setShowMoreInfo(true)}
+              onShowProcessingTime={() => setShowProcessingTime(true)}
+              onShowContactModal={() => setShowContactModal(true)}
+              t={t}
+            />
+          )}
+        </div>
+      ))}
       {(showCostDetails || showMoreInfo || showProcessingTime || showContactModal) && (
         <Modal
           show={showCostDetails || showMoreInfo || showProcessingTime || showContactModal}
@@ -292,7 +188,7 @@ const Services = () => {
           {showCostDetails && (
             <CostDetails
               serviceName={activeService}
-              onShowContactModal={handleShowContactModal}
+              onShowContactModal={() => setShowContactModal(true)}
               t={t}
             />
           )}
@@ -301,7 +197,7 @@ const Services = () => {
           {showContactModal && <ContactModal show={showContactModal} onClose={handleCloseModal} />}
         </Modal>
       )}
-    </div>
+    </section>
   );
 };
 

@@ -1,16 +1,17 @@
-// ThankYou.jsx
-import './ThankYou.css'; // Добавьте стили, если необходимо
+import './ThankYou.css';
 import { useTranslation } from 'react-i18next';
 
 const ThankYou = ({ name, onClose }) => {
   const { t } = useTranslation();
 
   return (
-    <div className="thank-you-modal" onClick={onClose}>
+    // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
+    <div className="thank-you-modal" onClick={onClose} onKeyDown={(e) => e.key === 'Escape' && onClose()} role="dialog" aria-modal="true">
+      {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */}
       <div className="thank-you-modal-content" onClick={(e) => e.stopPropagation()}>
-        <span className="close" onClick={onClose}>
+        <button type="button" className="close" onClick={onClose} aria-label="Close">
           &times;
-        </span>
+        </button>
         <h3>
           {t('textThankYou')}, {name}
         </h3>

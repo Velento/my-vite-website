@@ -41,31 +41,31 @@ const Team = () => {
   };
 
   return (
-    <div className="team-section">
+    <section className="team-section">
       <h2 className="team-title" id="about">
         {t('team.title')}
       </h2>
       <Slider {...settings}>
         <div className="team-slide">
-          <img className="team-slide-img" src={team_member3} alt="Team Member 3" />
+          <img className="team-slide-img" src={team_member3} alt={t('team.memberAlt')} />
         </div>
         <div className="team-slide">
-          <img className="team-slide-img" src={team_member5} alt="Team Member 5" />
+          <img className="team-slide-img" src={team_member5} alt={t('team.memberAlt')} />
         </div>
         <div className="team-slide">
-          <img className="team-slide-img" src={team_member4} alt="Team Member 4" />
+          <img className="team-slide-img" src={team_member4} alt={t('team.memberAlt')} />
         </div>
         <div className="team-slide">
-          <img className="team-slide-img" src={team_member1} alt="Team Member 1" />
+          <img className="team-slide-img" src={team_member1} alt={t('team.memberAlt')} />
         </div>
         <div className="team-slide">
-          <img className="team-slide-img" src={team_member2} alt="Team Member 2" />
+          <img className="team-slide-img" src={team_member2} alt={t('team.memberAlt')} />
         </div>
       </Slider>
       <div className="team-mission">
         <p>{t('team.mission.content')}</p>
       </div>
-    </div>
+    </section>
   );
 };
 

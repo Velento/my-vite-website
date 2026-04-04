@@ -1,5 +1,6 @@
 import { useState, useCallback } from 'react';
 import { sendLeadToTelegram } from '../../services/telegram';
+import { trackLeadConversion } from '../../services/analytics';
 
 const NAME_REGEX = /^[A-Za-zА-Яа-яЁёЄєІіЇїҐґ\s'-]{2,}$/u;
 const PHONE_REGEX = /^\+?[\d\s\-()]{9,}$/;
@@ -55,6 +56,7 @@ export function useLeadForm({ onSuccess } = {}) {
         });
         lastSubmitTime = Date.now();
         setStatus('success');
+        trackLeadConversion();
         onSuccess?.();
       } catch (err) {
         setStatus('error');

@@ -17,16 +17,16 @@ const MainPageSections = () => {
     const handleCloseModal = () => setShowContactModal(false);
 
     return (
-      <div className="section">
+      <article className="section">
         <h3>{title}</h3>
         {iconSrc && <img src={iconSrc} alt={`${title} icon`} className="section-icon" />}
         <div className="section-content">
           <p>{content}</p>
-          {imgSrc && <img src={imgSrc} alt="Section" className="kate_foto" />}
+          {imgSrc && <img src={imgSrc} alt={title} className="kate_foto" />}
         </div>
         {buttonLink ? (
-          <a href={buttonLink} target="_blank" rel="noopener noreferrer">
-            <button>{buttonText}</button>
+          <a href={buttonLink} target="_blank" rel="noopener noreferrer" className="button-i-want">
+            {buttonText}
           </a>
         ) : (
           <button className="button-i-want" onClick={handleShowModal}>
@@ -35,47 +35,47 @@ const MainPageSections = () => {
         )}
 
         <ContactModal show={showContactModal} onClose={handleCloseModal} />
-      </div>
+      </article>
     );
   };
 
   return (
-    <div>
-      <div className="benefits-intro" id="advantages">
+    <>
+      <section className="benefits-intro" id="advantages">
         <h2 className="benefits-h2">{t('benefits.title')}</h2>
         <div className="benefit-item">
-          <img src={icon1} alt="Icon" className="benefit-icon" />
+          <img src={icon1} alt="" className="benefit-icon" />
           <strong className="benefits-reasons-strong">{t('benefits.reason1.title')}</strong>
           <p className="benefits-answers-p">{t('benefits.reason1.content')}</p>
         </div>
         <div className="benefit-item">
-          <img src={icon1} alt="Icon" className="benefit-icon" />
+          <img src={icon1} alt="" className="benefit-icon" />
           <strong className="benefits-reasons-strong">{t('benefits.reason2.title')}</strong>
           <p className="benefits-answers-p">{t('benefits.reason2.content')}</p>
         </div>
         <div className="benefit-item">
-          <img src={icon1} alt="Icon" className="benefit-icon" />
+          <img src={icon1} alt="" className="benefit-icon" />
           <strong className="benefits-reasons-strong">{t('benefits.reason3.title')}</strong>
           <p className="benefits-answers-p">{t('benefits.reason3.content')}</p>
         </div>
         <div className="benefit-item">
-          <img src={icon1} alt="Icon" className="benefit-icon" />
+          <img src={icon1} alt="" className="benefit-icon" />
           <strong className="benefits-reasons-strong">{t('benefits.reason4.title')}</strong>
           <p className="benefits-answers-p">{t('benefits.reason4.content')}</p>
         </div>
         <div className="benefit-item">
-          <img src={icon1} alt="Icon" className="benefit-icon" />
+          <img src={icon1} alt="" className="benefit-icon" />
           <strong className="benefits-reasons-strong">{t('benefits.reason5.title')}</strong>
           <p className="benefits-answers-p">{t('benefits.reason5.content')}</p>
         </div>
         <div className="benefit-item">
-          <img src={icon1} alt="Icon" className="benefit-icon" />
+          <img src={icon1} alt="" className="benefit-icon" />
           <strong className="benefits-reasons-strong">{t('benefits.reason6.title')}</strong>
           <p className="benefits-answers-p">{t('benefits.reason6.content')}</p>
         </div>
-      </div>
+      </section>
 
-      <div className="main-page-sections">
+      <section className="main-page-sections">
         <div className="left-column">
           <Section
             title={t('section1.title')}
@@ -98,8 +98,8 @@ const MainPageSections = () => {
             buttonText={t('section4.buttonText')}
           />
         </div>
-      </div>
-    </div>
+      </section>
+    </>
   );
 };
 

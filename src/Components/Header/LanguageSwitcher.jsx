@@ -53,8 +53,10 @@ function LanguageSwitcher() {
             <li
               key={lang}
               onClick={() => selectLanguage(lang)}
+              onKeyDown={(e) => e.key === 'Enter' && selectLanguage(lang)}
               role="option"
               aria-selected={lang === currentLang}
+              tabIndex={0}
             >
               {lang}
             </li>

@@ -75,6 +75,9 @@ i18n.use(initReactI18next).init({
           nameError: 'Name must consist of letters only',
           phoneError: 'Enter at least 9 digits of your phone number',
         },
+        'seo.h1': 'Legalization of foreigners in Gdansk — Legal Line',
+        'slider.alt': 'Legal Line — immigration services in Gdansk, slide {{index}}',
+        'team.memberAlt': 'Legal Line team member',
         textThankYou: 'Thank you',
         textThank: 'Your application has been successfully submitted. We will call you!',
         messageAlert:
@@ -528,6 +531,9 @@ i18n.use(initReactI18next).init({
           nameError: 'Imię musi składać się tylko z liter',
           phoneError: 'Wprowadź co najmniej 9 cyfr swojego numeru telefonu',
         },
+        'seo.h1': 'Legalizacja cudzoziemców w Gdańsku — Legal Line',
+        'slider.alt': 'Legal Line — usługi imigracyjne w Gdańsku, slajd {{index}}',
+        'team.memberAlt': 'Członek zespołu Legal Line',
         textThankYou: 'Dziękuję',
         textThank: 'Twoje zgłoszenie zostało pomyślnie złożone. Zadzwonimy do Ciebie!',
         messageAlert:
@@ -929,6 +935,9 @@ i18n.use(initReactI18next).init({
           nameError: "Ім'я повинно складатися лише з літер",
           phoneError: 'Введіть не менше 9 цифр вашого номера телефону',
         },
+        'seo.h1': 'Легалізація іноземців у Гданську — Legal Line',
+        'slider.alt': 'Legal Line — імміграційні послуги у Гданську, слайд {{index}}',
+        'team.memberAlt': 'Член команди Legal Line',
         textThankYou: 'Дякую',
         textThank: 'Ваша заявка успішно оформлена. Ми вам зателефонуємо!',
         messageAlert:
@@ -1333,6 +1342,9 @@ i18n.use(initReactI18next).init({
           nameError: 'Імя павінна складацца толькі з літар',
           phoneError: 'Увядзіце не менш за 9 цифраў вашага нумара тэлефона',
         },
+        'seo.h1': 'Легалізацыя замежнікаў у Гданьску — Legal Line',
+        'slider.alt': 'Legal Line — іміграцыйныя паслугі ў Гданьску, слайд {{index}}',
+        'team.memberAlt': 'Удзельнік каманды Legal Line',
         textThankYou: 'Дякуй',
         textThank: 'Ваша заяўка паспяхова аформлена. Мы вам патэлефонуем!',
         messageAlert:
@@ -1730,6 +1742,9 @@ i18n.use(initReactI18next).init({
           nameError: 'Имя должно состоять только из букв',
           phoneError: 'Введите не менее 9 цифр вашего номера телефона ',
         },
+        'seo.h1': 'Легализация иностранцев в Гданьске — Legal Line',
+        'slider.alt': 'Legal Line — иммиграционные услуги в Гданьске, слайд {{index}}',
+        'team.memberAlt': 'Член команды Legal Line',
         textThankYou: 'Спасибо',
         textThank: 'Ваша заявка оформлена успешно. Мы вам позвоним!',
         messageAlert:

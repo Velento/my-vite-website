@@ -2,6 +2,7 @@ import { useState } from 'react';
 import './FeedBackForm.css';
 import { useTranslation } from 'react-i18next';
 import ThankYou from './ThankYou';
+import { trackLeadConversion } from '../../services/analytics';
 
 const FeedbackForm = ({ onClose }) => {
   const { t } = useTranslation();
@@ -15,42 +16,13 @@ const FeedbackForm = ({ onClose }) => {
   const isPhoneValid = /^[+\d][\d\s\-()]{8,}$/.test(phone);
   const isFormValid = isNameValid && isPhoneValid;
 
-  // Функция для добавления данных в Google Таблицу
-  // const appendToSheet = async (data) => {
-  //     const accessToken = 'YOUR_ACCESS_TOKEN'; // Вставьте свой OAuth токен
-  //     const spreadsheetId = '17cn8hwR1Qd1gp5vuXrLVU1mlfC8hO8n4HeEPAAHesH8';
-  //     const range = 'Лист1!B:C,I:I';
-
-  //     try {
-  //         await axios.post(
-  //             `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${range}:append`,
-  //             {
-  //                 values: [[data.name, data.phone, data.promo]],
-  //             },
-  //             {
-  //                 headers: {
-  //                     'Content-Type': 'application/json',
-  //                     Authorization: `Bearer ${accessToken}`,
-  //                 },
-  //                 params: {
-  //                     valueInputOption: 'RAW',
-  //                 },
-  //             }
-  //         );
-  //         console.log('Данные успешно отправлены в Google Таблицу');
-  //     } catch (error) {
-  //         console.error('Ошибка при отправке данных в Google Таблицу:', error);
-  //         throw new Error('Failed to append data to Google Sheet');
-  //     }
-  // };
-
-  // Обработчик отправки формы — использует сервис telegram.js
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
       const { sendLeadToTelegram } = await import('../../services/telegram');
       await sendLeadToTelegram({ name, phone, promo: promo || undefined });
+      trackLeadConversion();
 
       setShowMessage(true);
       setTimeout(() => {
@@ -59,7 +31,7 @@ const FeedbackForm = ({ onClose }) => {
       }, 5000);
     } catch (error) {
       console.error('Error sending message:', error);
-      alert('Failed to send message.');
+      alert(t('feedbackForm.errorMessage', 'Failed to send message.'));
     }
   };
 
@@ -69,11 +41,13 @@ const FeedbackForm = ({ onClose }) => {
   };
 
   return (
-    <div className="feedback-modal" id="feed-back" onClick={onClose}>
+    // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
+    <div className="feedback-modal" id="feed-back" onClick={onClose} onKeyDown={(e) => e.key === 'Escape' && onClose()} role="dialog" aria-modal="true">
+      {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */}
       <div className="feedback-modal-content" onClick={(e) => e.stopPropagation()}>
-        <span className="close" onClick={onClose}>
+        <button type="button" className="close" onClick={onClose} aria-label="Close">
           &times;
-        </span>
+        </button>
         <h2>{t('feedbackForm.title')}</h2>
         {!showThankYou ? (
           <form onSubmit={handleSubmit}>
