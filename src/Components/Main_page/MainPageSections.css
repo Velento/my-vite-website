@@ -1,139 +1,174 @@
+/* ── Main Page Layout ── */
 .main-page {
   width: 100%;
 }
 
-.main-page-sections {
-  display: flex;
-  font-size: 22px;
-  font-weight: 400;
-  margin-top: 4rem;
-  width: 100%;
-  height: auto;
-}
-
-.left-column,
-.right-column {
-  flex: 1;
-  padding: 20px;
-  box-sizing: border-box;
-}
-
-.left-column .section,
-.right-column .section {
-  margin-bottom: 20px;
-}
-
-.section {
-  border: 1px solid #ccc;
-  padding: 15px;
-}
-
-.section h3 {
-  margin-bottom: 10px;
-  padding: 5px;
-  font-size: 24px; /* Уменьшен размер шрифта заголовка */
-  font-family: 'Arial', sans-serif;
-  font-weight: 500; /* Легкая насыщенность */
-  text-transform: uppercase;
-}
-
-.section p {
-  margin-bottom: 20px;
-  padding: 5px;
-  font-size: 18px;
-  font-weight: 400;
-  font-family: 'Arial', sans-serif;
-}
-
-.section img.kate_foto {
-  width: 260px;
-  height: auto;
-  margin-bottom: 0.4rem;
-}
-.section-icon {
-  width: 50px;
-  height: auto;
-  display: block;
-  margin: 0 auto 10px;
-}
-.section-content .rightColumnSection_2 {
-  margin-top: 2 rem;
-}
-
-/* @keyframes diagonalLightningEffect {
-  0%, 80%, 100% {
-    background: linear-gradient(135deg, transparent 45%, #013601 50%, transparent 55%);
-    background-size: 300% 300%;
-    background-position: top left;
-    color: #000000; 
-  }
-  50% {
-    background-position: bottom right;
-   
-  }
-} */
-.benefits-h2 {
-  font-size: 20px;
-  font-family: 'Arial', sans-serif;
-  font-weight: 600;
-  text-transform: uppercase;
-  margin-bottom: 20px;
-}
+/* ── Benefits Intro ── */
 .benefits-intro {
-  margin-top: 4rem;
+  padding: var(--space-4xl) var(--space-xl);
+  max-width: var(--max-width);
+  margin: 0 auto;
 }
 
-.benefits-reasons-strong {
-  font-size: 24px;
-  font-family: 'Arial', sans-serif;
-  font-weight: 500;
-  text-transform: uppercase;
-  padding: 0 1rem 0rem 0rem;
-  text-align: start;
+.benefits-intro__title,
+.benefits-h2 {
+  font-family: var(--font-heading);
+  font-size: clamp(1.5rem, 3vw, 2.25rem);
+  font-weight: 600;
+  color: var(--color-primary);
+  text-align: center;
+  margin-bottom: var(--space-3xl);
+  position: relative;
 }
 
-.benefits-answers-p {
-  margin-top: 5px;
-  text-align: justify;
-  font-size: 18px;
-  padding: 0 1rem;
+.benefits-intro__title::after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 3px;
+  background: var(--color-secondary);
+  margin: var(--space-md) auto 0;
+  border-radius: 2px;
 }
 
 .benefit-item {
-  margin-bottom: 30px;
+  margin-bottom: var(--space-2xl);
+  padding: var(--space-lg) var(--space-xl);
+  background: var(--color-bg);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border-light);
+  transition: box-shadow var(--transition-base), transform var(--transition-base);
 }
 
+.benefit-item:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+.benefit-item__icon,
 .benefit-icon {
-  width: 30px;
-  height: 30px;
-  margin-right: 10px;
+  width: 28px;
+  height: 28px;
+  margin-right: var(--space-sm);
+  vertical-align: middle;
 }
 
-.section button {
-  background-color: #ffffff; /* Белый фон */
-  color: #000000; /* Черный текст */
-  border: 1px solid #000000;
-  padding: 15px 20px; /* Отступы внутри кнопки */
-  cursor: pointer; /* Указатель на курсоре при наведении */
-  border-radius: 0; /* Прямые углы */
-  line-height: 1.55; /* Высота строки */
-  transition:
-    background-color 0.2s ease-in-out,
-    color 0.2s ease-in-out,
-    border-color 0.2s ease-in-out; /* Плавный переход */
-  font-family: 'Arial', sans-serif;
-  font-size: 20px;
+.benefit-item__title,
+.benefits-reasons-strong {
+  font-family: var(--font-heading);
+  font-size: 1.15rem;
   font-weight: 600;
-
-  /* animation: diagonalLightningEffect 3s infinite;  */
+  color: var(--color-primary);
+  display: block;
+  margin-bottom: var(--space-sm);
 }
 
-/* Эффект при наведении */
+.benefit-item__content,
+.benefits-answers-p {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: var(--color-text-light);
+}
+
+/* ── Two Column Sections ── */
+.main-page-sections {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-2xl);
+  padding: var(--space-3xl) var(--space-xl);
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+.main-page-sections__left,
+.main-page-sections__right {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xl);
+}
+
+/* ── Section Card ── */
+.section {
+  background: var(--color-bg);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-lg);
+  padding: var(--space-2xl);
+  transition: box-shadow var(--transition-base), transform var(--transition-base);
+}
+
+.section:hover {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-3px);
+}
+
+.section__title,
+.section h3 {
+  font-family: var(--font-heading);
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  margin-bottom: var(--space-md);
+  text-transform: none;
+}
+
+.section__icon,
+.section-icon {
+  width: 48px;
+  height: auto;
+  display: block;
+  margin: 0 auto var(--space-md);
+}
+
+.section__content,
+.section-content {
+  display: block;
+}
+
+.section p {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: var(--color-text-light);
+  margin-bottom: var(--space-lg);
+  text-align: left;
+}
+
+.section img.kate_foto,
+.section__image {
+  width: 100%;
+  max-width: 300px;
+  height: auto;
+  border-radius: var(--radius-md);
+  margin: var(--space-md) auto;
+  display: block;
+  box-shadow: var(--shadow-sm);
+}
+
+/* ── Section CTA Button ── */
+.section__cta,
+.section button {
+  display: inline-block;
+  padding: var(--space-md) var(--space-xl);
+  background-color: var(--color-primary);
+  color: var(--color-bg);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  border: 2px solid var(--color-primary);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all var(--transition-base);
+  text-decoration: none;
+  text-align: center;
+}
+
+.section__cta:hover,
 .section button:hover {
-  color: #004d05; /* Белый текст при наведении */
-  border-color: #898989; /* Черная рамка */
+  background-color: transparent;
+  color: var(--color-primary);
 }
 
+/* ── Modal (inline from MainPageSections context) ── */
 .modal {
   position: fixed;
   z-index: 1000;
@@ -141,100 +176,124 @@
   top: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: var(--color-overlay);
+  backdrop-filter: blur(6px);
   display: flex;
   justify-content: center;
   align-items: center;
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 .modal-content {
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 10px;
+  background-color: var(--color-bg);
+  padding: var(--space-2xl);
+  border-radius: var(--radius-lg);
   position: relative;
-  width: 450px;
+  width: 90%;
+  max-width: 480px;
   text-align: center;
-  font-size: 18px; /* Уменьшен размер шрифта */
-  font-family: 'Arial', sans-serif;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  box-shadow: var(--shadow-xl);
+  animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  max-height: 85vh;
+  overflow-y: auto;
+}
+
+@keyframes slideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
 }
 
 .modal-content .close {
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: var(--space-md);
+  right: var(--space-md);
   cursor: pointer;
+  font-size: 1.5rem;
+  color: var(--color-text-muted);
+  background: none;
+  border: none;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: background-color var(--transition-fast), color var(--transition-fast);
+}
+
+.modal-content .close:hover {
+  background-color: var(--color-bg-section);
+  color: var(--color-text);
 }
 
 .modal-content h2 {
-  margin-bottom: 10px;
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
   font-weight: 600;
-  font-size: 2rem;
+  color: var(--color-primary);
+  margin-bottom: var(--space-md);
 }
 
 .modal-content p {
-  margin-bottom: 20px;
-  font-size: 18px; /* Уменьшен размер шрифта текста */
-  font-weight: 400; /* Легкая насыщенность */
-  text-align: justify;
+  font-size: 0.95rem;
+  color: var(--color-text-light);
+  line-height: 1.6;
+  margin-bottom: var(--space-md);
+  text-align: left;
 }
 
 .contact-icons {
   display: flex;
   justify-content: center;
+  gap: var(--space-md);
 }
 
 .contact-icons a {
-  margin: 0 10px;
+  margin: 0;
 }
 
 .contact-icons img {
-  width: 24px;
-  height: 24px;
+  width: 32px;
+  height: 32px;
+  transition: transform var(--transition-fast);
 }
 
-.section-content {
-  display: block;
-  align-items: center;
+.contact-icons img:hover {
+  transform: scale(1.15);
+}
+
+.section-content .rightColumnSection_2 {
+  margin-top: var(--space-xl);
 }
 
 .cost-details {
   display: block;
 }
 
-@media (min-width: 1025px) and (max-width: 1199px) {
-  .main-page-sections {
-    display: flex;
-    font-family: Arial;
-    font-size: 20px;
-    font-weight: 500;
-  }
-}
+/* ── Responsive ── */
 @media (min-width: 769px) and (max-width: 1024px) {
   .main-page-sections {
-    display: flex;
-    font-family: Arial;
-    font-size: 18px;
-    font-weight: 400;
+    gap: var(--space-lg);
+    padding: var(--space-2xl) var(--space-md);
   }
 }
 
-@media (min-width: 481px) and (max-width: 768px) {
+@media (max-width: 768px) {
   .main-page-sections {
-    display: block;
-    font-family: Arial;
-    font-size: 18px;
-    font-weight: 400;
+    grid-template-columns: 1fr;
+    padding: var(--space-xl) var(--space-md);
   }
-}
-
-@media (max-width: 480px) {
-  .main-page-sections {
-    display: block;
-    font-family: Arial;
-    font-size: 18px;
-    font-weight: 400;
+  .benefits-intro {
+    padding: var(--space-2xl) var(--space-md);
   }
-  .right-column {
-    padding-top: 0px;
+  .section {
+    padding: var(--space-lg);
   }
 }

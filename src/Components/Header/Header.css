@@ -1,364 +1,311 @@
+/* ── Header ── */
 .h1-hidden {
   position: absolute;
   left: -9999px;
 }
+
 .header {
-  font-family: 'Arial', sans-serif;
-  font-size: 30px;
+  font-family: var(--font-body);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px;
-  background-color: #ffffff;
-  color: #000000;
+  padding: var(--space-md) var(--space-xl);
+  background-color: var(--color-bg);
+  color: var(--color-text);
   z-index: 1000;
-  /* box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Легкая тень для отделения от контента */
+  border-bottom: 1px solid var(--color-border-light);
+  position: sticky;
+  top: 0;
+  backdrop-filter: blur(12px);
+  background-color: rgba(255, 255, 255, 0.95);
 }
 
+/* ── Logo ── */
 .header-logo-text {
   display: flex;
+  align-items: center;
 }
 
 .header-logo {
   display: flex;
-  text-align: start;
+  align-items: center;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
 }
 
 .logo-image {
-  width: 330px;
+  width: 220px;
+  transition: opacity var(--transition-fast);
+}
+
+.logo-image:hover {
+  opacity: 0.85;
 }
 
 .header-slogan {
-  width: 80%;
-  margin-right: 2rem;
-  margin-left: 2rem;
-  margin-top: 1.4rem;
-  font-size: 1.5rem;
-  font-weight: 500;
+  margin-left: var(--space-lg);
+  font-size: 0.95rem;
+  font-weight: 400;
+  color: var(--color-text-light);
+  max-width: 300px;
+  line-height: 1.4;
 }
 
+/* ── Contacts ── */
 .header-contacts {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-right: 10rem;
-}
-
-.header-contacts p {
-  margin-right: 10px;
+  gap: var(--space-sm);
 }
 
 .contact-icon {
-  width: 40px;
-  height: 40px;
-  margin-left: 10px;
-  transition: transform 0.2s; /* Анимация при наведении */
-  position: relative; /* Для позиционирования подсказки */
-}
-
-.header-contacts a {
-  color: #000000;
-  text-decoration: none;
-  margin-right: 10px;
-  font-size: 30px;
-  transition: transform 0.2s;
+  width: 32px;
+  height: 32px;
+  margin-left: var(--space-sm);
+  transition: transform var(--transition-fast), opacity var(--transition-fast);
+  border-radius: 50%;
 }
 
 .contact-icon:hover {
-  transform: scale(1.2); /* Увеличение при наведении */
+  transform: scale(1.15);
+  opacity: 0.85;
 }
 
-.contact-icon::after {
-  content: attr(data-tooltip); /* Содержимое подсказки */
+.header-contacts a {
+  color: var(--color-text);
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 500;
+  transition: color var(--transition-fast);
+}
+
+.header-contacts a:hover {
+  color: var(--color-secondary);
+}
+
+.div_icons {
+  display: flex;
+  gap: var(--space-xs);
+}
+
+.contact-btn {
+  display: none;
+  padding: var(--space-sm) var(--space-lg);
+  background-color: var(--color-primary);
+  color: var(--color-bg);
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  text-align: center;
+  transition: all var(--transition-base);
+}
+
+.contact-btn:hover {
+  background-color: var(--color-primary-light);
+  color: var(--color-bg);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.contact-link {
+  color: var(--color-text);
+  font-weight: 600;
+  font-size: 1.1rem;
+  letter-spacing: 0.02em;
+}
+
+/* ── Tooltip ── */
+.tooltip {
+  visibility: hidden;
+  background-color: var(--color-primary);
+  color: var(--color-bg);
+  text-align: center;
+  border-radius: var(--radius-sm);
+  padding: var(--space-xs) var(--space-sm);
   position: absolute;
-  bottom: 100%; /* Позиционирование над иконкой */
+  z-index: 1;
+  bottom: 150%;
   left: 50%;
   transform: translateX(-50%);
-  background-color: #000; /* Цвет фона подсказки */
-  color: #fff; /* Цвет текста подсказки */
-  padding: 5px;
-  border-radius: 5px;
+  opacity: 0;
+  transition: opacity var(--transition-fast);
+  font-size: 0.75rem;
   white-space: nowrap;
-  opacity: 0; /* Скрытие подсказки по умолчанию */
-  transition: opacity 0.2s; /* Анимация при наведении */
-  pointer-events: none; /* Чтобы подсказка не перекрывала иконку */
-  font-size: 12px;
+  pointer-events: none;
 }
 
-.contact-icon:hover::after {
-  opacity: 1; /* Показ подсказки при наведении */
+a:hover .tooltip {
+  visibility: visible;
+  opacity: 1;
 }
 
+/* ── Language Switcher ── */
 .header-language-switcher {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
   position: relative;
-  justify-content: space-around;
 }
 
 .language-selected {
   cursor: pointer;
   display: flex;
   align-items: center;
+  font-size: 0.9rem;
+  font-weight: 500;
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--radius-sm);
+  transition: background-color var(--transition-fast);
+}
+
+.language-selected:hover {
+  background-color: var(--color-bg-warm);
 }
 
 .globe-icon {
-  width: 24px;
-  height: 24px;
-  margin-right: 5px;
+  width: 20px;
+  height: 20px;
+  margin-right: var(--space-xs);
 }
 
 .language-dropdown {
   position: absolute;
-  background-color: #ffffff;
-  color: #000000;
+  background-color: var(--color-bg);
+  color: var(--color-text);
   list-style: none;
-  padding: 5px 0;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+  padding: var(--space-xs) 0;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
   z-index: 4000;
-  top: 1rem;
+  top: 2rem;
+  min-width: 100px;
+  overflow: hidden;
 }
 
 .language-dropdown li {
-  padding: 5px 10px;
+  padding: var(--space-sm) var(--space-md);
   cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color var(--transition-fast);
 }
 
 .language-dropdown li:hover {
-  background-color: #f0f0f0;
-}
-
-.div_icons {
-  display: flex;
-}
-
-.header-contacts a {
-  text-decoration: none;
-  margin-right: 10px;
-  font-size: 30px;
-  position: relative;
-  transition: transform 0.2s;
-}
-
-.header-contacts a:hover {
-  transform: scale(1.2);
-}
-
-.contact-btn {
-  display: none;
-  border-radius: 0;
-  box-shadow: none;
-}
-
-.contact-btn:hover {
-  color: #004d05; /* Белый текст при наведении */
-  border-color: #898989; /* Черная рамка */
-}
-
-.tooltip {
-  visibility: hidden;
-  background-color: #000; /* Цвет фона подсказки */
-  color: #fff; /* Цвет текста подсказки */
-  text-align: center;
-  border-radius: 5px;
-  padding: 5px;
-  position: absolute;
-  z-index: 1;
-  bottom: 150%; /* Позиционирование над элементом */
-  left: 50%;
-  transform: translateX(-50%);
-  opacity: 0; /* Скрытие подсказки по умолчанию */
-  transition: opacity 0.3s; /* Анимация при наведении */
-  font-size: 12px;
-  white-space: nowrap;
-}
-
-a:hover .tooltip {
-  visibility: visible;
-  opacity: 1; /* Показ подсказки при наведении */
-}
-
-.contact-link {
-  color: #000000;
+  background-color: var(--color-bg-section);
+  color: var(--color-secondary-dark);
 }
 
 a.contact-link-infooter {
-  color: #000000 !important;
+  color: var(--color-text);
 }
 
+/* ── Responsive: Tablet Landscape ── */
 @media (min-width: 1025px) and (max-width: 1199px) {
-  .contact-btn {
-    text-align: center;
-    height: 3rem;
-    width: 12rem;
-    display: block;
-    margin: 0.4rem;
-    border: 1px solid black;
-    color: black;
-    background-color: white;
-    font-size: 1.2rem;
+  .header {
+    padding: var(--space-sm) var(--space-md);
   }
-
+  .logo-image {
+    width: 160px;
+  }
+  .header-slogan {
+    font-size: 0.8rem;
+    max-width: 200px;
+  }
+  .contact-btn {
+    display: block;
+  }
   .contact-link {
     display: none;
   }
-
-  .header {
-    padding: 0%;
-  }
-  .logo-image {
-    width: 10rem;
-  }
-  .header-slogan {
-    width: 70%;
-  }
-
-  .header-contacts a {
-    font-size: 26px;
-  }
-  .header-contacts {
-    margin-right: 0;
-  }
   .contact-icon {
-    width: 35px;
-    height: 35px;
-  }
-  .header-language-switcher {
-    font-size: 2rem;
-  }
-  .header-slogan {
-    display: block;
-    font-size: 0.8rem;
+    width: 28px;
+    height: 28px;
   }
 }
 
+/* ── Responsive: Tablet ── */
 @media (min-width: 769px) and (max-width: 1024px) {
-  .contact-btn {
-    text-align: center;
-    height: 3rem;
-    width: 12rem;
-    display: block;
-    margin: 0.4rem;
-    border: 1px solid black;
-    color: black;
-    background-color: white;
-    font-size: 1.2rem;
+  .header {
+    padding: var(--space-sm) var(--space-md);
   }
-
+  .logo-image {
+    width: 150px;
+  }
+  .header-slogan {
+    font-size: 0.75rem;
+    max-width: 180px;
+  }
+  .contact-btn {
+    display: block;
+  }
   .contact-link {
     display: none;
   }
-  .header {
-    padding: 0%;
-  }
-  .logo-image {
-    width: 10rem;
-  }
-  .header-slogan {
-    width: 60%;
-  }
-
-  .header-contacts a {
-    font-size: 26px;
-  }
-  .header-contacts {
-    margin-right: 0;
-  }
-  .header-contacts {
-    margin-right: 0;
-  }
   .contact-icon {
-    width: 35px;
-    height: 35px;
-  }
-  .header-language-switcher {
-    font-size: 1.5rem;
-  }
-  .header-slogan {
-    display: block;
-    font-size: 0.8rem;
+    width: 26px;
+    height: 26px;
   }
 }
 
+/* ── Responsive: Mobile Landscape ── */
 @media (min-width: 481px) and (max-width: 768px) {
-  .contact-btn {
-    text-align: center;
-    height: 3rem;
-    width: 12rem;
-    display: block;
-    margin: 0.4rem;
-    border: 1px solid black;
-    color: black;
-    background-color: white;
-    font-size: 1.2rem;
-  }
-
-  .contact-link {
-    display: none;
-  }
   .header {
-    padding: 0%;
+    padding: var(--space-sm) var(--space-md);
   }
   .logo-image {
-    width: 7rem;
+    width: 130px;
   }
   .header-slogan {
     display: none;
   }
-
   .header-contacts a {
-    font-size: 16px;
-  }
-  .header-contacts {
-    margin-right: 0;
+    font-size: 0.85rem;
   }
   .contact-icon {
-    width: 25px;
-    height: 25px;
-    margin-right: 0;
+    width: 24px;
+    height: 24px;
   }
-  .header-language-switcher {
-    font-size: 1.2rem;
+  .contact-btn {
+    display: block;
+    font-size: 0.85rem;
+  }
+  .contact-link {
+    display: none;
   }
 }
 
+/* ── Responsive: Mobile ── */
 @media (max-width: 480px) {
   .header {
-    padding: 0;
+    padding: var(--space-sm) var(--space-md);
+    flex-wrap: wrap;
+  }
+  .logo-image {
+    width: 160px;
+  }
+  .header-slogan {
+    display: none;
+  }
+  .header-logo-text {
+    display: flex;
   }
   .contact-btn {
-    text-align: center;
-    height: 3rem;
-    width: 14rem;
     display: block;
-    margin: 0.5rem;
-    border: 1px solid black;
-    color: black;
-    background-color: white;
-    font-size: 1.2rem;
+    width: 100%;
+    font-size: 0.9rem;
+    padding: var(--space-sm) var(--space-md);
   }
-  .header-contacts {
-    margin-right: 0;
-  }
-
   .contact-link {
     display: none;
   }
-  .logo-image {
-    width: 13rem;
-  }
-  .header-slogan {
-    display: block;
-    font-size: 1rem;
-  }
-  .header-contacts,
-  .header-language-switcher {
-    display: block;
-  }
-  .header-logo-text {
-    display: block;
+  .header-contacts {
+    width: 100%;
   }
   .burger_menu_content_active {
     display: flex;

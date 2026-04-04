@@ -1,80 +1,119 @@
+/* ── Services Section ── */
 .services {
-  margin-bottom: 5rem;
-  margin-top: 3rem;
-  width: 100%;
+  padding: var(--space-4xl) var(--space-xl);
+  max-width: var(--max-width);
+  margin: 0 auto;
 }
 
 .services-h {
-  font-family: 'Arial', sans-serif;
-  font-size: 24px;
-  font-weight: 500;
-  text-transform: uppercase;
+  font-family: var(--font-heading);
+  font-size: clamp(1.5rem, 3vw, 2.25rem);
+  font-weight: 600;
+  color: var(--color-primary);
+  text-align: center;
+  margin-bottom: var(--space-2xl);
+  position: relative;
+}
+
+.services-h::after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 3px;
+  background: var(--color-secondary);
+  margin: var(--space-md) auto 0;
+  border-radius: 2px;
 }
 
 .services-h3 {
-  font-size: 18px;
-  font-family: 'Arial', sans-serif;
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
   font-weight: 600;
-  text-transform: uppercase;
-}
-.service-item {
-  font-size: 18px;
-  font-weight: 400;
-  font-family: 'Arial', sans-serif;
-  text-transform: uppercase;
-  cursor: pointer;
-  padding: 10px;
-  margin: 5px 0;
-  border: 1px solid #686868;
-  border-radius: 5px;
-  transition:
-    transform 0.2s ease,
-    color 0.2s ease;
+  color: var(--color-primary);
+  margin-bottom: var(--space-sm);
 }
 
+/* ── Service Item (Accordion) ── */
+.service-item {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  padding: var(--space-lg) var(--space-xl);
+  margin-bottom: var(--space-sm);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-md);
+  background: var(--color-bg);
+  transition: all var(--transition-base);
+  text-align: left;
+}
+
+.service-item:hover {
+  border-color: var(--color-secondary);
+  box-shadow: var(--shadow-sm);
+}
+
+.service-item.active {
+  border-color: var(--color-secondary);
+  background: var(--color-bg-warm);
+  box-shadow: var(--shadow-md);
+}
+
+/* ── Service Details (expanded) ── */
 .service-details {
-  margin-top: 10px;
-  font-size: 18px;
-  font-family: 'Arial', sans-serif;
-  font-weight: 100;
+  margin-top: var(--space-md);
+  padding-top: var(--space-md);
+  border-top: 1px solid var(--color-border-light);
 }
 
 .service-p {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: var(--space-sm) var(--space-md);
+  margin-bottom: var(--space-xs);
+  color: var(--color-text-light);
+  font-size: 0.9rem;
+  font-family: var(--font-body);
+  border-radius: var(--radius-sm);
+  background: none;
+  border: none;
   cursor: pointer;
-  color: #555;
-  transition:
-    transform 0.2s ease,
-    color 0.2s ease;
-  font-family: 'Arial', sans-serif;
-  text-transform: math-auto;
-}
-.modal-content p {
-  font-family: 'Arial', sans-serif;
-  font-size: 14px;
+  transition: all var(--transition-fast);
 }
 
 .service-p:hover {
-  transform: scale(1.05); /* увеличивает текст при наведении */
-  color: #333; /* более темный цвет при наведении */
+  color: var(--color-secondary-dark);
+  background-color: var(--color-bg-section);
 }
 
+.modal-content p {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+}
+
+/* ── CTA Buttons ── */
 .service-btn {
-  margin: 5px 15px;
-  position: relative;
   display: inline-block;
-  padding: 10px 20px;
-  font-size: 25px;
-  color: #fff;
-  background-color: #454545;
+  padding: var(--space-sm) var(--space-xl);
+  font-size: 0.9rem;
+  font-weight: 600;
+  font-family: var(--font-body);
+  color: var(--color-bg);
+  background-color: var(--color-primary);
+  border: 2px solid var(--color-primary);
+  border-radius: var(--radius-sm);
   cursor: pointer;
+  margin: var(--space-sm) var(--space-sm) var(--space-sm) 0;
+  transition: all var(--transition-base);
+  position: relative;
   overflow: hidden;
-  transition: background-color 0.4s ease;
-  font-family: 'Arial', sans-serif;
-  font-size: 16px;
+  letter-spacing: 0.02em;
 }
 
 .service-btn:hover {
-  background-color: #161d2c;
+  background-color: transparent;
+  color: var(--color-primary);
 }
 
 .service-btn::before {
@@ -84,33 +123,48 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
   transform: translateX(-100%);
-  transition: transform 0.4s ease;
+  transition: transform 0.5s ease;
 }
 
 .service-btn:hover::before {
   transform: translateX(100%);
 }
+
+/* ── Cost Details ── */
 .cost-details-btn {
-  background-color: #5c5b5b;
-  color: white;
-  box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.8);
-  font-family: 'Arial', sans-serif;
-  font-size: 16px;
+  display: inline-block;
+  padding: var(--space-sm) var(--space-lg);
+  background-color: var(--color-secondary);
+  color: var(--color-bg);
+  border: none;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-base);
+  box-shadow: var(--shadow-sm);
 }
+
 .cost-details-btn:hover {
-  background-color: #161d2c;
+  background-color: var(--color-secondary-dark);
+  box-shadow: var(--shadow-gold);
+  transform: translateY(-1px);
 }
 
-@media (min-width: 1025px) and (max-width: 1199px) {
-}
-
-@media (min-width: 769px) and (max-width: 1024px) {
-}
-
-@media (min-width: 481px) and (max-width: 768px) {
-}
-
-@media (max-width: 480px) {
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .services {
+    padding: var(--space-2xl) var(--space-md);
+  }
+  .service-item {
+    padding: var(--space-md);
+  }
+  .service-btn {
+    width: 100%;
+    text-align: center;
+    margin: var(--space-sm) 0;
+  }
 }

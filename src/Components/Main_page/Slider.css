@@ -1,48 +1,60 @@
+/* ── Hero Slider ── */
 .slider-container {
   width: 100%;
-  margin: auto;
+  margin: 0 auto;
+  overflow: hidden;
 }
 
-.slick-slide img {
+.slider-container .slick-slide img {
   width: 100%;
   height: auto;
+  display: block;
 }
 
-.slick-prev:before,
-.slick-next:before {
-  color: black; /* Цвет стрелок */
+.slider-container .slick-prev:before,
+.slider-container .slick-next:before {
+  color: var(--color-primary);
+  font-size: 24px;
+  opacity: 0.7;
+  transition: opacity var(--transition-fast);
 }
-.slick-arrow {
-  margin: 2rem;
+
+.slider-container .slick-prev:hover:before,
+.slider-container .slick-next:hover:before {
+  opacity: 1;
+}
+
+.slider-container .slick-arrow {
   z-index: 10;
+  width: 44px;
+  height: 44px;
 }
 
-@media (min-width: 1025px) and (max-width: 1199px) {
-  .slider-container {
-    margin: 0;
-  }
+.slider-container .slick-prev {
+  left: var(--space-md);
 }
 
-@media (min-width: 769px) and (max-width: 1024px) {
-  .slider-container {
-    margin: 0;
-  }
+.slider-container .slick-next {
+  right: var(--space-md);
 }
 
-@media (min-width: 481px) and (max-width: 768px) {
-  .slider-container {
-    margin: 0;
-  }
-  .slick-arrow {
-    z-index: -1;
-  }
+.slider-container .slick-dots {
+  bottom: var(--space-md);
 }
 
-@media (max-width: 480px) {
-  .slider-container {
-    margin: 0;
-  }
-  .slick-arrow {
-    z-index: -1;
+.slider-container .slick-dots li button:before {
+  font-size: 10px;
+  color: var(--color-primary);
+  opacity: 0.4;
+}
+
+.slider-container .slick-dots li.slick-active button:before {
+  opacity: 1;
+  color: var(--color-secondary);
+}
+
+@media (max-width: 768px) {
+  .slider-container .slick-arrow {
+    display: none !important;
   }
 }
