@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import './Pricelist.css';
 import './Promotions.css';
 import iconCheak from '../images/play_point.svg';
@@ -7,16 +8,19 @@ import { useTranslation } from 'react-i18next';
 const Pricelist = () => {
   const { t } = useTranslation();
 
-  const servicespromo = [
-    {
-      title: t('servicespromo.0.title'),
-      points: [
-        t('servicespromo.0.points.0'),
-        t('servicespromo.0.points.1'),
-        t('servicespromo.0.points.2'),
-      ],
-    },
-  ];
+  const servicespromo = useMemo(
+    () => [
+      {
+        title: t('servicespromo.0.title'),
+        points: [
+          t('servicespromo.0.points.0'),
+          t('servicespromo.0.points.1'),
+          t('servicespromo.0.points.2'),
+        ],
+      },
+    ],
+    [t]
+  );
 
   return (
     <section className="pricelist" id="promotions">

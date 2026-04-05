@@ -1,9 +1,4 @@
 /* ── Header ── */
-.h1-hidden {
-  position: absolute;
-  left: -9999px;
-}
-
 .header {
   display: flex;
   justify-content: space-between;

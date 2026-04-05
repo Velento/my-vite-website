@@ -38,6 +38,4 @@ export default defineConfig({
       drop: ['console', 'debugger'],
     },
   },
-  // Для тестов
-  test: undefined,
 });

@@ -77,7 +77,6 @@ const Pricelist = () => {
     }));
   };
 
-  // Функции для управления модальным окном
   const handleShowModal = () => setShowContactModal(true);
   const handleCloseModal = () => setShowContactModal(false);
 
@@ -103,7 +102,7 @@ const Pricelist = () => {
                 <button className="price-button" disabled>
                   {service.price}
                 </button>
-                {/* Кнопка измененеа consult-button на service-btn чтобы была лучше видмость кнопи */}
+
                 <button className="service-btn" onClick={handleShowModal}>
                   {t('consult_button')}
                 </button>

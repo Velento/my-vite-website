@@ -26,7 +26,7 @@ function Contacts() {
           <span className="tooltip">WhatsApp</span>
           <img src={whatsappIcon} alt="WhatsApp" className="contact-icon" />
         </a>
-        <a href="#!" onClick={openViberChat}>
+        <a href="#!" onClick={openViberChat} rel="noopener noreferrer">
           <span className="tooltip">Viber</span>
           <img src={viberIcon} alt="Viber" className="contact-icon" />
         </a>

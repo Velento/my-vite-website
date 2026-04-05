@@ -1,18 +1,18 @@
-import { useEffect } from 'react';
+import { useEffect, lazy, Suspense } from 'react';
 import SliderComponent from './Slider';
 import MainPageSections from './MainPageSections';
-import Services from './MainService';
 import Pricelist from './Pricelist';
-import Promotions from './Promotions';
 import Menu from './Menu';
-import Team from './Team';
-import LeedForm from './LeedForm';
+
+const LeedForm = lazy(() => import('./LeedForm'));
+const Promotions = lazy(() => import('./Promotions'));
+const Services = lazy(() => import('./MainService'));
+const Team = lazy(() => import('./Team'));
 
 const MainPage = () => {
   useEffect(() => {
     const hash = window.location.hash;
     if (hash === '#leedform') {
-      // Use requestAnimationFrame to ensure DOM is rendered
       requestAnimationFrame(() => {
         const targetElement = document.getElementById('leedform');
         if (targetElement) {
@@ -28,10 +28,12 @@ const MainPage = () => {
       <SliderComponent />
       <Pricelist />
       <MainPageSections />
-      <Promotions />
-      <LeedForm />
-      <Services />
-      <Team />
+      <Suspense fallback={null}>
+        <Promotions />
+        <LeedForm />
+        <Services />
+        <Team />
+      </Suspense>
     </main>
   );
 };
