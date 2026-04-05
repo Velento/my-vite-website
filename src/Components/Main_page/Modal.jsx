@@ -1,3 +1,9 @@
+import PropTypes from 'prop-types';
+
+/**
+ * Generic reusable modal with backdrop click/Escape to close.
+ * @param {{ show: boolean, onClose: () => void, children: React.ReactNode }} props
+ */
 const Modal = ({ show, onClose, children }) => {
   if (!show) return null;
 
@@ -19,6 +25,12 @@ const Modal = ({ show, onClose, children }) => {
       </div>
     </div>
   );
+};
+
+Modal.propTypes = {
+  show: PropTypes.bool.isRequired,
+  onClose: PropTypes.func.isRequired,
+  children: PropTypes.node,
 };
 
 export default Modal;

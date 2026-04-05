@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import PropTypes from 'prop-types';
 import './FeedBackForm.css';
 import { useTranslation } from 'react-i18next';
 import ThankYou from './ThankYou';
@@ -6,6 +7,13 @@ import { sendLeadToTelegram } from '../../services/telegram';
 import { trackLeadConversion } from '../../services/analytics';
 import { isValidName, isValidPhone, canSubmitForm } from '../../services/validation';
 
+/** @type {number} Delay in ms before showing ThankYou modal */
+const THANK_YOU_DELAY_MS = 5000;
+
+/**
+ * Feedback form shown inside a modal overlay.
+ * @param {{ onClose?: () => void }} props
+ */
 const FeedbackForm = ({ onClose }) => {
   const { t } = useTranslation();
   const [name, setName] = useState('');
@@ -43,7 +51,7 @@ const FeedbackForm = ({ onClose }) => {
       setStatus('success');
       timerRef.current = setTimeout(() => {
         setShowThankYou(true);
-      }, 5000);
+      }, THANK_YOU_DELAY_MS);
     } catch (error) {
       console.error('Error sending message:', error);
       setStatus('error');
@@ -69,6 +77,7 @@ const FeedbackForm = ({ onClose }) => {
       onKeyDown={(e) => e.key === 'Escape' && handleClose()}
       role="dialog"
       aria-modal="true"
+      aria-label={t('feedbackForm.title')}
     >
       {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */}
       <div className="feedback-modal__content" onClick={(e) => e.stopPropagation()}>
@@ -155,6 +164,10 @@ const FeedbackForm = ({ onClose }) => {
       </div>
     </div>
   );
+};
+
+FeedbackForm.propTypes = {
+  onClose: PropTypes.func,
 };
 
 export default FeedbackForm;

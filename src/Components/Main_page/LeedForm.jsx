@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import ThankYou from './ThankYou';
 import { sendLeadToTelegram } from '../../services/telegram';
@@ -6,6 +7,13 @@ import { trackLeadConversion } from '../../services/analytics';
 import { isValidName, isValidPhone, canSubmitForm } from '../../services/validation';
 import './LeedForm.css';
 
+/** @type {number} Delay in ms before showing ThankYou modal after success */
+const THANK_YOU_DELAY_MS = 3000;
+
+/**
+ * Inline lead-capture form (displayed in the page, not in a modal).
+ * @param {{ onClose?: () => void }} props
+ */
 const LeedForm = ({ onClose }) => {
   const { t } = useTranslation();
   const [name, setName] = useState('');
@@ -43,7 +51,7 @@ const LeedForm = ({ onClose }) => {
       setStatus('success');
       timerRef.current = setTimeout(() => {
         setShowThankYou(true);
-      }, 3000);
+      }, THANK_YOU_DELAY_MS);
     } catch (error) {
       console.error('Form submit error:', error);
       setStatus('error');
@@ -130,6 +138,10 @@ const LeedForm = ({ onClose }) => {
       {showThankYou && <ThankYou name={name} onClose={handleThankYouClose} />}
     </section>
   );
+};
+
+LeedForm.propTypes = {
+  onClose: PropTypes.func,
 };
 
 export default LeedForm;

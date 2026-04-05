@@ -117,7 +117,7 @@ const Pricelist = () => {
             onClick={() => setShowReasonButtons(!showReasonButtons)}
             aria-label="Slip Button"
           >
-            <img src={slipButton} alt="Slip Button" />
+            <img src={slipButton} alt="Slip Button" loading="lazy" />
           </button>
           {showReasonButtons && (
             <div className="reason-buttons">

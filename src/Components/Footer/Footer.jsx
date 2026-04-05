@@ -8,6 +8,9 @@ import instagramIcon from '../images/instagram-white.png';
 import { useTranslation } from 'react-i18next';
 import goUpImage from '../images/goUpImage.svg';
 
+/**
+ * Site footer — contacts, company info, services links, scroll-to-top button.
+ */
 const Footer = () => {
   const { t } = useTranslation();
 
@@ -17,14 +20,14 @@ const Footer = () => {
         <div className="footer-section contacts">
           <h2>{t('footer.contacts')}</h2>
           <div className="icon-text">
-            <img src={phoneIcon} alt="" className="contact-icon" />
+            <img src={phoneIcon} alt="" className="contact-icon" loading="lazy" />
             <a href="tel:+48883734171" className="footer-contact-link">
               {' '}
               +48883734171
             </a>
           </div>
           <div className="icon-text">
-            <img src={telegramIcon} alt="" className="contact-icon" />
+            <img src={telegramIcon} alt="" className="contact-icon" loading="lazy" />
             <a
               href="https://t.me/LegalLine_pl"
               className="footer-contact-link"
@@ -36,7 +39,7 @@ const Footer = () => {
             </a>
           </div>
           <div className="icon-text">
-            <img src={whatsappIcon} alt="" className="contact-icon" />
+            <img src={whatsappIcon} alt="" className="contact-icon" loading="lazy" />
             <a
               href="https://wa.me/+48883734171"
               className="footer-contact-link"
@@ -48,7 +51,7 @@ const Footer = () => {
             </a>
           </div>
           <div className="icon-text">
-            <img src={viberIcon} alt="" className="contact-icon" />
+            <img src={viberIcon} alt="" className="contact-icon" loading="lazy" />
             <a
               href="viber://chat?number=%2B48883734171"
               className="footer-contact-link"
@@ -60,7 +63,7 @@ const Footer = () => {
             </a>
           </div>
           <div className="icon-text">
-            <img src={instagramIcon} alt="" className="contact-icon" />
+            <img src={instagramIcon} alt="" className="contact-icon" loading="lazy" />
             <a
               href="https://www.instagram.com/legal_line_pl/"
               className="footer-contact-link"
@@ -85,7 +88,7 @@ const Footer = () => {
           <p>
             <a
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
               href="https://docs.google.com/document/d/16JRprD0eDLu8pWrwxZxPboOX6q2ZrptjAw5_CMQENSE/edit"
             >
               {t('footer.privacyPolicy')}
@@ -94,12 +97,12 @@ const Footer = () => {
         </div>
         <div className="footer-section services">
           <h2>{t('footer.services')}</h2>
-          <p style={{ color: 'white' }}>
+          <p>
             <a href="#pricelist" className="footer-contact-link">
               Karta czasowego pobytu
             </a>
           </p>
-          <p style={{ color: 'white' }}>
+          <p>
             <a href="#pricelist" className="footer-contact-link">
               Karta stałego pobytu
             </a>

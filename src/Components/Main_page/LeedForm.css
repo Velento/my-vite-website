@@ -6,6 +6,11 @@
   background: var(--color-bg);
   border-radius: var(--radius-lg);
   border: 1px solid var(--color-border-light);
+  transition: border-color var(--duration-base) var(--ease);
+}
+
+.leed-form-container:focus-within {
+  border-color: var(--color-accent);
 }
 
 .leed-form-container h2 {
@@ -115,12 +120,14 @@
 .submit-button.active {
   background-color: var(--color-accent);
   color: white;
+  box-shadow: 0 2px 12px rgba(184, 148, 62, 0.3);
 }
 
 .submit-button--active:hover,
 .submit-button.active:hover {
   background-color: var(--color-accent-hover);
   transform: translateY(-1px);
+  box-shadow: 0 4px 20px rgba(184, 148, 62, 0.4);
 }
 
 .cancel-button {

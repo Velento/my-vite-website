@@ -1,4 +1,4 @@
-import Slider from 'react-slick'; // Используем библиотеку react-slick для слайдера
+import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import './Team.css';
@@ -9,6 +9,7 @@ import team_member4 from '../images/rabotnik_4.jpg';
 import team_member5 from '../images/rabotnik_5.jpg';
 import { useTranslation } from 'react-i18next';
 
+/** @type {import('react-slick').Settings} */
 const TEAM_SLIDER_SETTINGS = {
   lazyLoad: 'ondemand',
   slidesToShow: 4,
@@ -24,8 +25,12 @@ const TEAM_SLIDER_SETTINGS = {
   ],
 };
 
+/** @type {string[]} Team member photo imports in display order */
 const TEAM_MEMBERS = [team_member3, team_member5, team_member4, team_member1, team_member2];
 
+/**
+ * Team section — photo slider + mission text.
+ */
 const Team = () => {
   const { t } = useTranslation();
 
@@ -37,7 +42,7 @@ const Team = () => {
       <Slider {...TEAM_SLIDER_SETTINGS}>
         {TEAM_MEMBERS.map((src, i) => (
           <div className="team-slide" key={i}>
-            <img className="team-slide__img" src={src} alt={t('team.memberAlt')} />
+            <img className="team-slide__img" src={src} alt={t('team.memberAlt')} loading="lazy" />
           </div>
         ))}
       </Slider>

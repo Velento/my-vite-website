@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import PropTypes from 'prop-types';
 import telegramIcon from '../images/telegram.png';
 import whatsappIcon from '../images/whatsapp.png';
 import viberIcon from '../images/viber.png';
@@ -7,6 +8,10 @@ import { useTranslation } from 'react-i18next';
 import FeedbackForm from './FeedBackForm';
 import { openViberChat } from '../../services/viber';
 
+/**
+ * Contact modal — shows messenger links and a button to open the feedback form.
+ * @param {{ show: boolean, onClose: () => void }} props
+ */
 const ContactModal = ({ show, onClose }) => {
   const { t } = useTranslation();
   const [isFeedbackFormVisible, setIsFeedbackFormVisible] = useState(false);
@@ -32,6 +37,7 @@ const ContactModal = ({ show, onClose }) => {
           onKeyDown={(e) => e.key === 'Escape' && onClose?.()}
           role="dialog"
           aria-modal="true"
+          aria-label={t('modal.title')}
         >
           {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */}
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
@@ -49,7 +55,7 @@ const ContactModal = ({ show, onClose }) => {
               <a href="https://wa.me/+48883734171" target="_blank" rel="noopener noreferrer">
                 <img src={whatsappIcon} alt="WhatsApp" className="contact-icon" />
               </a>
-              <a href="#!" onClick={openViberChat}>
+              <a href="#!" onClick={openViberChat} rel="noopener noreferrer">
                 <img src={viberIcon} alt="Viber" className="contact-icon" />
               </a>
             </div>
@@ -62,6 +68,11 @@ const ContactModal = ({ show, onClose }) => {
       {isFeedbackFormVisible && <FeedbackForm onClose={handleCloseFeedbackForm} />}
     </>
   );
+};
+
+ContactModal.propTypes = {
+  show: PropTypes.bool.isRequired,
+  onClose: PropTypes.func.isRequired,
 };
 
 export default ContactModal;

@@ -106,10 +106,7 @@
 .service-btn:hover {
   background-color: transparent;
   color: var(--color-primary);
-}
-
-.service-btn::before {
-  display: none;
+  box-shadow: 0 2px 12px rgba(26, 35, 50, 0.15);
 }
 
 /* ── Secondary CTA ── */

@@ -25,6 +25,13 @@
   width: 90%;
   box-shadow: var(--shadow-xl);
   animation: slideUp var(--duration-slow) var(--ease);
+  border: 1px solid transparent;
+  transition: border-color var(--duration-base) var(--ease);
+}
+
+.feedback-modal-content:focus-within,
+.feedback-modal__content:focus-within {
+  border-color: var(--color-accent);
 }
 
 .feedback-modal__content h2 {
