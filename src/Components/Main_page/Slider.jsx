@@ -70,6 +70,7 @@ const SliderComponent = () => {
                 src={slide}
                 alt={t('slider.alt', { index: index + 1 })}
                 fetchPriority={index === 0 ? 'high' : 'auto'}
+                loading={index === 0 ? 'eager' : 'lazy'}
               />
             </picture>
           </div>

@@ -65,19 +65,33 @@
 /* ── CTA Overlay ── */
 .slider-cta-overlay {
   position: absolute;
-  bottom: var(--space-3xl);
-  left: 50%;
-  transform: translateX(-50%);
+  bottom: 0;
+  left: 0;
+  right: 0;
   text-align: center;
   z-index: 10;
   pointer-events: none;
+  padding: var(--space-3xl) var(--space-xl) var(--space-2xl);
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.55) 0%, transparent 100%);
+  animation: ctaFadeUp 0.8s var(--ease) 0.3s both;
+}
+
+@keyframes ctaFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .slider-cta-subtitle {
   color: white;
   font-size: 1rem;
   font-weight: 500;
-  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
   margin-bottom: var(--space-md);
 }
 
@@ -109,7 +123,7 @@
     display: none !important;
   }
   .slider-cta-overlay {
-    bottom: var(--space-2xl);
+    padding: var(--space-2xl) var(--space-md) var(--space-lg);
   }
   .slider-cta-subtitle {
     font-size: 0.85rem;
@@ -122,7 +136,10 @@
 
 @media (max-width: 480px) {
   .slider-cta-overlay {
-    bottom: var(--space-xl);
-    width: 90%;
+    padding: var(--space-xl) var(--space-sm) var(--space-md);
+  }
+  .slider-cta-button {
+    padding: 10px 24px;
+    font-size: 0.85rem;
   }
 }

@@ -41,10 +41,11 @@ function LanguageSwitcher() {
         role="button"
         aria-haspopup="listbox"
         aria-expanded={dropdownOpen}
+        aria-label={t('header.switchLanguage', 'Switch language')}
         tabIndex={0}
         onKeyDown={(e) => e.key === 'Enter' && toggleDropdown(e)}
       >
-        <img src={globeIcon} alt="Язык" className="globe-icon" />
+        <img src={globeIcon} alt="" className="globe-icon" aria-hidden="true" />
         {currentLang}
       </div>
       {dropdownOpen && (

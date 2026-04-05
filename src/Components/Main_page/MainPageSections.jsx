@@ -18,7 +18,7 @@ const Section = memo(({ title, content, imgSrc, iconSrc, buttonText, buttonLink 
   return (
     <article className="section">
       <h3 className="section__title">{title}</h3>
-      {iconSrc && <img src={iconSrc} alt="" className="section__icon" />}
+      {iconSrc && <img src={iconSrc} alt="" className="section__icon" loading="lazy" />}
       <div className="section__content">
         <p>{content}</p>
         {imgSrc && <img src={imgSrc} alt={title} className="section__image" loading="lazy" />}

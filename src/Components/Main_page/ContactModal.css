@@ -9,6 +9,8 @@
 .contact-icons img {
   width: 32px;
   height: 32px;
+  padding: 6px;
+  box-sizing: content-box;
   opacity: 0.65;
   transition: all var(--duration-base) var(--ease);
 }
@@ -44,8 +46,13 @@
 
 .feedback-button:hover {
   background-color: var(--color-accent-hover);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 20px rgba(184, 148, 62, 0.4);
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 6px 24px rgba(184, 148, 62, 0.45);
+}
+
+.feedback-button:active {
+  transform: translateY(0) scale(0.98);
+  box-shadow: 0 2px 8px rgba(184, 148, 62, 0.3);
 }
 
 .error-message {

@@ -84,7 +84,8 @@
   display: block;
   width: 100%;
   text-align: left;
-  padding: 8px 12px;
+  padding: 10px 12px;
+  min-height: 44px;
   margin-bottom: 2px;
   color: var(--color-text-secondary);
   font-size: 0.85rem;
