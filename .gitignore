@@ -31,8 +31,3 @@ coverage/
 *.njsproj
 *.sln
 *.sw?
-
-# Python agent
-agent/__pycache__/
-agent/.venv/
-agent/*.pyc

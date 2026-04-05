@@ -1,5 +1,6 @@
 import { useEffect, lazy, Suspense } from 'react';
 import SliderComponent from './Slider';
+import TrustBar from './TrustBar';
 import MainPageSections from './MainPageSections';
 import Pricelist from './Pricelist';
 import Menu from './Menu';
@@ -26,6 +27,7 @@ const MainPage = () => {
     <main className="main-page">
       <Menu />
       <SliderComponent />
+      <TrustBar />
       <Pricelist />
       <MainPageSections />
       <Suspense fallback={null}>

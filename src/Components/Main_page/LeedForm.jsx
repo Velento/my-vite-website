@@ -61,6 +61,11 @@ const LeedForm = ({ onClose }) => {
 
   const handleThankYouClose = () => {
     setShowThankYou(false);
+    setName('');
+    setPhone('');
+    setPromo('');
+    setStatus('idle');
+    setErrorMsg('');
     onClose?.();
   };
 
@@ -74,6 +79,7 @@ const LeedForm = ({ onClose }) => {
             <input
               id="leedform-name"
               type="text"
+              maxLength={50}
               placeholder={t('feedbackForm.namePlaceholder', 'Anna')}
               value={name}
               onChange={(e) => setName(e.target.value)}
@@ -91,6 +97,7 @@ const LeedForm = ({ onClose }) => {
             <input
               id="leedform-phone"
               type="tel"
+              maxLength={20}
               placeholder={t('feedbackForm.phonePlaceholder', '+48123123123')}
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
@@ -108,6 +115,7 @@ const LeedForm = ({ onClose }) => {
             <input
               id="leedform-promo"
               type="text"
+              maxLength={30}
               placeholder={t('feedbackForm.promoPlaceholder', 'PROMO2024')}
               value={promo}
               onChange={(e) => setPromo(e.target.value)}

@@ -19,6 +19,7 @@
 
 .footer-section {
   flex: 1;
+  font-style: normal;
 }
 
 .footer-section.services {

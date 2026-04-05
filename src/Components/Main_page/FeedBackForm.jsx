@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
+import FocusTrap from 'focus-trap-react';
 import './FeedBackForm.css';
 import { useTranslation } from 'react-i18next';
 import ThankYou from './ThankYou';
@@ -61,6 +62,11 @@ const FeedbackForm = ({ onClose }) => {
 
   const handleThankYouClose = () => {
     setShowThankYou(false);
+    setName('');
+    setPhone('');
+    setPromo('');
+    setStatus('idle');
+    setErrorMsg('');
     onClose?.();
   };
 
@@ -69,100 +75,105 @@ const FeedbackForm = ({ onClose }) => {
   };
 
   return (
-    // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
-    <div
-      className="feedback-modal"
-      id="feed-back"
-      onClick={handleClose}
-      onKeyDown={(e) => e.key === 'Escape' && handleClose()}
-      role="dialog"
-      aria-modal="true"
-      aria-label={t('feedbackForm.title')}
-    >
-      {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */}
-      <div className="feedback-modal__content" onClick={(e) => e.stopPropagation()}>
-        <button
-          type="button"
-          className="feedback-modal__close"
-          onClick={handleClose}
-          aria-label="Close"
-        >
-          &times;
-        </button>
-        <h2>{t('feedbackForm.title')}</h2>
-        {!showThankYou ? (
-          <form onSubmit={handleSubmit} noValidate>
-            <div className={`form-group ${!nameValid && name ? 'form-group--error' : ''}`}>
-              <label htmlFor="feedback-name">{t('feedbackForm.name')}</label>
-              <input
-                id="feedback-name"
-                type="text"
-                placeholder="Anna"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                aria-invalid={!nameValid && name !== ''}
-                disabled={status === 'submitting'}
-              />
-              {!nameValid && name && (
-                <span className="form-group__error" role="alert">
-                  {t('feedbackForm.nameError')}
-                </span>
-              )}
-            </div>
-            <div className={`form-group ${!phoneValid && phone ? 'form-group--error' : ''}`}>
-              <label htmlFor="feedback-phone">{t('feedbackForm.phone')}</label>
-              <input
-                id="feedback-phone"
-                type="tel"
-                placeholder="+48123123123"
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
-                aria-invalid={!phoneValid && phone !== ''}
-                disabled={status === 'submitting'}
-              />
-              {!phoneValid && phone && (
-                <span className="form-group__error" role="alert">
-                  {t('feedbackForm.phoneError')}
-                </span>
-              )}
-            </div>
-            <div className="form-group">
-              <label htmlFor="feedback-promo">{t('feedbackForm.promo')}</label>
-              <input
-                id="feedback-promo"
-                type="text"
-                value={promo}
-                onChange={(e) => setPromo(e.target.value)}
-                disabled={status === 'submitting'}
-              />
-            </div>
-            {errorMsg && (
-              <div className="form-group__error form-group__error--block" role="alert">
-                {errorMsg}
+    <FocusTrap focusTrapOptions={{ allowOutsideClick: true }}>
+      {/* eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions */}
+      <div
+        className="feedback-modal"
+        id="feed-back"
+        onClick={handleClose}
+        onKeyDown={(e) => e.key === 'Escape' && handleClose()}
+        role="dialog"
+        aria-modal="true"
+        aria-label={t('feedbackForm.title')}
+      >
+        {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */}
+        <div className="feedback-modal__content" onClick={(e) => e.stopPropagation()}>
+          <button
+            type="button"
+            className="feedback-modal__close"
+            onClick={handleClose}
+            aria-label="Close"
+          >
+            &times;
+          </button>
+          <h2>{t('feedbackForm.title')}</h2>
+          {!showThankYou ? (
+            <form onSubmit={handleSubmit} noValidate>
+              <div className={`form-group ${!nameValid && name ? 'form-group--error' : ''}`}>
+                <label htmlFor="feedback-name">{t('feedbackForm.name')}</label>
+                <input
+                  id="feedback-name"
+                  type="text"
+                  maxLength={50}
+                  placeholder="Anna"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  aria-invalid={!nameValid && name !== ''}
+                  disabled={status === 'submitting'}
+                />
+                {!nameValid && name && (
+                  <span className="form-group__error" role="alert">
+                    {t('feedbackForm.nameError')}
+                  </span>
+                )}
               </div>
-            )}
-            {status === 'success' && (
-              <div className="message-alert" role="status">
-                {t('messageAlert')}
+              <div className={`form-group ${!phoneValid && phone ? 'form-group--error' : ''}`}>
+                <label htmlFor="feedback-phone">{t('feedbackForm.phone')}</label>
+                <input
+                  id="feedback-phone"
+                  type="tel"
+                  maxLength={20}
+                  placeholder="+48123123123"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                  aria-invalid={!phoneValid && phone !== ''}
+                  disabled={status === 'submitting'}
+                />
+                {!phoneValid && phone && (
+                  <span className="form-group__error" role="alert">
+                    {t('feedbackForm.phoneError')}
+                  </span>
+                )}
               </div>
-            )}
-            <div className="form-buttons">
-              <button
-                type="submit"
-                disabled={!formReady}
-                className={`submit-button ${formReady ? 'submit-button--active' : ''}`}
-              >
-                {status === 'submitting' ? '...' : t('feedbackForm.submit')}
-              </button>
-              <button type="button" className="cancel-button" onClick={handleClose}>
-                {t('feedbackForm.cancel')}
-              </button>
-            </div>
-          </form>
-        ) : null}
-        {showThankYou && <ThankYou name={name} onClose={handleThankYouClose} />}
+              <div className="form-group">
+                <label htmlFor="feedback-promo">{t('feedbackForm.promo')}</label>
+                <input
+                  id="feedback-promo"
+                  type="text"
+                  maxLength={30}
+                  value={promo}
+                  onChange={(e) => setPromo(e.target.value)}
+                  disabled={status === 'submitting'}
+                />
+              </div>
+              {errorMsg && (
+                <div className="form-group__error form-group__error--block" role="alert">
+                  {errorMsg}
+                </div>
+              )}
+              {status === 'success' && (
+                <div className="message-alert" role="status">
+                  {t('messageAlert')}
+                </div>
+              )}
+              <div className="form-buttons">
+                <button
+                  type="submit"
+                  disabled={!formReady}
+                  className={`submit-button ${formReady ? 'submit-button--active' : ''}`}
+                >
+                  {status === 'submitting' ? '...' : t('feedbackForm.submit')}
+                </button>
+                <button type="button" className="cancel-button" onClick={handleClose}>
+                  {t('feedbackForm.cancel')}
+                </button>
+              </div>
+            </form>
+          ) : null}
+          {showThankYou && <ThankYou name={name} onClose={handleThankYouClose} />}
+        </div>
       </div>
-    </div>
+    </FocusTrap>
   );
 };
 

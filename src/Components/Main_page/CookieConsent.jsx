@@ -60,7 +60,7 @@ const CookieConsent = () => {
   const isAcceptButtonDisabled = !cookies.essential && !cookies.analytics && !cookies.marketing;
 
   return isVisible ? (
-    <div className="cookie-consent-overlay">
+    <aside className="cookie-consent-overlay" aria-label="Cookie consent">
       <div className="cookie-consent">
         <button className="close-button" aria-label="Close" onClick={() => setIsVisible(false)}>
           ✕
@@ -132,7 +132,7 @@ const CookieConsent = () => {
           </div>
         )}
       </div>
-    </div>
+    </aside>
   ) : null;
 };
 

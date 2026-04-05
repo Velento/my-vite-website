@@ -2,11 +2,11 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import './Team.css';
-import team_member1 from '../images/rabotnik_1.jpg';
-import team_member2 from '../images/rabotnik_2.jpg';
-import team_member3 from '../images/rabotnik_3.jpg';
-import team_member4 from '../images/rabotnik_4.jpg';
-import team_member5 from '../images/rabotnik_5.jpg';
+import team_member1 from '../images/rabotnik_1.webp';
+import team_member2 from '../images/rabotnik_2.webp';
+import team_member3 from '../images/rabotnik_3.webp';
+import team_member4 from '../images/rabotnik_4.webp';
+import team_member5 from '../images/rabotnik_5.webp';
 import { useTranslation } from 'react-i18next';
 
 /** @type {import('react-slick').Settings} */

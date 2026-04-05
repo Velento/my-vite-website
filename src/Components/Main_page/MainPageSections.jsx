@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import './MainPageSections.css';
 import { useTranslation } from 'react-i18next';
 import ContactModal from './ContactModal';
-import kateFoto from '../images/Kate.png';
+import kateFoto from '../images/Kate.webp';
 import sectionMoney from '../images/section_money.svg';
 import sectionService from '../images/section_service.svg';
 import icon1 from '../images/icon1.svg';

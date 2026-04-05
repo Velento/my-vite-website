@@ -37,6 +37,7 @@
   font-weight: 500;
   cursor: pointer;
   padding: var(--space-lg) var(--space-xl);
+  padding-right: var(--space-3xl);
   margin-bottom: 6px;
   border: 1px solid transparent;
   border-radius: var(--radius-md);
@@ -44,6 +45,23 @@
   transition: all var(--duration-base) var(--ease);
   text-align: left;
   color: var(--color-text);
+  position: relative;
+}
+
+.service-item::after {
+  content: '+';
+  position: absolute;
+  right: var(--space-xl);
+  top: var(--space-lg);
+  font-size: 1.2rem;
+  font-weight: 300;
+  color: var(--color-text-tertiary);
+  transition: transform var(--duration-base) var(--ease);
+}
+
+.service-item.active::after {
+  content: '\2212';
+  color: var(--color-accent);
 }
 
 .service-item:hover {

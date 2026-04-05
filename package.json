@@ -19,6 +19,7 @@
     "deploy": "gh-pages -d dist"
   },
   "dependencies": {
+    "focus-trap-react": "^12.0.0",
     "i18next": "^23.11.5",
     "prop-types": "^15.8.1",
     "react": "^18.2.0",

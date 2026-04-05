@@ -49,6 +49,8 @@
   transition: all var(--duration-base) var(--ease);
   outline: none;
   line-height: 1.5;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 .form-group input::placeholder {

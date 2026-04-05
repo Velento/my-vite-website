@@ -133,6 +133,10 @@
   padding: 0;
   cursor: pointer;
   animation: spin 30s linear infinite;
+  animation-timing-function: linear;
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
   position: sticky;
   top: 120px;
   z-index: 10;
@@ -190,6 +194,8 @@
   color: var(--color-text-secondary);
   margin-top: var(--space-sm);
   max-width: 200px;
+  overflow-wrap: break-word;
+  word-break: break-word;
 }
 
 @keyframes spin {

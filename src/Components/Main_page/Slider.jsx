@@ -66,11 +66,23 @@ const SliderComponent = () => {
           <div key={index}>
             <picture>
               <source media="(max-width: 480px)" srcSet={mobileSlides[index]} />
-              <img src={slide} alt={t('slider.alt', { index: index + 1 })} />
+              <img
+                src={slide}
+                alt={t('slider.alt', { index: index + 1 })}
+                fetchPriority={index === 0 ? 'high' : 'auto'}
+              />
             </picture>
           </div>
         ))}
       </Slider>
+      <div className="slider-cta-overlay">
+        <p className="slider-cta-subtitle">
+          {t('slider.subtitle', 'Karta pobytu, legalizacja, dokumenty')}
+        </p>
+        <a href="#leedform" className="slider-cta-button">
+          {t('slider.cta', 'Bezpłatna konsultacja')}
+        </a>
+      </div>
     </section>
   );
 };

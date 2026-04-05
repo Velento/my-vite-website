@@ -25,6 +25,9 @@
 /* ── Slider ── */
 .team-slide {
   padding: 0 var(--space-sm);
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
 
 .team-slide img,
@@ -32,6 +35,7 @@
   width: 100%;
   height: auto;
   border-radius: var(--radius-md);
+  object-fit: cover;
   transition: all var(--duration-base) var(--ease);
 }
 

@@ -125,7 +125,12 @@ const Pricelist = () => {
                 onClick={() => toggleReasonText('reason1')}
                 aria-label="Reason 1"
               >
-                <img className="reason-button1" src={slipButtonReason1} alt="Reason 1" />
+                <img
+                  className="reason-button1"
+                  src={slipButtonReason1}
+                  alt="Reason 1"
+                  loading="lazy"
+                />
               </button>
               {selectedReasons.reason1 && (
                 <div className="reason-text1">{t('reason_texts.reason1')}</div>
@@ -136,7 +141,12 @@ const Pricelist = () => {
                 onClick={() => toggleReasonText('reason2')}
                 aria-label="Reason 2"
               >
-                <img className="reason-button1" src={slipButtonReason2} alt="Reason 2" />
+                <img
+                  className="reason-button1"
+                  src={slipButtonReason2}
+                  alt="Reason 2"
+                  loading="lazy"
+                />
               </button>
               {selectedReasons.reason2 && (
                 <div className="reason-text2">{t('reason_texts.reason2')}</div>
@@ -147,7 +157,12 @@ const Pricelist = () => {
                 onClick={() => toggleReasonText('reason3')}
                 aria-label="Reason 3"
               >
-                <img className="reason-button1" src={slipButtonReason3} alt="Reason 3" />
+                <img
+                  className="reason-button1"
+                  src={slipButtonReason3}
+                  alt="Reason 3"
+                  loading="lazy"
+                />
               </button>
               {selectedReasons.reason3 && (
                 <div className="reason-text3">{t('reason_texts.reason3')}</div>

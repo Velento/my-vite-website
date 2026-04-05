@@ -17,7 +17,7 @@ const Footer = () => {
   return (
     <footer className="footer" id="footer">
       <div className="footer-content">
-        <div className="footer-section contacts">
+        <address className="footer-section contacts">
           <h2>{t('footer.contacts')}</h2>
           <div className="icon-text">
             <img src={phoneIcon} alt="" className="contact-icon" loading="lazy" />
@@ -74,7 +74,7 @@ const Footer = () => {
               Instagram
             </a>
           </div>
-        </div>
+        </address>
         <div className="footer-section info">
           <h2>{t('footer.info')}</h2>
           <div className="icon-text">
@@ -116,7 +116,9 @@ const Footer = () => {
       >
         <img src={goUpImage} alt="" />
       </button>
-      <div className="footer-bottom">&copy; 2024 {t('footer.rights')}</div>
+      <div className="footer-bottom">
+        &copy; {new Date().getFullYear()} {t('footer.rights')}
+      </div>
     </footer>
   );
 };
