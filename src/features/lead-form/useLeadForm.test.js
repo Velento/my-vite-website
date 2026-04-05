@@ -77,7 +77,9 @@ describe('useLeadForm', () => {
 
     it('rejects XSS injection in name', () => {
       const { result } = renderHook(() => useLeadForm());
-      act(() => result.current.setField('name')({ target: { value: '<script>alert(1)</script>' } }));
+      act(() =>
+        result.current.setField('name')({ target: { value: '<script>alert(1)</script>' } })
+      );
       expect(result.current.isNameValid).toBe(false);
       expect(result.current.canSubmit).toBe(false);
     });
