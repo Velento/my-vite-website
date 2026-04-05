@@ -17,9 +17,8 @@
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     /* Пути — используй @ вместо относительных импортов */
-    "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": ["./src/*"]
     },
     /* Разрешаем JS файлы для постепенной миграции */
     "allowJs": true,
