@@ -5,7 +5,6 @@ import viberIcon from '../images/viber.png';
 import { openViberChat } from '../../services/viber';
 
 function Contacts() {
-
   return (
     <div className="header-contacts burger-header-contacts">
       <div className="div_icons">

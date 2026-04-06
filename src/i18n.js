@@ -33,8 +33,10 @@ i18n.use(initReactI18next).init({
         'pricelistservices.1.price': 'From 1500 PLN',
 
         'pricelistservices.2.title': 'Case acceleration through court lawsuit',
-        'pricelistservices.2.points.0': 'Pre-trial acceleration: complaints and demands to the voivodeship office',
-        'pricelistservices.2.points.1': 'Court acceleration: filing a lawsuit for inactivity of the authority',
+        'pricelistservices.2.points.0':
+          'Pre-trial acceleration: complaints and demands to the voivodeship office',
+        'pricelistservices.2.points.1':
+          'Court acceleration: filing a lawsuit for inactivity of the authority',
         'pricelistservices.2.price': 'From 1450 PLN',
 
         'pricelistservices.3.title': 'Preparation of documents for marriage registration',
@@ -493,7 +495,8 @@ i18n.use(initReactI18next).init({
         'pricelistservices.1.price': 'Od 1500 PLN',
 
         'pricelistservices.2.title': 'Przyspieszenie spraw przez pozew sądowy',
-        'pricelistservices.2.points.0': 'Przyspieszenie przedsądowe: skargi i wezwania do urzędu wojewódzkiego',
+        'pricelistservices.2.points.0':
+          'Przyspieszenie przedsądowe: skargi i wezwania do urzędu wojewódzkiego',
         'pricelistservices.2.points.1': 'Przyspieszenie przez sąd: pozew na bezczynność organu',
         'pricelistservices.2.price': 'Od 1450 PLN',
 
@@ -899,7 +902,8 @@ i18n.use(initReactI18next).init({
         'pricelistservices.1.price': 'Від 1500 PLN',
 
         'pricelistservices.2.title': 'Прискорення справ через судовий позов',
-        'pricelistservices.2.points.0': 'Досудове прискорення: скарги та вимоги до воєводського управління',
+        'pricelistservices.2.points.0':
+          'Досудове прискорення: скарги та вимоги до воєводського управління',
         'pricelistservices.2.points.1': 'Прискорення через суд: позов на бездіяльність органу',
         'pricelistservices.2.price': 'Від 1450 PLN',
 
@@ -1310,7 +1314,8 @@ i18n.use(initReactI18next).init({
         'pricelistservices.1.price': 'Ад 1500 PLN',
 
         'pricelistservices.2.title': 'Паскарэнне спраў праз судовы іск',
-        'pricelistservices.2.points.0': 'Дасудовае паскарэнне: скаргі і патрабаванні да ваяводскага ўпраўлення',
+        'pricelistservices.2.points.0':
+          'Дасудовае паскарэнне: скаргі і патрабаванні да ваяводскага ўпраўлення',
         'pricelistservices.2.points.1': 'Паскарэнне праз суд: іск на бяздзейнасць органа',
         'pricelistservices.2.price': 'Ад 1450 PLN',
 
@@ -1713,7 +1718,8 @@ i18n.use(initReactI18next).init({
         'pricelistservices.1.price': 'От 1500 PLN',
 
         'pricelistservices.2.title': 'Ускорение дел через судебный иск',
-        'pricelistservices.2.points.0': 'Досудебное ускорение: жалобы и требования в воеводское управление',
+        'pricelistservices.2.points.0':
+          'Досудебное ускорение: жалобы и требования в воеводское управление',
         'pricelistservices.2.points.1': 'Ускорение через суд: иск на бездействие органа',
         'pricelistservices.2.price': 'От 1450 PLN',
 
