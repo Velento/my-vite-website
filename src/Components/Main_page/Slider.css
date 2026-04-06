@@ -62,17 +62,11 @@
   color: var(--color-accent);
 }
 
-/* ── CTA Overlay ── */
-.slider-cta-overlay {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
+/* ── Hero CTA (below slider) ── */
+.hero-cta {
   text-align: center;
-  z-index: 10;
-  pointer-events: none;
-  padding: var(--space-3xl) var(--space-xl) var(--space-2xl);
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.55) 0%, transparent 100%);
+  padding: var(--space-2xl) var(--space-xl);
+  background: var(--color-primary);
   animation: ctaFadeUp 0.8s var(--ease) 0.3s both;
 }
 
@@ -87,59 +81,60 @@
   }
 }
 
-.slider-cta-subtitle {
-  color: white;
-  font-size: 1rem;
+.hero-cta__subtitle {
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 1.05rem;
   font-weight: 500;
-  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
   margin-bottom: var(--space-md);
 }
 
-.slider-cta-button {
+.hero-cta__button {
   display: inline-block;
-  pointer-events: auto;
-  padding: 14px 36px;
+  padding: 16px 48px;
   background-color: var(--color-accent);
   color: white;
   font-family: var(--font-body);
-  font-size: 1rem;
-  font-weight: 600;
+  font-size: 1.1rem;
+  font-weight: 700;
   border-radius: var(--radius-sm);
   text-decoration: none;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 20px rgba(184, 148, 62, 0.4);
   transition: all var(--duration-base) var(--ease);
   white-space: nowrap;
 }
 
-.slider-cta-button:hover {
+.hero-cta__button:hover {
   background-color: var(--color-accent-hover);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 28px rgba(0, 0, 0, 0.4);
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 6px 28px rgba(184, 148, 62, 0.55);
   color: white;
+}
+
+.hero-cta__button:active {
+  transform: translateY(0) scale(0.98);
 }
 
 @media (max-width: 768px) {
   .slider-container .slick-arrow {
     display: none !important;
   }
-  .slider-cta-overlay {
-    padding: var(--space-2xl) var(--space-md) var(--space-lg);
+  .hero-cta {
+    padding: var(--space-xl) var(--space-md);
   }
-  .slider-cta-subtitle {
-    font-size: 0.85rem;
-  }
-  .slider-cta-button {
-    padding: 12px 28px;
-    font-size: 0.9rem;
+  .hero-cta__button {
+    padding: 14px 36px;
+    font-size: 1rem;
   }
 }
 
 @media (max-width: 480px) {
-  .slider-cta-overlay {
-    padding: var(--space-xl) var(--space-sm) var(--space-md);
+  .hero-cta {
+    padding: var(--space-lg) var(--space-sm);
   }
-  .slider-cta-button {
-    padding: 10px 24px;
-    font-size: 0.85rem;
+  .hero-cta__button {
+    padding: 12px 28px;
+    font-size: 0.95rem;
+    width: 100%;
+    max-width: 320px;
   }
 }

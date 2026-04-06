@@ -13,6 +13,34 @@
   border-bottom: 1px solid var(--color-border-light);
 }
 
+/* ── Centered phone ── */
+.header-center {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.header-phone {
+  color: var(--color-text);
+  font-weight: 700;
+  font-size: 1.15rem;
+  letter-spacing: 0.03em;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color var(--duration-fast) var(--ease);
+}
+
+.header-phone:hover {
+  color: var(--color-accent);
+}
+
+/* ── Right group (icons + lang + burger) ── */
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
 /* ── Logo ── */
 .header-logo-text {
   display: flex;
@@ -86,31 +114,6 @@
   gap: 2px;
 }
 
-.contact-btn {
-  display: none;
-  padding: 10px 20px;
-  background-color: var(--color-primary);
-  color: white;
-  border: none;
-  border-radius: var(--radius-sm);
-  font-size: 0.85rem;
-  font-weight: 600;
-  letter-spacing: 0.01em;
-  text-decoration: none;
-  text-align: center;
-  transition: all var(--duration-base) var(--ease);
-}
-
-.contact-btn:hover {
-  background-color: var(--color-primary-light);
-  transform: translateY(-1px);
-}
-
-.contact-link {
-  color: var(--color-text);
-  font-weight: 600;
-  font-size: 1rem;
-}
 
 /* ── Tooltip ── */
 .tooltip {
@@ -212,12 +215,6 @@ a.contact-link-infooter {
     font-size: 0.75rem;
     max-width: 180px;
   }
-  .contact-btn {
-    display: block;
-  }
-  .contact-link {
-    display: none;
-  }
 }
 
 @media (max-width: 1024px) {
@@ -233,6 +230,9 @@ a.contact-link-infooter {
   .logo-image {
     width: 130px;
   }
+  .header-phone {
+    font-size: 1rem;
+  }
   .contact-icon {
     width: 22px;
     height: 22px;
@@ -240,6 +240,13 @@ a.contact-link-infooter {
 }
 
 @media (max-width: 480px) {
+  .header-center {
+    position: static;
+    transform: none;
+    order: 3;
+    width: 100%;
+    text-align: center;
+  }
   .header {
     flex-wrap: wrap;
     gap: var(--space-sm);
@@ -247,18 +254,11 @@ a.contact-link-infooter {
   .logo-image {
     width: 140px;
   }
-  .contact-btn {
-    display: block;
-    width: 100%;
-  }
-  .contact-link {
-    display: none;
-  }
   .header-logo-text {
     display: flex;
   }
   .header-contacts {
-    width: 100%;
+    width: auto;
   }
   .burger_menu_content_active {
     display: flex;

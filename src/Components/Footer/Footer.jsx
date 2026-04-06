@@ -117,7 +117,7 @@ const Footer = () => {
         <img src={goUpImage} alt="" />
       </button>
       <div className="footer-bottom">
-        &copy; {new Date().getFullYear()} {t('footer.rights')}
+        &copy; {new Date().getFullYear()} Velenta Andrei LEGALLINE. {t('footer.rights')}
       </div>
     </footer>
   );

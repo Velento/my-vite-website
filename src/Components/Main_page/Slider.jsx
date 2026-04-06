@@ -76,11 +76,12 @@ const SliderComponent = () => {
           </div>
         ))}
       </Slider>
-      <div className="slider-cta-overlay">
-        <p className="slider-cta-subtitle">
+
+      <div className="hero-cta">
+        <p className="hero-cta__subtitle">
           {t('slider.subtitle', 'Karta pobytu, legalizacja, dokumenty')}
         </p>
-        <a href="#leedform" className="slider-cta-button">
+        <a href="#leedform" className="hero-cta__button">
           {t('slider.cta', 'Bezpłatna konsultacja')}
         </a>
       </div>

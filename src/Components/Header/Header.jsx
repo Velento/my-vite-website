@@ -8,9 +8,16 @@ function Header() {
   return (
     <header className="header">
       <Logo />
-      <Burger />
-      <Contacts />
-      <LanguageSwitcher />
+      <div className="header-center">
+        <a href="tel:+48883734171" className="header-phone">
+          +48 883 734 171
+        </a>
+      </div>
+      <div className="header-right">
+        <Contacts />
+        <LanguageSwitcher />
+        <Burger />
+      </div>
     </header>
   );
 }

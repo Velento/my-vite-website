@@ -19,7 +19,7 @@ module.exports = {
     'plugin:jsx-a11y/recommended',
   ],
   rules: {
-    // Безопасность — особенно важно для AI-агента
+    
     'no-eval': 'error',
     'no-implied-eval': 'error',
     'no-new-func': 'error',
