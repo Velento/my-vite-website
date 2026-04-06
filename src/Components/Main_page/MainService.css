@@ -1,115 +1,163 @@
+/* ── Services Section ── */
 .services {
-    margin-bottom: 5rem;
-    margin-top: 3rem;
-    width: 100%;
-
+  padding: var(--space-section) var(--content-padding);
+  max-width: var(--max-width);
+  margin: 0 auto;
 }
 
-.services-h{
-    font-family: 'Arial', sans-serif;
-    font-size: 24px;
-    font-weight: 500;
-    text-transform: uppercase;
+.services-h {
+  font-family: var(--font-heading);
+  font-size: clamp(1.4rem, 2.8vw, 2rem);
+  font-weight: 600;
+  color: var(--color-primary);
+  text-align: center;
+  margin-bottom: var(--space-2xl);
+}
+
+.services-h::after {
+  content: '';
+  display: block;
+  width: 40px;
+  height: 2px;
+  background: var(--color-accent);
+  margin: var(--space-md) auto 0;
 }
 
 .services-h3 {
-    font-size: 18px;
-    font-family: 'Arial', sans-serif;
-    font-weight: 600;
-    text-transform: uppercase;
-}
-.service-item {
-    font-size: 18px;
-    font-weight: 400;
-    font-family: 'Arial', sans-serif;
-    text-transform: uppercase;
-    cursor: pointer;
-    padding: 10px;
-    margin: 5px 0;
-    border: 1px solid #686868;
-    border-radius: 5px;
-    transition: transform 0.2s ease, color 0.2s ease;
+  font-family: var(--font-heading);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  margin-bottom: var(--space-sm);
 }
 
+/* ── Accordion Item ── */
+.service-item {
+  font-size: 0.95rem;
+  font-weight: 500;
+  cursor: pointer;
+  padding: var(--space-lg) var(--space-xl);
+  padding-right: var(--space-3xl);
+  margin-bottom: 6px;
+  border: 1px solid transparent;
+  border-radius: var(--radius-md);
+  background: var(--color-bg);
+  transition: all var(--duration-base) var(--ease);
+  text-align: left;
+  color: var(--color-text);
+  position: relative;
+}
+
+.service-item::after {
+  content: '+';
+  position: absolute;
+  right: var(--space-xl);
+  top: var(--space-lg);
+  font-size: 1.2rem;
+  font-weight: 300;
+  color: var(--color-text-tertiary);
+  transition: transform var(--duration-base) var(--ease);
+}
+
+.service-item.active::after {
+  content: '\2212';
+  color: var(--color-accent);
+}
+
+.service-item:hover {
+  background: var(--color-bg-alt);
+}
+
+.service-item.active {
+  background: var(--color-bg-alt);
+  border-color: var(--color-border);
+}
+
+/* ── Expanded Details ── */
 .service-details {
-    margin-top: 10px;
-    font-size: 18px;
-    font-family: 'Arial', sans-serif;
-    font-weight: 100;
+  margin-top: var(--space-md);
+  padding-top: var(--space-md);
+  border-top: 1px solid var(--color-border-light);
 }
 
 .service-p {
-    cursor: pointer;
-    color: #555;
-    transition: transform 0.2s ease, color 0.2s ease;
-    font-family: 'Arial', sans-serif;
-    text-transform: math-auto;
-}
-.modal-content p {
-    font-family: 'Arial', sans-serif;
-    font-size: 14px;
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 10px 12px;
+  min-height: 44px;
+  margin-bottom: 2px;
+  color: var(--color-text-secondary);
+  font-size: 0.85rem;
+  border-radius: var(--radius-sm);
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: all var(--duration-fast) var(--ease);
 }
 
 .service-p:hover {
-    transform: scale(1.05); /* увеличивает текст при наведении */
-    color: #333; /* более темный цвет при наведении */
+  color: var(--color-text);
+  background-color: var(--color-bg-subtle);
 }
 
+.modal-content p {
+  font-size: 0.9rem;
+}
+
+/* ── Primary CTA ── */
 .service-btn {
-    margin: 5px 15px;
-    position: relative;
-    display: inline-block;
-    padding: 10px 20px;
-    font-size: 25px;
-    color: #fff;
-    background-color: #454545;
-    cursor: pointer;
-    overflow: hidden;
-    transition: background-color 0.4s ease;
-    font-family: 'Arial', sans-serif;
-    font-size: 16px;
+  display: inline-block;
+  padding: 10px 24px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: white;
+  background-color: var(--color-primary);
+  border: 2px solid var(--color-primary);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  margin: var(--space-sm) var(--space-sm) var(--space-sm) 0;
+  transition: all var(--duration-base) var(--ease);
+  position: relative;
+  overflow: hidden;
 }
 
 .service-btn:hover {
-    background-color: #161d2c;
+  background-color: transparent;
+  color: var(--color-primary);
+  box-shadow: 0 2px 12px rgba(26, 35, 50, 0.15);
 }
 
-.service-btn::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
-    transform: translateX(-100%);
-    transition: transform 0.4s ease;
-}
-
-.service-btn:hover::before {
-    transform: translateX(100%);
-}
+/* ── Secondary CTA ── */
 .cost-details-btn {
-    background-color: #5c5b5b;
-    color: white;
-    box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.8);
-    font-family: 'Arial', sans-serif;
-    font-size: 16px;
+  display: inline-block;
+  padding: 10px 24px;
+  background-color: var(--color-accent);
+  color: white;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--duration-base) var(--ease);
 }
+
 .cost-details-btn:hover {
-    background-color: #161d2c;
+  background-color: var(--color-accent-hover);
+  transform: translateY(-1px);
 }
 
-@media (min-width: 1025px) and (max-width: 1199px) {
-
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .services {
+    padding: var(--space-2xl) var(--content-padding);
+  }
+  .service-item {
+    padding: var(--space-md) var(--space-lg);
+  }
+  .service-btn {
+    width: 100%;
+    text-align: center;
+    margin: var(--space-sm) 0;
+  }
 }
-  
-  @media (min-width: 769px) and (max-width: 1024px) {
-  }
-
-  @media (min-width: 481px) and (max-width: 768px) {
-  }
-
-  @media (max-width: 480px)  {
-
-  }

@@ -1,59 +1,59 @@
+/* ── Navigation Menu ── */
 .menu {
-  font-family: 'Arial', sans-serif;
-   font-size: 30px;
-    background-color: #fff;
-    padding: 10px 20px;
-    display: flex;
-    justify-content: space-between;
-    margin-top: 3rem;
-    margin-bottom: 1rem; 
-  }
-  
-  .menu ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-    display: flex;
-  }
-  
-  .menu li {
-    margin-right: 35px;
-  }
-  
-  .menu li a {
-    text-decoration: none;
-    color: #000000;
-    font-weight: bold;
-    transition: color 0.3s;
-    font-weight: 500;
-  }
-  
-  .menu li a:hover {
-    color: #007bff;
-  }
-  
+  display: flex;
+  justify-content: center;
+  padding: var(--space-md) var(--content-padding);
+  background: var(--color-bg);
+}
 
-  @media (min-width: 1025px) and (max-width: 1199px) {
-    .menu {
-      font-size: 25px;
-    }
+.menu ul {
+  list-style: none;
+  display: flex;
+  gap: var(--space-2xl);
+}
+
+.menu li a {
+  text-decoration: none;
+  color: var(--color-text-secondary);
+  font-weight: 500;
+  font-size: 0.85rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  transition: color var(--duration-base) var(--ease);
+  position: relative;
+  padding-bottom: 4px;
+}
+
+.menu li a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  height: 1.5px;
+  background-color: var(--color-accent);
+  transition: width var(--duration-base) var(--ease);
+}
+
+.menu li a:hover {
+  color: var(--color-text);
+}
+
+.menu li a:hover::after {
+  width: 100%;
+}
+
+@media (max-width: 1024px) {
+  .menu ul {
+    gap: var(--space-lg);
   }
-    
-    @media (min-width: 769px) and (max-width: 1024px) {
-      .menu {
-        font-size: 20px;
-      }
-    }
-  
-    @media (min-width: 481px) and (max-width: 768px) {
-      .menu {
-        display: none;
-    }
-    }
-  
-    @media (max-width: 480px)  {
-        .menu {
-          display: none;
-      }
-    }
-  
+  .menu li a {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .menu {
+    display: none;
+  }
+}

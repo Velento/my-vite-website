@@ -1,35 +1,61 @@
+/* ── Contact Modal ── */
 .contact-icons {
-    display: flex;
-    justify-content: center;
-    gap: 10px; /* Дополнительно: расстояние между кнопками */
-  }
-  
-  .modal-content {
-    text-align: center; /* Для центровки текста */
-    font-family: 'Arial', sans-serif;
-  }
+  display: flex;
+  justify-content: center;
+  gap: var(--space-lg);
+  margin: var(--space-lg) 0;
+}
 
-  .modal-content h2 {
-    margin-bottom: 10px;
-    font-size: 24px;
-    font-family: 'Arial', sans-serif;
-    font-weight: 500;
+.contact-icons img {
+  width: 32px;
+  height: 32px;
+  padding: 6px;
+  box-sizing: content-box;
+  opacity: 0.65;
+  transition: all var(--duration-base) var(--ease);
 }
-  .contact-icons img {
-    width: 30px;
-    height: 30px;
+
+.contact-icons img:hover {
+  opacity: 1;
+  transform: scale(1.1);
 }
+
+.modal-content h2 {
+  font-family: var(--font-heading);
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  margin-bottom: var(--space-md);
+}
+
 .feedback-button {
   display: block;
-  margin: 20px auto 0;
-  padding: 10px 20px;
+  margin: var(--space-xl) auto 0;
+  padding: 14px 32px;
   border: none;
-  border-radius: 4px;
-  background-color: #333;
+  border-radius: var(--radius-sm);
+  background-color: var(--color-accent);
   color: white;
+  font-size: 0.95rem;
+  font-weight: 600;
   cursor: pointer;
+  transition: all var(--duration-base) var(--ease);
+  min-height: 48px;
+  box-shadow: 0 2px 12px rgba(184, 148, 62, 0.25);
 }
+
+.feedback-button:hover {
+  background-color: var(--color-accent-hover);
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 0 6px 24px rgba(184, 148, 62, 0.45);
+}
+
+.feedback-button:active {
+  transform: translateY(0) scale(0.98);
+  box-shadow: 0 2px 8px rgba(184, 148, 62, 0.3);
+}
+
 .error-message {
-  font-size: 12px;
-  color: red;
+  font-size: 0.78rem;
+  color: var(--color-error);
 }

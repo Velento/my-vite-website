@@ -1,81 +1,96 @@
-import React, { useState } from 'react';
+import { useState, memo } from 'react';
+import PropTypes from 'prop-types';
 import './MainPageSections.css';
 import { useTranslation } from 'react-i18next';
 import ContactModal from './ContactModal';
-import kateFoto from '../images/Kate.png'; 
+import kateFoto from '../images/Kate.webp';
 import sectionMoney from '../images/section_money.svg';
 import sectionService from '../images/section_service.svg';
-import sectionPlan from '../images/section_plan.svg';
 import icon1 from '../images/icon1.svg';
 
-const MainPageSections = () => {
-  const { t } = useTranslation();
-  
-  const Section = ({ title, content, imgSrc, iconSrc, buttonText, buttonLink }) => {
-    const [showContactModal, setShowContactModal] = useState(false);
-
-    const handleShowModal = () => setShowContactModal(true);
-    const handleCloseModal = () => setShowContactModal(false);
-
-    return (
-      <div className="section">
-        <h3>{title}</h3>
-        {iconSrc && <img src={iconSrc} alt={`${title} icon`} className="section-icon" />}
-        <div className="section-content">
-          <p>{content}</p>
-          {imgSrc && <img src={imgSrc} alt="Section" className="kate_foto" />}
-        </div>
-        {buttonLink ? (
-          <a href={buttonLink} target="_blank" rel="noopener noreferrer">
-            <button>{buttonText}</button>
-          </a>
-        ) : (
-          <button className="button-i-want" onClick={handleShowModal}>{buttonText}</button>
-        )}
-        
-        <ContactModal show={showContactModal} onClose={handleCloseModal} />
-      </div>
-    );
-  };
+/**
+ * Individual content section card with optional image, icon, and CTA.
+ * @param {{ title: string, content: string, imgSrc?: string, iconSrc?: string, buttonText: string, buttonLink?: string }} props
+ */
+const Section = memo(({ title, content, imgSrc, iconSrc, buttonText, buttonLink }) => {
+  const [showContactModal, setShowContactModal] = useState(false);
 
   return (
-    <div>
-      <div className="benefits-intro" id="advantages">
-        <h2 className="benefits-h2">{t('benefits.title')}</h2>
-        <div className="benefit-item">
-          <img src={icon1} alt="Icon" className="benefit-icon" />
-          <strong className="benefits-reasons-strong">{t('benefits.reason1.title')}</strong>
-          <p className="benefits-answers-p">{t('benefits.reason1.content')}</p>
-        </div>
-        <div className="benefit-item">
-          <img src={icon1} alt="Icon" className="benefit-icon" />
-          <strong className="benefits-reasons-strong">{t('benefits.reason2.title')}</strong>
-          <p className="benefits-answers-p">{t('benefits.reason2.content')}</p>
-        </div>
-        <div className="benefit-item">
-          <img src={icon1} alt="Icon" className="benefit-icon" />
-          <strong className="benefits-reasons-strong">{t('benefits.reason3.title')}</strong>
-          <p className="benefits-answers-p">{t('benefits.reason3.content')}</p>
-        </div>
-        <div className="benefit-item">
-          <img src={icon1} alt="Icon" className="benefit-icon" />
-          <strong className="benefits-reasons-strong">{t('benefits.reason4.title')}</strong>
-          <p className="benefits-answers-p">{t('benefits.reason4.content')}</p>
-        </div>
-        <div className="benefit-item">
-          <img src={icon1} alt="Icon" className="benefit-icon" />
-          <strong className="benefits-reasons-strong">{t('benefits.reason5.title')}</strong>
-          <p className="benefits-answers-p">{t('benefits.reason5.content')}</p>
-        </div>
-        <div className="benefit-item">
-          <img src={icon1} alt="Icon" className="benefit-icon" />
-          <strong className="benefits-reasons-strong">{t('benefits.reason6.title')}</strong>
-          <p className="benefits-answers-p">{t('benefits.reason6.content')}</p>
-        </div>
+    <article className="section">
+      <h3 className="section__title">{title}</h3>
+      {iconSrc && <img src={iconSrc} alt="" className="section__icon" loading="lazy" />}
+      <div className="section__content">
+        <p>{content}</p>
+        {imgSrc && <img src={imgSrc} alt={title} className="section__image" loading="lazy" />}
       </div>
+      {buttonLink ? (
+        <a href={buttonLink} target="_blank" rel="noopener noreferrer" className="section__cta">
+          {buttonText}
+        </a>
+      ) : (
+        <button type="button" className="section__cta" onClick={() => setShowContactModal(true)}>
+          {buttonText}
+        </button>
+      )}
+      <ContactModal show={showContactModal} onClose={() => setShowContactModal(false)} />
+    </article>
+  );
+});
 
-      <div className="main-page-sections">
-        <div className="left-column">
+Section.displayName = 'Section';
+
+Section.propTypes = {
+  title: PropTypes.string.isRequired,
+  content: PropTypes.string.isRequired,
+  imgSrc: PropTypes.string,
+  iconSrc: PropTypes.string,
+  buttonText: PropTypes.string.isRequired,
+  buttonLink: PropTypes.string,
+};
+
+/**
+ * Single benefit row — icon + title + description.
+ * @param {{ title: string, content: string }} props
+ */
+const BenefitItem = memo(({ title, content }) => (
+  <div className="benefit-item">
+    <img src={icon1} alt="" className="benefit-item__icon" />
+    <strong className="benefit-item__title">{title}</strong>
+    <p className="benefit-item__content">{content}</p>
+  </div>
+));
+
+BenefitItem.displayName = 'BenefitItem';
+
+BenefitItem.propTypes = {
+  title: PropTypes.string.isRequired,
+  content: PropTypes.string.isRequired,
+};
+
+/** @type {string[]} Translation keys for benefit items */
+const BENEFIT_KEYS = ['reason1', 'reason2', 'reason3', 'reason4', 'reason5', 'reason6'];
+
+/**
+ * Main page sections: benefits list + two-column content cards.
+ */
+const MainPageSections = () => {
+  const { t } = useTranslation();
+
+  return (
+    <>
+      <section className="benefits-intro" id="advantages">
+        <h2 className="benefits-intro__title">{t('benefits.title')}</h2>
+        {BENEFIT_KEYS.map((key) => (
+          <BenefitItem
+            key={key}
+            title={t(`benefits.${key}.title`)}
+            content={t(`benefits.${key}.content`)}
+          />
+        ))}
+      </section>
+
+      <section className="main-page-sections">
+        <div className="main-page-sections__left">
           <Section
             title={t('section1.title')}
             content={t('section1.content')}
@@ -89,7 +104,7 @@ const MainPageSections = () => {
             buttonText={t('section2.buttonText')}
           />
         </div>
-        <div className="right-column">
+        <div className="main-page-sections__right">
           <Section
             title={t('section4.title')}
             imgSrc={kateFoto}
@@ -97,8 +112,8 @@ const MainPageSections = () => {
             buttonText={t('section4.buttonText')}
           />
         </div>
-      </div>
-    </div>
+      </section>
+    </>
   );
 };
 

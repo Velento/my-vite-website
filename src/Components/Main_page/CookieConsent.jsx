@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import './CookieConsent.css';
 
@@ -14,7 +14,13 @@ const CookieConsent = () => {
 
   useEffect(() => {
     // Проверяем наличие сохраненного согласия в localStorage
-    const cookieConsent = JSON.parse(localStorage.getItem('cookieConsent'));
+    let cookieConsent = null;
+    try {
+      const stored = localStorage.getItem('cookieConsent');
+      if (stored) cookieConsent = JSON.parse(stored);
+    } catch {
+      localStorage.removeItem('cookieConsent');
+    }
     if (cookieConsent) {
       setCookies(cookieConsent);
       setIsVisible(false); // Скрываем окно, если согласие уже было сохранено
@@ -23,11 +29,14 @@ const CookieConsent = () => {
 
   const handleAcceptAll = () => {
     // Сохранение согласия на использование всех файлов cookie в localStorage
-    localStorage.setItem('cookieConsent', JSON.stringify({
-      essential: true,
-      analytics: true,
-      marketing: true,
-    }));
+    localStorage.setItem(
+      'cookieConsent',
+      JSON.stringify({
+        essential: true,
+        analytics: true,
+        marketing: true,
+      })
+    );
     setCookies({
       essential: true,
       analytics: true,
@@ -51,48 +60,80 @@ const CookieConsent = () => {
   const isAcceptButtonDisabled = !cookies.essential && !cookies.analytics && !cookies.marketing;
 
   return isVisible ? (
-    <div className="cookie-consent-overlay">
+    <aside className="cookie-consent-overlay" aria-label="Cookie consent">
       <div className="cookie-consent">
-        <button className="close-button" onClick={() => setIsVisible(false)}>✕</button>
+        <button className="close-button" aria-label="Close" onClick={() => setIsVisible(false)}>
+          ✕
+        </button>
         {!isSettingsOpen ? (
           <>
             <p className="cookie-settings-p">{t('cookieMessage')}</p>
-            <button className="settings-button" onClick={() => setIsSettingsOpen(true)}>{t('allowMeToChoose')}</button>
-            <button className="accept-button" onClick={handleAcceptAll}>{t('acceptAll')}</button>
-            <button className="decline-button" onClick={handleDecline}>{t('decline')}</button>
+            <button className="settings-button" onClick={() => setIsSettingsOpen(true)}>
+              {t('allowMeToChoose')}
+            </button>
+            <button className="accept-button" onClick={handleAcceptAll}>
+              {t('acceptAll')}
+            </button>
+            <button className="decline-button" onClick={handleDecline}>
+              {t('decline')}
+            </button>
           </>
         ) : (
           <div className="cookie-settings">
-            <button className="close-button" onClick={() => setIsSettingsOpen(false)}>✕</button>
+            <button
+              className="close-button"
+              aria-label="Close"
+              onClick={() => setIsSettingsOpen(false)}
+            >
+              ✕
+            </button>
             <h3>{t('cookieSettings')}</h3>
             <p className="cookie-settings-p">{t('cookieUsageDescription')}</p>
             <div className="cookie-option">
               <label>
                 {t('essentialCookies')}
-                <input type="checkbox" checked={cookies.essential} onChange={() => setCookies({ ...cookies, essential: !cookies.essential })} />
+                <input
+                  type="checkbox"
+                  checked={cookies.essential}
+                  onChange={() => setCookies({ ...cookies, essential: !cookies.essential })}
+                />
               </label>
             </div>
             <div className="cookie-option">
               <label>
                 {t('analyticsCookies')}
-                <input type="checkbox" checked={cookies.analytics} onChange={() => setCookies({ ...cookies, analytics: !cookies.analytics })} />
+                <input
+                  type="checkbox"
+                  checked={cookies.analytics}
+                  onChange={() => setCookies({ ...cookies, analytics: !cookies.analytics })}
+                />
               </label>
             </div>
             <div className="cookie-option">
               <label>
                 {t('marketingCookies')}
-                <input type="checkbox" checked={cookies.marketing} onChange={() => setCookies({ ...cookies, marketing: !cookies.marketing })} />
+                <input
+                  type="checkbox"
+                  checked={cookies.marketing}
+                  onChange={() => setCookies({ ...cookies, marketing: !cookies.marketing })}
+                />
               </label>
             </div>
-            <button className="accept-button" onClick={handleAcceptSelected} disabled={isAcceptButtonDisabled}>{t('acceptSelected')}</button>
-            <button className="decline-button" onClick={handleDecline}>{t('decline')}</button>
+            <button
+              className="accept-button"
+              onClick={handleAcceptSelected}
+              disabled={isAcceptButtonDisabled}
+            >
+              {t('acceptSelected')}
+            </button>
+            <button className="decline-button" onClick={handleDecline}>
+              {t('decline')}
+            </button>
           </div>
         )}
       </div>
-    </div>
+    </aside>
   ) : null;
 };
 
 export default CookieConsent;
-
-

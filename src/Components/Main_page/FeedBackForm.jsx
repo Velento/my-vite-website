@@ -1,141 +1,184 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import { useState, useEffect, useRef } from 'react';
+import PropTypes from 'prop-types';
+import FocusTrap from 'focus-trap-react';
 import './FeedBackForm.css';
 import { useTranslation } from 'react-i18next';
 import ThankYou from './ThankYou';
+import { sendLeadToTelegram } from '../../services/telegram';
+import { trackLeadConversion } from '../../services/analytics';
+import { isValidName, isValidPhone, canSubmitForm } from '../../services/validation';
 
+/** @type {number} Delay in ms before showing ThankYou modal */
+const THANK_YOU_DELAY_MS = 5000;
+
+/**
+ * Feedback form shown inside a modal overlay.
+ * @param {{ onClose?: () => void }} props
+ */
 const FeedbackForm = ({ onClose }) => {
-    const { t } = useTranslation();
-    const [name, setName] = useState('');
-    const [phone, setPhone] = useState('');
-    const [promo, setPromo] = useState('');
-    const [showMessage, setShowMessage] = useState(false);
-    const [showThankYou, setShowThankYou] = useState(false);
+  const { t } = useTranslation();
+  const [name, setName] = useState('');
+  const [phone, setPhone] = useState('');
+  const [promo, setPromo] = useState('');
+  const [status, setStatus] = useState('idle');
+  const [errorMsg, setErrorMsg] = useState('');
+  const [showThankYou, setShowThankYou] = useState(false);
+  const timerRef = useRef(null);
 
-    const isNameValid = /^[A-Za-zА-Яа-яЁё\s]+$/.test(name);
-    const isPhoneValid = /^[+\d][\d\s\-()]{8,}$/.test(phone);
-    const isFormValid = isNameValid && isPhoneValid;
+  const nameValid = isValidName(name);
+  const phoneValid = isValidPhone(phone);
+  const formReady = canSubmitForm(name, phone) && status !== 'submitting';
 
-    // Функция для добавления данных в Google Таблицу
-    // const appendToSheet = async (data) => {
-    //     const accessToken = 'YOUR_ACCESS_TOKEN'; // Вставьте свой OAuth токен
-    //     const spreadsheetId = '17cn8hwR1Qd1gp5vuXrLVU1mlfC8hO8n4HeEPAAHesH8';
-    //     const range = 'Лист1!B:C,I:I';
-
-    //     try {
-    //         await axios.post(
-    //             `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${range}:append`,
-    //             {
-    //                 values: [[data.name, data.phone, data.promo]],
-    //             },
-    //             {
-    //                 headers: {
-    //                     'Content-Type': 'application/json',
-    //                     Authorization: `Bearer ${accessToken}`,
-    //                 },
-    //                 params: {
-    //                     valueInputOption: 'RAW',
-    //                 },
-    //             }
-    //         );
-    //         console.log('Данные успешно отправлены в Google Таблицу');
-    //     } catch (error) {
-    //         console.error('Ошибка при отправке данных в Google Таблицу:', error);
-    //         throw new Error('Failed to append data to Google Sheet');
-    //     }
-    // };
-
-    // Обработчик отправки формы
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        const message = `Name: ${name}\nPhone: ${phone}\nPromo: ${promo}`;
-        const botToken = '7468472524:AAHqkzNo-VmM0DFmmtCDxF448jMgTnI_hK4';
-        const chatId = '509830008';
-
-        try {
-            // Отправка данных в Telegram
-            await axios.post(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-                chat_id: chatId,
-                text: message,
-            });
-
-            // Отправка данных в Google Таблицу
-            // await appendToSheet({ name, phone, promo });
-
-            setShowMessage(true);
-            setTimeout(() => {
-                setShowMessage(false);
-                setShowThankYou(true);
-            }, 5000);
-        } catch (error) {
-            console.error('Error sending message:', error);
-            alert('Failed to send message.');
-        }
+  useEffect(() => {
+    return () => {
+      if (timerRef.current) clearTimeout(timerRef.current);
     };
+  }, []);
 
-    const handleThankYouClose = () => {
-        setShowThankYou(false);
-        onClose();
-    };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!formReady) return;
 
-    return (
-        <div className="feedback-modal" id="feed-back" onClick={onClose}>
-            <div className="feedback-modal-content" onClick={(e) => e.stopPropagation()}>
-                <span className="close" onClick={onClose}>&times;</span>
-                <h2>{t('feedbackForm.title')}</h2>
-                {!showThankYou ? (
-                    <form onSubmit={handleSubmit}>
-                        <div className="form-group">
-                            <label>{t('feedbackForm.name')}</label>
-                            <input
-                                type="text"
-                                placeholder="Anna"
-                                value={name}
-                                onChange={(e) => setName(e.target.value)}
-                            />
-                            {!isNameValid && name && (
-                                <span className="error-message">{t('feedbackForm.nameError')}</span>
-                            )}
-                        </div>
-                        <div className="form-group">
-                            <label>{t('feedbackForm.phone')}</label>
-                            <input
-                                type="text"
-                                placeholder="+48123123123"
-                                value={phone}
-                                onChange={(e) => setPhone(e.target.value)}
-                            />
-                            {!isPhoneValid && phone && (
-                                <span className="error-message">{t('feedbackForm.phoneError')}</span>
-                            )}
-                        </div>
-                        <div className="form-group">
-                            <label>{t('feedbackForm.promo')}</label>
-                            <input
-                                type="text"
-                                value={promo}
-                                onChange={(e) => setPromo(e.target.value)}
-                            />
-                        </div>
-                        <div className="form-buttons">
-                            <button type="submit" disabled={!isFormValid} className={`submit-button ${isFormValid ? 'active' : ''}`}>
-                                {t('feedbackForm.submit')}
-                            </button>
-                            <button type="button" className="cancel-button" onClick={onClose}>
-                                {t('feedbackForm.cancel')}
-                            </button>
-                        </div>
-                    </form>
-                ) : null}
-                {showMessage && (
-                    <div className="message-alert">
-                        {t('messageAlert')}
-                    </div>
+    setStatus('submitting');
+    setErrorMsg('');
+
+    try {
+      await sendLeadToTelegram({
+        name: name.trim(),
+        phone: phone.trim(),
+        promo: promo.trim() || undefined,
+      });
+      trackLeadConversion();
+      setStatus('success');
+      timerRef.current = setTimeout(() => {
+        setShowThankYou(true);
+      }, THANK_YOU_DELAY_MS);
+    } catch (error) {
+      console.error('Error sending message:', error);
+      setStatus('error');
+      setErrorMsg(t('feedbackForm.errorMessage', 'Failed to send message.'));
+    }
+  };
+
+  const handleThankYouClose = () => {
+    setShowThankYou(false);
+    setName('');
+    setPhone('');
+    setPromo('');
+    setStatus('idle');
+    setErrorMsg('');
+    onClose?.();
+  };
+
+  const handleClose = () => {
+    onClose?.();
+  };
+
+  return (
+    <FocusTrap focusTrapOptions={{ allowOutsideClick: true }}>
+      {/* eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions */}
+      <div
+        className="feedback-modal"
+        id="feed-back"
+        onClick={handleClose}
+        onKeyDown={(e) => e.key === 'Escape' && handleClose()}
+        role="dialog"
+        aria-modal="true"
+        aria-label={t('feedbackForm.title')}
+      >
+        {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */}
+        <div className="feedback-modal__content" onClick={(e) => e.stopPropagation()}>
+          <button
+            type="button"
+            className="feedback-modal__close"
+            onClick={handleClose}
+            aria-label="Close"
+          >
+            &times;
+          </button>
+          <h2>{t('feedbackForm.title')}</h2>
+          {!showThankYou ? (
+            <form onSubmit={handleSubmit} noValidate>
+              <div className={`form-group ${!nameValid && name ? 'form-group--error' : ''}`}>
+                <label htmlFor="feedback-name">{t('feedbackForm.name')}</label>
+                <input
+                  id="feedback-name"
+                  type="text"
+                  maxLength={50}
+                  placeholder="Anna"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  aria-invalid={!nameValid && name !== ''}
+                  disabled={status === 'submitting'}
+                />
+                {!nameValid && name && (
+                  <span className="form-group__error" role="alert">
+                    {t('feedbackForm.nameError')}
+                  </span>
                 )}
-                {showThankYou && <ThankYou name={name} onClose={handleThankYouClose} />}
-            </div>
+              </div>
+              <div className={`form-group ${!phoneValid && phone ? 'form-group--error' : ''}`}>
+                <label htmlFor="feedback-phone">{t('feedbackForm.phone')}</label>
+                <input
+                  id="feedback-phone"
+                  type="tel"
+                  maxLength={20}
+                  placeholder="+48123123123"
+                  value={phone}
+                  onChange={(e) => setPhone(e.target.value)}
+                  aria-invalid={!phoneValid && phone !== ''}
+                  disabled={status === 'submitting'}
+                />
+                {!phoneValid && phone && (
+                  <span className="form-group__error" role="alert">
+                    {t('feedbackForm.phoneError')}
+                  </span>
+                )}
+              </div>
+              <div className="form-group">
+                <label htmlFor="feedback-promo">{t('feedbackForm.promo')}</label>
+                <input
+                  id="feedback-promo"
+                  type="text"
+                  maxLength={30}
+                  value={promo}
+                  onChange={(e) => setPromo(e.target.value)}
+                  disabled={status === 'submitting'}
+                />
+              </div>
+              {errorMsg && (
+                <div className="form-group__error form-group__error--block" role="alert">
+                  {errorMsg}
+                </div>
+              )}
+              {status === 'success' && (
+                <div className="message-alert" role="status">
+                  {t('messageAlert')}
+                </div>
+              )}
+              <div className="form-buttons">
+                <button
+                  type="submit"
+                  disabled={!formReady}
+                  className={`submit-button ${formReady ? 'submit-button--active' : ''}`}
+                >
+                  {status === 'submitting' ? '...' : t('feedbackForm.submit')}
+                </button>
+                <button type="button" className="cancel-button" onClick={handleClose}>
+                  {t('feedbackForm.cancel')}
+                </button>
+              </div>
+            </form>
+          ) : null}
+          {showThankYou && <ThankYou name={name} onClose={handleThankYouClose} />}
         </div>
-    );
+      </div>
+    </FocusTrap>
+  );
+};
+
+FeedbackForm.propTypes = {
+  onClose: PropTypes.func,
 };
 
 export default FeedbackForm;

@@ -1,128 +1,155 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import { useState, useEffect, useRef } from 'react';
+import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import ThankYou from './ThankYou';
+import { sendLeadToTelegram } from '../../services/telegram';
+import { trackLeadConversion } from '../../services/analytics';
+import { isValidName, isValidPhone, canSubmitForm } from '../../services/validation';
 import './LeedForm.css';
 
+/** @type {number} Delay in ms before showing ThankYou modal after success */
+const THANK_YOU_DELAY_MS = 3000;
+
+/**
+ * Inline lead-capture form (displayed in the page, not in a modal).
+ * @param {{ onClose?: () => void }} props
+ */
 const LeedForm = ({ onClose }) => {
-    const { t } = useTranslation();
-    const [name, setName] = useState('');
-    const [phone, setPhone] = useState('');
-    const [promo, setPromo] = useState('');
-    const [showMessage, setShowMessage] = useState(false);
-    const [showThankYou, setShowThankYou] = useState(false);
+  const { t } = useTranslation();
+  const [name, setName] = useState('');
+  const [phone, setPhone] = useState('');
+  const [promo, setPromo] = useState('');
+  const [status, setStatus] = useState('idle');
+  const [errorMsg, setErrorMsg] = useState('');
+  const [showThankYou, setShowThankYou] = useState(false);
+  const timerRef = useRef(null);
 
-    const isNameValid = /^[A-Za-zА-Яа-яЁё\s]+$/.test(name);
-    const isPhoneValid = /^[+\d][\d\s\-()]{8,}$/.test(phone);
-    const isFormValid = isNameValid && isPhoneValid;
+  const nameValid = isValidName(name);
+  const phoneValid = isValidPhone(phone);
+  const formReady = canSubmitForm(name, phone) && status !== 'submitting';
 
-    // Функция отправки данных в Telegram
-    const sendToTelegram = async (data) => {
-        const botToken = '7468472524:AAHqkzNo-VmM0DFmmtCDxF448jMgTnI_hK4';
-        const chatId = '509830008';
-        const message = `Name: ${data.name}\nPhone: ${data.phone}\nPromo: ${data.promo}`;
-
-        try {
-            await axios.post(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-                chat_id: chatId,
-                text: message,
-            });
-            console.log('Данные успешно отправлены в Telegram');
-        } catch (error) {
-            console.error('Ошибка при отправке в Telegram:', error);
-            throw new Error('Failed to send data to Telegram');
-        }
+  useEffect(() => {
+    return () => {
+      if (timerRef.current) clearTimeout(timerRef.current);
     };
+  }, []);
 
-    // Обработчик отправки формы
-    const handleSubmit = async (e) => {
-        e.preventDefault();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!formReady) return;
 
-        try {
-            // Отправка данных в Telegram
-            await sendToTelegram({ name, phone, promo });
+    setStatus('submitting');
+    setErrorMsg('');
 
-            setShowMessage(true);
-            setTimeout(() => {
-                setShowMessage(false);
-                setShowThankYou(true);
-            }, 5000);
-        } catch (error) {
-            console.error('Ошибка при отправке формы:', error);
-            alert(t('feedbackForm.errorMessage'));
-        }
-    };
+    try {
+      await sendLeadToTelegram({
+        name: name.trim(),
+        phone: phone.trim(),
+        promo: promo.trim() || undefined,
+      });
+      trackLeadConversion();
+      setStatus('success');
+      timerRef.current = setTimeout(() => {
+        setShowThankYou(true);
+      }, THANK_YOU_DELAY_MS);
+    } catch (error) {
+      console.error('Form submit error:', error);
+      setStatus('error');
+      setErrorMsg(t('feedbackForm.errorMessage', 'An error occurred. Please try again.'));
+    }
+  };
 
-    const handleThankYouClose = () => {
-        setShowThankYou(false);
-        if (onClose) {
-            onClose();
-        }
-    };
+  const handleThankYouClose = () => {
+    setShowThankYou(false);
+    setName('');
+    setPhone('');
+    setPromo('');
+    setStatus('idle');
+    setErrorMsg('');
+    onClose?.();
+  };
 
-    return (
-        <div className="leed-form-container" id='leedform'>
-            <h2>{t('feedbackForm.title')}</h2>
-            {!showThankYou ? (
-                <form onSubmit={handleSubmit}>
-                    <div className={`form-group ${!isNameValid && name ? 'error' : ''}`}>
-                        <label htmlFor="name">{t('feedbackForm.name')}</label>
-                        <input
-                            id="name"
-                            type="text"
-                            placeholder={t('feedbackForm.namePlaceholder', 'Anna')}
-                            value={name}
-                            onChange={(e) => setName(e.target.value)}
-                            aria-invalid={!isNameValid}
-                        />
-                        {!isNameValid && name && (
-                            <span className="error-message">{t('feedbackForm.nameError')}</span>
-                        )}
-                    </div>
-                    <div className={`form-group ${!isPhoneValid && phone ? 'error' : ''}`}>
-                        <label htmlFor="phone">{t('feedbackForm.phone')}</label>
-                        <input
-                            id="phone"
-                            type="text"
-                            placeholder={t('feedbackForm.phonePlaceholder', '+48123123123')}
-                            value={phone}
-                            onChange={(e) => setPhone(e.target.value)}
-                            aria-invalid={!isPhoneValid}
-                        />
-                        {!isPhoneValid && phone && (
-                            <span className="error-message">{t('feedbackForm.phoneError')}</span>
-                        )}
-                    </div>
-                    <div className="form-group">
-                        <label htmlFor="promo">{t('feedbackForm.promo')}</label>
-                        <input
-                            id="promo"
-                            type="text"
-                            placeholder={t('feedbackForm.promoPlaceholder', 'PROMO2024')}
-                            value={promo}
-                            onChange={(e) => setPromo(e.target.value)}
-                        />
-                    </div>
-                    <div className="form-buttons">
-                        <button
-                            type="submit"
-                            disabled={!isFormValid}
-                            className={`submit-button ${isFormValid ? 'active' : ''}`}
-                        >
-                            {t('feedbackForm.submit')}
-                        </button>
-                    </div>
-                </form>
-            ) : null}
-            {showMessage && (
-                <div className="message-alert">
-                    {t('messageAlert')}
-                </div>
+  return (
+    <section className="leed-form-container" id="leedform">
+      <h2>{t('feedbackForm.title')}</h2>
+      {!showThankYou ? (
+        <form onSubmit={handleSubmit} noValidate>
+          <div className={`form-group ${!nameValid && name ? 'form-group--error' : ''}`}>
+            <label htmlFor="leedform-name">{t('feedbackForm.name')}</label>
+            <input
+              id="leedform-name"
+              type="text"
+              maxLength={50}
+              placeholder={t('feedbackForm.namePlaceholder', 'Anna')}
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              aria-invalid={!nameValid && name !== ''}
+              disabled={status === 'submitting'}
+            />
+            {!nameValid && name && (
+              <span className="form-group__error" role="alert">
+                {t('feedbackForm.nameError')}
+              </span>
             )}
-            {showThankYou && <ThankYou name={name} onClose={handleThankYouClose} />}
-        </div>
-    );
+          </div>
+          <div className={`form-group ${!phoneValid && phone ? 'form-group--error' : ''}`}>
+            <label htmlFor="leedform-phone">{t('feedbackForm.phone')}</label>
+            <input
+              id="leedform-phone"
+              type="tel"
+              maxLength={20}
+              placeholder={t('feedbackForm.phonePlaceholder', '+48123123123')}
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+              aria-invalid={!phoneValid && phone !== ''}
+              disabled={status === 'submitting'}
+            />
+            {!phoneValid && phone && (
+              <span className="form-group__error" role="alert">
+                {t('feedbackForm.phoneError')}
+              </span>
+            )}
+          </div>
+          <div className="form-group">
+            <label htmlFor="leedform-promo">{t('feedbackForm.promo')}</label>
+            <input
+              id="leedform-promo"
+              type="text"
+              maxLength={30}
+              placeholder={t('feedbackForm.promoPlaceholder', 'PROMO2024')}
+              value={promo}
+              onChange={(e) => setPromo(e.target.value)}
+              disabled={status === 'submitting'}
+            />
+          </div>
+          {errorMsg && (
+            <div className="form-group__error form-group__error--block" role="alert">
+              {errorMsg}
+            </div>
+          )}
+          {status === 'success' && (
+            <div className="message-alert" role="status">
+              {t('messageAlert')}
+            </div>
+          )}
+          <div className="form-buttons">
+            <button
+              type="submit"
+              disabled={!formReady}
+              className={`submit-button ${formReady ? 'submit-button--active' : ''}`}
+            >
+              {status === 'submitting' ? '...' : t('feedbackForm.submit')}
+            </button>
+          </div>
+        </form>
+      ) : null}
+      {showThankYou && <ThankYou name={name} onClose={handleThankYouClose} />}
+    </section>
+  );
+};
+
+LeedForm.propTypes = {
+  onClose: PropTypes.func,
 };
 
 export default LeedForm;
-

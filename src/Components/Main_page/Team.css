@@ -1,42 +1,83 @@
+/* ── Team Section ── */
 .team-section {
-    background-color: #f9f9f9;
-    text-align: center;
+  background-color: var(--color-bg-alt);
+  padding: var(--space-section) var(--content-padding);
+  text-align: center;
 }
 
 .team-title {
-    font-family: 'Arial', sans-serif;
-    font-size: 2.4 rem;
-    font-weight: 500;
-    margin-bottom: 2rem;
-    text-transform: uppercase;
+  font-family: var(--font-heading);
+  font-size: clamp(1.4rem, 2.8vw, 2rem);
+  font-weight: 600;
+  color: var(--color-primary);
+  margin-bottom: var(--space-2xl);
 }
 
+.team-title::after {
+  content: '';
+  display: block;
+  width: 40px;
+  height: 2px;
+  background: var(--color-accent);
+  margin: var(--space-md) auto 0;
+}
 
+/* ── Slider ── */
 .team-slide {
-    padding: 0 50px; 
+  padding: 0 var(--space-sm);
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
 
-.team-slide img {
-    width: 70%;
-    height: auto;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-} 
-
-.slick-track {
-    display: flex;
-    /* height: 300px;
-    width: auto; */
+.team-slide img,
+.team-slide__img {
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius-md);
+  object-fit: cover;
+  transition: all var(--duration-base) var(--ease);
 }
 
+.team-slide img:hover,
+.team-slide__img:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.team-section .slick-track {
+  display: flex;
+  align-items: center;
+}
+
+.team-section .slick-dots li button:before {
+  color: var(--color-primary);
+  opacity: 0.2;
+  transition: opacity var(--duration-fast) var(--ease);
+}
+
+.team-section .slick-dots li.slick-active button:before {
+  color: var(--color-accent);
+  opacity: 0.8;
+}
+
+/* ── Mission ── */
 .team-mission {
-    margin-top: 3rem;
-    margin-bottom: 4rem;
-    font-size: 1.2rem;
-    color: #333;
-    line-height: 1.6;
-    max-width: 800px;
-    margin-left: auto;
-    margin-right: auto;
-    text-align: justify;
+  margin: var(--space-3xl) auto 0;
+  max-width: 680px;
+  padding: 0 var(--content-padding);
+}
+
+.team-mission p {
+  font-size: 0.95rem;
+  color: var(--color-text-secondary);
+  line-height: 1.8;
+  text-align: center;
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .team-section {
+    padding: var(--space-2xl) var(--content-padding);
+  }
 }
