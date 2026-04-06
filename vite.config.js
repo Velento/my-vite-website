@@ -1,22 +1,20 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
-import { resolve } from 'path';
+import { fileURLToPath, URL } from 'node:url'; 
 
 export default defineConfig({
   plugins: [react()],
   base: '/',
   resolve: {
     alias: {
-      '@': resolve(__dirname, 'src'),
+      '@': fileURLToPath(new URL('./src', import.meta.url))
     },
   },
   build: {
     target: 'es2020',
-    // Предупреждать если chunk > 500KB
     chunkSizeWarningLimit: 500,
     rollupOptions: {
       output: {
-        // Разделяем бандл на чанки по node_modules пути
         manualChunks(id) {
           if (id.includes('node_modules')) {
             if (id.includes('react-dom') || id.includes('/react/')) {
@@ -32,10 +30,9 @@ export default defineConfig({
         },
       },
     },
-    // Убираем console.log/debugger в продакшне
-    minify: 'esbuild',
-    esbuildOptions: {
-      drop: ['console', 'debugger'],
-    },
+    // minify: 'esbuild',
+    // esbuildOptions: {
+    //   drop: ['console', 'debugger'],
+    // },
   },
 });
