@@ -2,7 +2,6 @@
 
 A modern, conversion-focused landing page for a legal services company helping immigrants in Poland. Built with **React 18** and **Vite 5**, the platform supports five languages and integrates with messaging APIs (Telegram, Viber, WhatsApp) to capture and convert leads in real time.
 
-**Live demo:** [velento.github.io/legal_line](https://velento.github.io/legal_line/)
 
 ---
 
