@@ -3,20 +3,54 @@ import { useTranslation } from 'react-i18next';
 import './Pricelist.css';
 import iconCheak from '../images/play_point.svg';
 import iconPobit from '../images/icon_pricelist_pobit.svg';
-import slipButton from '../images/slip_button.png';
-import slipButtonReason1 from '../images/slip_button_reason1.png';
-import slipButtonReason2 from '../images/slip_button_reason2.png';
-import slipButtonReason3 from '../images/slip_button_reason3.png';
 import ContactModal from '../Main_page/ContactModal';
+
+const PACKAGE_KEYS = ['allInclusive', 'standard', 'ultra', 'basic'];
+
+const FEATURE_COUNTS = {
+  allInclusive: 6,
+  standard: 3,
+  ultra: 5,
+  basic: 4,
+};
+
+const PackageCard = ({ pkg, t, onOrder }) => {
+  const badge = t(`packages.${pkg}.badge`, { defaultValue: '' });
+  const oldPrice = t(`packages.${pkg}.oldPrice`, { defaultValue: '' });
+  const note = t(`packages.${pkg}.note`, { defaultValue: '' });
+  const featureCount = FEATURE_COUNTS[pkg];
+
+  const features = [];
+  for (let i = 0; i < featureCount; i++) {
+    features.push(t(`packages.${pkg}.features.${i}`));
+  }
+
+  return (
+    <div className={`pkg-card ${pkg === 'allInclusive' ? 'pkg-card--highlighted' : ''} ${pkg === 'ultra' ? 'pkg-card--ultra' : ''}`}>
+      {badge && <span className="pkg-badge">{badge}</span>}
+      <h3 className="pkg-title">{t(`packages.${pkg}.title`)}</h3>
+      <div className="pkg-pricing">
+        {oldPrice && <span className="pkg-old-price">{oldPrice}</span>}
+        <span className="pkg-price">{t(`packages.${pkg}.price`)}</span>
+      </div>
+      <ul className="pkg-features">
+        {features.map((f, i) => (
+          <li key={i}>
+            <img src={iconCheak} alt="" className="pkg-feature-icon" />
+            <span>{f}</span>
+          </li>
+        ))}
+      </ul>
+      {note && <p className="pkg-note">{note}</p>}
+      <button className="pkg-order-btn" onClick={onOrder}>
+        {t('packages.orderBtn')}
+      </button>
+    </div>
+  );
+};
 
 const Pricelist = () => {
   const { t } = useTranslation();
-  const [showReasonButtons, setShowReasonButtons] = useState(false);
-  const [selectedReasons, setSelectedReasons] = useState({
-    reason1: false,
-    reason2: false,
-    reason3: false,
-  });
   const [showContactModal, setShowContactModal] = useState(false);
 
   const services = useMemo(
@@ -41,8 +75,6 @@ const Pricelist = () => {
         points: [
           t('pricelistservices.2.points.0'),
           t('pricelistservices.2.points.1'),
-          t('pricelistservices.2.points.2'),
-          t('pricelistservices.2.points.3'),
         ],
         price: t('pricelistservices.2.price'),
       },
@@ -70,106 +102,46 @@ const Pricelist = () => {
     [t]
   );
 
-  const toggleReasonText = (reason) => {
-    setSelectedReasons((prev) => ({
-      ...prev,
-      [reason]: !prev[reason],
-    }));
-  };
-
   const handleShowModal = () => setShowContactModal(true);
   const handleCloseModal = () => setShowContactModal(false);
 
   return (
     <section className="pricelist" id="pricelist">
-      <div className="columns">
-        <div className="left-column">
-          {services.map((service, index) => (
-            <div className="service" key={index}>
-              <div className="service-header">
-                <img src={iconPobit} alt="" className="service-icon" />
-                <h2 className="service-title">{service.title}</h2>
-              </div>
-              <ul className="service-points">
-                {service.points.map((point, pointIndex) => (
-                  <li key={pointIndex}>
-                    <img src={iconCheak} alt="" className="point-icon" />
-                    <span className="point-text">{point}</span>
-                  </li>
-                ))}
-              </ul>
-              <div className="buttons">
-                <button className="price-button" disabled>
-                  {service.price}
-                </button>
+      {/* ── Package Cards ── */}
+      <h2 className="pricelist-heading">{t('packages.title')}</h2>
+      <p className="pricelist-promo">{t('packages.promo')}</p>
+      <div className="pkg-grid">
+        {PACKAGE_KEYS.map((pkg) => (
+          <PackageCard key={pkg} pkg={pkg} t={t} onOrder={handleShowModal} />
+        ))}
+      </div>
 
-                <button className="service-btn" onClick={handleShowModal}>
-                  {t('consult_button')}
-                </button>
-              </div>
+      {/* ── Other Services ── */}
+      <div className="services-list">
+        {services.map((service, index) => (
+          <div className="service" key={index}>
+            <div className="service-header">
+              <img src={iconPobit} alt="" className="service-icon" />
+              <h2 className="service-title">{service.title}</h2>
             </div>
-          ))}
-        </div>
-        <div className="right-column">
-          <button
-            className="slip-button"
-            onClick={() => setShowReasonButtons(!showReasonButtons)}
-            aria-label="Slip Button"
-          >
-            <img src={slipButton} alt="Slip Button" loading="lazy" />
-          </button>
-          {showReasonButtons && (
-            <div className="reason-buttons">
-              <button
-                className="reason-button1"
-                onClick={() => toggleReasonText('reason1')}
-                aria-label="Reason 1"
-              >
-                <img
-                  className="reason-button1"
-                  src={slipButtonReason1}
-                  alt="Reason 1"
-                  loading="lazy"
-                />
+            <ul className="service-points">
+              {service.points.map((point, pointIndex) => (
+                <li key={pointIndex}>
+                  <img src={iconCheak} alt="" className="point-icon" />
+                  <span className="point-text">{point}</span>
+                </li>
+              ))}
+            </ul>
+            <div className="buttons">
+              <button className="price-button" disabled>
+                {service.price}
               </button>
-              {selectedReasons.reason1 && (
-                <div className="reason-text1">{t('reason_texts.reason1')}</div>
-              )}
-
-              <button
-                className="reason-button2"
-                onClick={() => toggleReasonText('reason2')}
-                aria-label="Reason 2"
-              >
-                <img
-                  className="reason-button1"
-                  src={slipButtonReason2}
-                  alt="Reason 2"
-                  loading="lazy"
-                />
+              <button className="service-btn" onClick={handleShowModal}>
+                {t('consult_button')}
               </button>
-              {selectedReasons.reason2 && (
-                <div className="reason-text2">{t('reason_texts.reason2')}</div>
-              )}
-
-              <button
-                className="reason-button3"
-                onClick={() => toggleReasonText('reason3')}
-                aria-label="Reason 3"
-              >
-                <img
-                  className="reason-button1"
-                  src={slipButtonReason3}
-                  alt="Reason 3"
-                  loading="lazy"
-                />
-              </button>
-              {selectedReasons.reason3 && (
-                <div className="reason-text3">{t('reason_texts.reason3')}</div>
-              )}
             </div>
-          )}
-        </div>
+          </div>
+        ))}
       </div>
       <ContactModal show={showContactModal} onClose={handleCloseModal} />
     </section>

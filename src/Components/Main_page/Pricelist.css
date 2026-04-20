@@ -1,30 +1,196 @@
-/* ── Pricelist ── */
+/* ── Pricelist Section ── */
 .pricelist {
   padding: var(--space-section) var(--content-padding);
   max-width: var(--max-width);
   margin: 0 auto;
 }
 
-.columns {
-  display: flex;
-  gap: var(--space-2xl);
+.pricelist-heading {
+  font-family: var(--font-heading);
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  text-align: center;
+  margin-bottom: var(--space-sm);
 }
 
-.left-column {
-  flex: 1;
+.pricelist-promo {
+  text-align: center;
+  color: var(--color-accent);
+  font-weight: 600;
+  font-size: 1rem;
+  margin-bottom: var(--space-2xl);
 }
 
-.right-column {
-  flex: 0 0 180px;
+/* ── Package Grid ── */
+.pkg-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-lg);
+  margin-bottom: var(--space-3xl);
+}
+
+/* ── Package Card ── */
+.pkg-card {
   position: relative;
+  display: flex;
+  flex-direction: column;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-lg);
+  padding: var(--space-2xl) var(--space-xl);
+  transition: all var(--duration-base) var(--ease);
 }
 
-/* ── Service Card — clean, no heavy border ── */
+.pkg-card:hover {
+  border-color: var(--color-border);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-4px);
+}
+
+/* Highlighted (All Inclusive) */
+.pkg-card--highlighted {
+  border-color: var(--color-accent);
+  box-shadow: 0 4px 24px rgba(184, 148, 62, 0.15);
+}
+
+.pkg-card--highlighted:hover {
+  box-shadow: 0 8px 32px rgba(184, 148, 62, 0.25);
+}
+
+/* Ultra */
+.pkg-card--ultra {
+  border-color: var(--color-primary);
+  background: linear-gradient(180deg, var(--color-bg) 0%, rgba(26, 54, 93, 0.04) 100%);
+}
+
+/* ── Badge ── */
+.pkg-badge {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--color-accent);
+  color: white;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 4px 16px;
+  border-radius: var(--radius-full);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+
+/* ── Title ── */
+.pkg-title {
+  font-family: var(--font-heading);
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  text-align: center;
+  margin: var(--space-md) 0 var(--space-lg);
+}
+
+/* ── Pricing ── */
+.pkg-pricing {
+  text-align: center;
+  margin-bottom: var(--space-xl);
+}
+
+.pkg-old-price {
+  display: block;
+  font-size: 0.9rem;
+  color: var(--color-text-tertiary);
+  text-decoration: line-through;
+  margin-bottom: 2px;
+}
+
+.pkg-price {
+  font-family: var(--font-heading);
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--color-accent);
+}
+
+/* ── Features List ── */
+.pkg-features {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 var(--space-lg);
+  flex-grow: 1;
+}
+
+.pkg-features li {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-sm);
+  font-size: 0.88rem;
+  line-height: 1.6;
+  color: var(--color-text-secondary);
+}
+
+.pkg-feature-icon {
+  width: 16px;
+  height: 16px;
+  margin-top: 3px;
+  flex-shrink: 0;
+  opacity: 0.5;
+}
+
+/* ── Note ── */
+.pkg-note {
+  font-size: 0.78rem;
+  color: var(--color-text-tertiary);
+  font-style: italic;
+  margin-bottom: var(--space-md);
+  text-align: center;
+}
+
+/* ── Order Button ── */
+.pkg-order-btn {
+  display: block;
+  width: 100%;
+  padding: 12px 24px;
+  background-color: var(--color-primary);
+  color: white;
+  border: 2px solid var(--color-primary);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--duration-base) var(--ease);
+  margin-top: auto;
+}
+
+.pkg-order-btn:hover {
+  background-color: transparent;
+  color: var(--color-primary);
+}
+
+.pkg-card--highlighted .pkg-order-btn {
+  background-color: var(--color-accent);
+  border-color: var(--color-accent);
+}
+
+.pkg-card--highlighted .pkg-order-btn:hover {
+  background-color: transparent;
+  color: var(--color-accent);
+}
+
+/* ── Other Services List ── */
+.services-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-xl);
+}
+
+/* ── Service Card ── */
 .service {
   background: var(--color-bg);
   border-radius: var(--radius-lg);
   padding: var(--space-2xl);
-  margin-bottom: var(--space-xl);
   border: 1px solid var(--color-border-light);
   transition: all var(--duration-base) var(--ease);
 }
@@ -50,7 +216,7 @@
 
 .service-title {
   font-family: var(--font-heading);
-  font-size: 1.15rem;
+  font-size: 1.1rem;
   font-weight: 600;
   color: var(--color-primary);
   margin: 0;
@@ -68,7 +234,7 @@
   display: flex;
   align-items: flex-start;
   margin-bottom: var(--space-sm);
-  font-size: 0.9rem;
+  font-size: 0.88rem;
   line-height: 1.7;
   color: var(--color-text-secondary);
   text-align: left;
@@ -109,114 +275,28 @@
   cursor: default;
 }
 
-.consult-button {
-  padding: 10px 24px;
-  background-color: var(--color-primary);
-  color: white;
-  border: 2px solid var(--color-primary);
-  border-radius: var(--radius-sm);
-  font-size: 0.9rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all var(--duration-base) var(--ease);
-}
-
-.consult-button:hover {
-  background-color: transparent;
-  color: var(--color-primary);
-}
-
-/* ── Spinning Wheel ── */
-.slip-button {
-  background: none;
-  border: none;
-  padding: 0;
-  cursor: pointer;
-  animation: spin 30s linear infinite;
-  animation-timing-function: linear;
-  will-change: transform;
-  transform: translate3d(0, 0, 0);
-  backface-visibility: hidden;
-  position: sticky;
-  top: 120px;
-  z-index: 10;
-}
-
-.slip-button img {
-  width: 120px;
-  height: 120px;
-  opacity: 0.6;
-  transition: opacity var(--duration-base) var(--ease);
-}
-
-.slip-button:hover img {
-  opacity: 0.9;
-}
-
-.reason-buttons {
-  position: sticky;
-  top: 280px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: var(--space-md);
-}
-
-.reason-button1,
-.reason-button2,
-.reason-button3 {
-  width: 80px;
-  height: 80px;
-  background-color: var(--color-bg);
-  border-radius: var(--radius-md);
-  cursor: pointer;
-  border: 1px solid var(--color-border-light);
-  transition: all var(--duration-base) var(--ease);
-}
-
-.reason-button1:hover,
-.reason-button2:hover,
-.reason-button3:hover {
-  border-color: var(--color-border);
-}
-
-.reason-text1,
-.reason-text2,
-.reason-text3 {
-  background: var(--color-bg);
-  padding: var(--space-md);
-  border: 1px solid var(--color-border-light);
-  border-radius: var(--radius-md);
-  box-shadow: var(--shadow-sm);
-  z-index: 1;
-  font-size: 0.85rem;
-  line-height: 1.6;
-  color: var(--color-text-secondary);
-  margin-top: var(--space-sm);
-  max-width: 200px;
-  overflow-wrap: break-word;
-  word-break: break-word;
-}
-
-@keyframes spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
 /* ── Responsive ── */
+@media (max-width: 1024px) {
+  .pkg-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
 @media (max-width: 768px) {
   .pricelist {
     padding: var(--space-2xl) var(--content-padding);
   }
-  .columns {
-    flex-direction: column;
+  .pricelist-heading {
+    font-size: 1.5rem;
   }
-  .right-column {
-    display: none;
+  .pkg-grid {
+    grid-template-columns: 1fr;
+    max-width: 420px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .services-list {
+    grid-template-columns: 1fr;
   }
   .service {
     padding: var(--space-xl);
@@ -224,8 +304,7 @@
   .buttons {
     flex-direction: column;
   }
-  .price-button,
-  .consult-button {
+  .price-button {
     width: 100%;
     text-align: center;
   }

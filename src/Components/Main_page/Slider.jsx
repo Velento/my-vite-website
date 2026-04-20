@@ -34,14 +34,20 @@ import slide2Blr from '../images/slider2-blr.jpg';
 import mobileSlide1Blr from '../images/image1-blr.jpg';
 import mobileSlide2Blr from '../images/image2-blr.jpg';
 
+// Новый слайд (общий для всех языков — текст через overlay)
+import slide3Bg from '../images/slider3.jpg';
+
 const SLIDER_SETTINGS = {
   dots: true,
   infinite: true,
-  speed: 300,
+  speed: 600,
   slidesToShow: 1,
   slidesToScroll: 1,
   autoplay: true,
-  autoplaySpeed: 3000,
+  autoplaySpeed: 4000,
+  fade: true,
+  cssEase: 'cubic-bezier(0.4, 0, 0.2, 1)',
+  pauseOnHover: true,
 };
 
 const SLIDES_BY_LANG = {
@@ -75,6 +81,25 @@ const SliderComponent = () => {
             </picture>
           </div>
         ))}
+
+        {/* Новый слайд — текстовый overlay */}
+        <div>
+          <div className="slide-overlay">
+            <img
+              src={slide3Bg}
+              alt={t('slider.newSlide.title')}
+              loading="lazy"
+              className="slide-overlay__bg"
+            />
+            <div className="slide-overlay__content">
+              <h2 className="slide-overlay__title">{t('slider.newSlide.title')}</h2>
+              <p className="slide-overlay__text">{t('slider.newSlide.text')}</p>
+              <a href="#pricelist" className="slide-overlay__btn">
+                {t('packages.orderBtn')}
+              </a>
+            </div>
+          </div>
+        </div>
       </Slider>
 
       <div className="hero-cta">
