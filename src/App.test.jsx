@@ -463,12 +463,22 @@ describe('trackLeadConversion', () => {
     expect(window.dataLayer[0].event).toBe('lead_form_submit');
   });
 
-  it('calls gtag conversion when gtag is available', () => {
+  it('calls gtag conversion when gtag and conversion ID are available', () => {
     window.gtag = vi.fn();
+    vi.stubEnv('VITE_GOOGLE_ADS_CONVERSION_ID', 'AW-TEST/TEST');
 
     trackLeadConversion();
 
     expect(window.gtag).toHaveBeenCalledWith('event', 'conversion', expect.any(Object));
+    vi.unstubAllEnvs();
+  });
+
+  it('skips gtag conversion when conversion ID is not configured', () => {
+    window.gtag = vi.fn();
+
+    trackLeadConversion();
+
+    expect(window.gtag).not.toHaveBeenCalled();
   });
 
   it('calls fbq Lead when fbq is available', () => {

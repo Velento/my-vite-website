@@ -26,7 +26,9 @@ const PackageCard = ({ pkg, t, onOrder }) => {
   }
 
   return (
-    <div className={`pkg-card ${pkg === 'allInclusive' ? 'pkg-card--highlighted' : ''} ${pkg === 'ultra' ? 'pkg-card--ultra' : ''}`}>
+    <div
+      className={`pkg-card ${pkg === 'allInclusive' ? 'pkg-card--highlighted' : ''} ${pkg === 'ultra' ? 'pkg-card--ultra' : ''}`}
+    >
       {badge && <span className="pkg-badge">{badge}</span>}
       <h3 className="pkg-title">{t(`packages.${pkg}.title`)}</h3>
       <div className="pkg-pricing">
@@ -72,10 +74,7 @@ const Pricelist = () => {
       },
       {
         title: t('pricelistservices.2.title'),
-        points: [
-          t('pricelistservices.2.points.0'),
-          t('pricelistservices.2.points.1'),
-        ],
+        points: [t('pricelistservices.2.points.0'), t('pricelistservices.2.points.1')],
         price: t('pricelistservices.2.price'),
       },
       {

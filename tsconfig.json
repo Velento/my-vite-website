@@ -11,7 +11,6 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "types": ["node"],
     /* Строгая типизация — AI-агент должен соблюдать */
     "strict": true,
     "noUncheckedIndexedAccess": true,

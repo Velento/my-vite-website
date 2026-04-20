@@ -18,8 +18,7 @@ import './MapAndReviews.css';
 const GOOGLE_MAPS_EMBED_URL =
   'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2324.5!2d18.6466!3d54.352!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNTTCsDIxJzA3LjIiTiAxOMKwMzgnNDcuOCJF!5e0!3m2!1spl!2spl!4v1700000000000';
 
-const GOOGLE_REVIEW_URL =
-  'https://search.google.com/local/writereview?placeid=YOUR_PLACE_ID';
+const GOOGLE_REVIEW_URL = 'https://www.google.com/search?q=Legal+Line+Gdansk';
 
 const MapAndReviews = () => {
   const { t } = useTranslation();

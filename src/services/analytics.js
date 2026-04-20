@@ -17,15 +17,16 @@ export function trackLeadConversion() {
     });
   }
 
-  // Google Ads gtag conversion (when gtag.js is loaded directly)
-  if (typeof window !== 'undefined' && typeof window.gtag === 'function') {
+  // Google Ads gtag conversion — enabled only when VITE_GOOGLE_ADS_ID is configured.
+  const googleAdsId = import.meta.env.VITE_GOOGLE_ADS_CONVERSION_ID;
+  if (googleAdsId && typeof window !== 'undefined' && typeof window.gtag === 'function') {
     window.gtag('event', 'conversion', {
-      send_to: 'AW-XXXXXXXXX/YYYYYYYYYY', // Replace with your Google Ads conversion ID
+      send_to: googleAdsId,
       event_category: 'lead',
     });
   }
 
-  // Facebook Pixel
+  // Facebook Pixel — fires only if the user has given marketing consent (see CookieConsent).
   if (typeof window !== 'undefined' && typeof window.fbq === 'function') {
     window.fbq('track', 'Lead');
   }

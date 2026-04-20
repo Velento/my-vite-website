@@ -3,6 +3,4 @@ Disallow: /images/
 
 Allow: /
 
-Sitemap: https://www.legalline.pl/sitemap.xml
-
-
+Sitemap: https://legalline.pl/sitemap.xml

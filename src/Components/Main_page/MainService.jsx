@@ -165,7 +165,12 @@ const Services = () => {
           onClick={() => handleServiceClick(id)}
           role="button"
           tabIndex={0}
-          onKeyDown={(e) => e.key === 'Enter' && handleServiceClick(id)}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              handleServiceClick(id);
+            }
+          }}
         >
           {t(labelKey)}
           {activeService === id && (

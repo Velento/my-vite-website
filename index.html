@@ -1,8 +1,8 @@
 <!doctype html>
-<html lang="ru">
+<html lang="pl">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/jpg" href="/src/Components/images/Logo_brauser.jpg" />
+    <link rel="icon" type="image/jpeg" href="/og-image.jpg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <!-- Preconnect to critical third-party origins -->
@@ -76,41 +76,14 @@
       window.dataLayer = window.dataLayer || [];
     </script>
 
-    <!-- Meta Pixel Code -->
-    <script>
-      !(function (f, b, e, v, n, t, s) {
-        if (f.fbq) return;
-        n = f.fbq = function () {
-          n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments);
-        };
-        if (!f._fbq) f._fbq = n;
-        n.push = n;
-        n.loaded = !0;
-        n.version = '2.0';
-        n.queue = [];
-        t = b.createElement(e);
-        t.async = !0;
-        t.src = v;
-        s = b.getElementsByTagName(e)[0];
-        s.parentNode.insertBefore(t, s);
-      })(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
-      fbq('init', '1812191629550140');
-      fbq('track', 'PageView');
-    </script>
-    <!-- End Meta Pixel Code -->
+    <!-- Meta Pixel — loaded only after user grants marketing consent (RODO/GDPR). -->
+    <!-- See src/Components/Main_page/CookieConsent.jsx for the consent gate. -->
   </head>
   <body>
     <!-- Google Tag Manager (noscript) — uncomment when GTM is configured -->
     <!-- <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXXX" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript> -->
 
     <div id="root"></div>
-    <noscript
-      ><img
-        height="1"
-        width="1"
-        style="display: none"
-        src="https://www.facebook.com/tr?id=1812191629550140&ev=PageView&noscript=1"
-    /></noscript>
     <!-- Vite entry point -->
     <script type="module" src="/src/main.jsx"></script>
   </body>

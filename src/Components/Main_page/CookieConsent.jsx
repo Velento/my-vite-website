@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import { applyMarketingConsent } from '../../services/marketingConsent';
 import './CookieConsent.css';
 
 const CookieConsent = () => {
@@ -13,7 +14,6 @@ const CookieConsent = () => {
   });
 
   useEffect(() => {
-    // Проверяем наличие сохраненного согласия в localStorage
     let cookieConsent = null;
     try {
       const stored = localStorage.getItem('cookieConsent');
@@ -23,36 +23,26 @@ const CookieConsent = () => {
     }
     if (cookieConsent) {
       setCookies(cookieConsent);
-      setIsVisible(false); // Скрываем окно, если согласие уже было сохранено
+      setIsVisible(false);
+      applyMarketingConsent(cookieConsent);
     }
   }, []);
 
   const handleAcceptAll = () => {
-    // Сохранение согласия на использование всех файлов cookie в localStorage
-    localStorage.setItem(
-      'cookieConsent',
-      JSON.stringify({
-        essential: true,
-        analytics: true,
-        marketing: true,
-      })
-    );
-    setCookies({
-      essential: true,
-      analytics: true,
-      marketing: true,
-    });
+    const consent = { essential: true, analytics: true, marketing: true };
+    localStorage.setItem('cookieConsent', JSON.stringify(consent));
+    setCookies(consent);
     setIsVisible(false);
+    applyMarketingConsent(consent);
   };
 
   const handleAcceptSelected = () => {
-    // Сохранение согласия на использование выбранных файлов cookie в localStorage
     localStorage.setItem('cookieConsent', JSON.stringify(cookies));
     setIsVisible(false);
+    applyMarketingConsent(cookies);
   };
 
   const handleDecline = () => {
-    // Удаление согласия на использование файлов cookie из localStorage
     localStorage.removeItem('cookieConsent');
     setIsVisible(false);
   };

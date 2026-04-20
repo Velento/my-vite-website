@@ -43,7 +43,12 @@ function LanguageSwitcher() {
         aria-expanded={dropdownOpen}
         aria-label={t('header.switchLanguage', 'Switch language')}
         tabIndex={0}
-        onKeyDown={(e) => e.key === 'Enter' && toggleDropdown(e)}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            toggleDropdown(e);
+          }
+        }}
       >
         <img src={globeIcon} alt="" className="globe-icon" aria-hidden="true" />
         {currentLang}
@@ -54,7 +59,12 @@ function LanguageSwitcher() {
             <li
               key={lang}
               onClick={() => selectLanguage(lang)}
-              onKeyDown={(e) => e.key === 'Enter' && selectLanguage(lang)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault();
+                  selectLanguage(lang);
+                }
+              }}
               role="option"
               aria-selected={lang === currentLang}
               tabIndex={0}

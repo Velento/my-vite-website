@@ -74,10 +74,8 @@ i18n.use(initReactI18next).init({
         'packages.standard.title': 'Standard',
         'packages.standard.price': '1 100 PLN',
         'packages.standard.features.0': 'Everything done for the client by power of attorney',
-        'packages.standard.features.1':
-          'Personal escort for fingerprints and inspector meetings',
-        'packages.standard.features.2':
-          'Further — the client controls the process independently',
+        'packages.standard.features.1': 'Personal escort for fingerprints and inspector meetings',
+        'packages.standard.features.2': 'Further — the client controls the process independently',
         'packages.standard.note': 'Document delivery and acceleration not included',
         'packages.ultra.title': 'Ultra',
         'packages.ultra.badge': 'Maximum Speed',
@@ -580,10 +578,8 @@ i18n.use(initReactI18next).init({
         'packages.standard.title': 'Standard',
         'packages.standard.price': '1 100 PLN',
         'packages.standard.features.0': 'Wszystko za klienta na podstawie pełnomocnictwa',
-        'packages.standard.features.1':
-          'Osobiste towarzyszenie na odciski palców i do inspektora',
-        'packages.standard.features.2':
-          'Dalej — klient kontroluje proces samodzielnie',
+        'packages.standard.features.1': 'Osobiste towarzyszenie na odciski palców i do inspektora',
+        'packages.standard.features.2': 'Dalej — klient kontroluje proces samodzielnie',
         'packages.standard.note': 'Doniesienie dokumentów i przyspieszenie nie wchodzi w cenę',
         'packages.ultra.title': 'Ultra',
         'packages.ultra.badge': 'Maksymalna Szybkość',
@@ -1032,10 +1028,8 @@ i18n.use(initReactI18next).init({
         'packages.standard.title': 'Стандарт',
         'packages.standard.price': '1 100 PLN',
         'packages.standard.features.0': 'Все за клієнта за довіреністю',
-        'packages.standard.features.1':
-          'Особистий супровід на відбитки пальців та до інспектора',
-        'packages.standard.features.2':
-          'Далі — клієнт контролює процес самостійно',
+        'packages.standard.features.1': 'Особистий супровід на відбитки пальців та до інспектора',
+        'packages.standard.features.2': 'Далі — клієнт контролює процес самостійно',
         'packages.standard.note': 'Донесення документів та прискорення не входять',
         'packages.ultra.title': 'Ультра',
         'packages.ultra.badge': 'Максимальна Швидкість',
@@ -1483,16 +1477,13 @@ i18n.use(initReactI18next).init({
         'packages.allInclusive.features.1': 'Падача дакументаў',
         'packages.allInclusive.features.2': 'Поўнае вядзенне справы',
         'packages.allInclusive.features.3': 'Данясенне дакументаў па даручэнні',
-        'packages.allInclusive.features.4':
-          'Асабісты суправод на адбіткі пальцаў і да інспектара',
+        'packages.allInclusive.features.4': 'Асабісты суправод на адбіткі пальцаў і да інспектара',
         'packages.allInclusive.features.5': 'Лісты/скаргі для паскарэння справы',
         'packages.standard.title': 'Стандарт',
         'packages.standard.price': '1 100 PLN',
         'packages.standard.features.0': 'Усё за кліента па даручэнні',
-        'packages.standard.features.1':
-          'Асабісты суправод на адбіткі пальцаў і да інспектара',
-        'packages.standard.features.2':
-          'Далей — кліент кантралюе працэс самастойна',
+        'packages.standard.features.1': 'Асабісты суправод на адбіткі пальцаў і да інспектара',
+        'packages.standard.features.2': 'Далей — кліент кантралюе працэс самастойна',
         'packages.standard.note': 'Данясенне дакументаў і паскарэнне не ўваходзяць',
         'packages.ultra.title': 'Ультра',
         'packages.ultra.badge': 'Максімальная Хуткасць',
@@ -1932,16 +1923,14 @@ i18n.use(initReactI18next).init({
         'packages.allInclusive.features.1': 'Подача документов',
         'packages.allInclusive.features.2': 'Полное ведение дела',
         'packages.allInclusive.features.3': 'Донесение документов по доверенности',
-        'packages.allInclusive.features.4':
-          'Личное сопровождение на отпечатки и к инспектору',
+        'packages.allInclusive.features.4': 'Личное сопровождение на отпечатки и к инспектору',
         'packages.allInclusive.features.5': 'Письма/жалобы для ускорения дела',
         'packages.standard.title': 'Стандарт',
         'packages.standard.price': '1 100 PLN',
         'packages.standard.features.0': 'Всё за клиента по доверенности',
         'packages.standard.features.1':
           'Личное сопровождение до отпечатков и встречи с инспектором',
-        'packages.standard.features.2':
-          'Далее — клиент контролирует процесс самостоятельно',
+        'packages.standard.features.2': 'Далее — клиент контролирует процесс самостоятельно',
         'packages.standard.note': 'Донесение документов и ускорение не входят',
         'packages.ultra.title': 'Ультра',
         'packages.ultra.badge': 'Максимальная Скорость',
