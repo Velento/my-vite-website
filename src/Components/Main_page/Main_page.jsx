@@ -4,6 +4,7 @@ import TrustBar from './TrustBar';
 import MainPageSections from './MainPageSections';
 import Pricelist from './Pricelist';
 import Menu from './Menu';
+import FadeInOnScroll from './FadeInOnScroll';
 
 const LeedForm = lazy(() => import('./LeedForm'));
 const Promotions = lazy(() => import('./Promotions'));
@@ -27,14 +28,28 @@ const MainPage = () => {
     <main className="main-page">
       <Menu />
       <SliderComponent />
-      <TrustBar />
-      <Pricelist />
-      <MainPageSections />
+      <FadeInOnScroll>
+        <TrustBar />
+      </FadeInOnScroll>
+      <FadeInOnScroll>
+        <Pricelist />
+      </FadeInOnScroll>
+      <FadeInOnScroll>
+        <MainPageSections />
+      </FadeInOnScroll>
       <Suspense fallback={null}>
-        <Promotions />
-        <LeedForm />
-        <Services />
-        <Team />
+        <FadeInOnScroll>
+          <Promotions />
+        </FadeInOnScroll>
+        <FadeInOnScroll>
+          <LeedForm />
+        </FadeInOnScroll>
+        <FadeInOnScroll>
+          <Services />
+        </FadeInOnScroll>
+        <FadeInOnScroll>
+          <Team />
+        </FadeInOnScroll>
       </Suspense>
     </main>
   );
