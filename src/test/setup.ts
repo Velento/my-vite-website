@@ -10,7 +10,7 @@ vi.stubEnv('VITE_TELEGRAM_BOT_TOKEN', 'test-bot-token');
 vi.stubEnv('VITE_TELEGRAM_CHAT_ID', '123456789');
 
 // Мокаем fetch глобально — тесты не делают реальных HTTP запросов
-global.fetch = vi.fn();
+globalThis.fetch = vi.fn();
 
 // Мокаем localStorage
 const localStorageMock = (() => {

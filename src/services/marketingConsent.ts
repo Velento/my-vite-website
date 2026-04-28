@@ -2,15 +2,15 @@ const META_PIXEL_ID = '1812191629550140';
 
 let pixelLoaded = false;
 
-function loadMetaPixel() {
+function loadMetaPixel(): void {
   if (pixelLoaded || typeof window === 'undefined') return;
   pixelLoaded = true;
 
-  (function (f, b, e, v) {
+  (function (f: Window, b: Document, e: 'script', v: string) {
     if (f.fbq) return;
-    const n = (f.fbq = function (...args) {
-      n.callMethod ? n.callMethod(...args) : n.queue.push(args);
-    });
+    const n = (f.fbq = function (...args: unknown[]) {
+      n.callMethod ? n.callMethod(...args) : n.queue!.push(args);
+    } as Window['fbq']) as NonNullable<Window['fbq']>;
     if (!f._fbq) f._fbq = n;
     n.push = n;
     n.loaded = true;
@@ -20,14 +20,16 @@ function loadMetaPixel() {
     t.async = true;
     t.src = v;
     const s = b.getElementsByTagName(e)[0];
-    s.parentNode.insertBefore(t, s);
+    s?.parentNode?.insertBefore(t, s);
   })(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
 
-  window.fbq('init', META_PIXEL_ID);
-  window.fbq('track', 'PageView');
+  window.fbq?.('init', META_PIXEL_ID);
+  window.fbq?.('track', 'PageView');
 }
 
-export function applyMarketingConsent(consent) {
+export type MarketingConsent = { marketing?: boolean };
+
+export function applyMarketingConsent(consent: MarketingConsent | undefined | null): void {
   if (consent?.marketing) {
     loadMetaPixel();
   }
