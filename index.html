@@ -76,6 +76,16 @@
       window.dataLayer = window.dataLayer || [];
     </script>
 
+    <!-- Partytown — runs third-party scripts (Meta Pixel, gtag, GTM) in a Web Worker
+         so they never block the main thread. Functions listed in `forward` are proxied
+         from the main page to the worker. -->
+    <script>
+      partytown = {
+        forward: ['dataLayer.push', 'gtag', 'fbq', 'fbq.callMethod'],
+      };
+    </script>
+    <script src="/~partytown/partytown.js"></script>
+
     <!-- Meta Pixel — loaded only after user grants marketing consent (RODO/GDPR). -->
     <!-- See src/Components/Main_page/CookieConsent.jsx for the consent gate. -->
   </head>

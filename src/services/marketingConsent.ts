@@ -18,6 +18,8 @@ function loadMetaPixel(): void {
     n.queue = [];
     const t = b.createElement(e);
     t.async = true;
+    // Run Meta Pixel inside Partytown's Web Worker so it never blocks the main thread.
+    t.type = 'text/partytown';
     t.src = v;
     const s = b.getElementsByTagName(e)[0];
     s?.parentNode?.insertBefore(t, s);
