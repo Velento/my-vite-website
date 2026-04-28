@@ -45,20 +45,37 @@
   box-shadow: var(--shadow-md);
 }
 
-.team-section .slick-track {
-  display: flex;
+.team-section .swiper-wrapper {
   align-items: center;
 }
 
-.team-section .slick-dots li button:before {
-  color: var(--color-primary);
+.team-section .swiper-pagination {
+  position: relative;
+  margin-top: var(--space-lg);
+}
+
+.team-section .swiper-pagination-bullet {
+  background: var(--color-primary);
   opacity: 0.2;
   transition: opacity var(--duration-fast) var(--ease);
 }
 
-.team-section .slick-dots li.slick-active button:before {
-  color: var(--color-accent);
+.team-section .swiper-pagination-bullet-active {
+  background: var(--color-accent);
   opacity: 0.8;
+}
+
+.team-section .swiper-button-prev,
+.team-section .swiper-button-next {
+  color: var(--color-accent);
+  width: 36px;
+  height: 36px;
+}
+
+.team-section .swiper-button-prev::after,
+.team-section .swiper-button-next::after {
+  font-size: 18px;
+  font-weight: 700;
 }
 
 /* ── Mission ── */

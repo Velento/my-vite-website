@@ -1,4 +1,4 @@
-/* ── Hero Slider — Premium Edition ── */
+/* ── Hero Slider — Swiper Edition ── */
 .slider-container {
   width: 100%;
   margin: 0 auto;
@@ -6,97 +6,64 @@
   position: relative;
 }
 
-/* ── Slide images ── */
-.slider-container .slick-slide {
-  will-change: opacity;
+/* Wymusza spójną wysokość każdego slajdu w trybie fade — bez tego slajdy o
+   różnych proporcjach (zwłaszcza overlay slide 3) powodują skoki layoutu. */
+.slider-container .swiper-slide {
+  aspect-ratio: 1961 / 582;
+  width: 100%;
 }
 
-.slider-container .slick-slide img {
+.slider-container .swiper-slide picture {
+  display: block;
   width: 100%;
-  height: auto;
+  height: 100%;
+}
+
+.slider-container .swiper-slide img {
+  width: 100%;
+  height: 100%;
   display: block;
   object-fit: cover;
 }
 
-/* ── Premium Arrows ── */
-.slider-container .slick-arrow {
-  z-index: 10;
-  width: 48px;
-  height: 48px;
+@media (max-width: 480px) {
+  .slider-container .swiper-slide {
+    aspect-ratio: 5 / 4;
+  }
 }
 
-.slider-container .slick-prev,
-.slider-container .slick-next {
-  background: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border-radius: var(--radius-full);
-  transition: all var(--duration-base) var(--ease);
-}
-
-.slider-container .slick-prev:hover,
-.slider-container .slick-next:hover {
-  background: rgba(255, 255, 255, 0.3);
-}
-
-.slider-container .slick-prev:before,
-.slider-container .slick-next:before {
-  color: white;
-  font-size: 20px;
-  opacity: 0.8;
-  transition: opacity var(--duration-fast) var(--ease);
-}
-
-.slider-container .slick-prev:hover:before,
-.slider-container .slick-next:hover:before {
-  opacity: 1;
-}
-
-.slider-container .slick-prev {
-  left: var(--space-xl);
-}
-
-.slider-container .slick-next {
-  right: var(--space-xl);
-}
-
-/* ── Premium Dots ── */
-.slider-container .slick-dots {
+/* ── Pagination dots ── */
+.slider-container .swiper-pagination {
   bottom: var(--space-lg);
 }
 
-.slider-container .slick-dots li {
-  margin: 0 4px;
-}
-
-.slider-container .slick-dots li button:before {
-  font-size: 0;
-  content: '';
-  display: block;
+.slider-container .swiper-pagination-bullet {
   width: 10px;
   height: 10px;
-  border-radius: var(--radius-full);
   background: rgba(255, 255, 255, 0.4);
   border: 2px solid rgba(255, 255, 255, 0.6);
-  transition: all var(--duration-base) var(--ease);
   opacity: 1;
+  margin: 0 4px;
+  transition: all var(--duration-base) var(--ease);
 }
 
-.slider-container .slick-dots li.slick-active button:before {
+.slider-container .swiper-pagination-bullet-active {
   background: var(--color-accent);
   border-color: var(--color-accent);
   transform: scale(1.2);
 }
 
-/* ── Text Overlay Slide (new "Ускорение" slide) ── */
+/* ── Text Overlay Slide (third "Ускорение" slide) ── */
 .slide-overlay {
   position: relative;
   overflow: hidden;
+  width: 100%;
+  height: 100%;
 }
 
 .slide-overlay__bg {
   width: 100%;
-  height: auto;
+  height: 100%;
   display: block;
   object-fit: cover;
   filter: brightness(0.4);
@@ -197,9 +164,6 @@
 
 /* ── Responsive ── */
 @media (max-width: 768px) {
-  .slider-container .slick-arrow {
-    display: none !important;
-  }
   .hero-cta {
     padding: var(--space-xl) var(--space-md);
   }

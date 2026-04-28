@@ -1,4 +1,4 @@
-/* ── Burger Menu ── */
+/* ── Burger Menu Button ── */
 .header_burger {
   width: 44px;
   height: 44px;
@@ -14,29 +14,56 @@
   align-items: center;
   z-index: 1003;
   background: var(--color-bg);
-  transition: all var(--duration-base) var(--ease);
+  color: var(--color-text);
+  transition:
+    border-color var(--duration-base) var(--ease),
+    background-color var(--duration-base) var(--ease),
+    box-shadow var(--duration-base) var(--ease);
+  padding: 0;
 }
 
 .header_burger:hover {
-  border-color: var(--color-text-tertiary);
+  border-color: var(--color-accent);
+  box-shadow: 0 2px 12px rgba(184, 148, 62, 0.2);
 }
 
-.burger_line {
+.header_burger:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.header_burger--open {
+  border-color: var(--color-accent);
+  background: var(--color-accent);
+  color: white;
+}
+
+/* ── Animated SVG icon: hamburger ↔ X ── */
+.burger_icon {
+  width: 22px;
+  height: 22px;
   display: block;
-  background-color: var(--color-text);
-  width: 18px;
-  height: 1.5px;
-  margin: 3px auto;
-  border-radius: 1px;
-  transition: all var(--duration-base) var(--ease);
+  overflow: visible;
 }
 
-.slide_burger_span1 {
-  transform: rotate(45deg) translateX(5px) translateY(5px);
+.burger_icon__line {
+  transform-origin: 12px 12px;
+  transition:
+    transform var(--duration-base) cubic-bezier(0.65, 0, 0.35, 1),
+    opacity var(--duration-fast) var(--ease);
 }
 
-.slide_burger_span2 {
-  transform: rotate(-45deg) translateX(-5px) translateY(5px);
+.header_burger--open .burger_icon__line--top {
+  transform: translateY(5px) rotate(45deg);
+}
+
+.header_burger--open .burger_icon__line--mid {
+  opacity: 0;
+  transform: scaleX(0);
+}
+
+.header_burger--open .burger_icon__line--bot {
+  transform: translateY(-5px) rotate(-45deg);
 }
 
 /* ── Slide-in Panel ── */
