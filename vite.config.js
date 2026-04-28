@@ -1,9 +1,10 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
-import { fileURLToPath, URL } from 'node:url'; 
+import tailwindcss from '@tailwindcss/vite';
+import { fileURLToPath, URL } from 'node:url';
 
 export default defineConfig({
-  plugins: [react()],
+  plugins: [react(), tailwindcss()],
   base: '/',
   resolve: {
     alias: {
@@ -23,8 +24,11 @@ export default defineConfig({
             if (id.includes('i18next') || id.includes('react-i18next')) {
               return 'vendor-i18n';
             }
-            if (id.includes('react-slick') || id.includes('slick-carousel')) {
-              return 'vendor-slider';
+            if (id.includes('swiper')) {
+              return 'vendor-swiper';
+            }
+            if (id.includes('framer-motion') || id.includes('motion-dom')) {
+              return 'vendor-motion';
             }
           }
         },
