@@ -1,55 +1,40 @@
-import Slider from 'react-slick';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Autoplay, EffectFade, Pagination, A11y } from 'swiper/modules';
 import { useTranslation } from 'react-i18next';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
+import 'swiper/css';
+import 'swiper/css/effect-fade';
+import 'swiper/css/pagination';
 import './Slider.css';
 
-// Импорт картинок для слайдера
+// Картинки для каждого языка
 import slide1Ru from '../images/slider1.jpg';
 import slide2Ru from '../images/slider2.jpg';
 import mobileSlide1Ru from '../images/image1.jpg';
 import mobileSlide2Ru from '../images/image2.jpg';
 
-// Картинки для украинского языка
 import slide1Ukr from '../images/slider1-ukr.jpg';
 import slide2Ukr from '../images/slider2-ukr.jpg';
 import mobileSlide1Ukr from '../images/image1-ukr.jpg';
 import mobileSlide2Ukr from '../images/image2-ukr.jpg';
 
-// Картинки для английского языка
 import slide1Eng from '../images/slider1-eng.jpg';
 import slide2Eng from '../images/slider2-eng.jpg';
 import mobileSlide1Eng from '../images/image1-eng.jpg';
 import mobileSlide2Eng from '../images/image2-eng.jpg';
 
-// Картинки для польского языка
 import slide1Pl from '../images/slider1-pl.jpg';
 import slide2Pl from '../images/slider2-pl.jpg';
 import mobileSlide1Pl from '../images/image1-pl.jpg';
 import mobileSlide2Pl from '../images/image2-pl.jpg';
 
-// Картинки для белорусского языка
 import slide1Blr from '../images/slider1-blr.jpg';
 import slide2Blr from '../images/slider2-blr.jpg';
 import mobileSlide1Blr from '../images/image1-blr.jpg';
 import mobileSlide2Blr from '../images/image2-blr.jpg';
 
-// Новый слайд (общий для всех языков — текст через overlay)
+// Третий слайд — overlay с текстом, общий для всех языков
 import slide3Bg from '../images/slider3.jpg';
 import slide3BgMobile from '../images/slider3_768px.jpg';
-
-const SLIDER_SETTINGS = {
-  dots: true,
-  infinite: true,
-  speed: 600,
-  slidesToShow: 1,
-  slidesToScroll: 1,
-  autoplay: true,
-  autoplaySpeed: 4000,
-  fade: true,
-  cssEase: 'cubic-bezier(0.4, 0, 0.2, 1)',
-  pauseOnHover: true,
-};
 
 const SLIDES_BY_LANG = {
   ua: { slides: [slide1Ukr, slide2Ukr], mobile: [mobileSlide1Ukr, mobileSlide2Ukr] },
@@ -62,15 +47,24 @@ const SLIDES_BY_LANG = {
 const SliderComponent = () => {
   const { i18n, t } = useTranslation();
   const language = i18n.language;
-
   const { slides, mobile: mobileSlides } = SLIDES_BY_LANG[language] ?? SLIDES_BY_LANG.ru;
 
   return (
     <section className="slider-container" aria-label="Banner">
       <h1 className="visually-hidden">{t('seo.h1')}</h1>
-      <Slider {...SLIDER_SETTINGS}>
+      <Swiper
+        modules={[Autoplay, EffectFade, Pagination, A11y]}
+        effect="fade"
+        fadeEffect={{ crossFade: true }}
+        loop
+        autoplay={{ delay: 4000, disableOnInteraction: false, pauseOnMouseEnter: true }}
+        speed={700}
+        pagination={{ clickable: true }}
+        a11y={{ enabled: true }}
+        slidesPerView={1}
+      >
         {slides.map((slide, index) => (
-          <div key={index}>
+          <SwiperSlide key={index}>
             <picture>
               <source media="(max-width: 480px)" srcSet={mobileSlides[index]} />
               <img
@@ -80,11 +74,10 @@ const SliderComponent = () => {
                 loading={index === 0 ? 'eager' : 'lazy'}
               />
             </picture>
-          </div>
+          </SwiperSlide>
         ))}
 
-        {/* Новый слайд — текстовый overlay */}
-        <div>
+        <SwiperSlide>
           <div className="slide-overlay">
             <picture>
               <source media="(max-width: 480px)" srcSet={slide3BgMobile} />
@@ -103,8 +96,8 @@ const SliderComponent = () => {
               </a>
             </div>
           </div>
-        </div>
-      </Slider>
+        </SwiperSlide>
+      </Swiper>
 
       <div className="hero-cta">
         <p className="hero-cta__subtitle">

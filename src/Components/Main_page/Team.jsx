@@ -1,6 +1,8 @@
-import Slider from 'react-slick';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation, Pagination, Autoplay, A11y } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
 import './Team.css';
 import team_member1 from '../images/rabotnik_1.webp';
 import team_member2 from '../images/rabotnik_2.webp';
@@ -9,28 +11,8 @@ import team_member4 from '../images/rabotnik_4.webp';
 import team_member5 from '../images/rabotnik_5.webp';
 import { useTranslation } from 'react-i18next';
 
-/** @type {import('react-slick').Settings} */
-const TEAM_SLIDER_SETTINGS = {
-  lazyLoad: 'ondemand',
-  slidesToShow: 4,
-  slidesToScroll: 1,
-  dots: true,
-  infinite: true,
-  speed: 500,
-  arrows: true,
-  centerMode: false,
-  responsive: [
-    { breakpoint: 1024, settings: { slidesToShow: 2, slidesToScroll: 1, infinite: true } },
-    { breakpoint: 600, settings: { slidesToShow: 1, slidesToScroll: 1 } },
-  ],
-};
-
-/** @type {string[]} Team member photo imports in display order */
 const TEAM_MEMBERS = [team_member3, team_member5, team_member4, team_member1, team_member2];
 
-/**
- * Team section — photo slider + mission text.
- */
 const Team = () => {
   const { t } = useTranslation();
 
@@ -39,13 +21,30 @@ const Team = () => {
       <h2 className="team-title" id="about">
         {t('team.title')}
       </h2>
-      <Slider {...TEAM_SLIDER_SETTINGS}>
+      <Swiper
+        modules={[Navigation, Pagination, Autoplay, A11y]}
+        slidesPerView={4}
+        spaceBetween={16}
+        loop
+        navigation
+        pagination={{ clickable: true }}
+        autoplay={{ delay: 5000, disableOnInteraction: false, pauseOnMouseEnter: true }}
+        speed={500}
+        breakpoints={{
+          0: { slidesPerView: 1 },
+          600: { slidesPerView: 2 },
+          1024: { slidesPerView: 4 },
+        }}
+        a11y={{ enabled: true }}
+      >
         {TEAM_MEMBERS.map((src, i) => (
-          <div className="team-slide" key={i}>
-            <img className="team-slide__img" src={src} alt={t('team.memberAlt')} loading="lazy" />
-          </div>
+          <SwiperSlide key={i}>
+            <div className="team-slide">
+              <img className="team-slide__img" src={src} alt={t('team.memberAlt')} loading="lazy" />
+            </div>
+          </SwiperSlide>
         ))}
-      </Slider>
+      </Swiper>
       <div className="team-mission">
         <p>{t('team.mission.content')}</p>
       </div>
