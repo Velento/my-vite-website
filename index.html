@@ -76,15 +76,25 @@
       window.dataLayer = window.dataLayer || [];
     </script>
 
+    <!-- Partytown — runs third-party scripts (Meta Pixel, gtag, GTM) in a Web Worker
+         so they never block the main thread. Functions listed in `forward` are proxied
+         from the main page to the worker. -->
+    <script>
+      partytown = {
+        forward: ['dataLayer.push', 'gtag', 'fbq', 'fbq.callMethod'],
+      };
+    </script>
+    <script src="/~partytown/partytown.js"></script>
+
     <!-- Meta Pixel — loaded only after user grants marketing consent (RODO/GDPR). -->
     <!-- See src/Components/Main_page/CookieConsent.jsx for the consent gate. -->
-    <script type="module" crossorigin src="/assets/index-BWFyDAyV.js"></script>
+    <script type="module" crossorigin src="/assets/index-Ck1JENLG.js"></script>
     <link rel="modulepreload" crossorigin href="/assets/vendor-react-DiHZfzKE.js">
     <link rel="modulepreload" crossorigin href="/assets/vendor-i18n-B604PIx2.js">
     <link rel="modulepreload" crossorigin href="/assets/vendor-swiper-KlYALyIZ.js">
     <link rel="modulepreload" crossorigin href="/assets/vendor-motion-D4hE0rcE.js">
     <link rel="stylesheet" crossorigin href="/assets/vendor-swiper-DfCQwPr7.css">
-    <link rel="stylesheet" crossorigin href="/assets/index-Bq4Z2rpm.css">
+    <link rel="stylesheet" crossorigin href="/assets/index-DuOO6CXn.css">
   </head>
   <body>
     <!-- Google Tag Manager (noscript) — uncomment when GTM is configured -->
