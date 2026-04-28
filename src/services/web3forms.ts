@@ -5,11 +5,26 @@ const WEB3FORMS_ENDPOINT = 'https://api.web3forms.com/submit';
 // We still allow an env override so the key can be swapped per environment.
 const PUBLIC_ACCESS_KEY = '6b931942-d695-4ae7-a98b-54516694c708';
 
-function getAccessKey() {
+function getAccessKey(): string {
   return import.meta.env.VITE_WEB3FORMS_ACCESS_KEY || PUBLIC_ACCESS_KEY;
 }
 
-export async function sendLeadToWeb3Forms({ name, phone, promo }) {
+export type LeadPayload = {
+  name: string;
+  phone: string;
+  promo?: string;
+};
+
+type Web3FormsResponse = {
+  success: boolean;
+  message?: string;
+};
+
+export async function sendLeadToWeb3Forms({
+  name,
+  phone,
+  promo,
+}: LeadPayload): Promise<Web3FormsResponse> {
   const lines = [`Имя: ${name}`, `Телефон: ${phone}`];
   if (promo) lines.push(`Промокод: ${promo}`);
 
@@ -32,9 +47,9 @@ export async function sendLeadToWeb3Forms({ name, phone, promo }) {
     body: JSON.stringify(body),
   });
 
-  let data = null;
+  let data: Web3FormsResponse | null = null;
   try {
-    data = await response.json();
+    data = (await response.json()) as Web3FormsResponse;
   } catch {
     // ignore parse errors — we'll throw below
   }
