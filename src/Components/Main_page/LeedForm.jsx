@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import ThankYou from './ThankYou';
-import { sendLeadToTelegram } from '../../services/telegram';
+import { sendLeadToWeb3Forms } from '../../services/web3forms';
 import { trackLeadConversion } from '../../services/analytics';
 import { isValidName, isValidPhone, canSubmitForm } from '../../services/validation';
 import './LeedForm.css';
@@ -42,7 +42,7 @@ const LeedForm = ({ onClose }) => {
     setErrorMsg('');
 
     try {
-      await sendLeadToTelegram({
+      await sendLeadToWeb3Forms({
         name: name.trim(),
         phone: phone.trim(),
         promo: promo.trim() || undefined,

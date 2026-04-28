@@ -1,17 +1,11 @@
 import { useState, useCallback } from 'react';
-import { sendLeadToTelegram } from '../../services/telegram';
 import { trackLeadConversion } from '../../services/analytics';
+import { sendLeadToWeb3Forms } from '../../services/web3forms';
 import { NAME_REGEX, PHONE_REGEX } from '../../services/validation';
 
 let lastSubmitTime = 0;
 const SUBMIT_COOLDOWN_MS = 60_000;
 
-/**
- * Hook for lead form state and submission logic.
- * UI component renders only — no business logic.
- *
- * @param {{ onSuccess?: () => void }} options
- */
 export function useLeadForm({ onSuccess } = {}) {
   const [fields, setFields] = useState({ name: '', phone: '', promo: '' });
   const [status, setStatus] = useState('idle');
@@ -45,10 +39,11 @@ export function useLeadForm({ onSuccess } = {}) {
       setErrorMessage('');
 
       try {
-        await sendLeadToTelegram({
+        const trimmedPromo = fields.promo.trim();
+        await sendLeadToWeb3Forms({
           name: fields.name.trim(),
           phone: fields.phone.trim(),
-          promo: fields.promo.trim() || undefined,
+          promo: trimmedPromo || undefined,
         });
         lastSubmitTime = Date.now();
         setStatus('success');
@@ -56,7 +51,7 @@ export function useLeadForm({ onSuccess } = {}) {
         onSuccess?.();
       } catch (err) {
         setStatus('error');
-        setErrorMessage(err instanceof Error ? err.message : 'Неизвестная ошибка');
+        setErrorMessage(err?.message || 'Ошибка отправки');
       }
     },
     [fields, canSubmit, onSuccess]

@@ -1,8 +1,13 @@
-import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
+import { describe, it, expect, vi, beforeEach, afterEach, beforeAll } from 'vitest';
 import { renderHook, act } from '@testing-library/react';
 import { useLeadForm } from './useLeadForm';
 
-// Mock i18n — not used directly but imported by telegram service
+// Web3Forms service reads its access key from import.meta.env at module load.
+// Stub it before any test imports the service indirectly via the hook.
+beforeAll(() => {
+  vi.stubEnv('VITE_WEB3FORMS_ACCESS_KEY', 'test-access-key');
+});
+
 vi.mock('react-i18next', () => ({
   useTranslation: () => ({
     t: (key, fallback) => (typeof fallback === 'string' ? fallback : key),
@@ -10,16 +15,19 @@ vi.mock('react-i18next', () => ({
   }),
 }));
 
+const okJsonResponse = () => ({
+  ok: true,
+  status: 200,
+  json: async () => ({ success: true, message: 'Email sent' }),
+});
+
 describe('useLeadForm', () => {
-  // Each test gets a unique timestamp far enough in the future to bypass
-  // the module-level rate limiter (lastSubmitTime) from prior tests
   let testBaseTime;
   let testCounter = 0;
 
   beforeEach(() => {
     vi.mocked(global.fetch).mockReset();
     testCounter++;
-    // Space each test 10 minutes apart to guarantee rate limit bypass
     testBaseTime = 1e14 + testCounter * 600_000;
     vi.spyOn(Date, 'now').mockReturnValue(testBaseTime);
   });
@@ -155,7 +163,7 @@ describe('useLeadForm', () => {
     });
 
     it('calls preventDefault on the event', async () => {
-      vi.mocked(global.fetch).mockResolvedValueOnce({ ok: true });
+      vi.mocked(global.fetch).mockResolvedValueOnce(okJsonResponse());
       const preventDefault = vi.fn();
       const { result } = renderHook(() => useLeadForm());
 
@@ -172,7 +180,7 @@ describe('useLeadForm', () => {
     });
 
     it('transitions to success on successful send', async () => {
-      vi.mocked(global.fetch).mockResolvedValueOnce({ ok: true });
+      vi.mocked(global.fetch).mockResolvedValueOnce(okJsonResponse());
       const onSuccess = vi.fn();
       const { result } = renderHook(() => useLeadForm({ onSuccess }));
 
@@ -223,7 +231,7 @@ describe('useLeadForm', () => {
     });
 
     it('sends trimmed field values to API', async () => {
-      vi.mocked(global.fetch).mockResolvedValueOnce({ ok: true });
+      vi.mocked(global.fetch).mockResolvedValueOnce(okJsonResponse());
       const { result } = renderHook(() => useLeadForm());
 
       act(() => {
@@ -238,13 +246,15 @@ describe('useLeadForm', () => {
 
       const [, options] = vi.mocked(global.fetch).mock.calls[0];
       const body = JSON.parse(options.body);
-      expect(body.text).toContain('Анна');
-      expect(body.text).not.toContain('  Анна  ');
-      expect(body.text).toContain('PROMO');
+      expect(body.name).toBe('Анна');
+      expect(body.phone).toBe('+48883734171');
+      expect(body.promo).toBe('PROMO');
+      expect(body.message).toContain('Анна');
+      expect(body.message).not.toContain('  Анна  ');
     });
 
     it('does not include promo in API call when promo is whitespace-only', async () => {
-      vi.mocked(global.fetch).mockResolvedValueOnce({ ok: true });
+      vi.mocked(global.fetch).mockResolvedValueOnce(okJsonResponse());
       const { result } = renderHook(() => useLeadForm());
 
       act(() => {
@@ -260,14 +270,15 @@ describe('useLeadForm', () => {
       expect(global.fetch).toHaveBeenCalledOnce();
       const [, options] = vi.mocked(global.fetch).mock.calls[0];
       const body = JSON.parse(options.body);
-      expect(body.text).not.toContain('Промо');
+      expect(body.promo).toBe('');
+      expect(body.message).not.toContain('Промокод');
     });
   });
 
   // ── Rate limiting ──────────────────────────────────────────────────────
   describe('rate limiting', () => {
     it('blocks rapid resubmission within 60 seconds', async () => {
-      vi.mocked(global.fetch).mockResolvedValue({ ok: true });
+      vi.mocked(global.fetch).mockResolvedValue(okJsonResponse());
 
       const { result } = renderHook(() => useLeadForm());
 
@@ -306,7 +317,7 @@ describe('useLeadForm', () => {
   // ── Reset ──────────────────────────────────────────────────────────────
   describe('reset', () => {
     it('restores all fields to initial state', async () => {
-      vi.mocked(global.fetch).mockResolvedValueOnce({ ok: true });
+      vi.mocked(global.fetch).mockResolvedValueOnce(okJsonResponse());
       const { result } = renderHook(() => useLeadForm());
 
       act(() => {

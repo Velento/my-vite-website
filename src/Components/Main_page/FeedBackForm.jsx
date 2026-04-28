@@ -4,7 +4,7 @@ import FocusTrap from 'focus-trap-react';
 import './FeedBackForm.css';
 import { useTranslation } from 'react-i18next';
 import ThankYou from './ThankYou';
-import { sendLeadToTelegram } from '../../services/telegram';
+import { sendLeadToWeb3Forms } from '../../services/web3forms';
 import { trackLeadConversion } from '../../services/analytics';
 import { isValidName, isValidPhone, canSubmitForm } from '../../services/validation';
 
@@ -43,7 +43,7 @@ const FeedbackForm = ({ onClose }) => {
     setErrorMsg('');
 
     try {
-      await sendLeadToTelegram({
+      await sendLeadToWeb3Forms({
         name: name.trim(),
         phone: phone.trim(),
         promo: promo.trim() || undefined,

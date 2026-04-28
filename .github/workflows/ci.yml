@@ -76,10 +76,10 @@ jobs:
       - name: Build production
         run: npm run build
         env:
-          # Токены для Telegram — хранятся в GitHub Secrets, не в коде!
-          # Настроить: Settings → Secrets and variables → Actions
-          VITE_TELEGRAM_BOT_TOKEN: ${{ secrets.VITE_TELEGRAM_BOT_TOKEN }}
-          VITE_TELEGRAM_CHAT_ID: ${{ secrets.VITE_TELEGRAM_CHAT_ID }}
+          # Web3Forms access key — public-by-design token from web3forms.com.
+          # The service has a hardcoded fallback so this secret is optional.
+          VITE_WEB3FORMS_ACCESS_KEY: ${{ secrets.VITE_WEB3FORMS_ACCESS_KEY }}
+          VITE_GOOGLE_ADS_CONVERSION_ID: ${{ secrets.VITE_GOOGLE_ADS_CONVERSION_ID }}
 
       - name: Upload build artifact
         uses: actions/upload-artifact@v6
