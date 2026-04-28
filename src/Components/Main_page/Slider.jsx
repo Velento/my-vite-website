@@ -36,6 +36,7 @@ import mobileSlide2Blr from '../images/image2-blr.jpg';
 
 // Новый слайд (общий для всех языков — текст через overlay)
 import slide3Bg from '../images/slider3.jpg';
+import slide3BgMobile from '../images/slider3_768px.jpg';
 
 const SLIDER_SETTINGS = {
   dots: true,
@@ -85,12 +86,15 @@ const SliderComponent = () => {
         {/* Новый слайд — текстовый overlay */}
         <div>
           <div className="slide-overlay">
-            <img
-              src={slide3Bg}
-              alt={t('slider.newSlide.title')}
-              loading="lazy"
-              className="slide-overlay__bg"
-            />
+            <picture>
+              <source media="(max-width: 480px)" srcSet={slide3BgMobile} />
+              <img
+                src={slide3Bg}
+                alt={t('slider.newSlide.title')}
+                loading="lazy"
+                className="slide-overlay__bg"
+              />
+            </picture>
             <div className="slide-overlay__content">
               <h2 className="slide-overlay__title">{t('slider.newSlide.title')}</h2>
               <p className="slide-overlay__text">{t('slider.newSlide.text')}</p>

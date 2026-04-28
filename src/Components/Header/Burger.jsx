@@ -38,13 +38,36 @@ function Burger() {
     <div>
       <button
         type="button"
-        className={`header_burger ${isOpen ? 'slide_burger_menu' : ''}`}
+        className={`header_burger ${isOpen ? 'header_burger--open' : ''}`}
         onClick={toggleMenu}
         aria-label={isOpen ? 'Close menu' : 'Open menu'}
         aria-expanded={isOpen}
       >
-        <span className={`burger_line ${isOpen ? 'slide_burger_span1' : ''}`}></span>
-        <span className={`burger_line ${isOpen ? 'slide_burger_span2' : ''}`}></span>
+        <svg
+          className="burger_icon"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          aria-hidden="true"
+        >
+          <line className="burger_icon__line burger_icon__line--top" x1="4" y1="7" x2="20" y2="7" />
+          <line
+            className="burger_icon__line burger_icon__line--mid"
+            x1="4"
+            y1="12"
+            x2="20"
+            y2="12"
+          />
+          <line
+            className="burger_icon__line burger_icon__line--bot"
+            x1="4"
+            y1="17"
+            x2="20"
+            y2="17"
+          />
+        </svg>
       </button>
       {isOpen && (
         <>
