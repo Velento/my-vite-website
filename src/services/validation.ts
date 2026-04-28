@@ -25,30 +25,19 @@ export const leadFormSchema = z.object({
   promo: z.string().trim().max(30).optional().or(z.literal('')),
 });
 
-/**
- * Check if name is valid. Empty string = valid (optional field state).
- * @param {string} value
- * @returns {boolean}
- */
-export function isValidName(value) {
+export type LeadFormValues = z.infer<typeof leadFormSchema>;
+
+/** Check if name is valid. Empty string = valid (optional field state). */
+export function isValidName(value: string): boolean {
   return value === '' || NAME_REGEX.test(value.trim());
 }
 
-/**
- * Check if phone is valid. Empty string = valid (optional field state).
- * @param {string} value
- * @returns {boolean}
- */
-export function isValidPhone(value) {
+/** Check if phone is valid. Empty string = valid (optional field state). */
+export function isValidPhone(value: string): boolean {
   return value === '' || PHONE_REGEX.test(value.trim());
 }
 
-/**
- * Check if both fields are filled and valid — ready to submit.
- * @param {string} name
- * @param {string} phone
- * @returns {boolean}
- */
-export function canSubmitForm(name, phone) {
+/** Check if both fields are filled and valid — ready to submit. */
+export function canSubmitForm(name: string, phone: string): boolean {
   return NAME_REGEX.test(name.trim()) && PHONE_REGEX.test(phone.trim());
 }

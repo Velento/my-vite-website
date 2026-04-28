@@ -6,9 +6,29 @@ import { NAME_REGEX, PHONE_REGEX } from '../../services/validation';
 let lastSubmitTime = 0;
 const SUBMIT_COOLDOWN_MS = 60_000;
 
-export function useLeadForm({ onSuccess } = {}) {
-  const [fields, setFields] = useState({ name: '', phone: '', promo: '' });
-  const [status, setStatus] = useState('idle');
+type Fields = { name: string; phone: string; promo: string };
+type Status = 'idle' | 'submitting' | 'success' | 'error';
+type FieldName = keyof Fields;
+
+export type UseLeadFormOptions = {
+  onSuccess?: () => void;
+};
+
+export type UseLeadFormReturn = {
+  fields: Fields;
+  setField: (field: FieldName) => (e: { target: { value: string } }) => void;
+  submit: (e: { preventDefault: () => void }) => Promise<void>;
+  reset: () => void;
+  status: Status;
+  errorMessage: string;
+  isNameValid: boolean;
+  isPhoneValid: boolean;
+  canSubmit: boolean;
+};
+
+export function useLeadForm({ onSuccess }: UseLeadFormOptions = {}): UseLeadFormReturn {
+  const [fields, setFields] = useState<Fields>({ name: '', phone: '', promo: '' });
+  const [status, setStatus] = useState<Status>('idle');
   const [errorMessage, setErrorMessage] = useState('');
 
   const isNameValid = fields.name === '' || NAME_REGEX.test(fields.name.trim());
@@ -19,12 +39,13 @@ export function useLeadForm({ onSuccess } = {}) {
     status !== 'submitting';
 
   const setField = useCallback(
-    (field) => (e) => setFields((prev) => ({ ...prev, [field]: e.target.value })),
+    (field: FieldName) => (e: { target: { value: string } }) =>
+      setFields((prev) => ({ ...prev, [field]: e.target.value })),
     []
   );
 
   const submit = useCallback(
-    async (e) => {
+    async (e: { preventDefault: () => void }) => {
       e.preventDefault();
       if (!canSubmit) return;
 
@@ -51,7 +72,7 @@ export function useLeadForm({ onSuccess } = {}) {
         onSuccess?.();
       } catch (err) {
         setStatus('error');
-        setErrorMessage(err?.message || 'Ошибка отправки');
+        setErrorMessage(err instanceof Error ? err.message : 'Ошибка отправки');
       }
     },
     [fields, canSubmit, onSuccess]
