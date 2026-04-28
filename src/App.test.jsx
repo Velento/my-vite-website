@@ -209,9 +209,9 @@ describe('sendLeadToWeb3Forms', () => {
       json: async () => ({ success: false, message: 'Server error' }),
     });
 
-    await expect(
-      sendLeadToWeb3Forms({ name: 'Анна', phone: '+48123456789' })
-    ).rejects.toThrow('500');
+    await expect(sendLeadToWeb3Forms({ name: 'Анна', phone: '+48123456789' })).rejects.toThrow(
+      '500'
+    );
   });
 
   it('throws when API returns success: false', async () => {
@@ -221,16 +221,16 @@ describe('sendLeadToWeb3Forms', () => {
       json: async () => ({ success: false, message: 'Invalid access key' }),
     });
 
-    await expect(
-      sendLeadToWeb3Forms({ name: 'Анна', phone: '+48123456789' })
-    ).rejects.toThrow('Invalid access key');
+    await expect(sendLeadToWeb3Forms({ name: 'Анна', phone: '+48123456789' })).rejects.toThrow(
+      'Invalid access key'
+    );
   });
 
   it('propagates network errors', async () => {
     vi.mocked(global.fetch).mockRejectedValueOnce(new TypeError('Failed to fetch'));
 
-    await expect(
-      sendLeadToWeb3Forms({ name: 'Анна', phone: '+48123456789' })
-    ).rejects.toThrow('Failed to fetch');
+    await expect(sendLeadToWeb3Forms({ name: 'Анна', phone: '+48123456789' })).rejects.toThrow(
+      'Failed to fetch'
+    );
   });
 });
