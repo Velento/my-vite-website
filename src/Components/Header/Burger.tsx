@@ -75,7 +75,7 @@ function Burger() {
           <div className="burger_backdrop" onClick={toggleMenu} />
           <div className={`burger_menu_content ${isOpen ? 'burger_menu_content_active' : ''}`}>
             <LanguageSwitcher />
-            <Menu />
+            <Menu vertical />
             <div className="footer-section services">
               <button onClick={handleContactClick}>{t('footer.question')}</button>
               <ContactModal show={showContactModal} onClose={handleCloseModal} />
