@@ -29,7 +29,22 @@ function LanguageSwitcher() {
   const selectLanguage = (lang: string) => {
     const lower = lang.toLowerCase();
     i18n.changeLanguage(lower);
-    localStorage.setItem(STORAGE_KEY, lower); // Сохраняем для следующей сессии
+    localStorage.setItem(STORAGE_KEY, lower);
+
+    // Sync URL path so the language is shareable / refresh-safe.
+    // GitHub Pages serves 404.html (= index.html) for non-root paths, so /pl/, /ru/, etc.
+    // resolve to the SPA which then reads the URL on init via i18n.detectLanguage.
+    const url = new URL(window.location.href);
+    const pathSegments = url.pathname.split('/').filter(Boolean);
+    const langs = ['ru', 'pl', 'ua', 'en', 'by'];
+    if (pathSegments.length && langs.includes(pathSegments[0]?.toLowerCase() ?? '')) {
+      pathSegments[0] = lower;
+    } else {
+      pathSegments.unshift(lower);
+    }
+    url.pathname = '/' + pathSegments.join('/') + '/';
+    window.history.pushState({}, '', url);
+
     setDropdownOpen(false);
   };
 

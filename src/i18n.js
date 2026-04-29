@@ -1,6 +1,17 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 
+const SUPPORTED_LANGS = ['ru', 'pl', 'ua', 'en', 'by'];
+
+function detectLanguage() {
+  if (typeof window === 'undefined') return 'ru';
+  const segment = window.location.pathname.split('/')[1]?.toLowerCase();
+  if (segment && SUPPORTED_LANGS.includes(segment)) return segment;
+  const saved = window.localStorage?.getItem('legal_line_lang');
+  if (saved && SUPPORTED_LANGS.includes(saved)) return saved;
+  return 'ru';
+}
+
 i18n.use(initReactI18next).init({
   resources: {
     en: {
@@ -2311,13 +2322,22 @@ i18n.use(initReactI18next).init({
       },
     },
   },
-  // Восстанавливаем язык из localStorage (если пользователь выбирал ранее)
-  lng: localStorage.getItem('legal_line_lang') ?? 'ru',
+  // Detect language: URL path (/pl/, /ru/, /ua/, /en/, /by/) > localStorage > 'ru'.
+  lng: detectLanguage(),
   fallbackLng: 'ru',
   interpolation: {
     escapeValue: false,
   },
   // debug: true — выключен в продакшне
 });
+
+// Keep <html lang> in sync with the active i18n language for accessibility + SEO.
+if (typeof document !== 'undefined') {
+  i18n.on('languageChanged', (lng) => {
+    document.documentElement.lang = lng === 'ua' ? 'uk' : lng === 'by' ? 'be' : lng;
+  });
+  document.documentElement.lang =
+    i18n.language === 'ua' ? 'uk' : i18n.language === 'by' ? 'be' : i18n.language;
+}
 
 export default i18n;

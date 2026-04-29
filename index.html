@@ -11,12 +11,14 @@
     <meta name="apple-mobile-web-app-title" content="Legal Line" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- hreflang — same canonical URL for all supported languages, until per-locale routing lands -->
-    <link rel="alternate" hreflang="pl" href="https://legalline.pl/" />
-    <link rel="alternate" hreflang="ru" href="https://legalline.pl/" />
-    <link rel="alternate" hreflang="uk" href="https://legalline.pl/" />
-    <link rel="alternate" hreflang="en" href="https://legalline.pl/" />
-    <link rel="alternate" hreflang="be" href="https://legalline.pl/" />
+    <!-- hreflang — per-language SPA paths (404.html = index.html on GitHub Pages, so deep
+         links to /pl/, /ru/, /ua/, /en/, /by/ all resolve to the app and the URL is read
+         by i18n.detectLanguage on boot). -->
+    <link rel="alternate" hreflang="pl" href="https://legalline.pl/pl/" />
+    <link rel="alternate" hreflang="ru" href="https://legalline.pl/ru/" />
+    <link rel="alternate" hreflang="uk" href="https://legalline.pl/ua/" />
+    <link rel="alternate" hreflang="en" href="https://legalline.pl/en/" />
+    <link rel="alternate" hreflang="be" href="https://legalline.pl/by/" />
     <link rel="alternate" hreflang="x-default" href="https://legalline.pl/" />
 
     <!-- Preconnect to critical third-party origins -->
