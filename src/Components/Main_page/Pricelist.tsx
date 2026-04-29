@@ -1,26 +1,34 @@
 import { useState, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
+import type { TFunction } from 'i18next';
 import './Pricelist.css';
 import iconCheak from '../images/play_point.svg';
 import iconPobit from '../images/icon_pricelist_pobit.svg';
 import ContactModal from '../Main_page/ContactModal';
-
-const PACKAGE_KEYS = ['allInclusive', 'standard', 'ultra', 'basic'];
 
 const FEATURE_COUNTS = {
   allInclusive: 6,
   standard: 3,
   ultra: 5,
   basic: 4,
+} as const;
+
+type PackageKey = keyof typeof FEATURE_COUNTS;
+const PACKAGE_KEYS: PackageKey[] = ['allInclusive', 'standard', 'ultra', 'basic'];
+
+type PackageCardProps = {
+  pkg: PackageKey;
+  t: TFunction;
+  onOrder: () => void;
 };
 
-const PackageCard = ({ pkg, t, onOrder }) => {
+const PackageCard = ({ pkg, t, onOrder }: PackageCardProps) => {
   const badge = t(`packages.${pkg}.badge`, { defaultValue: '' });
   const oldPrice = t(`packages.${pkg}.oldPrice`, { defaultValue: '' });
   const note = t(`packages.${pkg}.note`, { defaultValue: '' });
   const featureCount = FEATURE_COUNTS[pkg];
 
-  const features = [];
+  const features: string[] = [];
   for (let i = 0; i < featureCount; i++) {
     features.push(t(`packages.${pkg}.features.${i}`));
   }

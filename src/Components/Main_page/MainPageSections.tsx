@@ -1,5 +1,4 @@
 import { useState, memo } from 'react';
-import PropTypes from 'prop-types';
 import './MainPageSections.css';
 import { useTranslation } from 'react-i18next';
 import ContactModal from './ContactModal';
@@ -8,11 +7,23 @@ import sectionMoney from '../images/section_money.svg';
 import sectionService from '../images/section_service.svg';
 import icon1 from '../images/icon1.svg';
 
-/**
- * Individual content section card with optional image, icon, and CTA.
- * @param {{ title: string, content: string, imgSrc?: string, iconSrc?: string, buttonText: string, buttonLink?: string }} props
- */
-const Section = memo(({ title, content, imgSrc, iconSrc, buttonText, buttonLink }) => {
+type SectionProps = {
+  title: string;
+  content: string;
+  imgSrc?: string;
+  iconSrc?: string;
+  buttonText: string;
+  buttonLink?: string;
+};
+
+const Section = memo(function Section({
+  title,
+  content,
+  imgSrc,
+  iconSrc,
+  buttonText,
+  buttonLink,
+}: SectionProps) {
   const [showContactModal, setShowContactModal] = useState(false);
 
   return (
@@ -37,35 +48,20 @@ const Section = memo(({ title, content, imgSrc, iconSrc, buttonText, buttonLink 
   );
 });
 
-Section.displayName = 'Section';
-
-Section.propTypes = {
-  title: PropTypes.string.isRequired,
-  content: PropTypes.string.isRequired,
-  imgSrc: PropTypes.string,
-  iconSrc: PropTypes.string,
-  buttonText: PropTypes.string.isRequired,
-  buttonLink: PropTypes.string,
+type BenefitItemProps = {
+  title: string;
+  content: string;
 };
 
-/**
- * Single benefit row — icon + title + description.
- * @param {{ title: string, content: string }} props
- */
-const BenefitItem = memo(({ title, content }) => (
-  <div className="benefit-item">
-    <img src={icon1} alt="" className="benefit-item__icon" />
-    <strong className="benefit-item__title">{title}</strong>
-    <p className="benefit-item__content">{content}</p>
-  </div>
-));
-
-BenefitItem.displayName = 'BenefitItem';
-
-BenefitItem.propTypes = {
-  title: PropTypes.string.isRequired,
-  content: PropTypes.string.isRequired,
-};
+const BenefitItem = memo(function BenefitItem({ title, content }: BenefitItemProps) {
+  return (
+    <div className="benefit-item">
+      <img src={icon1} alt="" className="benefit-item__icon" />
+      <strong className="benefit-item__title">{title}</strong>
+      <p className="benefit-item__content">{content}</p>
+    </div>
+  );
+});
 
 /** @type {string[]} Translation keys for benefit items */
 const BENEFIT_KEYS = ['reason1', 'reason2', 'reason3', 'reason4', 'reason5', 'reason6'];
