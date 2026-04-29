@@ -91,9 +91,11 @@ const SLIDES_BY_LANG = {
   },
 };
 
+type Lang = keyof typeof SLIDES_BY_LANG;
+
 const SliderComponent = () => {
   const { i18n, t } = useTranslation();
-  const language = i18n.language;
+  const language = i18n.language as Lang;
   const variants = SLIDES_BY_LANG[language] ?? SLIDES_BY_LANG.ru;
   const { slides, slidesW, mobile: mobileSlides, mobileW: mobileSlidesW } = variants;
 

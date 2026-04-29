@@ -1,5 +1,8 @@
 /// <reference types="vite/client" />
 
+declare module 'swiper/css';
+declare module 'swiper/css/*';
+
 interface ImportMetaEnv {
   readonly VITE_WEB3FORMS_ACCESS_KEY?: string;
   readonly VITE_GOOGLE_ADS_CONVERSION_ID?: string;

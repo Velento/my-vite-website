@@ -1,11 +1,13 @@
-import PropTypes from 'prop-types';
 import FocusTrap from 'focus-trap-react';
+import type { ReactNode } from 'react';
 
-/**
- * Generic reusable modal with backdrop click/Escape to close.
- * @param {{ show: boolean, onClose: () => void, children: React.ReactNode }} props
- */
-const Modal = ({ show, onClose, children }) => {
+type ModalProps = {
+  show: boolean;
+  onClose: () => void;
+  children?: ReactNode;
+};
+
+const Modal = ({ show, onClose, children }: ModalProps) => {
   if (!show) return null;
 
   return (
@@ -28,12 +30,6 @@ const Modal = ({ show, onClose, children }) => {
       </div>
     </FocusTrap>
   );
-};
-
-Modal.propTypes = {
-  show: PropTypes.bool.isRequired,
-  onClose: PropTypes.func.isRequired,
-  children: PropTypes.node,
 };
 
 export default Modal;

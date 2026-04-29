@@ -25,12 +25,18 @@ export default defineConfig({
   base: '/',
   resolve: {
     alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url))
+      '@': fileURLToPath(new URL('./src', import.meta.url)),
     },
+  },
+  // Strip console.* and debugger from production bundles. Vite uses esbuild for
+  // minification by default; this drops the symbols at minify time too.
+  esbuild: {
+    drop: ['console', 'debugger'],
   },
   build: {
     target: 'es2020',
     chunkSizeWarningLimit: 500,
+    minify: 'esbuild',
     rollupOptions: {
       output: {
         manualChunks(id) {
@@ -51,9 +57,5 @@ export default defineConfig({
         },
       },
     },
-    // minify: 'esbuild',
-    // esbuildOptions: {
-    //   drop: ['console', 'debugger'],
-    // },
   },
 });

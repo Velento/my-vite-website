@@ -3,7 +3,21 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/jpeg" href="/og-image.jpg" />
+    <link rel="apple-touch-icon" href="/og-image.jpg" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <meta name="theme-color" content="#1a2332" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="Legal Line" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- hreflang — same canonical URL for all supported languages, until per-locale routing lands -->
+    <link rel="alternate" hreflang="pl" href="https://legalline.pl/" />
+    <link rel="alternate" hreflang="ru" href="https://legalline.pl/" />
+    <link rel="alternate" hreflang="uk" href="https://legalline.pl/" />
+    <link rel="alternate" hreflang="en" href="https://legalline.pl/" />
+    <link rel="alternate" hreflang="be" href="https://legalline.pl/" />
+    <link rel="alternate" hreflang="x-default" href="https://legalline.pl/" />
 
     <!-- Preconnect to critical third-party origins -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -95,6 +109,6 @@
 
     <div id="root"></div>
     <!-- Vite entry point -->
-    <script type="module" src="/src/main.jsx"></script>
+    <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

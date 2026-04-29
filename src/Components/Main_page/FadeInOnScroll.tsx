@@ -1,7 +1,13 @@
 import { motion, useReducedMotion } from 'framer-motion';
-import PropTypes from 'prop-types';
+import type { ReactNode } from 'react';
 
-const FadeInOnScroll = ({ children, delay = 0, y = 24 }) => {
+type FadeInOnScrollProps = {
+  children: ReactNode;
+  delay?: number;
+  y?: number;
+};
+
+const FadeInOnScroll = ({ children, delay = 0, y = 24 }: FadeInOnScrollProps) => {
   const reduce = useReducedMotion();
 
   if (reduce) return <>{children}</>;
@@ -16,12 +22,6 @@ const FadeInOnScroll = ({ children, delay = 0, y = 24 }) => {
       {children}
     </motion.div>
   );
-};
-
-FadeInOnScroll.propTypes = {
-  children: PropTypes.node.isRequired,
-  delay: PropTypes.number,
-  y: PropTypes.number,
 };
 
 export default FadeInOnScroll;

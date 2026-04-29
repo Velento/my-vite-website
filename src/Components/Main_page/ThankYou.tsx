@@ -1,13 +1,13 @@
-import PropTypes from 'prop-types';
 import FocusTrap from 'focus-trap-react';
 import './ThankYou.css';
 import { useTranslation } from 'react-i18next';
 
-/**
- * Thank-you modal shown after successful form submission.
- * @param {{ name: string, onClose: () => void }} props
- */
-const ThankYou = ({ name, onClose }) => {
+type ThankYouProps = {
+  name: string;
+  onClose: () => void;
+};
+
+const ThankYou = ({ name, onClose }: ThankYouProps) => {
   const { t } = useTranslation();
 
   return (
@@ -33,11 +33,6 @@ const ThankYou = ({ name, onClose }) => {
       </div>
     </FocusTrap>
   );
-};
-
-ThankYou.propTypes = {
-  name: PropTypes.string.isRequired,
-  onClose: PropTypes.func.isRequired,
 };
 
 export default ThankYou;

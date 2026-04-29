@@ -3,6 +3,7 @@ import './MainService.css';
 import Modal from './Modal';
 import ContactModal from './ContactModal';
 import { useTranslation } from 'react-i18next';
+import type { TFunction } from 'i18next';
 
 const SERVICE_KEYS = [
   { id: 'Service1', labelKey: 'services.temporaryResidenceCard' },
@@ -13,7 +14,18 @@ const SERVICE_KEYS = [
   { id: 'Service6', labelKey: 'services.konsultation' },
   { id: 'Service7', labelKey: 'services.resume' },
   { id: 'Service8', labelKey: 'services.civilDocs' },
-];
+] as const;
+
+type ServiceId = (typeof SERVICE_KEYS)[number]['id'];
+
+type ServiceDetailsProps = {
+  serviceName: ServiceId;
+  onShowCostDetails: () => void;
+  onShowMoreInfo: () => void;
+  onShowProcessingTime: () => void;
+  onShowContactModal: () => void;
+  t: TFunction;
+};
 
 const ServiceDetails = ({
   serviceName,
@@ -22,7 +34,7 @@ const ServiceDetails = ({
   onShowProcessingTime,
   onShowContactModal,
   t,
-}) => {
+}: ServiceDetailsProps) => {
   return (
     <div className="service-details">
       <button
@@ -79,7 +91,13 @@ const ServiceDetails = ({
   );
 };
 
-const CostDetails = ({ serviceName, onShowContactModal, t }) => {
+type CostDetailsProps = {
+  serviceName: ServiceId;
+  onShowContactModal: () => void;
+  t: TFunction;
+};
+
+const CostDetails = ({ serviceName, onShowContactModal, t }: CostDetailsProps) => {
   return (
     <div className="cost-details">
       <div className="cost-column">
@@ -114,7 +132,9 @@ const CostDetails = ({ serviceName, onShowContactModal, t }) => {
   );
 };
 
-const MoreInfoService = ({ serviceName, t }) => {
+type SimpleServiceProps = { serviceName: ServiceId; t: TFunction };
+
+const MoreInfoService = ({ serviceName, t }: SimpleServiceProps) => {
   return (
     <div>
       <h3>{t(`services.${serviceName}.moreInfoService.title`)}</h3>
@@ -123,7 +143,7 @@ const MoreInfoService = ({ serviceName, t }) => {
   );
 };
 
-const ProcessingTime = ({ serviceName, t }) => {
+const ProcessingTime = ({ serviceName, t }: SimpleServiceProps) => {
   return (
     <div>
       <h3>{t(`services.${serviceName}.processingTime.title`)}</h3>
@@ -134,13 +154,13 @@ const ProcessingTime = ({ serviceName, t }) => {
 
 const Services = () => {
   const { t } = useTranslation();
-  const [activeService, setActiveService] = useState(null);
+  const [activeService, setActiveService] = useState<ServiceId | null>(null);
   const [showCostDetails, setShowCostDetails] = useState(false);
   const [showMoreInfo, setShowMoreInfo] = useState(false);
   const [showProcessingTime, setShowProcessingTime] = useState(false);
   const [showContactModal, setShowContactModal] = useState(false);
 
-  const handleServiceClick = (serviceName) => {
+  const handleServiceClick = (serviceName: ServiceId) => {
     setActiveService(serviceName === activeService ? null : serviceName);
     setShowCostDetails(false);
     setShowMoreInfo(false);
@@ -185,23 +205,26 @@ const Services = () => {
           )}
         </div>
       ))}
-      {(showCostDetails || showMoreInfo || showProcessingTime || showContactModal) && (
-        <Modal
-          show={showCostDetails || showMoreInfo || showProcessingTime || showContactModal}
-          onClose={handleCloseModal}
-        >
-          {showCostDetails && (
-            <CostDetails
-              serviceName={activeService}
-              onShowContactModal={() => setShowContactModal(true)}
-              t={t}
-            />
-          )}
-          {showMoreInfo && <MoreInfoService serviceName={activeService} t={t} />}
-          {showProcessingTime && <ProcessingTime serviceName={activeService} t={t} />}
-          {showContactModal && <ContactModal show={showContactModal} onClose={handleCloseModal} />}
-        </Modal>
-      )}
+      {activeService &&
+        (showCostDetails || showMoreInfo || showProcessingTime || showContactModal) && (
+          <Modal
+            show={showCostDetails || showMoreInfo || showProcessingTime || showContactModal}
+            onClose={handleCloseModal}
+          >
+            {showCostDetails && (
+              <CostDetails
+                serviceName={activeService}
+                onShowContactModal={() => setShowContactModal(true)}
+                t={t}
+              />
+            )}
+            {showMoreInfo && <MoreInfoService serviceName={activeService} t={t} />}
+            {showProcessingTime && <ProcessingTime serviceName={activeService} t={t} />}
+            {showContactModal && (
+              <ContactModal show={showContactModal} onClose={handleCloseModal} />
+            )}
+          </Modal>
+        )}
     </section>
   );
 };

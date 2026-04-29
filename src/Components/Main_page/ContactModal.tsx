@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import PropTypes from 'prop-types';
 import FocusTrap from 'focus-trap-react';
 import telegramIcon from '../images/telegram.png';
 import whatsappIcon from '../images/whatsapp.png';
@@ -9,11 +8,12 @@ import { useTranslation } from 'react-i18next';
 import FeedbackForm from './FeedBackForm';
 import { openViberChat } from '../../services/viber';
 
-/**
- * Contact modal — shows messenger links and a button to open the feedback form.
- * @param {{ show: boolean, onClose: () => void }} props
- */
-const ContactModal = ({ show, onClose }) => {
+type ContactModalProps = {
+  show: boolean;
+  onClose: () => void;
+};
+
+const ContactModal = ({ show, onClose }: ContactModalProps) => {
   const { t } = useTranslation();
   const [isFeedbackFormVisible, setIsFeedbackFormVisible] = useState(false);
 
@@ -71,11 +71,6 @@ const ContactModal = ({ show, onClose }) => {
       {isFeedbackFormVisible && <FeedbackForm onClose={handleCloseFeedbackForm} />}
     </>
   );
-};
-
-ContactModal.propTypes = {
-  show: PropTypes.bool.isRequired,
-  onClose: PropTypes.func.isRequired,
 };
 
 export default ContactModal;
