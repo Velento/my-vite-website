@@ -21,12 +21,12 @@ function LanguageSwitcher() {
     return () => document.removeEventListener('click', close);
   }, [dropdownOpen]);
 
-  const toggleDropdown = (e) => {
+  const toggleDropdown = (e: { stopPropagation: () => void }) => {
     e.stopPropagation();
     setDropdownOpen((prev) => !prev);
   };
 
-  const selectLanguage = (lang) => {
+  const selectLanguage = (lang: string) => {
     const lower = lang.toLowerCase();
     i18n.changeLanguage(lower);
     localStorage.setItem(STORAGE_KEY, lower); // Сохраняем для следующей сессии

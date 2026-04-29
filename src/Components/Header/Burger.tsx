@@ -14,7 +14,7 @@ function Burger() {
   useEffect(() => {
     if (!isOpen) return;
     document.body.style.overflow = 'hidden';
-    const onEsc = (e) => e.key === 'Escape' && setIsOpen(false);
+    const onEsc = (e: KeyboardEvent) => e.key === 'Escape' && setIsOpen(false);
     document.addEventListener('keydown', onEsc);
     return () => {
       document.body.style.overflow = '';
