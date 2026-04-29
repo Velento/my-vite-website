@@ -1,23 +1,26 @@
 import { useEffect, useRef, useState } from 'react';
-import PropTypes from 'prop-types';
 import FocusTrap from 'focus-trap-react';
-import { useForm } from 'react-hook-form';
+import { useForm, type SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
 import ThankYou from './ThankYou';
 import { sendLeadToWeb3Forms } from '../../services/web3forms';
 import { trackLeadConversion } from '../../services/analytics';
-import { leadFormSchema } from '../../services/validation';
+import { leadFormSchema, type LeadFormValues } from '../../services/validation';
 import './FeedBackForm.css';
 
 const THANK_YOU_DELAY_MS = 5000;
 
-const FeedbackForm = ({ onClose }) => {
+type FeedbackFormProps = {
+  onClose?: () => void;
+};
+
+const FeedbackForm = ({ onClose }: FeedbackFormProps) => {
   const { t } = useTranslation();
   const [submitError, setSubmitError] = useState('');
   const [submitted, setSubmitted] = useState(false);
   const [showThankYou, setShowThankYou] = useState(false);
-  const timerRef = useRef(null);
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const {
     register,
@@ -25,15 +28,19 @@ const FeedbackForm = ({ onClose }) => {
     reset,
     getValues,
     formState: { errors, isSubmitting, touchedFields },
-  } = useForm({
+  } = useForm<LeadFormValues>({
     resolver: zodResolver(leadFormSchema),
     mode: 'onTouched',
     defaultValues: { name: '', phone: '', promo: '' },
   });
 
-  useEffect(() => () => timerRef.current && clearTimeout(timerRef.current), []);
+  useEffect(() => {
+    return () => {
+      if (timerRef.current) clearTimeout(timerRef.current);
+    };
+  }, []);
 
-  const onSubmit = async (values) => {
+  const onSubmit: SubmitHandler<LeadFormValues> = async (values) => {
     setSubmitError('');
     try {
       await sendLeadToWeb3Forms({
@@ -60,8 +67,8 @@ const FeedbackForm = ({ onClose }) => {
 
   const handleClose = () => onClose?.();
 
-  const nameError = touchedFields.name && errors.name;
-  const phoneError = touchedFields.phone && errors.phone;
+  const nameError = touchedFields.name ? errors.name : undefined;
+  const phoneError = touchedFields.phone ? errors.phone : undefined;
   const submittedName = getValues('name');
 
   return (
@@ -100,9 +107,9 @@ const FeedbackForm = ({ onClose }) => {
                   disabled={isSubmitting}
                   {...register('name')}
                 />
-                {nameError && (
+                {nameError?.message && (
                   <span className="form-group__error" role="alert">
-                    {t(errors.name.message)}
+                    {t(nameError.message)}
                   </span>
                 )}
               </div>
@@ -117,9 +124,9 @@ const FeedbackForm = ({ onClose }) => {
                   disabled={isSubmitting}
                   {...register('phone')}
                 />
-                {phoneError && (
+                {phoneError?.message && (
                   <span className="form-group__error" role="alert">
-                    {t(errors.phone.message)}
+                    {t(phoneError.message)}
                   </span>
                 )}
               </div>
@@ -162,10 +169,6 @@ const FeedbackForm = ({ onClose }) => {
       </div>
     </FocusTrap>
   );
-};
-
-FeedbackForm.propTypes = {
-  onClose: PropTypes.func,
 };
 
 export default FeedbackForm;
