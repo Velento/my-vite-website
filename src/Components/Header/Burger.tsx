@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import Contacts from './Contacts';
 import Menu from '../Main_page/Menu';
 import LanguageSwitcher from './LanguageSwitcher';
@@ -21,19 +21,24 @@ function Burger() {
     };
   }, [isOpen]);
 
-  const toggleMenu = () => setIsOpen((v) => !v);
+  const close = useCallback(() => setIsOpen(false), []);
+  const toggle = useCallback(() => setIsOpen((v) => !v), []);
 
-  // Three-span hamburger that morphs into an X. Lines are positioned
-  // absolutely so rotation about each span's own centre lands cleanly on
-  // the button centre — no SVG transform-origin gymnastics.
+  // Each line is positioned at the centre of the icon; rotation around its own
+  // centre makes the hamburger ↔ X morph land cleanly.
   const lineBase =
-    'absolute left-1/2 top-1/2 block h-[2px] w-[20px] -translate-x-1/2 rounded-full bg-current transition-transform duration-200 ease-[cubic-bezier(0.65,0,0.35,1)]';
+    'absolute left-1/2 top-1/2 block h-[2px] w-[20px] -translate-x-1/2 rounded-full transition-transform duration-200 ease-[cubic-bezier(0.65,0,0.35,1)]';
+
+  // Line colour follows button state — darker on the resting (white) button,
+  // pure white on the open (gold) button. We set it explicitly per-span instead
+  // of relying on bg-current so the colour is robust against any cascade.
+  const lineColor = isOpen ? 'bg-white' : 'bg-[var(--color-text)]';
 
   return (
     <div>
       <button
         type="button"
-        onClick={toggleMenu}
+        onClick={toggle}
         aria-label={isOpen ? 'Close menu' : 'Open menu'}
         aria-expanded={isOpen}
         className={[
@@ -41,22 +46,29 @@ function Burger() {
           'absolute right-[var(--content-padding)] top-1/2 -translate-y-1/2',
           'max-[480px]:top-[var(--space-md)] max-[480px]:translate-y-0',
           'z-[1003] h-11 w-11 rounded-[var(--radius-md)] border bg-[var(--color-bg)] p-0',
-          'transition-[border-color,background-color,box-shadow] duration-200',
+          'transition-[border-color,background-color,box-shadow,transform] duration-200',
+          'active:scale-95',
           isOpen
-            ? 'border-[var(--color-accent)] bg-[var(--color-accent)] text-white shadow-[0_2px_12px_rgba(184,148,62,0.35)]'
-            : 'border-[var(--color-border)] text-[var(--color-text)] hover:border-[var(--color-accent)] hover:shadow-[0_2px_12px_rgba(184,148,62,0.2)]',
+            ? 'border-[var(--color-accent)] bg-[var(--color-accent)] shadow-[0_2px_12px_rgba(184,148,62,0.45)]'
+            : 'border-[var(--color-border)] hover:border-[var(--color-accent)] hover:shadow-[0_2px_12px_rgba(184,148,62,0.2)]',
           'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-accent)]',
         ].join(' ')}
       >
         <span className="relative block h-[22px] w-[22px]" aria-hidden="true">
           <span
-            className={`${lineBase} ${isOpen ? 'rotate-45 -translate-y-px' : '-translate-y-[6px]'}`}
+            className={`${lineBase} ${lineColor} ${
+              isOpen ? 'rotate-45 -translate-y-px' : '-translate-y-[6px]'
+            }`}
           />
           <span
-            className={`${lineBase} ${isOpen ? 'scale-x-0 opacity-0 transition-opacity' : ''}`}
+            className={`${lineBase} ${lineColor} ${
+              isOpen ? 'scale-x-0 opacity-0 transition-opacity' : ''
+            }`}
           />
           <span
-            className={`${lineBase} ${isOpen ? '-rotate-45 -translate-y-px' : 'translate-y-[5px]'}`}
+            className={`${lineBase} ${lineColor} ${
+              isOpen ? '-rotate-45 -translate-y-px' : 'translate-y-[5px]'
+            }`}
           />
         </span>
       </button>
@@ -65,26 +77,47 @@ function Burger() {
         <>
           {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */}
           <div
-            onClick={toggleMenu}
-            className="fixed inset-0 z-[1000] bg-[var(--color-overlay)] animate-[fadeIn_150ms_ease]"
+            onClick={close}
+            className="fixed inset-0 z-[1000] bg-[var(--color-overlay)] backdrop-blur-sm animate-[fadeIn_150ms_ease]"
           />
-          <div
+          <aside
             className={[
-              'fixed right-0 top-0 z-[1001] flex h-screen w-[85%] max-w-[360px] flex-col items-center overflow-y-auto',
-              'bg-[var(--color-bg)] px-[var(--space-xl)] pt-[var(--space-4xl)] pb-[var(--space-xl)]',
-              'shadow-[var(--shadow-xl)]',
-              'transition-transform duration-300 ease-[cubic-bezier(0.32,0.72,0,1)]',
-              'translate-x-0',
+              'fixed right-0 top-0 z-[1001] flex h-screen w-[88%] max-w-[380px] flex-col overflow-y-auto',
+              'bg-[var(--color-bg)] shadow-[var(--shadow-xl)]',
+              'animate-[slideInRight_300ms_cubic-bezier(0.32,0.72,0,1)]',
             ].join(' ')}
           >
-            <LanguageSwitcher />
-            <Menu vertical />
-            <div className="footer-section services">
-              <button onClick={() => setShowContactModal(true)}>{t('footer.question')}</button>
-              <ContactModal show={showContactModal} onClose={() => setShowContactModal(false)} />
+            {/* Header strip with brand mark and close affordance hint */}
+            <div className="flex items-center justify-between border-b border-[var(--color-border-light)] px-6 py-5">
+              <span className="font-[var(--font-heading)] text-[1.1rem] font-bold tracking-[0.15em] text-[var(--color-primary)]">
+                LEGAL LINE
+              </span>
+              <span className="text-[0.7rem] uppercase tracking-wider text-[var(--color-text-tertiary)]">
+                {t('header.menu', 'Menu')}
+              </span>
             </div>
-            <Contacts />
-          </div>
+
+            <div className="flex flex-col gap-6 px-4 py-6">
+              <div className="flex items-center justify-center">
+                <LanguageSwitcher />
+              </div>
+              <Menu vertical onItemClick={close} />
+            </div>
+
+            <div className="mt-auto flex flex-col gap-4 border-t border-[var(--color-border-light)] px-6 py-6">
+              <button
+                type="button"
+                onClick={() => setShowContactModal(true)}
+                className="w-full rounded-md bg-[var(--color-accent)] px-6 py-3 text-[0.9rem] font-semibold uppercase tracking-wider text-white shadow-[0_4px_16px_rgba(184,148,62,0.3)] transition-all duration-200 hover:bg-[var(--color-accent-hover)] hover:-translate-y-0.5 hover:shadow-[0_6px_20px_rgba(184,148,62,0.4)] active:translate-y-0"
+              >
+                {t('footer.question')}
+              </button>
+              <ContactModal show={showContactModal} onClose={() => setShowContactModal(false)} />
+              <div className="flex items-center justify-center">
+                <Contacts />
+              </div>
+            </div>
+          </aside>
         </>
       )}
     </div>
