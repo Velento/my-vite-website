@@ -4,10 +4,10 @@ declare module 'swiper/css';
 declare module 'swiper/css/*';
 
 interface ImportMetaEnv {
-  readonly VITE_WEB3FORMS_ACCESS_KEY?: string;
   readonly VITE_GOOGLE_ADS_CONVERSION_ID?: string;
   readonly VITE_TELEGRAM_BOT_TOKEN?: string;
   readonly VITE_TELEGRAM_CHAT_ID?: string;
+  readonly VITE_FORM_PROXY_URL?: string;
 }
 
 interface ImportMeta {

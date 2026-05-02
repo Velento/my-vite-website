@@ -14,6 +14,7 @@
     "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx,css}\"",
     "format:check": "prettier --check \"src/**/*.{js,jsx,ts,tsx,css}\"",
     "typecheck": "tsc --noEmit",
+    "typecheck:worker": "tsc --noEmit -p worker/tsconfig.json",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
@@ -37,6 +38,7 @@
     "zod": "^4.3.6"
   },
   "devDependencies": {
+    "@cloudflare/workers-types": "^4.20260502.1",
     "@testing-library/jest-dom": "^6.4.2",
     "@testing-library/react": "^16.3.2",
     "@testing-library/user-event": "^14.5.2",
