@@ -86,13 +86,7 @@ const Footer = () => {
             <a href="mailto:legalline.pl@gmail.com">legalline.pl@gmail.com</a>
           </p>
           <p>
-            <a
-              target="_blank"
-              rel="noopener noreferrer"
-              href="https://docs.google.com/document/d/16JRprD0eDLu8pWrwxZxPboOX6q2ZrptjAw5_CMQENSE/edit"
-            >
-              {t('footer.privacyPolicy')}
-            </a>
+            <a href="/privacy.html">{t('footer.privacyPolicy')}</a>
           </p>
         </div>
         <div className="footer-section services">

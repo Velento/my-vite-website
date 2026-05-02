@@ -317,6 +317,15 @@ img {
   color: var(--color-text);
 }
 
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
 @keyframes thankYouPop {
   from {
     transform: scale(0.95) translateY(10px);
