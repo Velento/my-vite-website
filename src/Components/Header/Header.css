@@ -236,6 +236,16 @@ a.contact-link-infooter {
     width: 22px;
     height: 22px;
   }
+  /* Hide top-of-header contacts/lang switcher on mobile — Burger panel
+     re-exposes them inside the slide-out menu. */
+  .header-contacts,
+  .header-language-switcher {
+    display: none;
+  }
+  .language-dropdown {
+    background-color: var(--color-bg);
+    box-shadow: var(--shadow-md);
+  }
 }
 
 @media (max-width: 480px) {

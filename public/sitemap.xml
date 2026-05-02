@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+      xmlns:xhtml="http://www.w3.org/1999/xhtml"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+
+  <url>
+    <loc>https://legalline.pl/</loc>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://legalline.pl/pl/" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://legalline.pl/ru/" />
+    <xhtml:link rel="alternate" hreflang="uk" href="https://legalline.pl/ua/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://legalline.pl/en/" />
+    <xhtml:link rel="alternate" hreflang="be" href="https://legalline.pl/by/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://legalline.pl/" />
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <url>
+    <loc>https://legalline.pl/pl/</loc>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://legalline.pl/pl/" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://legalline.pl/ru/" />
+    <xhtml:link rel="alternate" hreflang="uk" href="https://legalline.pl/ua/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://legalline.pl/en/" />
+    <xhtml:link rel="alternate" hreflang="be" href="https://legalline.pl/by/" />
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://legalline.pl/ru/</loc>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://legalline.pl/pl/" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://legalline.pl/ru/" />
+    <xhtml:link rel="alternate" hreflang="uk" href="https://legalline.pl/ua/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://legalline.pl/en/" />
+    <xhtml:link rel="alternate" hreflang="be" href="https://legalline.pl/by/" />
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://legalline.pl/ua/</loc>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://legalline.pl/pl/" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://legalline.pl/ru/" />
+    <xhtml:link rel="alternate" hreflang="uk" href="https://legalline.pl/ua/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://legalline.pl/en/" />
+    <xhtml:link rel="alternate" hreflang="be" href="https://legalline.pl/by/" />
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://legalline.pl/en/</loc>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://legalline.pl/pl/" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://legalline.pl/ru/" />
+    <xhtml:link rel="alternate" hreflang="uk" href="https://legalline.pl/ua/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://legalline.pl/en/" />
+    <xhtml:link rel="alternate" hreflang="be" href="https://legalline.pl/by/" />
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <url>
+    <loc>https://legalline.pl/by/</loc>
+    <xhtml:link rel="alternate" hreflang="pl" href="https://legalline.pl/pl/" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://legalline.pl/ru/" />
+    <xhtml:link rel="alternate" hreflang="uk" href="https://legalline.pl/ua/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://legalline.pl/en/" />
+    <xhtml:link rel="alternate" hreflang="be" href="https://legalline.pl/by/" />
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+</urlset>

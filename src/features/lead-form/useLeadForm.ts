@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react';
 import { trackLeadConversion } from '../../services/analytics';
-import { sendLeadToWeb3Forms } from '../../services/web3forms';
+import { sendLeadToTelegram } from '../../services/telegram';
 import { NAME_REGEX, PHONE_REGEX } from '../../services/validation';
 
 let lastSubmitTime = 0;
@@ -61,7 +61,7 @@ export function useLeadForm({ onSuccess }: UseLeadFormOptions = {}): UseLeadForm
 
       try {
         const trimmedPromo = fields.promo.trim();
-        await sendLeadToWeb3Forms({
+        await sendLeadToTelegram({
           name: fields.name.trim(),
           phone: fields.phone.trim(),
           promo: trimmedPromo || undefined,
