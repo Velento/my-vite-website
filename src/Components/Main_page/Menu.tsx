@@ -12,7 +12,7 @@ const MENU_ITEMS = [
 
 const linkClass =
   // animated underline on hover via after pseudo-element
-  "relative pb-1 text-xs font-medium uppercase tracking-wider text-[var(--color-text-secondary)] transition-colors duration-200 hover:text-[var(--color-text)] after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-[1.5px] after:w-0 after:bg-[var(--color-accent)] after:transition-[width] after:duration-200 hover:after:w-full lg:text-[0.8rem]";
+  "relative pb-1 text-[0.85rem] font-medium uppercase tracking-wider text-[var(--color-text-secondary)] transition-colors duration-200 hover:text-[var(--color-text)] after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-[1.5px] after:w-0 after:bg-[var(--color-accent)] after:transition-[width] after:duration-200 hover:after:w-full max-lg:text-[0.8rem]";
 
 type MenuProps = {
   /** When true, renders as a vertical column (used inside the mobile burger panel). */
