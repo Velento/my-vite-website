@@ -2,10 +2,11 @@ import { describe, it, expect, vi, beforeEach, afterEach, beforeAll } from 'vite
 import { renderHook, act } from '@testing-library/react';
 import { useLeadForm } from './useLeadForm';
 
-// Web3Forms service reads its access key from import.meta.env at module load.
-// Stub it before any test imports the service indirectly via the hook.
+// Telegram service reads its credentials from import.meta.env at module load.
+// Stub them before any test imports the service indirectly via the hook.
 beforeAll(() => {
-  vi.stubEnv('VITE_WEB3FORMS_ACCESS_KEY', 'test-access-key');
+  vi.stubEnv('VITE_TELEGRAM_BOT_TOKEN', '123456:test-token');
+  vi.stubEnv('VITE_TELEGRAM_CHAT_ID', '987654321');
 });
 
 vi.mock('react-i18next', () => ({
@@ -18,7 +19,7 @@ vi.mock('react-i18next', () => ({
 const okJsonResponse = () => ({
   ok: true,
   status: 200,
-  json: async () => ({ success: true, message: 'Email sent' }),
+  json: async () => ({ ok: true, result: { message_id: 1 } }),
 });
 
 describe('useLeadForm', () => {
@@ -246,11 +247,10 @@ describe('useLeadForm', () => {
 
       const [, options] = vi.mocked(global.fetch).mock.calls[0];
       const body = JSON.parse(options.body);
-      expect(body.name).toBe('Анна');
-      expect(body.phone).toBe('+48883734171');
-      expect(body.promo).toBe('PROMO');
-      expect(body.message).toContain('Анна');
-      expect(body.message).not.toContain('  Анна  ');
+      expect(body.text).toContain('Анна');
+      expect(body.text).toContain('+48883734171');
+      expect(body.text).toContain('PROMO');
+      expect(body.text).not.toContain('  Анна  ');
     });
 
     it('does not include promo in API call when promo is whitespace-only', async () => {
@@ -270,8 +270,7 @@ describe('useLeadForm', () => {
       expect(global.fetch).toHaveBeenCalledOnce();
       const [, options] = vi.mocked(global.fetch).mock.calls[0];
       const body = JSON.parse(options.body);
-      expect(body.promo).toBe('');
-      expect(body.message).not.toContain('Промокод');
+      expect(body.text).not.toContain('Promo:');
     });
   });
 

@@ -21,13 +21,14 @@ vi.mock('./Components/Main_page/Team', () => ({
   default: () => <div data-testid="team">Team</div>,
 }));
 
-// Stub Web3Forms access key so the service does not bail early in tests
-vi.stubEnv('VITE_WEB3FORMS_ACCESS_KEY', 'test-access-key');
+// Stub Telegram bot credentials so the service does not bail early in tests
+vi.stubEnv('VITE_TELEGRAM_BOT_TOKEN', '123456:test-token');
+vi.stubEnv('VITE_TELEGRAM_CHAT_ID', '987654321');
 
 const okJsonResponse = () => ({
   ok: true,
   status: 200,
-  json: async () => ({ success: true, message: 'Email sent' }),
+  json: async () => ({ ok: true, result: { message_id: 1 } }),
 });
 
 // ── Validation service tests ─────────────────────────────────────────────────
@@ -141,7 +142,11 @@ describe('trackLeadConversion', () => {
     trackLeadConversion();
 
     expect(window.gtag).toHaveBeenCalledWith('event', 'conversion', expect.any(Object));
+    // Roll the env back so the next test sees no conversion ID. Re-apply the
+    // Telegram bot stubs because vi.unstubAllEnvs wipes them too.
     vi.unstubAllEnvs();
+    vi.stubEnv('VITE_TELEGRAM_BOT_TOKEN', '123456:test-token');
+    vi.stubEnv('VITE_TELEGRAM_CHAT_ID', '987654321');
   });
 
   it('skips gtag conversion when conversion ID is not configured', () => {
@@ -167,69 +172,81 @@ describe('trackLeadConversion', () => {
   });
 });
 
-// ── Web3Forms service smoke test ─────────────────────────────────────────────
-import { sendLeadToWeb3Forms } from './services/web3forms';
+// ── Telegram service smoke test ──────────────────────────────────────────────
+import { sendLeadToTelegram } from './services/telegram';
 
-describe('sendLeadToWeb3Forms', () => {
+describe('sendLeadToTelegram', () => {
   beforeEach(() => {
     vi.mocked(global.fetch).mockReset();
   });
 
-  it('sends POST to Web3Forms API with name, phone and promo', async () => {
+  it('sends POST to Telegram Bot API with formatted message', async () => {
     vi.mocked(global.fetch).mockResolvedValueOnce(okJsonResponse());
 
-    await sendLeadToWeb3Forms({ name: 'Анна', phone: '+48123456789', promo: 'PROMO' });
+    await sendLeadToTelegram({ name: 'Анна', phone: '+48123456789', promo: 'PROMO' });
 
     expect(global.fetch).toHaveBeenCalledOnce();
     const [url, options] = vi.mocked(global.fetch).mock.calls[0];
-    expect(url).toBe('https://api.web3forms.com/submit');
+    expect(url).toContain('https://api.telegram.org/bot');
+    expect(url).toContain('/sendMessage');
     expect(options.method).toBe('POST');
     const body = JSON.parse(options.body);
-    expect(body.name).toBe('Анна');
-    expect(body.phone).toBe('+48123456789');
-    expect(body.promo).toBe('PROMO');
-    expect(body.message).toContain('PROMO');
+    expect(body.chat_id).toBeTruthy();
+    expect(body.parse_mode).toBe('HTML');
+    expect(body.text).toContain('Анна');
+    expect(body.text).toContain('+48123456789');
+    expect(body.text).toContain('PROMO');
   });
 
   it('omits promo line when promo is missing', async () => {
     vi.mocked(global.fetch).mockResolvedValueOnce(okJsonResponse());
 
-    await sendLeadToWeb3Forms({ name: 'Анна', phone: '+48123456789' });
+    await sendLeadToTelegram({ name: 'Анна', phone: '+48123456789' });
 
     const [, options] = vi.mocked(global.fetch).mock.calls[0];
     const body = JSON.parse(options.body);
-    expect(body.message).not.toContain('Промокод');
-    expect(body.promo).toBe('');
+    expect(body.text).not.toContain('Promo:');
+  });
+
+  it('escapes HTML in user-supplied input to prevent injection', async () => {
+    vi.mocked(global.fetch).mockResolvedValueOnce(okJsonResponse());
+
+    await sendLeadToTelegram({ name: '<script>alert(1)</script>', phone: '+48123456789' });
+
+    const [, options] = vi.mocked(global.fetch).mock.calls[0];
+    const body = JSON.parse(options.body);
+    expect(body.text).not.toContain('<script>');
+    expect(body.text).toContain('&lt;script&gt;');
   });
 
   it('throws on non-OK HTTP response', async () => {
     vi.mocked(global.fetch).mockResolvedValueOnce({
       ok: false,
       status: 500,
-      json: async () => ({ success: false, message: 'Server error' }),
+      json: async () => ({ ok: false, description: 'Server error' }),
     });
 
-    await expect(sendLeadToWeb3Forms({ name: 'Анна', phone: '+48123456789' })).rejects.toThrow(
+    await expect(sendLeadToTelegram({ name: 'Анна', phone: '+48123456789' })).rejects.toThrow(
       '500'
     );
   });
 
-  it('throws when API returns success: false', async () => {
+  it('throws when API returns ok: false', async () => {
     vi.mocked(global.fetch).mockResolvedValueOnce({
       ok: true,
       status: 200,
-      json: async () => ({ success: false, message: 'Invalid access key' }),
+      json: async () => ({ ok: false, description: 'Bad Request: chat not found' }),
     });
 
-    await expect(sendLeadToWeb3Forms({ name: 'Анна', phone: '+48123456789' })).rejects.toThrow(
-      'Invalid access key'
+    await expect(sendLeadToTelegram({ name: 'Анна', phone: '+48123456789' })).rejects.toThrow(
+      'chat not found'
     );
   });
 
   it('propagates network errors', async () => {
     vi.mocked(global.fetch).mockRejectedValueOnce(new TypeError('Failed to fetch'));
 
-    await expect(sendLeadToWeb3Forms({ name: 'Анна', phone: '+48123456789' })).rejects.toThrow(
+    await expect(sendLeadToTelegram({ name: 'Анна', phone: '+48123456789' })).rejects.toThrow(
       'Failed to fetch'
     );
   });

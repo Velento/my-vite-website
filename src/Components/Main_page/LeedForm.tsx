@@ -3,7 +3,7 @@ import { useForm, type SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
 import ThankYou from './ThankYou';
-import { sendLeadToWeb3Forms } from '../../services/web3forms';
+import { sendLeadToTelegram } from '../../services/telegram';
 import { trackLeadConversion } from '../../services/analytics';
 import { leadFormSchema, type LeadFormValues } from '../../services/validation';
 import './LeedForm.css';
@@ -42,7 +42,7 @@ const LeedForm = ({ onClose }: LeedFormProps) => {
   const onSubmit: SubmitHandler<LeadFormValues> = async (values) => {
     setSubmitError('');
     try {
-      await sendLeadToWeb3Forms({
+      await sendLeadToTelegram({
         name: values.name.trim(),
         phone: values.phone.trim(),
         promo: values.promo?.trim() || undefined,

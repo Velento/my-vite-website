@@ -11,21 +11,40 @@
     <meta name="apple-mobile-web-app-title" content="Legal Line" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- hreflang — same canonical URL for all supported languages, until per-locale routing lands -->
-    <link rel="alternate" hreflang="pl" href="https://legalline.pl/" />
-    <link rel="alternate" hreflang="ru" href="https://legalline.pl/" />
-    <link rel="alternate" hreflang="uk" href="https://legalline.pl/" />
-    <link rel="alternate" hreflang="en" href="https://legalline.pl/" />
-    <link rel="alternate" hreflang="be" href="https://legalline.pl/" />
+    <!-- hreflang — per-language SPA paths (404.html = index.html on GitHub Pages, so deep
+         links to /pl/, /ru/, /ua/, /en/, /by/ all resolve to the app and the URL is read
+         by i18n.detectLanguage on boot). -->
+    <link rel="alternate" hreflang="pl" href="https://legalline.pl/pl/" />
+    <link rel="alternate" hreflang="ru" href="https://legalline.pl/ru/" />
+    <link rel="alternate" hreflang="uk" href="https://legalline.pl/ua/" />
+    <link rel="alternate" hreflang="en" href="https://legalline.pl/en/" />
+    <link rel="alternate" hreflang="be" href="https://legalline.pl/by/" />
     <link rel="alternate" hreflang="x-default" href="https://legalline.pl/" />
 
-    <!-- Preconnect to critical third-party origins -->
+    <!-- Preconnect to critical third-party origins (font CSS + the woff2 host) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <!-- Non-blocking Google Fonts: load as a print stylesheet, then swap to all on load.
+         Falls back to a regular <link> for the rare browser that ignores the swap. -->
+    <link
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap"
+    />
     <link
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap"
+      media="print"
+      onload="this.media='all'"
     />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap"
+      />
+    </noscript>
+
     <link rel="dns-prefetch" href="https://connect.facebook.net" />
     <link rel="dns-prefetch" href="https://api.web3forms.com" />
     <title>Legal Line | Легализация иностранцев в Гданьске | Karta pobytu Gdansk</title>
