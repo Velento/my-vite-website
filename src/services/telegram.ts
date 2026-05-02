@@ -4,15 +4,13 @@
  * Two delivery modes:
  *
  *   1. **Worker proxy (recommended)** — set `VITE_FORM_PROXY_URL` to the
- *      deployed Cloudflare Worker URL (see `worker/index.ts`). The Worker
- *      holds the bot token + chat ID as server-side secrets and forwards
- *      validated payloads to Telegram. Nothing sensitive ships to the
- *      browser.
+ *      deployed Cloudflare Worker URL. The Worker holds the bot token + chat
+ *      ID as server-side secrets. Supports JSON (text-only) AND multipart
+ *      (file attachment) submissions.
  *
- *   2. **Direct-to-Telegram (fallback)** — used only when the proxy URL is
- *      not configured. Reads `VITE_TELEGRAM_BOT_TOKEN` and
- *      `VITE_TELEGRAM_CHAT_ID` from import.meta.env. Token is visible in
- *      the bundle — fine for testing, replace with the proxy in prod.
+ *   2. **Direct-to-Telegram (fallback)** — used when the proxy URL is not
+ *      configured. JSON-only, no file uploads (Telegram's sendDocument needs
+ *      multipart and the bot token, both of which we don't want in the client).
  */
 
 const TELEGRAM_API_BASE = 'https://api.telegram.org';
@@ -21,11 +19,24 @@ export type LeadPayload = {
   name: string;
   phone: string;
   promo?: string;
+  /** Optional file attachment (PDF / JPG / PNG / WEBP / DOC / DOCX, max 10 MB). */
+  file?: File | null;
 };
+
+export const MAX_LEAD_FILE_BYTES = 10 * 1024 * 1024;
+export const ALLOWED_LEAD_FILE_TYPES: readonly string[] = [
+  'application/pdf',
+  'image/jpeg',
+  'image/png',
+  'image/webp',
+  'application/msword',
+  'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+];
 
 type ServiceResponse = {
   ok: boolean;
   description?: string;
+  error?: string;
 };
 
 function escapeHtml(value: string): string {
@@ -46,22 +57,44 @@ function buildMessage({ name, phone, promo }: LeadPayload): string {
   return lines.join('\n');
 }
 
-async function sendViaProxy(proxyUrl: string, payload: LeadPayload): Promise<ServiceResponse> {
-  const response = await fetch(proxyUrl, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(payload),
-  });
-
-  let data: ServiceResponse | null = null;
+async function readResponse(response: Response): Promise<ServiceResponse | null> {
   try {
-    data = (await response.json()) as ServiceResponse;
+    return (await response.json()) as ServiceResponse;
   } catch {
-    // proxy may have failed before encoding JSON — fall through
+    return null;
   }
+}
+
+async function sendViaProxy(proxyUrl: string, payload: LeadPayload): Promise<ServiceResponse> {
+  const hasFile = payload.file instanceof File && payload.file.size > 0;
+
+  const init: RequestInit = hasFile
+    ? {
+        method: 'POST',
+        body: (() => {
+          const fd = new FormData();
+          fd.append('name', payload.name);
+          fd.append('phone', payload.phone);
+          if (payload.promo) fd.append('promo', payload.promo);
+          fd.append('file', payload.file as File, (payload.file as File).name);
+          return fd;
+        })(),
+      }
+    : {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: payload.name,
+          phone: payload.phone,
+          promo: payload.promo,
+        }),
+      };
+
+  const response = await fetch(proxyUrl, init);
+  const data = await readResponse(response);
 
   if (!response.ok || !data?.ok) {
-    const description = data?.description || `HTTP ${response.status}`;
+    const description = data?.error || data?.description || `HTTP ${response.status}`;
     throw new Error(`Form proxy ${response.status}: ${description}`);
   }
   return data;
@@ -76,6 +109,11 @@ async function sendDirect(payload: LeadPayload): Promise<ServiceResponse> {
   if (!chatId) {
     throw new Error('Missing VITE_TELEGRAM_CHAT_ID — set it in GitHub Secrets');
   }
+  if (payload.file) {
+    throw new Error(
+      'File upload requires VITE_FORM_PROXY_URL (Cloudflare Worker). Direct-to-Telegram fallback only supports text submissions.'
+    );
+  }
 
   const url = `${TELEGRAM_API_BASE}/bot${token}/sendMessage`;
   const response = await fetch(url, {
@@ -89,13 +127,7 @@ async function sendDirect(payload: LeadPayload): Promise<ServiceResponse> {
     }),
   });
 
-  let data: ServiceResponse | null = null;
-  try {
-    data = (await response.json()) as ServiceResponse;
-  } catch {
-    // ignore — handled below
-  }
-
+  const data = await readResponse(response);
   if (!response.ok || !data?.ok) {
     const description = data?.description || `HTTP ${response.status}`;
     throw new Error(`Telegram ${response.status}: ${description}`);

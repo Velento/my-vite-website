@@ -46,6 +46,7 @@ const LeedForm = ({ onClose }: LeedFormProps) => {
         name: values.name.trim(),
         phone: values.phone.trim(),
         promo: values.promo?.trim() || undefined,
+        file: values.file && values.file.length > 0 ? values.file[0] : null,
       });
       trackLeadConversion();
       setSubmitted(true);
@@ -117,6 +118,26 @@ const LeedForm = ({ onClose }: LeedFormProps) => {
               disabled={isSubmitting}
               {...register('promo')}
             />
+          </div>
+          <div className={`form-group ${errors.file ? 'form-group--error' : ''}`}>
+            <label htmlFor="leedform-file">
+              {t('feedbackForm.file', 'Załącz dokument (opcjonalnie)')}
+            </label>
+            <input
+              id="leedform-file"
+              type="file"
+              accept=".pdf,.jpg,.jpeg,.png,.webp,.doc,.docx,application/pdf,image/jpeg,image/png,image/webp"
+              disabled={isSubmitting}
+              {...register('file')}
+            />
+            <small style={{ display: 'block', marginTop: 4, opacity: 0.7 }}>
+              {t('feedbackForm.fileHint', 'PDF, JPG, PNG, DOC — do 10 MB')}
+            </small>
+            {errors.file?.message && (
+              <span className="form-group__error" role="alert">
+                {t(errors.file.message)}
+              </span>
+            )}
           </div>
           {submitError && (
             <div className="form-group__error form-group__error--block" role="alert">
