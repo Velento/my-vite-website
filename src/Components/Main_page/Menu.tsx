@@ -18,10 +18,10 @@ type MenuProps = {
 };
 
 const horizontalLink =
-  "relative pb-1 text-[0.85rem] font-medium uppercase tracking-[0.08em] text-[var(--color-text-secondary)] transition-colors duration-200 hover:text-[var(--color-text)] after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-[1.5px] after:w-0 after:bg-[var(--color-accent)] after:transition-[width] after:duration-200 hover:after:w-full max-lg:text-[0.8rem]";
+  "relative inline-block py-2 px-1 text-[0.95rem] font-semibold uppercase tracking-[0.1em] text-[var(--color-primary)] transition-colors duration-200 hover:text-[var(--color-accent)] after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-[2px] after:w-0 after:bg-[var(--color-accent)] after:transition-[width] after:duration-300 hover:after:w-full max-lg:text-[0.85rem] max-lg:tracking-wider";
 
 const verticalLink =
-  'flex w-full items-center justify-center rounded-md px-6 py-3 text-[0.95rem] font-semibold uppercase tracking-[0.12em] text-[var(--color-primary)] transition-colors duration-200 hover:bg-[var(--color-bg-alt)] hover:text-[var(--color-accent)] active:bg-[var(--color-bg-subtle)]';
+  'group flex w-full items-center justify-between rounded-md px-5 py-3.5 text-[0.95rem] font-semibold uppercase tracking-[0.1em] text-[var(--color-primary)] transition-[background-color,color,padding] duration-200 hover:bg-[var(--color-bg-alt)] hover:text-[var(--color-accent)] hover:pl-6 active:bg-[var(--color-bg-subtle)]';
 
 const Menu = ({ vertical = false, onItemClick }: MenuProps) => {
   const { t } = useTranslation();
@@ -29,11 +29,17 @@ const Menu = ({ vertical = false, onItemClick }: MenuProps) => {
   if (vertical) {
     return (
       <nav className="w-full">
-        <ul className="flex w-full flex-col items-stretch gap-1 list-none m-0 p-0">
+        <ul className="m-0 flex w-full list-none flex-col items-stretch gap-0.5 p-0">
           {MENU_ITEMS.map(({ href, key }) => (
             <li key={key}>
               <a href={href} className={verticalLink} onClick={onItemClick}>
-                {t(key)}
+                <span>{t(key)}</span>
+                <span
+                  className="text-[var(--color-accent)] opacity-0 transition-opacity duration-200 group-hover:opacity-100"
+                  aria-hidden="true"
+                >
+                  →
+                </span>
               </a>
             </li>
           ))}
@@ -43,8 +49,8 @@ const Menu = ({ vertical = false, onItemClick }: MenuProps) => {
   }
 
   return (
-    <nav className="hidden justify-center bg-[var(--color-bg)] py-[var(--space-md)] px-[var(--content-padding)] md:flex">
-      <ul className="flex list-none gap-12 lg:gap-6">
+    <nav className="hidden md:block border-b border-[var(--color-border-light)] bg-gradient-to-b from-white to-[var(--color-bg-alt)] shadow-[0_1px_0_rgba(0,0,0,0.02)]">
+      <ul className="mx-auto flex max-w-[var(--max-width)] list-none items-center justify-center gap-10 px-[var(--content-padding)] py-3 lg:gap-6">
         {MENU_ITEMS.map(({ href, key }) => (
           <li key={key}>
             <a href={href} className={horizontalLink} onClick={onItemClick}>
