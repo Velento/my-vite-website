@@ -25,8 +25,6 @@ const FileUploadField = ({ id, registration, disabled, errorMessage }: FileUploa
   const [selected, setSelected] = useState<File | null>(null);
   const internalInputRef = useRef<HTMLInputElement | null>(null);
 
-  // Compose RHF's ref with our local one so we can imperatively reset the
-  // input when the user clicks "remove".
   const { ref: rhfRef, onChange: rhfOnChange, ...rhfRest } = registration;
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -40,29 +38,36 @@ const FileUploadField = ({ id, registration, disabled, errorMessage }: FileUploa
   };
 
   const handleRemove = () => {
-    if (internalInputRef.current) {
-      internalInputRef.current.value = '';
-    }
+    if (internalInputRef.current) internalInputRef.current.value = '';
     setSelected(null);
-    // Tell RHF the field is now empty.
     rhfOnChange({
       target: { name: registration.name, value: undefined },
     } as unknown as ChangeEvent<HTMLInputElement>);
   };
 
+  const triggerPick = () => internalInputRef.current?.click();
+
   return (
     <div className={`form-group ${errorMessage ? 'form-group--error' : ''}`}>
       <label htmlFor={id}>{t('feedbackForm.file', 'Załącz dokument (opcjonalnie)')}</label>
 
-      {/* Native input visually hidden but accessible — clicking the styled
-          button below proxies through the htmlFor association. */}
+      {/* Visually hidden but accessible — focus from <button> trigger lands here. */}
       <input
         id={id}
         type="file"
         accept={ACCEPT}
         disabled={disabled}
-        className="absolute h-px w-px overflow-hidden whitespace-nowrap border-0 p-0"
-        style={{ clip: 'rect(0 0 0 0)', clipPath: 'inset(50%)' }}
+        style={{
+          position: 'absolute',
+          width: 1,
+          height: 1,
+          padding: 0,
+          margin: -1,
+          overflow: 'hidden',
+          clip: 'rect(0,0,0,0)',
+          whiteSpace: 'nowrap',
+          border: 0,
+        }}
         {...rhfRest}
         ref={(el) => {
           rhfRef(el);
@@ -72,13 +77,35 @@ const FileUploadField = ({ id, registration, disabled, errorMessage }: FileUploa
         onBlur={handleBlur}
       />
 
-      <label
-        htmlFor={id}
-        className="mt-1 inline-flex cursor-pointer items-center gap-3 rounded-md border border-dashed border-[var(--color-border)] bg-[var(--color-bg-alt)] px-4 py-3 text-[0.9rem] font-medium text-[var(--color-text-secondary)] transition-colors duration-200 hover:border-[var(--color-accent)] hover:bg-white hover:text-[var(--color-text)]"
+      {/* Trigger button — uses inline style for layout so .form-group label CSS
+          (display: block) can't override the icon-next-to-text arrangement. */}
+      <button
+        type="button"
+        onClick={triggerPick}
+        disabled={disabled}
+        aria-controls={id}
+        style={{
+          display: 'flex',
+          width: '100%',
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: 10,
+          marginTop: 4,
+          padding: '14px 18px',
+          borderRadius: 'var(--radius-md)',
+          border: '1.5px dashed var(--color-border)',
+          background: 'var(--color-bg-alt)',
+          color: 'var(--color-text-secondary)',
+          fontSize: '0.9rem',
+          fontWeight: 500,
+          cursor: disabled ? 'not-allowed' : 'pointer',
+          transition: 'all var(--duration-base) var(--ease)',
+        }}
+        className="file-upload-trigger"
       >
         <svg
-          width="18"
-          height="18"
+          width="20"
+          height="20"
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
@@ -86,6 +113,7 @@ const FileUploadField = ({ id, registration, disabled, errorMessage }: FileUploa
           strokeLinecap="round"
           strokeLinejoin="round"
           aria-hidden="true"
+          style={{ flexShrink: 0 }}
         >
           <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
           <polyline points="17 8 12 3 7 8" />
@@ -96,11 +124,32 @@ const FileUploadField = ({ id, registration, disabled, errorMessage }: FileUploa
             ? t('feedbackForm.fileChange', 'Zmień plik')
             : t('feedbackForm.fileChoose', 'Wybierz plik')}
         </span>
-      </label>
+      </button>
 
       {selected && (
-        <div className="mt-2 flex items-center justify-between gap-3 rounded-md border border-[var(--color-border-light)] bg-white px-3 py-2 text-[0.85rem]">
-          <span className="flex min-w-0 items-center gap-2">
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            gap: 10,
+            marginTop: 8,
+            padding: '8px 10px',
+            borderRadius: 'var(--radius-sm)',
+            border: '1px solid var(--color-border-light)',
+            background: 'white',
+            fontSize: '0.85rem',
+          }}
+        >
+          <span
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 8,
+              minWidth: 0,
+              flex: 1,
+            }}
+          >
             <svg
               width="16"
               height="16"
@@ -116,10 +165,19 @@ const FileUploadField = ({ id, registration, disabled, errorMessage }: FileUploa
               <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
               <polyline points="14 2 14 8 20 8" />
             </svg>
-            <span className="truncate text-[var(--color-text)]" title={selected.name}>
+            <span
+              title={selected.name}
+              style={{
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                whiteSpace: 'nowrap',
+                color: 'var(--color-text)',
+                minWidth: 0,
+              }}
+            >
               {selected.name}
             </span>
-            <span className="shrink-0 text-[var(--color-text-tertiary)]">
+            <span style={{ flexShrink: 0, color: 'var(--color-text-tertiary)' }}>
               {formatBytes(selected.size)}
             </span>
           </span>
@@ -128,7 +186,22 @@ const FileUploadField = ({ id, registration, disabled, errorMessage }: FileUploa
             onClick={handleRemove}
             disabled={disabled}
             aria-label={t('feedbackForm.fileRemove', 'Usuń plik')}
-            className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border-0 bg-transparent text-[var(--color-text-tertiary)] transition-colors duration-150 hover:bg-[var(--color-bg-alt)] hover:text-[var(--color-error)]"
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              width: 28,
+              height: 28,
+              padding: 0,
+              border: 0,
+              borderRadius: '9999px',
+              background: 'transparent',
+              color: 'var(--color-text-tertiary)',
+              cursor: disabled ? 'not-allowed' : 'pointer',
+              flexShrink: 0,
+              transition: 'all var(--duration-fast) var(--ease)',
+            }}
+            className="file-upload-remove"
           >
             <svg
               width="14"
@@ -147,7 +220,7 @@ const FileUploadField = ({ id, registration, disabled, errorMessage }: FileUploa
         </div>
       )}
 
-      <small className="mt-1 block text-[0.75rem] opacity-70">
+      <small style={{ display: 'block', marginTop: 6, fontSize: '0.75rem', opacity: 0.7 }}>
         {t('feedbackForm.fileHint', 'PDF, JPG, PNG, DOC — do 10 MB')}
       </small>
 
