@@ -9,7 +9,14 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: var(--space-2xl);
-  align-items: start;
+  align-items: stretch;
+}
+
+.map-reviews__map-col,
+.map-reviews__reviews-col {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
 }
 
 .map-reviews__heading {
@@ -18,6 +25,18 @@
   font-weight: 700;
   color: var(--color-primary);
   margin-bottom: var(--space-lg);
+  text-align: center;
+  position: relative;
+  padding-bottom: var(--space-md);
+}
+
+.map-reviews__heading::after {
+  content: '';
+  display: block;
+  width: 40px;
+  height: 2px;
+  background: var(--color-accent);
+  margin: var(--space-md) auto 0;
 }
 
 /* ── Map ── */
