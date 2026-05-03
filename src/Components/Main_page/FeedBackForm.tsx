@@ -4,6 +4,7 @@ import { useForm, type SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
 import ThankYou from './ThankYou';
+import FileUploadField from './FileUploadField';
 import { sendLeadToTelegram } from '../../services/telegram';
 import { trackLeadConversion } from '../../services/analytics';
 import { leadFormSchema, type LeadFormValues } from '../../services/validation';
@@ -141,26 +142,12 @@ const FeedbackForm = ({ onClose }: FeedbackFormProps) => {
                   {...register('promo')}
                 />
               </div>
-              <div className={`form-group ${errors.file ? 'form-group--error' : ''}`}>
-                <label htmlFor="feedback-file">
-                  {t('feedbackForm.file', 'Załącz dokument (opcjonalnie)')}
-                </label>
-                <input
-                  id="feedback-file"
-                  type="file"
-                  accept=".pdf,.jpg,.jpeg,.png,.webp,.doc,.docx,application/pdf,image/jpeg,image/png,image/webp"
-                  disabled={isSubmitting}
-                  {...register('file')}
-                />
-                <small style={{ display: 'block', marginTop: 4, opacity: 0.7 }}>
-                  {t('feedbackForm.fileHint', 'PDF, JPG, PNG, DOC — do 10 MB')}
-                </small>
-                {errors.file?.message && (
-                  <span className="form-group__error" role="alert">
-                    {t(errors.file.message)}
-                  </span>
-                )}
-              </div>
+              <FileUploadField
+                id="feedback-file"
+                registration={register('file')}
+                disabled={isSubmitting}
+                errorMessage={errors.file?.message}
+              />
               {submitError && (
                 <div className="form-group__error form-group__error--block" role="alert">
                   {submitError}
