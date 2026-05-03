@@ -1,6 +1,6 @@
 /**
  * Shared form validation rules.
- * Single source of truth — used by useLeadForm hook + form components.
+ * Single source of truth — used by LeedForm + FeedBackForm via react-hook-form.
  */
 
 import { z } from 'zod';

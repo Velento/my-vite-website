@@ -15,6 +15,19 @@
 
 const TELEGRAM_API_BASE = 'https://api.telegram.org';
 
+// Hardcoded fallback for the bot token + chat ID.
+// Owner explicitly asked to bake them into the bundle; security trade-off
+// (anyone can extract from JS) is acknowledged. Rotate via @BotFather any
+// time the token shows up where it shouldn't.
+//
+// chat_id is required by Telegram. After @BotFather creates the bot, send
+// /start to it from the destination chat (private message OR group with the
+// bot as admin), then visit
+//   https://api.telegram.org/bot<TOKEN>/getUpdates
+// and copy the `chat.id` number into FALLBACK_CHAT_ID below.
+const FALLBACK_BOT_TOKEN = '8719891671:AAFq1Tm8fzT8Vh5spPqLLbNsBQGMXZsEucA';
+const FALLBACK_CHAT_ID = '509830008'; // Andrey Velento (private chat)
+
 export type LeadPayload = {
   name: string;
   phone: string;
@@ -101,13 +114,13 @@ async function sendViaProxy(proxyUrl: string, payload: LeadPayload): Promise<Ser
 }
 
 async function sendDirect(payload: LeadPayload): Promise<ServiceResponse> {
-  const token = import.meta.env.VITE_TELEGRAM_BOT_TOKEN;
-  const chatId = import.meta.env.VITE_TELEGRAM_CHAT_ID;
+  const token = import.meta.env.VITE_TELEGRAM_BOT_TOKEN || FALLBACK_BOT_TOKEN;
+  const chatId = import.meta.env.VITE_TELEGRAM_CHAT_ID || FALLBACK_CHAT_ID;
   if (!token) {
     throw new Error('Missing VITE_TELEGRAM_BOT_TOKEN — set it in GitHub Secrets');
   }
   if (!chatId) {
-    throw new Error('Missing VITE_TELEGRAM_CHAT_ID — set it in GitHub Secrets');
+    throw new Error('Missing VITE_TELEGRAM_CHAT_ID — send /start to the bot, then paste chat_id');
   }
   if (payload.file) {
     throw new Error(

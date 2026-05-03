@@ -102,7 +102,11 @@ const SliderComponent = () => {
   return (
     <section className="slider-container" aria-label="Banner">
       <h1 className="visually-hidden">{t('seo.h1')}</h1>
+      {/* `key={language}` forces Swiper to remount when the active language
+          changes — without it the swiper instance keeps the previous slides
+          array cached and never picks up the new language images. */}
       <Swiper
+        key={language}
         modules={[Autoplay, EffectFade, Pagination, A11y]}
         effect="fade"
         fadeEffect={{ crossFade: true }}
