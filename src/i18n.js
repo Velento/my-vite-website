@@ -26,9 +26,9 @@ i18n.use(initReactI18next).init({
 
         'servicespromo.0.title': 'PROMOTIONS',
         'servicespromo.0.points.0':
-          'Get the "Basic" package for 400 PLN. To take advantage of the promotion, mention the promo code "Start24" to our customer service specialist. The promotion is valid only until the end of the month.',
+          'Get the "Basic" package for 700 PLN. To take advantage of the promotion, mention the promo code "Start24" to our customer service specialist. The promotion is valid only until the end of the month.',
         'servicespromo.0.points.1':
-          'Get the "All-Inclusive" package for 1100 PLN. To take advantage of the promotion, mention the promo code "Start24" to our customer service specialist. The promotion is valid only until the end of the month.',
+          'Get the "All-Inclusive" package for 1450 PLN. To take advantage of the promotion, mention the promo code "Start24" to our customer service specialist. The promotion is valid only until the end of the month.',
         'servicespromo.0.points.2':
           'Citizenship documents for 1500 PLN. To take advantage of the promotion, mention the promo code "Start24" to our customer service specialist. The promotion is valid only until the end of the month.',
 
@@ -121,6 +121,15 @@ i18n.use(initReactI18next).init({
           promo: 'Use promo code',
           nameError: 'Name must consist of letters only',
           phoneError: 'Enter at least 9 digits of your phone number',
+          file: 'Attach a document (optional)',
+          fileChoose: 'Choose file',
+          fileChange: 'Change file',
+          fileRemove: 'Remove file',
+          fileHint: 'PDF, JPG, PNG, DOC — up to 10 MB',
+          fileError: 'Invalid file',
+          fileTooLarge: 'File is too large (max 10 MB)',
+          fileTypeError: 'File type not allowed',
+          errorMessage: 'An error occurred. Please try again.',
         },
         'seo.h1': 'Legalization of foreigners in Gdansk — Legal Line',
         'slider.subtitle': 'Residence card, legalization, documents',
@@ -237,7 +246,7 @@ i18n.use(initReactI18next).init({
           title: 'I am Katya.',
           content:
             'I will help you obtain a temporary or permanent residence permit (czasowy pobyt, stały pobyt). I will oversee your case, help you prepare and submit missing documents to the Office, draft proper letters for the Office, appeals or complaints, and much more.',
-          buttonText: 'I WANT A CARD FROM 400 PLN',
+          buttonText: 'I WANT A CARD FROM 700 PLN',
         },
         section5: {
           title: 'Get a personalized legalization plan in Poland.',
@@ -530,9 +539,9 @@ i18n.use(initReactI18next).init({
         'menu.feedback': 'Zostaw zapytanie',
         'servicespromo.0.title': 'PROMOCJE',
         'servicespromo.0.points.0':
-          'Zdobądź pakiet "Podstawowy" za 400 zł. Aby skorzystać z promocji, podaj naszemu specjaliście ds. obsługi klienta kod promocyjny "Start24". Promocja obowiązuje tylko do końca miesiąca.',
+          'Zdobądź pakiet "Podstawowy" za 700 zł. Aby skorzystać z promocji, podaj naszemu specjaliście ds. obsługi klienta kod promocyjny "Start24". Promocja obowiązuje tylko do końca miesiąca.',
         'servicespromo.0.points.1':
-          'Zdobądź pakiet "Wszystko w cenie" za 1100 zł. Aby skorzystać z promocji, podaj naszemu specjaliście ds. obsługi klienta kod promocyjny "Start24". Promocja obowiązuje tylko do końca miesiąca.',
+          'Zdobądź pakiet "Wszystko w cenie" za 1450 zł. Aby skorzystać z promocji, podaj naszemu specjaliście ds. obsługi klienta kod promocyjny "Start24". Promocja obowiązuje tylko do końca miesiąca.',
         'servicespromo.0.points.2':
           'Dokumenty na obywatelstwo za 1500 zł. Aby skorzystać z promocji, podaj naszemu specjaliście ds. obsługi klienta kod promocyjny "Start24". Promocja obowiązuje tylko do końca miesiąca.',
 
@@ -624,6 +633,15 @@ i18n.use(initReactI18next).init({
           promo: 'Użyj kodu promocyjnego',
           nameError: 'Imię musi składać się tylko z liter',
           phoneError: 'Wprowadź co najmniej 9 cyfr swojego numeru telefonu',
+          file: 'Załącz dokument (opcjonalnie)',
+          fileChoose: 'Wybierz plik',
+          fileChange: 'Zmień plik',
+          fileRemove: 'Usuń plik',
+          fileHint: 'PDF, JPG, PNG, DOC — do 10 MB',
+          fileError: 'Nieprawidłowy plik',
+          fileTooLarge: 'Plik za duży (maks. 10 MB)',
+          fileTypeError: 'Nieobsługiwany typ pliku',
+          errorMessage: 'Wystąpił błąd. Spróbuj ponownie.',
         },
         'seo.h1': 'Legalizacja cudzoziemców w Gdańsku — Legal Line',
         'slider.subtitle': 'Karta pobytu, legalizacja, dokumenty',
@@ -741,7 +759,7 @@ i18n.use(initReactI18next).init({
           title: 'Jestem Katia.',
           content:
             'Pomogę ci uzyskać tymczasowe lub stałe pozwolenie na pobyt (czasowy pobyt, stały pobyt). Będę monitorować twoją sprawę, pomogę przygotować i dostarczyć brakujące dokumenty do Urzędu, napiszę dla ciebie odpowiednie pisma do Urzędu, odwołania lub skargi oraz wiele innych.',
-          buttonText: 'CHCĘ KARTĘ OD 400 PLN',
+          buttonText: 'CHCĘ KARTĘ OD 700 PLN',
         },
         section5: {
           title: 'Uzyskaj spersonalizowany plan legalizacji w Polsce.',
@@ -981,9 +999,9 @@ i18n.use(initReactI18next).init({
 
         'servicespromo.0.title': 'АКЦІЇ',
         'servicespromo.0.points.0':
-          'Встигніть придбати пакет "Базовий" за 400 зл. Щоб скористатися акцією, назвіть нашому спеціалісту з роботи з клієнтами промокод "Старт24". Акція діє лише до кінця місяця.',
+          'Встигніть придбати пакет "Базовий" за 700 зл. Щоб скористатися акцією, назвіть нашому спеціалісту з роботи з клієнтами промокод "Старт24". Акція діє лише до кінця місяця.',
         'servicespromo.0.points.1':
-          'Встигніть придбати пакет "Все включено" за 1100 зл. Щоб скористатися акцією, назвіть нашому спеціалісту з роботи з клієнтами промокод "Старт24". Акція діє лише до кінця місяця.',
+          'Встигніть придбати пакет "Все включено" за 1450 зл. Щоб скористатися акцією, назвіть нашому спеціалісту з роботи з клієнтами промокод "Старт24". Акція діє лише до кінця місяця.',
         'servicespromo.0.points.2':
           'Документи на громадянство за 1500 зл.  Щоб скористатися акцією, назвіть нашому спеціалісту з роботи з клієнтами промокод "Старт24". Акція діє лише до кінця місяця.',
 
@@ -1075,6 +1093,15 @@ i18n.use(initReactI18next).init({
           promo: 'Використовуйте промокод',
           nameError: "Ім'я повинно складатися лише з літер",
           phoneError: 'Введіть не менше 9 цифр вашого номера телефону',
+          file: 'Прикріпити документ (опційно)',
+          fileChoose: 'Вибрати файл',
+          fileChange: 'Змінити файл',
+          fileRemove: 'Видалити файл',
+          fileHint: 'PDF, JPG, PNG, DOC — до 10 МБ',
+          fileError: 'Невірний файл',
+          fileTooLarge: 'Файл завеликий (макс. 10 МБ)',
+          fileTypeError: 'Цей тип файлу не підтримується',
+          errorMessage: 'Сталася помилка. Спробуйте ще раз.',
         },
         'seo.h1': 'Легалізація іноземців у Гданську — Legal Line',
         'slider.subtitle': 'Карта побуту, легалізація, документи',
@@ -1192,7 +1219,7 @@ i18n.use(initReactI18next).init({
           title: 'Я Катя.',
           content:
             'Я допоможу тобі отримати тимчасовий або постійний вид на проживання (czasowy pobyt, stały pobyt). Я стежитиму за твоєю справою, допоможу підготувати та доставити відсутні документи в Ужонд, складу для тебе правильні листи до Ужонду, апеляції або скарги, а також багато іншого.',
-          buttonText: 'ХОЧУ КАРТУ ВІД 400 зл.',
+          buttonText: 'ХОЧУ КАРТУ ВІД 700 зл.',
         },
         section5: {
           title: 'Отримай персональний план по легалізації в Польщі.',
@@ -1435,9 +1462,9 @@ i18n.use(initReactI18next).init({
 
         'servicespromo.0.title': 'АКЦЫІ',
         'servicespromo.0.points.0':
-          'Спяшайцеся набыць пакет "Базавы" за 400 зл. Каб скарыстацца акцыяй, назавіце нашаму спецыялісту па працы з кліентамі прома-код "Старт24". Акцыя дзейнічае толькі да канца месяца.',
+          'Спяшайцеся набыць пакет "Базавы" за 700 зл. Каб скарыстацца акцыяй, назавіце нашаму спецыялісту па працы з кліентамі прома-код "Старт24". Акцыя дзейнічае толькі да канца месяца.',
         'servicespromo.0.points.1':
-          'Спяшайцеся набыць пакет "Усё ўключана" за 1100 зл. Каб скарыстацца акцыяй, назавіце нашаму спецыялісту па працы з кліентамі прома-код "Старт24". Акцыя дзейнічае толькі да канца месяца.',
+          'Спяшайцеся набыць пакет "Усё ўключана" за 1450 зл. Каб скарыстацца акцыяй, назавіце нашаму спецыялісту па працы з кліентамі прома-код "Старт24". Акцыя дзейнічае толькі да канца месяца.',
         'servicespromo.0.points.2':
           'Дакументы на грамадзянства за 1500 зл.  Каб скарыстацца акцыяй, назавіце нашаму спецыялісту па працы з кліентамі прома-код "Старт24". Акцыя дзейнічае толькі да канца месяца.',
 
@@ -1528,6 +1555,15 @@ i18n.use(initReactI18next).init({
           promo: 'Выкарыстоўвайце прома-код',
           nameError: 'Імя павінна складацца толькі з літар',
           phoneError: 'Увядзіце не менш за 9 цифраў вашага нумара тэлефона',
+          file: 'Прыкласці дакумент (па жаданні)',
+          fileChoose: 'Выбраць файл',
+          fileChange: 'Змяніць файл',
+          fileRemove: 'Выдаліць файл',
+          fileHint: 'PDF, JPG, PNG, DOC — да 10 МБ',
+          fileError: 'Няправільны файл',
+          fileTooLarge: 'Файл занадта вялікі (макс. 10 МБ)',
+          fileTypeError: 'Гэты тып файла не падтрымліваецца',
+          errorMessage: 'Адбылася памылка. Паспрабуйце яшчэ раз.',
         },
         'seo.h1': 'Легалізацыя замежнікаў у Гданьску — Legal Line',
         'slider.subtitle': 'Карта пабыту, легалізацыя, дакументы',
@@ -1643,7 +1679,7 @@ i18n.use(initReactI18next).init({
           title: 'Я Каця.',
           content:
             'Я дапамагу табе атрымаць часовы або сталы статус замежнага грамадзянства (czasowy pobyt, stały pobyt). Я сачыць за тваёй справай, дапамагу падрыхтаваць і даслаць адсутнія дакументы ў Ужонд, складу табе правільныя лісты для Ужонда, апеляцыі ці скаргі, а таксама шмат іншага.',
-          buttonText: 'ХОЧУ КАРТУ АД 400 зл.',
+          buttonText: 'ХОЧУ КАРТУ АД 700 зл.',
         },
         section5: {
           title: 'Атрымай персаналізаваны план па легалізацыі ў Польшчы.',
@@ -1882,9 +1918,9 @@ i18n.use(initReactI18next).init({
         'menu.feedback': 'Оставить заявку',
         'servicespromo.0.title': 'АКЦИИ',
         'servicespromo.0.points.0':
-          'Успейте приобрести пакет "Базовый" за 400 зл. Чтобы воспользоваться акцией, назовите нашему специалисту по работе с клиентами промокод "Старт24". Акция действует только до конца месяца',
+          'Успейте приобрести пакет "Базовый" за 700 зл. Чтобы воспользоваться акцией, назовите нашему специалисту по работе с клиентами промокод "Старт24". Акция действует только до конца месяца',
         'servicespromo.0.points.1':
-          'Успейте приобрести пакет "Все включено" за 1100 зл. Чтобы воспользоваться акцией, назовите нашему специалисту по работе с клиентами промокод "Старт24". Акция действует только до конца месяца.',
+          'Успейте приобрести пакет "Все включено" за 1450 зл. Чтобы воспользоваться акцией, назовите нашему специалисту по работе с клиентами промокод "Старт24". Акция действует только до конца месяца.',
         'servicespromo.0.points.2':
           'Документы на гражданство за 1500 зл. Чтобы воспользоваться акцией, назовите нашему специалисту по работе с клиентами промокод "Старт24". Акция действует только до конца месяца.',
 
@@ -1975,6 +2011,15 @@ i18n.use(initReactI18next).init({
           promo: 'Используйте промо-код',
           nameError: 'Имя должно состоять только из букв',
           phoneError: 'Введите не менее 9 цифр вашего номера телефона ',
+          file: 'Прикрепить документ (опционально)',
+          fileChoose: 'Выбрать файл',
+          fileChange: 'Изменить файл',
+          fileRemove: 'Удалить файл',
+          fileHint: 'PDF, JPG, PNG, DOC — до 10 МБ',
+          fileError: 'Неверный файл',
+          fileTooLarge: 'Файл слишком большой (макс. 10 МБ)',
+          fileTypeError: 'Этот тип файла не поддерживается',
+          errorMessage: 'Произошла ошибка. Попробуйте снова.',
         },
         'seo.h1': 'Легализация иностранцев в Гданьске — Legal Line',
         'slider.subtitle': 'Карта побыту, легализация, документы',
@@ -2092,7 +2137,7 @@ i18n.use(initReactI18next).init({
           title: 'Я Катя.',
           content:
             'Я помогу тебе получить временный либо постоянный вид на жительство (czasowy pobyt, stały pobyt). Я прослежу за твоим делом, помогу подготовить и донести недостающие документы в Ужонд, составлю тебе правильно письма для Ужонда, аппеляции или жалобы, а также многое другое.',
-          buttonText: 'ХОЧУ КАРТУ ОТ 400 зл.',
+          buttonText: 'ХОЧУ КАРТУ ОТ 700 зл.',
         },
         section5: {
           title: 'Получи персональный план по легализации в Польше.',

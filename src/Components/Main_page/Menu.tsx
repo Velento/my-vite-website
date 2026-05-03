@@ -120,7 +120,7 @@ type MenuProps = {
 };
 
 const horizontalLink =
-  "relative inline-block py-2 px-1 text-[0.95rem] font-semibold uppercase tracking-[0.1em] text-[var(--color-primary)] transition-colors duration-200 hover:text-[var(--color-accent)] after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-[2px] after:w-0 after:bg-[var(--color-accent)] after:transition-[width] after:duration-300 hover:after:w-full max-lg:text-[0.85rem] max-lg:tracking-wider";
+  "group relative inline-flex items-center gap-2 py-2 px-1 text-[0.9rem] font-semibold uppercase tracking-[0.08em] text-[var(--color-primary)] transition-colors duration-200 hover:text-[var(--color-accent)] after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-[2px] after:w-0 after:bg-[var(--color-accent)] after:transition-[width] after:duration-300 hover:after:w-full max-lg:text-[0.8rem] max-lg:tracking-wider";
 
 const verticalLink =
   'group grid w-full grid-cols-[40px_1fr_24px] items-center gap-3 rounded-lg px-4 py-3.5 text-[0.95rem] font-semibold uppercase tracking-[0.08em] text-[var(--color-primary)] transition-[background-color,color,transform] duration-200 hover:bg-[var(--color-bg-alt)] hover:text-[var(--color-accent)] active:scale-[0.98] active:bg-[var(--color-bg-subtle)]';
@@ -160,11 +160,17 @@ const Menu = ({ vertical = false, onItemClick }: MenuProps) => {
 
   return (
     <nav className="hidden md:block border-b border-[var(--color-border-light)] bg-gradient-to-b from-white to-[var(--color-bg-alt)] shadow-[0_1px_0_rgba(0,0,0,0.02)]">
-      <ul className="mx-auto flex max-w-[var(--max-width)] list-none items-center justify-center gap-10 px-[var(--content-padding)] py-3 lg:gap-6">
-        {MENU_ITEMS.map(({ href, key }) => (
+      <ul className="mx-auto flex max-w-[var(--max-width)] list-none items-center justify-center gap-8 px-[var(--content-padding)] py-3 lg:gap-4">
+        {MENU_ITEMS.map(({ href, key, icon }) => (
           <li key={key}>
             <a href={href} className={horizontalLink} onClick={onItemClick}>
-              {t(key)}
+              <span
+                className="inline-flex h-4 w-4 align-[-2px] text-[var(--color-accent)] transition-transform duration-200 group-hover:scale-110 [&>svg]:h-full [&>svg]:w-full"
+                aria-hidden="true"
+              >
+                {icon}
+              </span>
+              <span>{t(key)}</span>
             </a>
           </li>
         ))}
