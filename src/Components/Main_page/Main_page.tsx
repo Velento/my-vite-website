@@ -10,6 +10,9 @@ const LeedForm = lazy(() => import('./LeedForm'));
 const Promotions = lazy(() => import('./Promotions'));
 const Services = lazy(() => import('./MainService'));
 const Team = lazy(() => import('./Team'));
+// MapAndReviews carries a Google Maps iframe — load it last so it doesn't
+// block the slider/forms above the fold.
+const MapAndReviews = lazy(() => import('./MapAndReviews'));
 
 const MainPage = () => {
   useEffect(() => {
@@ -49,6 +52,9 @@ const MainPage = () => {
         </FadeInOnScroll>
         <FadeInOnScroll>
           <Team />
+        </FadeInOnScroll>
+        <FadeInOnScroll>
+          <MapAndReviews />
         </FadeInOnScroll>
       </Suspense>
     </main>
