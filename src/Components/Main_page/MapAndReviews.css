@@ -7,16 +7,22 @@
 
 .map-reviews__grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   gap: var(--space-2xl);
   align-items: stretch;
+  width: 100%;
 }
 
+/* `min-width: 0` lets grid items shrink below their content's intrinsic size,
+   preventing the iframe (which has its own intrinsic width) from blowing the
+   left column out and pushing the reviews column off-screen on desktop. */
 .map-reviews__map-col,
 .map-reviews__reviews-col {
   display: flex;
   flex-direction: column;
   text-align: center;
+  min-width: 0;
+  width: 100%;
 }
 
 .map-reviews__heading {
@@ -45,10 +51,15 @@
   overflow: hidden;
   border: 1px solid var(--color-border-light);
   box-shadow: var(--shadow-sm);
+  flex: 1;
+  width: 100%;
+  min-height: 400px;
 }
 
 .map-reviews__map-wrap iframe {
   display: block;
+  width: 100%;
+  max-width: 100%;
 }
 
 .map-reviews__address {
@@ -63,6 +74,8 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  flex: 1;
+  width: 100%;
   min-height: 400px;
   background: var(--color-bg-alt);
   border-radius: var(--radius-lg);
