@@ -102,7 +102,11 @@ const CostDetails = ({ serviceName, onShowContactModal, t }: CostDetailsProps) =
     <div className="cost-details">
       <div className="cost-column">
         <h3 className="services-h3">{t(`services.${serviceName}.basicPackage.title`)}</h3>
-        <p>{t(`services.${serviceName}.basicPackage.content`)}</p>
+        <p
+          dangerouslySetInnerHTML={{
+            __html: t(`services.${serviceName}.basicPackage.content`),
+          }}
+        />
         <button
           type="button"
           className="cost-details-btn"
@@ -116,7 +120,11 @@ const CostDetails = ({ serviceName, onShowContactModal, t }: CostDetailsProps) =
       </div>
       <div className="cost-column">
         <h3 className="services-h3">{t(`services.${serviceName}.allInclusivePackage.title`)}</h3>
-        <p>{t(`services.${serviceName}.allInclusivePackage.content`)}</p>
+        <p
+          dangerouslySetInnerHTML={{
+            __html: t(`services.${serviceName}.allInclusivePackage.content`),
+          }}
+        />
         <button
           type="button"
           className="cost-details-btn"
