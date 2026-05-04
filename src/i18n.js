@@ -280,7 +280,7 @@ i18n.use(initReactI18next).init({
           'Service1.allInclusivePackage': {
             title: 'All-Inclusive Package: 1850 PLN',
             content:
-              'Everything from the Basic package, plus: 1) Provision of our office address in Gdańsk for official correspondence (you won\'t miss important letters). 2) Handling of incoming calls and notifications (ePUAP) under power of attorney. 3) Registration and personal escort by our staff member for the fingerprint submission procedure. 4) Case status monitoring and prompt response to inquiries (wezwanie) from the inspector. 5) Unlimited delivery of documents on your behalf until the decision is issued. 6) Deadline monitoring when changing employer or place of residence during the review. 7) Legal tools to accelerate the case: filing claims and complaints (ponaglenie) about the inspector\'s inaction to higher authorities (Warsaw).',
+              "Everything from the Basic package, plus: 1) Provision of our office address in Gdańsk for official correspondence (you won't miss important letters). 2) Handling of incoming calls and notifications (ePUAP) under power of attorney. 3) Registration and personal escort by our staff member for the fingerprint submission procedure. 4) Case status monitoring and prompt response to inquiries (wezwanie) from the inspector. 5) Unlimited delivery of documents on your behalf until the decision is issued. 6) Deadline monitoring when changing employer or place of residence during the review. 7) Legal tools to accelerate the case: filing claims and complaints (ponaglenie) about the inspector's inaction to higher authorities (Warsaw).",
             button: 'I WANT THE ALL-INCLUSIVE PACKAGE',
           },
           'Service1.moreInfoService': {
@@ -307,7 +307,7 @@ i18n.use(initReactI18next).init({
           'Service2.allInclusivePackage': {
             title: 'All-Inclusive Package: 1850 PLN',
             content:
-              'Everything from the Basic package, plus: 1) Provision of our office address in Gdańsk for official correspondence (you won\'t miss important letters). 2) Handling of incoming calls and notifications (ePUAP) under power of attorney. 3) Registration and personal escort by our staff member for the fingerprint submission procedure. 4) Case status monitoring and prompt response to inquiries (wezwanie) from the inspector. 5) Unlimited delivery of documents on your behalf until the decision is issued. 6) Deadline monitoring when changing employer or place of residence during the review. 7) Legal tools to accelerate the case: filing claims and complaints (ponaglenie) about the inspector\'s inaction to higher authorities (Warsaw).',
+              "Everything from the Basic package, plus: 1) Provision of our office address in Gdańsk for official correspondence (you won't miss important letters). 2) Handling of incoming calls and notifications (ePUAP) under power of attorney. 3) Registration and personal escort by our staff member for the fingerprint submission procedure. 4) Case status monitoring and prompt response to inquiries (wezwanie) from the inspector. 5) Unlimited delivery of documents on your behalf until the decision is issued. 6) Deadline monitoring when changing employer or place of residence during the review. 7) Legal tools to accelerate the case: filing claims and complaints (ponaglenie) about the inspector's inaction to higher authorities (Warsaw).",
             button: 'I WANT THE ALL-INCLUSIVE PACKAGE',
           },
           'Service2.moreInfoService': {
