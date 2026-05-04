@@ -20,6 +20,7 @@
   transform: translateX(-50%);
 }
 
+/* legacy single-line phone link — kept for backwards compatibility */
 .header-phone {
   color: var(--color-text);
   font-weight: 700;
@@ -32,6 +33,60 @@
 
 .header-phone:hover {
   color: var(--color-accent);
+}
+
+/* Premium phone CTA — small label on top, big number with phone icon below.
+   Reads as a clear action, not a passive piece of contact info. */
+.header-phone-cta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  text-decoration: none;
+  padding: 6px 14px;
+  border-radius: var(--radius-sm);
+  transition:
+    background-color var(--duration-base) var(--ease),
+    transform var(--duration-base) var(--ease);
+}
+
+.header-phone-cta:hover {
+  background-color: var(--color-accent-subtle);
+}
+
+.header-phone-cta:active {
+  transform: scale(0.98);
+}
+
+.header-phone-cta__label {
+  font-size: 0.65rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--color-accent);
+  line-height: 1;
+}
+
+.header-phone-cta__number {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--color-text);
+  font-weight: 700;
+  font-size: 1.1rem;
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+  line-height: 1;
+  transition: color var(--duration-fast) var(--ease);
+}
+
+.header-phone-cta:hover .header-phone-cta__number {
+  color: var(--color-accent);
+}
+
+.header-phone-cta__icon {
+  color: var(--color-accent);
+  flex-shrink: 0;
 }
 
 /* ── Right group (icons + lang + burger) ── */
@@ -82,19 +137,26 @@
   gap: var(--space-sm);
 }
 
+/* Header icons (Telegram / WhatsApp / Viber) — uniform 22px square so they
+   visually match the globe icon in LanguageSwitcher. Wrapped in a 38px hit
+   target via padding so the click area stays comfortable on touch. */
 .contact-icon {
-  width: 28px;
-  height: 28px;
+  width: 22px;
+  height: 22px;
   padding: 8px;
   box-sizing: content-box;
-  margin-left: 2px;
-  transition: all var(--duration-base) var(--ease);
-  opacity: 0.7;
+  border-radius: var(--radius-full);
+  transition:
+    background-color var(--duration-base) var(--ease),
+    transform var(--duration-base) var(--ease),
+    opacity var(--duration-base) var(--ease);
+  opacity: 0.85;
 }
 
 .contact-icon:hover {
   opacity: 1;
-  transform: scale(1.1);
+  background-color: var(--color-accent-subtle);
+  transform: scale(1.05);
 }
 
 .header-contacts a {
@@ -164,11 +226,18 @@ a:hover .tooltip {
   background-color: var(--color-bg-alt);
 }
 
+/* Globe icon — same 22px footprint as the messenger icons so the header
+   right-side line of icons is visually aligned. */
 .globe-icon {
-  width: 18px;
-  height: 18px;
-  margin-right: 4px;
-  opacity: 0.6;
+  width: 22px;
+  height: 22px;
+  margin-right: 6px;
+  opacity: 0.7;
+  transition: opacity var(--duration-fast) var(--ease);
+}
+
+.language-selected:hover .globe-icon {
+  opacity: 1;
 }
 
 .language-dropdown {
@@ -232,9 +301,26 @@ a.contact-link-infooter {
   .header-phone {
     font-size: 1rem;
   }
+  .header-phone-cta__label {
+    display: none;
+  }
+  .header-phone-cta__number {
+    font-size: 0.95rem;
+  }
   .contact-icon {
-    width: 22px;
-    height: 22px;
+    width: 20px;
+    height: 20px;
+    padding: 6px;
+  }
+  /* Hide top-of-header contacts/lang switcher on mobile — Burger panel
+     re-exposes them inside the slide-out menu. */
+  .header-contacts,
+  .header-language-switcher {
+    display: none;
+  }
+  .language-dropdown {
+    background-color: var(--color-bg);
+    box-shadow: var(--shadow-md);
   }
 }
 

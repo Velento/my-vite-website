@@ -1,6 +1,17 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 
+const SUPPORTED_LANGS = ['ru', 'pl', 'ua', 'en', 'by'];
+
+function detectLanguage() {
+  if (typeof window === 'undefined') return 'ru';
+  const segment = window.location.pathname.split('/')[1]?.toLowerCase();
+  if (segment && SUPPORTED_LANGS.includes(segment)) return segment;
+  const saved = window.localStorage?.getItem('legal_line_lang');
+  if (saved && SUPPORTED_LANGS.includes(saved)) return saved;
+  return 'ru';
+}
+
 i18n.use(initReactI18next).init({
   resources: {
     en: {
@@ -15,9 +26,9 @@ i18n.use(initReactI18next).init({
 
         'servicespromo.0.title': 'PROMOTIONS',
         'servicespromo.0.points.0':
-          'Get the "Basic" package for 400 PLN. To take advantage of the promotion, mention the promo code "Start24" to our customer service specialist. The promotion is valid only until the end of the month.',
+          'Get the "Basic" package for 700 PLN. To take advantage of the promotion, mention the promo code "Start24" to our customer service specialist. The promotion is valid only until the end of the month.',
         'servicespromo.0.points.1':
-          'Get the "All-Inclusive" package for 1100 PLN. To take advantage of the promotion, mention the promo code "Start24" to our customer service specialist. The promotion is valid only until the end of the month.',
+          'Get the "All-Inclusive" package for 1450 PLN. To take advantage of the promotion, mention the promo code "Start24" to our customer service specialist. The promotion is valid only until the end of the month.',
         'servicespromo.0.points.2':
           'Citizenship documents for 1500 PLN. To take advantage of the promotion, mention the promo code "Start24" to our customer service specialist. The promotion is valid only until the end of the month.',
 
@@ -62,8 +73,8 @@ i18n.use(initReactI18next).init({
         'packages.orderBtn': 'Order',
         'packages.allInclusive.title': 'All Inclusive',
         'packages.allInclusive.badge': 'Most Popular',
-        'packages.allInclusive.price': '1 450 PLN',
-        'packages.allInclusive.oldPrice': '1 800 PLN',
+        'packages.allInclusive.price': '1 850 PLN',
+        'packages.allInclusive.oldPrice': '',
         'packages.allInclusive.features.0': 'Registration at MOS',
         'packages.allInclusive.features.1': 'Document submission',
         'packages.allInclusive.features.2': 'Full case management',
@@ -110,6 +121,15 @@ i18n.use(initReactI18next).init({
           promo: 'Use promo code',
           nameError: 'Name must consist of letters only',
           phoneError: 'Enter at least 9 digits of your phone number',
+          file: 'Attach a document (optional)',
+          fileChoose: 'Choose file',
+          fileChange: 'Change file',
+          fileRemove: 'Remove file',
+          fileHint: 'PDF, JPG, PNG, DOC — up to 10 MB',
+          fileError: 'Invalid file',
+          fileTooLarge: 'File is too large (max 10 MB)',
+          fileTypeError: 'File type not allowed',
+          errorMessage: 'An error occurred. Please try again.',
         },
         'seo.h1': 'Legalization of foreigners in Gdansk — Legal Line',
         'slider.subtitle': 'Residence card, legalization, documents',
@@ -173,7 +193,7 @@ i18n.use(initReactI18next).init({
           reason2: {
             title: 'Installment payment of 100 PLN per month.',
             content:
-              'If you prefer to pay for the service in stages, you can arrange an 9-month installment plan. In this case, the monthly payment will be only 100 PLN.',
+              'If you prefer to pay for the service in stages, you can arrange an 18-month installment plan. In this case, the monthly payment will be only 100 PLN.',
           },
           reason3: {
             title: 'Money-back guarantee.',
@@ -226,7 +246,7 @@ i18n.use(initReactI18next).init({
           title: 'I am Katya.',
           content:
             'I will help you obtain a temporary or permanent residence permit (czasowy pobyt, stały pobyt). I will oversee your case, help you prepare and submit missing documents to the Office, draft proper letters for the Office, appeals or complaints, and much more.',
-          buttonText: 'I WANT A CARD FROM 400 PLN',
+          buttonText: 'I WANT A CARD FROM 700 PLN',
         },
         section5: {
           title: 'Get a personalized legalization plan in Poland.',
@@ -252,15 +272,15 @@ i18n.use(initReactI18next).init({
           'Service1.getConsultation': 'Get a Consultation',
           servicesTitle: 'We Provide the Following Services in Gdańsk',
           'Service1.basicPackage': {
-            title: 'Basic Package: 500 PLN',
+            title: 'Basic Package: 750 PLN',
             content:
-              '1) Consultation. 2) Document analysis and missing document checklist. 3) Document package review before submission. 4) Collection and preparation of the complete document package. 5) Filling out all forms. 6) Registration for personal submission.',
+              '1) Personal consultation on your case. 2) Preparation of a complete document package for submission. 3) Assistance with Profil Zaufany registration and a personal account on the MOS portal. 4) <strong>Liaison with the employer to ensure correct completion and electronic signing of documents.</strong> 5) Technical support during electronic submission and signing of the application in the MOS system.',
             button: 'I WANT THE BASIC PACKAGE',
           },
           'Service1.allInclusivePackage': {
-            title: 'All-Inclusive Package: 1500 PLN',
+            title: 'All-Inclusive Package: 1850 PLN',
             content:
-              '1) Consultation. 2) Assistance in preparing employer documents. 3) Collection and preparation of the complete document package. 4) Filling out all forms. 5) Registration for personal submission. 6) Passport stamping. 7) Fingerprint submission. 8) Case monitoring, correspondence reception, submission of all necessary documents. 9) Contact with the inspector handling your case. 10) Comprehensive support until a decision is made. 11) PESEL number preparation if needed. 12) Trusted profile registration (profil zaufany) if needed. 13) In case of a negative decision due to our fault - assistance in preparing appeal documents and full refund.',
+              'Everything from the Basic package, plus: 1) Provision of our office address in Gdańsk for official correspondence (you won\'t miss important letters). 2) Handling of incoming calls and notifications (ePUAP) under power of attorney. 3) Registration and personal escort by our staff member for the fingerprint submission procedure. 4) Case status monitoring and prompt response to inquiries (wezwanie) from the inspector. 5) Unlimited delivery of documents on your behalf until the decision is issued. 6) Deadline monitoring when changing employer or place of residence during the review. 7) Legal tools to accelerate the case: filing claims and complaints (ponaglenie) about the inspector\'s inaction to higher authorities (Warsaw).',
             button: 'I WANT THE ALL-INCLUSIVE PACKAGE',
           },
           'Service1.moreInfoService': {
@@ -270,7 +290,8 @@ i18n.use(initReactI18next).init({
           },
           'Service1.processingTime': {
             title: 'Processing Time',
-            content: 'The processing time for a residence card in Gdańsk is on average 7 months.',
+            content:
+              'When using legal methods to accelerate the case, the projected processing time for 2026 is 8 months (when filing a court lawsuit). On general grounds, the average waiting time for a decision is 15 to 24 months.',
           },
           'Service2.cost': 'Cost',
           'Service2.terming': 'Card Processing Time',
@@ -278,15 +299,15 @@ i18n.use(initReactI18next).init({
           'Service2.orderService': 'Order Service',
           'Service2.getConsultation': 'Get a Consultation',
           'Service2.basicPackage': {
-            title: 'Basic Package: 500 PLN',
+            title: 'Basic Package: 750 PLN',
             content:
-              '1) Consultation. 2) Document analysis and missing document checklist. 3) Document package review before submission. 4) Collection and preparation of the complete document package. 5) Filling out all forms. 6) Registration for personal submission.',
+              '1) Personal consultation on your case. 2) Preparation of a complete document package for submission. 3) Assistance with Profil Zaufany registration and a personal account on the MOS portal. 4) <strong>Liaison with the employer to ensure correct completion and electronic signing of documents.</strong> 5) Technical support during electronic submission and signing of the application in the MOS system.',
             button: 'I WANT THE BASIC PACKAGE',
           },
           'Service2.allInclusivePackage': {
-            title: 'All-Inclusive Package: 1500 PLN',
+            title: 'All-Inclusive Package: 1850 PLN',
             content:
-              '1) Consultation. 2) Assistance in preparing employer documents. 3) Collection and preparation of the complete document package. 4) Filling out all forms. 5) Registration for personal submission. 6) Passport stamping. 7) Fingerprint submission. 8) Case monitoring, correspondence reception, submission of all necessary documents. 9) Contact with the inspector handling your case. 10) Comprehensive support until a decision is made. 11) PESEL number preparation if needed. 12) Trusted profile registration (profil zaufany) if needed. 13) In case of a negative decision due to our fault - assistance in preparing appeal documents and full refund.',
+              'Everything from the Basic package, plus: 1) Provision of our office address in Gdańsk for official correspondence (you won\'t miss important letters). 2) Handling of incoming calls and notifications (ePUAP) under power of attorney. 3) Registration and personal escort by our staff member for the fingerprint submission procedure. 4) Case status monitoring and prompt response to inquiries (wezwanie) from the inspector. 5) Unlimited delivery of documents on your behalf until the decision is issued. 6) Deadline monitoring when changing employer or place of residence during the review. 7) Legal tools to accelerate the case: filing claims and complaints (ponaglenie) about the inspector\'s inaction to higher authorities (Warsaw).',
             button: 'I WANT THE ALL-INCLUSIVE PACKAGE',
           },
           'Service2.moreInfoService': {
@@ -296,7 +317,8 @@ i18n.use(initReactI18next).init({
           },
           'Service2.processingTime': {
             title: 'Processing Time',
-            content: 'The processing time for a residence card in Gdańsk is on average 7 months.',
+            content:
+              'When using legal methods to accelerate the case, the projected processing time for 2026 is 8 months (when filing a court lawsuit). On general grounds, the average waiting time for a decision is 15 to 24 months.',
           },
           'Service3.cost': 'Cost',
           'Service3.terming': 'Processing Time',
@@ -519,9 +541,9 @@ i18n.use(initReactI18next).init({
         'menu.feedback': 'Zostaw zapytanie',
         'servicespromo.0.title': 'PROMOCJE',
         'servicespromo.0.points.0':
-          'Zdobądź pakiet "Podstawowy" za 400 zł. Aby skorzystać z promocji, podaj naszemu specjaliście ds. obsługi klienta kod promocyjny "Start24". Promocja obowiązuje tylko do końca miesiąca.',
+          'Zdobądź pakiet "Podstawowy" za 700 zł. Aby skorzystać z promocji, podaj naszemu specjaliście ds. obsługi klienta kod promocyjny "Start24". Promocja obowiązuje tylko do końca miesiąca.',
         'servicespromo.0.points.1':
-          'Zdobądź pakiet "Wszystko w cenie" za 1100 zł. Aby skorzystać z promocji, podaj naszemu specjaliście ds. obsługi klienta kod promocyjny "Start24". Promocja obowiązuje tylko do końca miesiąca.',
+          'Zdobądź pakiet "Wszystko w cenie" za 1450 zł. Aby skorzystać z promocji, podaj naszemu specjaliście ds. obsługi klienta kod promocyjny "Start24". Promocja obowiązuje tylko do końca miesiąca.',
         'servicespromo.0.points.2':
           'Dokumenty na obywatelstwo za 1500 zł. Aby skorzystać z promocji, podaj naszemu specjaliście ds. obsługi klienta kod promocyjny "Start24". Promocja obowiązuje tylko do końca miesiąca.',
 
@@ -566,8 +588,8 @@ i18n.use(initReactI18next).init({
         'packages.orderBtn': 'Zamów',
         'packages.allInclusive.title': 'Wszystko w cenie',
         'packages.allInclusive.badge': 'Najpopularniejszy',
-        'packages.allInclusive.price': '1 450 PLN',
-        'packages.allInclusive.oldPrice': '1 800 PLN',
+        'packages.allInclusive.price': '1 850 PLN',
+        'packages.allInclusive.oldPrice': '',
         'packages.allInclusive.features.0': 'Rejestracja w MOS',
         'packages.allInclusive.features.1': 'Złożenie dokumentów',
         'packages.allInclusive.features.2': 'Pełne prowadzenie sprawy',
@@ -613,6 +635,15 @@ i18n.use(initReactI18next).init({
           promo: 'Użyj kodu promocyjnego',
           nameError: 'Imię musi składać się tylko z liter',
           phoneError: 'Wprowadź co najmniej 9 cyfr swojego numeru telefonu',
+          file: 'Załącz dokument (opcjonalnie)',
+          fileChoose: 'Wybierz plik',
+          fileChange: 'Zmień plik',
+          fileRemove: 'Usuń plik',
+          fileHint: 'PDF, JPG, PNG, DOC — do 10 MB',
+          fileError: 'Nieprawidłowy plik',
+          fileTooLarge: 'Plik za duży (maks. 10 MB)',
+          fileTypeError: 'Nieobsługiwany typ pliku',
+          errorMessage: 'Wystąpił błąd. Spróbuj ponownie.',
         },
         'seo.h1': 'Legalizacja cudzoziemców w Gdańsku — Legal Line',
         'slider.subtitle': 'Karta pobytu, legalizacja, dokumenty',
@@ -672,7 +703,7 @@ i18n.use(initReactI18next).init({
           reason2: {
             title: 'Płatność w ratach po 100 zł miesięcznie.',
             content:
-              'Jeśli wolisz płacić za usługę etapami, możesz rozłożyć płatność na 9 miesięcy. W takim przypadku miesięczna rata wyniesie jedynie 100 złotych.',
+              'Jeśli wolisz płacić za usługę etapami, możesz rozłożyć płatność na 18 miesięcy. W takim przypadku miesięczna rata wyniesie jedynie 100 złotych.',
           },
           reason3: {
             title: 'Zwrot pieniędzy.',
@@ -730,7 +761,7 @@ i18n.use(initReactI18next).init({
           title: 'Jestem Katia.',
           content:
             'Pomogę ci uzyskać tymczasowe lub stałe pozwolenie na pobyt (czasowy pobyt, stały pobyt). Będę monitorować twoją sprawę, pomogę przygotować i dostarczyć brakujące dokumenty do Urzędu, napiszę dla ciebie odpowiednie pisma do Urzędu, odwołania lub skargi oraz wiele innych.',
-          buttonText: 'CHCĘ KARTĘ OD 400 PLN',
+          buttonText: 'CHCĘ KARTĘ OD 700 PLN',
         },
         section5: {
           title: 'Uzyskaj spersonalizowany plan legalizacji w Polsce.',
@@ -754,15 +785,15 @@ i18n.use(initReactI18next).init({
           'Service1.getConsultation': 'Uzyskaj konsultację',
           servicesTitle: 'Świadczymy następujące usługi w Gdańsku',
           'Service1.basicPackage': {
-            title: 'Pakiet podstawowy: 500 zł',
+            title: 'Pakiet podstawowy: 750 zł',
             content:
-              '1) Konsultacja. 2) Analiza aktualnych dokumentów i sporządzenie listy brakujących. 3) Sprawdzenie pakietu dokumentów przed złożeniem. 4) Zbieranie i przygotowanie pełnego pakietu dokumentów. 5) Wypełnianie wszystkich formularzy. 6) Rejestracja na osobiste złożenie wniosku.',
+              '1) Indywidualna konsultacja w Twojej sprawie. 2) Przygotowanie pełnego kompletu dokumentów do złożenia. 3) Pomoc w rejestracji Profil Zaufany i konta osobistego na portalu MOS. 4) <strong>Współpraca z pracodawcą w celu zapewnienia prawidłowego wypełnienia i elektronicznego podpisania dokumentów.</strong> 5) Wsparcie techniczne przy elektronicznym składaniu i podpisywaniu wniosku w systemie MOS.',
             button: 'CHCĘ PAKIET PODSTAWOWY',
           },
           'Service1.allInclusivePackage': {
-            title: 'Pakiet "Wszystko w cenie": 1500 zł',
+            title: 'Pakiet "Wszystko w cenie": 1850 zł',
             content:
-              '1) Konsultacja. 2) Pomoc w przygotowaniu dokumentów od pracodawcy. 3) Zbieranie i przygotowanie pełnego pakietu dokumentów. 4) Wypełnianie wszystkich formularzy. 5) Rejestracja na osobiste złożenie wniosku. 6) Uzyskanie pieczęci w paszporcie. 7) Oddanie odcisków palców. 8) Monitorowanie sprawy, odbieranie korespondencji, składanie wszystkich niezbędnych dokumentów. 9) Kontakt z inspektorem prowadzącym twoją sprawę. 10) Kompleksowe wsparcie w twojej sprawie aż do uzyskania decyzji. 11) Przygotowanie numeru PESEL w razie potrzeby. 12) Rejestracja zaufanego profilu (profil zaufany) w razie potrzeby. 13) W przypadku negatywnej decyzji z naszej winy - pomoc w przygotowaniu dokumentów na odwołanie i pełny zwrot kosztów.',
+              'Wszystko z Pakietu podstawowego, a także: 1) Udostępnienie adresu naszego biura w Gdańsku do korespondencji urzędowej (nie przegapisz ważnych pism). 2) Obsługa połączeń przychodzących i powiadomień (ePUAP) na podstawie pełnomocnictwa. 3) Rejestracja i osobiste towarzyszenie przez naszego pracownika podczas procedury pobierania odcisków palców. 4) Kontrola statusu sprawy i szybka reakcja na wezwania inspektora. 5) Dostarczanie dokumentów w Twoim imieniu w nieograniczonej ilości aż do otrzymania decyzji. 6) Kontrola terminów przy zmianie pracy lub miejsca zamieszkania w trakcie rozpatrywania. 7) Prawne narzędzia przyspieszenia sprawy: składanie roszczeń i skarg (ponaglenie) na bezczynność inspektora do wyższych instancji (Warszawa).',
             button: 'CHCĘ PAKIET "WSZYSTKO W CENIE"',
           },
           'Service1.moreInfoService': {
@@ -772,7 +803,8 @@ i18n.use(initReactI18next).init({
           },
           'Service1.processingTime': {
             title: 'Czas oczekiwania',
-            content: 'Czas oczekiwania na kartę pobytu w Gdańsku wynosi średnio 7 miesięcy.',
+            content:
+              'Przy zastosowaniu prawnych sposobów przyspieszenia sprawy, na 2026 rok prognozowany czas wynosi 8 miesięcy (przy złożeniu pozwu sądowego). Na zasadach ogólnych średni czas oczekiwania na decyzję - od 15 do 24 miesięcy.',
           },
           'Service2.cost': 'Koszt',
           'Service2.terming': 'Czas oczekiwania na kartę',
@@ -780,15 +812,15 @@ i18n.use(initReactI18next).init({
           'Service2.orderService': 'Zamów usługę',
           'Service2.getConsultation': 'Uzyskaj konsultację',
           'Service2.basicPackage': {
-            title: 'Pakiet podstawowy: 500 zł',
+            title: 'Pakiet podstawowy: 750 zł',
             content:
-              '1) Konsultacja. 2) Analiza aktualnych dokumentów i sporządzenie listy brakujących. 3) Sprawdzenie pakietu dokumentów przed złożeniem. 4) Zbieranie i przygotowanie pełnego pakietu dokumentów. 5) Wypełnianie wszystkich formularzy. 6) Rejestracja na osobiste złożenie wniosku.',
+              '1) Indywidualna konsultacja w Twojej sprawie. 2) Przygotowanie pełnego kompletu dokumentów do złożenia. 3) Pomoc w rejestracji Profil Zaufany i konta osobistego na portalu MOS. 4) <strong>Współpraca z pracodawcą w celu zapewnienia prawidłowego wypełnienia i elektronicznego podpisania dokumentów.</strong> 5) Wsparcie techniczne przy elektronicznym składaniu i podpisywaniu wniosku w systemie MOS.',
             button: 'CHCĘ PAKIET PODSTAWOWY',
           },
           'Service2.allInclusivePackage': {
-            title: 'Pakiet "Wszystko w cenie": 1500 zł',
+            title: 'Pakiet "Wszystko w cenie": 1850 zł',
             content:
-              '1) Konsultacja. 2) Pomoc w przygotowaniu dokumentów od pracodawcy. 3) Zbieranie i przygotowanie pełnego pakietu dokumentów. 4) Wypełnianie wszystkich formularzy. 5) Rejestracja na osobiste złożenie wniosku. 6) Uzyskanie pieczęci w paszporcie. 7) Oddanie odcisków palców. 8) Monitorowanie sprawy, odbieranie korespondencji, składanie wszystkich niezbędnych dokumentów. 9) Kontakt z inspektorem prowadzącym twoją sprawę. 10) Kompleksowe wsparcie w twojej sprawie aż do uzyskania decyzji. 11) Przygotowanie numeru PESEL w razie potrzeby. 12) Rejestracja zaufanego profilu (profil zaufany) w razie potrzeby. 13) W przypadku negatywnej decyzji z naszej winy - pomoc w przygotowaniu dokumentów na odwołanie i pełny zwrot kosztów.',
+              'Wszystko z Pakietu podstawowego, a także: 1) Udostępnienie adresu naszego biura w Gdańsku do korespondencji urzędowej (nie przegapisz ważnych pism). 2) Obsługa połączeń przychodzących i powiadomień (ePUAP) na podstawie pełnomocnictwa. 3) Rejestracja i osobiste towarzyszenie przez naszego pracownika podczas procedury pobierania odcisków palców. 4) Kontrola statusu sprawy i szybka reakcja na wezwania inspektora. 5) Dostarczanie dokumentów w Twoim imieniu w nieograniczonej ilości aż do otrzymania decyzji. 6) Kontrola terminów przy zmianie pracy lub miejsca zamieszkania w trakcie rozpatrywania. 7) Prawne narzędzia przyspieszenia sprawy: składanie roszczeń i skarg (ponaglenie) na bezczynność inspektora do wyższych instancji (Warszawa).',
             button: 'CHCĘ PAKIET "WSZYSTKO W CENIE"',
           },
           'Service2.moreInfoService': {
@@ -798,7 +830,8 @@ i18n.use(initReactI18next).init({
           },
           'Service2.processingTime': {
             title: 'Czas oczekiwania',
-            content: 'Czas oczekiwania na kartę pobytu w Gdańsku wynosi średnio 7 miesięcy.',
+            content:
+              'Przy zastosowaniu prawnych sposobów przyspieszenia sprawy, na 2026 rok prognozowany czas wynosi 8 miesięcy (przy złożeniu pozwu sądowego). Na zasadach ogólnych średni czas oczekiwania na decyzję - od 15 do 24 miesięcy.',
           },
           'Service3.cost': 'Koszt',
           'Service3.terming': 'Czas oczekiwania',
@@ -970,9 +1003,9 @@ i18n.use(initReactI18next).init({
 
         'servicespromo.0.title': 'АКЦІЇ',
         'servicespromo.0.points.0':
-          'Встигніть придбати пакет "Базовий" за 400 зл. Щоб скористатися акцією, назвіть нашому спеціалісту з роботи з клієнтами промокод "Старт24". Акція діє лише до кінця місяця.',
+          'Встигніть придбати пакет "Базовий" за 700 зл. Щоб скористатися акцією, назвіть нашому спеціалісту з роботи з клієнтами промокод "Старт24". Акція діє лише до кінця місяця.',
         'servicespromo.0.points.1':
-          'Встигніть придбати пакет "Все включено" за 1100 зл. Щоб скористатися акцією, назвіть нашому спеціалісту з роботи з клієнтами промокод "Старт24". Акція діє лише до кінця місяця.',
+          'Встигніть придбати пакет "Все включено" за 1450 зл. Щоб скористатися акцією, назвіть нашому спеціалісту з роботи з клієнтами промокод "Старт24". Акція діє лише до кінця місяця.',
         'servicespromo.0.points.2':
           'Документи на громадянство за 1500 зл.  Щоб скористатися акцією, назвіть нашому спеціалісту з роботи з клієнтами промокод "Старт24". Акція діє лише до кінця місяця.',
 
@@ -1016,8 +1049,8 @@ i18n.use(initReactI18next).init({
         'packages.orderBtn': 'Замовити',
         'packages.allInclusive.title': 'Все включено',
         'packages.allInclusive.badge': 'Найпопулярніший',
-        'packages.allInclusive.price': '1 450 PLN',
-        'packages.allInclusive.oldPrice': '1 800 PLN',
+        'packages.allInclusive.price': '1 850 PLN',
+        'packages.allInclusive.oldPrice': '',
         'packages.allInclusive.features.0': 'Реєстрація в MOS',
         'packages.allInclusive.features.1': 'Подача документів',
         'packages.allInclusive.features.2': 'Повне ведення справи',
@@ -1064,6 +1097,15 @@ i18n.use(initReactI18next).init({
           promo: 'Використовуйте промокод',
           nameError: "Ім'я повинно складатися лише з літер",
           phoneError: 'Введіть не менше 9 цифр вашого номера телефону',
+          file: 'Прикріпити документ (опційно)',
+          fileChoose: 'Вибрати файл',
+          fileChange: 'Змінити файл',
+          fileRemove: 'Видалити файл',
+          fileHint: 'PDF, JPG, PNG, DOC — до 10 МБ',
+          fileError: 'Невірний файл',
+          fileTooLarge: 'Файл завеликий (макс. 10 МБ)',
+          fileTypeError: 'Цей тип файлу не підтримується',
+          errorMessage: 'Сталася помилка. Спробуйте ще раз.',
         },
         'seo.h1': 'Легалізація іноземців у Гданську — Legal Line',
         'slider.subtitle': 'Карта побуту, легалізація, документи',
@@ -1123,7 +1165,7 @@ i18n.use(initReactI18next).init({
           reason2: {
             title: 'Оплата в РОЗСТРОЧКУ по 100 злотих на місяць.',
             content:
-              'Якщо вам зручніше оплачувати послугу поетапно, ви можете оформити розстрочку на 9 місяців. При цьому щомісячна оплата становитиме лише 100 злотих.',
+              'Якщо вам зручніше оплачувати послугу поетапно, ви можете оформити розстрочку на 18 місяців. При цьому щомісячна оплата становитиме лише 100 злотих.',
           },
           reason3: {
             title: 'Повернення коштів.',
@@ -1181,7 +1223,7 @@ i18n.use(initReactI18next).init({
           title: 'Я Катя.',
           content:
             'Я допоможу тобі отримати тимчасовий або постійний вид на проживання (czasowy pobyt, stały pobyt). Я стежитиму за твоєю справою, допоможу підготувати та доставити відсутні документи в Ужонд, складу для тебе правильні листи до Ужонду, апеляції або скарги, а також багато іншого.',
-          buttonText: 'ХОЧУ КАРТУ ВІД 400 зл.',
+          buttonText: 'ХОЧУ КАРТУ ВІД 700 зл.',
         },
         section5: {
           title: 'Отримай персональний план по легалізації в Польщі.',
@@ -1206,15 +1248,15 @@ i18n.use(initReactI18next).init({
           'Service1.getConsultation': 'Отримати консультацію',
           servicesTitle: 'Ми надаємо наступні послуги в Гданську',
           'Service1.basicPackage': {
-            title: 'Базовий пакет: 500 зл',
+            title: 'Базовий пакет: 750 зл',
             content:
-              '1) Консультація. 2) Аналіз актуальних документів і складання списку відсутніх. 3) Перевірка пакету документів перед подачею. 4) Збір і підготовка повного пакету документів. 5) Заповнення всіх анкет. 6) Реєстрація на особисту подачу.',
+              '1) Персональна консультація щодо вашої справи. 2) Підготовка повного комплекту документів для подання. 3) Допомога в реєстрації Profil Zaufany та особистого кабінету на порталі MOS. 4) <strong>Взаємодія з роботодавцем для забезпечення коректного заповнення та електронного підписання документів.</strong> 5) Технічний супровід при електронному поданні та підписанні заявки в системі MOS.',
             button: 'ХОЧУ БАЗОВИЙ ПАКЕТ',
           },
           'Service1.allInclusivePackage': {
-            title: 'Пакет "Все включено": 1500 зл',
+            title: 'Пакет "Все включено": 1850 зл',
             content:
-              '1) Консультація. 2) Допомога у підготовці документів від роботодавця. 3) Збір і підготовка повного пакету документів. 4) Заповнення всіх анкет. 5) Реєстрація на особисту подачу. 6) Отримання штампу в паспорт. 7) Здача відбитків пальців. 8) Контроль справи, отримання кореспонденції, здача всіх необхідних документів. 9) Контакт з інспектором, який веде вашу справу. 10) Комплексний супровід вашої справи до отримання рішення. 11) Підготовка номера PESEL за необхідністю. 12) Реєстрація довіреного профілю (profil zaufany) за необхідністю. 13) У разі негативного рішення з нашої вини - допомога у підготовці документів на апеляцію та повне повернення коштів.',
+              'Все з Базового пакету, а також: 1) Надання адреси нашого офісу в Гданську для офіційної кореспонденції (ви не пропустите важливі листи). 2) Обробка вхідних дзвінків та повідомлень (ePUAP) на підставі довіреності. 3) Реєстрація та особистий супровід нашим співробітником на процедуру зняття відбитків пальців. 4) Контроль статусу справи та оперативне реагування на запити (wezwanie) від інспектора. 5) Донесення за вас документів у необмеженій кількості до отримання рішення. 6) Контроль термінів при зміні роботи або місця проживання в процесі розгляду. 7) Юридичні інструменти прискорення справи: подача претензій, скарг (ponaglenie) на бездіяльність інспектора у вищі інстанції (Варшава).',
             button: 'ХОЧУ ПАКЕТ "ВСЕ ВКЛЮЧЕНО"',
           },
           'Service1.moreInfoService': {
@@ -1225,7 +1267,7 @@ i18n.use(initReactI18next).init({
           'Service1.processingTime': {
             title: 'Термін отримання',
             content:
-              'Термін отримання карти перебування в Гданську складає в середньому 7 місяців.',
+              'При застосуванні законних способів прискорення справи, на 2026 рік прогнозні терміни становлять 8 місяців (при поданні позовної заяви). На загальних підставах середнє очікування рішення - від 15 до 24 місяців.',
           },
           'Service2.cost': 'Вартість',
           'Service2.terming': 'Термін отримання карти',
@@ -1233,15 +1275,15 @@ i18n.use(initReactI18next).init({
           'Service2.orderService': 'Замовити послугу',
           'Service2.getConsultation': 'Отримати консультацію',
           'Service2.basicPackage': {
-            title: 'Базовий пакет: 500 зл',
+            title: 'Базовий пакет: 750 зл',
             content:
-              '1) Консультація. 2) Аналіз актуальних документів і складання списку відсутніх. 3) Перевірка пакету документів перед подачею. 4) Збір і підготовка повного пакету документів. 5) Заповнення всіх анкет. 6) Реєстрація на особисту подачу.',
+              '1) Персональна консультація щодо вашої справи. 2) Підготовка повного комплекту документів для подання. 3) Допомога в реєстрації Profil Zaufany та особистого кабінету на порталі MOS. 4) <strong>Взаємодія з роботодавцем для забезпечення коректного заповнення та електронного підписання документів.</strong> 5) Технічний супровід при електронному поданні та підписанні заявки в системі MOS.',
             button: 'ХОЧУ БАЗОВИЙ ПАКЕТ',
           },
           'Service2.allInclusivePackage': {
-            title: 'Пакет "Все включено": 1500 зл',
+            title: 'Пакет "Все включено": 1850 зл',
             content:
-              '1) Консультація. 2) Допомога у підготовці документів від роботодавця. 3) Збір і підготовка повного пакету документів. 4) Заповнення всіх анкет. 5) Реєстрація на особисту подачу. 6) Отримання штампу в паспорт. 7) Здача відбитків пальців. 8) Контроль справи, отримання кореспонденції, здача всіх необхідних документів. 9) Контакт з інспектором, який веде вашу справу. 10) Комплексний супровід вашої справи до отримання рішення. 11) Підготовка номера PESEL за необхідністю. 12) Реєстрація довіреного профілю (profil zaufany) за необхідністю. 13) У разі негативного рішення з нашої вини - допомога у підготовці документів на апеляцію та повне повернення коштів.',
+              'Все з Базового пакету, а також: 1) Надання адреси нашого офісу в Гданську для офіційної кореспонденції (ви не пропустите важливі листи). 2) Обробка вхідних дзвінків та повідомлень (ePUAP) на підставі довіреності. 3) Реєстрація та особистий супровід нашим співробітником на процедуру зняття відбитків пальців. 4) Контроль статусу справи та оперативне реагування на запити (wezwanie) від інспектора. 5) Донесення за вас документів у необмеженій кількості до отримання рішення. 6) Контроль термінів при зміні роботи або місця проживання в процесі розгляду. 7) Юридичні інструменти прискорення справи: подача претензій, скарг (ponaglenie) на бездіяльність інспектора у вищі інстанції (Варшава).',
             button: 'ХОЧУ ПАКЕТ "ВСЕ ВКЛЮЧЕНО"',
           },
           'Service2.moreInfoService': {
@@ -1252,7 +1294,7 @@ i18n.use(initReactI18next).init({
           'Service2.processingTime': {
             title: 'Термін отримання',
             content:
-              'Термін отримання карти перебування в Гданську складає в середньому 7 місяців.',
+              'При застосуванні законних способів прискорення справи, на 2026 рік прогнозні терміни становлять 8 місяців (при поданні позовної заяви). На загальних підставах середнє очікування рішення - від 15 до 24 місяців.',
           },
           'Service3.cost': 'Вартість',
           'Service3.terming': 'Час очікування',
@@ -1424,9 +1466,9 @@ i18n.use(initReactI18next).init({
 
         'servicespromo.0.title': 'АКЦЫІ',
         'servicespromo.0.points.0':
-          'Спяшайцеся набыць пакет "Базавы" за 400 зл. Каб скарыстацца акцыяй, назавіце нашаму спецыялісту па працы з кліентамі прома-код "Старт24". Акцыя дзейнічае толькі да канца месяца.',
+          'Спяшайцеся набыць пакет "Базавы" за 700 зл. Каб скарыстацца акцыяй, назавіце нашаму спецыялісту па працы з кліентамі прома-код "Старт24". Акцыя дзейнічае толькі да канца месяца.',
         'servicespromo.0.points.1':
-          'Спяшайцеся набыць пакет "Усё ўключана" за 1100 зл. Каб скарыстацца акцыяй, назавіце нашаму спецыялісту па працы з кліентамі прома-код "Старт24". Акцыя дзейнічае толькі да канца месяца.',
+          'Спяшайцеся набыць пакет "Усё ўключана" за 1450 зл. Каб скарыстацца акцыяй, назавіце нашаму спецыялісту па працы з кліентамі прома-код "Старт24". Акцыя дзейнічае толькі да канца месяца.',
         'servicespromo.0.points.2':
           'Дакументы на грамадзянства за 1500 зл.  Каб скарыстацца акцыяй, назавіце нашаму спецыялісту па працы з кліентамі прома-код "Старт24". Акцыя дзейнічае толькі да канца месяца.',
 
@@ -1471,8 +1513,8 @@ i18n.use(initReactI18next).init({
         'packages.orderBtn': 'Замовіць',
         'packages.allInclusive.title': 'Усё ўключана',
         'packages.allInclusive.badge': 'Самы папулярны',
-        'packages.allInclusive.price': '1 450 PLN',
-        'packages.allInclusive.oldPrice': '1 800 PLN',
+        'packages.allInclusive.price': '1 850 PLN',
+        'packages.allInclusive.oldPrice': '',
         'packages.allInclusive.features.0': 'Рэгістрацыя ў MOS',
         'packages.allInclusive.features.1': 'Падача дакументаў',
         'packages.allInclusive.features.2': 'Поўнае вядзенне справы',
@@ -1517,6 +1559,15 @@ i18n.use(initReactI18next).init({
           promo: 'Выкарыстоўвайце прома-код',
           nameError: 'Імя павінна складацца толькі з літар',
           phoneError: 'Увядзіце не менш за 9 цифраў вашага нумара тэлефона',
+          file: 'Прыкласці дакумент (па жаданні)',
+          fileChoose: 'Выбраць файл',
+          fileChange: 'Змяніць файл',
+          fileRemove: 'Выдаліць файл',
+          fileHint: 'PDF, JPG, PNG, DOC — да 10 МБ',
+          fileError: 'Няправільны файл',
+          fileTooLarge: 'Файл занадта вялікі (макс. 10 МБ)',
+          fileTypeError: 'Гэты тып файла не падтрымліваецца',
+          errorMessage: 'Адбылася памылка. Паспрабуйце яшчэ раз.',
         },
         'seo.h1': 'Легалізацыя замежнікаў у Гданьску — Legal Line',
         'slider.subtitle': 'Карта пабыту, легалізацыя, дакументы',
@@ -1579,7 +1630,7 @@ i18n.use(initReactI18next).init({
           reason2: {
             title: 'Аплата ў растэрміноўку па 100 зл. у месяц.',
             content:
-              'Калі вам зручней аплачваць паслугу паэтапна, то вы можаце аформіць растэрміноўку на 9 месяцаў. Пры гэтым штомесячны плацёж складзе ўсяго толькі 100 злотых.',
+              'Калі вам зручней аплачваць паслугу паэтапна, то вы можаце аформіць растэрміноўку на 18 месяцаў. Пры гэтым штомесячны плацёж складзе ўсяго толькі 100 злотых.',
           },
           reason3: {
             title: 'Вяртанне грашовых сродкаў.',
@@ -1632,7 +1683,7 @@ i18n.use(initReactI18next).init({
           title: 'Я Каця.',
           content:
             'Я дапамагу табе атрымаць часовы або сталы статус замежнага грамадзянства (czasowy pobyt, stały pobyt). Я сачыць за тваёй справай, дапамагу падрыхтаваць і даслаць адсутнія дакументы ў Ужонд, складу табе правільныя лісты для Ужонда, апеляцыі ці скаргі, а таксама шмат іншага.',
-          buttonText: 'ХОЧУ КАРТУ АД 400 зл.',
+          buttonText: 'ХОЧУ КАРТУ АД 700 зл.',
         },
         section5: {
           title: 'Атрымай персаналізаваны план па легалізацыі ў Польшчы.',
@@ -1657,15 +1708,15 @@ i18n.use(initReactI18next).init({
           'Service1.getConsultation': 'Атрымаць кансультацыю',
           servicesTitle: 'Мы аказваем наступныя паслугі ў Гданьску',
           'Service1.basicPackage': {
-            title: 'Базавы пакет: 500 зл',
+            title: 'Базавы пакет: 750 зл',
             content:
-              '1) Кансультацыя. 2) Аналіз актуальных дакументаў і складанне спісу недастаючых. 3) Праверка пакета дакументаў перад падачай. 4) Збор і падрыхтоўка поўнага пакета дакументаў. 5) Запаўненне ўсіх анкет. 6) Рэгістрацыя на асабістую падачу.',
+              '1) Персанальная кансультацыя па вашай справе. 2) Падрыхтоўка поўнага камплекту дакументаў для падачы. 3) Дапамога ў рэгістрацыі Profil Zaufany і асабістага кабінета на партале MOS. 4) <strong>Узаемадзеянне з працадаўцам для забеспячэння карэктнага запаўнення і электроннага падпісання дакументаў.</strong> 5) Тэхнічнае суправаджэнне пры электроннай падачы і падпісанні заяўкі ў сістэме MOS.',
             button: 'ХАЧУ БАЗАВЫ ПАКЕТ',
           },
           'Service1.allInclusivePackage': {
-            title: 'Пакет "Усё ўключана": 1500 зл',
+            title: 'Пакет "Усё ўключана": 1850 зл',
             content:
-              '1) Кансультацыя. 2) Дапамога ў падрыхтоўцы дакументаў ад працадаўцы. 3) Збор і падрыхтоўка поўнага пакета дакументаў. 4) Запаўненне ўсіх анкет. 5) Рэгістрацыя на асабістую падачу. 6) Атрыманне штампа ў пашпарт. 7) Здача адбіткаў пальцаў. 8) Кантроль справы, атрыманне карэспандэнцыі, здача ўсіх неабходных дакументаў. 9) Кантакт з інспектарам, які вядзе вашу справу. 10) Комплекснае суправаджэнне вашай справы да атрымання рашэння. 11) Падрыхтоўка нумара PESEL пры неабходнасці. 12) Рэгістрацыя даверанага профілю (profil zaufany) пры неабходнасці. 13) У выпадку адмоўнага рашэння па нашай віне - дапамога ў падрыхтоўцы дакументаў на апеляцыю і поўны вяртанне сродкаў.',
+              'Усё з Базавага пакета, а таксама: 1) Прадастаўленне адраса нашага офіса ў Гданьску для афіцыйнай карэспандэнцыі (вы не прапусціце важныя лісты). 2) Апрацоўка ўваходных званкоў і паведамленняў (ePUAP) на падставе даверанасці. 3) Рэгістрацыя і асабістае суправаджэнне нашым супрацоўнікам на працэдуру зняцця адбіткаў пальцаў. 4) Кантроль статусу справы і аператыўнае рэагаванне на запыты (wezwanie) ад інспектара. 5) Даношванне за вас дакументаў у неабмежаванай колькасці да атрымання рашэння. 6) Кантроль тэрмінаў пры змене працы або месца жыхарства ў працэсе разгляду. 7) Юрыдычныя інструменты паскарэння справы: падача прэтэнзій, скаргаў (ponaglenie) на бяздзейнасць інспектара ў вышэйшыя інстанцыі (Варшава).',
             button: 'ХАЧУ ПАКЕТ "УСЁ ЎКЛЮЧАНА"',
           },
           'Service1.moreInfoService': {
@@ -1675,7 +1726,8 @@ i18n.use(initReactI18next).init({
           },
           'Service1.processingTime': {
             title: 'Тэрмін атрымання',
-            content: 'Тэрмін атрымання карты знаходжання ў Гданьску складае ў сярэднім 7 месяцаў.',
+            content:
+              'Пры прымяненні законных спосабаў паскарэння справы, на 2026 год прагнозныя тэрміны 8 месяцаў (пры падачы іскавай заявы). Па агульных падставах сярэдняе чаканне рашэння - ад 15 да 24 месяцаў.',
           },
           'Service2.cost': 'Кошт',
           'Service2.terming': 'Тэрмін атрымання карты',
@@ -1683,15 +1735,15 @@ i18n.use(initReactI18next).init({
           'Service2.orderService': 'Замовіць паслугу',
           'Service2.getConsultation': 'Атрымаць кансультацыю',
           'Service2.basicPackage': {
-            title: 'Базавы пакет: 500 зл',
+            title: 'Базавы пакет: 750 зл',
             content:
-              '1) Кансультацыя. 2) Аналіз актуальных дакументаў і складанне спісу недастаючых. 3) Праверка пакета дакументаў перад падачай. 4) Збор і падрыхтоўка поўнага пакета дакументаў. 5) Запаўненне ўсіх анкет. 6) Рэгістрацыя на асабістую падачу.',
+              '1) Персанальная кансультацыя па вашай справе. 2) Падрыхтоўка поўнага камплекту дакументаў для падачы. 3) Дапамога ў рэгістрацыі Profil Zaufany і асабістага кабінета на партале MOS. 4) <strong>Узаемадзеянне з працадаўцам для забеспячэння карэктнага запаўнення і электроннага падпісання дакументаў.</strong> 5) Тэхнічнае суправаджэнне пры электроннай падачы і падпісанні заяўкі ў сістэме MOS.',
             button: 'ХАЧУ БАЗАВЫ ПАКЕТ',
           },
           'Service2.allInclusivePackage': {
-            title: 'Пакет "Усё ўключана": 1500 зл',
+            title: 'Пакет "Усё ўключана": 1850 зл',
             content:
-              '1) Кансультацыя. 2) Дапамога ў падрыхтоўцы дакументаў ад працадаўцы. 3) Збор і падрыхтоўка поўнага пакета дакументаў. 4) Запаўненне ўсіх анкет. 5) Рэгістрацыя на асабістую падачу. 6) Атрыманне штампа ў пашпарт. 7) Здача адбіткаў пальцаў. 8) Кантроль справы, атрыманне карэспандэнцыі, здача ўсіх неабходных дакументаў. 9) Кантакт з інспектарам, які вядзе вашу справу. 10) Комплекснае суправаджэнне вашай справы да атрымання рашэння. 11) Падрыхтоўка нумара PESEL пры неабходнасці. 12) Рэгістрацыя даверанага профілю (profil zaufany) пры неабходнасці. 13) У выпадку адмоўнага рашэння па нашай віне - дапамога ў падрыхтоўцы дакументаў на апеляцыю і поўны вяртанне сродкаў.',
+              'Усё з Базавага пакета, а таксама: 1) Прадастаўленне адраса нашага офіса ў Гданьску для афіцыйнай карэспандэнцыі (вы не прапусціце важныя лісты). 2) Апрацоўка ўваходных званкоў і паведамленняў (ePUAP) на падставе даверанасці. 3) Рэгістрацыя і асабістае суправаджэнне нашым супрацоўнікам на працэдуру зняцця адбіткаў пальцаў. 4) Кантроль статусу справы і аператыўнае рэагаванне на запыты (wezwanie) ад інспектара. 5) Даношванне за вас дакументаў у неабмежаванай колькасці да атрымання рашэння. 6) Кантроль тэрмінаў пры змене працы або месца жыхарства ў працэсе разгляду. 7) Юрыдычныя інструменты паскарэння справы: падача прэтэнзій, скаргаў (ponaglenie) на бяздзейнасць інспектара ў вышэйшыя інстанцыі (Варшава).',
             button: 'ХАЧУ ПАКЕТ "УСЁ ЎКЛЮЧАНА"',
           },
           'Service2.moreInfoService': {
@@ -1701,7 +1753,8 @@ i18n.use(initReactI18next).init({
           },
           'Service2.processingTime': {
             title: 'Тэрмін атрымання',
-            content: 'Тэрмін атрымання карты знаходжання ў Гданьску складае ў сярэднім 7 месяцаў.',
+            content:
+              'Пры прымяненні законных спосабаў паскарэння справы, на 2026 год прагнозныя тэрміны 8 месяцаў (пры падачы іскавай заявы). Па агульных падставах сярэдняе чаканне рашэння - ад 15 да 24 месяцаў.',
           },
           'Service3.cost': 'Кошт',
           'Service3.terming': 'Час чакання',
@@ -1871,9 +1924,9 @@ i18n.use(initReactI18next).init({
         'menu.feedback': 'Оставить заявку',
         'servicespromo.0.title': 'АКЦИИ',
         'servicespromo.0.points.0':
-          'Успейте приобрести пакет "Базовый" за 400 зл. Чтобы воспользоваться акцией, назовите нашему специалисту по работе с клиентами промокод "Старт24". Акция действует только до конца месяца',
+          'Успейте приобрести пакет "Базовый" за 700 зл. Чтобы воспользоваться акцией, назовите нашему специалисту по работе с клиентами промокод "Старт24". Акция действует только до конца месяца',
         'servicespromo.0.points.1':
-          'Успейте приобрести пакет "Все включено" за 1100 зл. Чтобы воспользоваться акцией, назовите нашему специалисту по работе с клиентами промокод "Старт24". Акция действует только до конца месяца.',
+          'Успейте приобрести пакет "Все включено" за 1450 зл. Чтобы воспользоваться акцией, назовите нашему специалисту по работе с клиентами промокод "Старт24". Акция действует только до конца месяца.',
         'servicespromo.0.points.2':
           'Документы на гражданство за 1500 зл. Чтобы воспользоваться акцией, назовите нашему специалисту по работе с клиентами промокод "Старт24". Акция действует только до конца месяца.',
 
@@ -1917,8 +1970,8 @@ i18n.use(initReactI18next).init({
         'packages.orderBtn': 'Заказать',
         'packages.allInclusive.title': 'Всё включено',
         'packages.allInclusive.badge': 'Самый популярный',
-        'packages.allInclusive.price': '1 450 PLN',
-        'packages.allInclusive.oldPrice': '1 800 PLN',
+        'packages.allInclusive.price': '1 850 PLN',
+        'packages.allInclusive.oldPrice': '',
         'packages.allInclusive.features.0': 'Регистрация в MOS',
         'packages.allInclusive.features.1': 'Подача документов',
         'packages.allInclusive.features.2': 'Полное ведение дела',
@@ -1964,6 +2017,15 @@ i18n.use(initReactI18next).init({
           promo: 'Используйте промо-код',
           nameError: 'Имя должно состоять только из букв',
           phoneError: 'Введите не менее 9 цифр вашего номера телефона ',
+          file: 'Прикрепить документ (опционально)',
+          fileChoose: 'Выбрать файл',
+          fileChange: 'Изменить файл',
+          fileRemove: 'Удалить файл',
+          fileHint: 'PDF, JPG, PNG, DOC — до 10 МБ',
+          fileError: 'Неверный файл',
+          fileTooLarge: 'Файл слишком большой (макс. 10 МБ)',
+          fileTypeError: 'Этот тип файла не поддерживается',
+          errorMessage: 'Произошла ошибка. Попробуйте снова.',
         },
         'seo.h1': 'Легализация иностранцев в Гданьске — Legal Line',
         'slider.subtitle': 'Карта побыту, легализация, документы',
@@ -2027,7 +2089,7 @@ i18n.use(initReactI18next).init({
           reason2: {
             title: 'Оплата в РАССРОЧКУ по 100 зл. в месяц.',
             content:
-              'Если вам удобнее оплачивать услугу поэтапно, то вы можете оформить рассрочку на 9 месяцев. При этом месячная оплата составит всего лишь 100 злотых.',
+              'Если вам удобнее оплачивать услугу поэтапно, то вы можете оформить рассрочку на 18 месяцев. При этом месячная оплата составит всего лишь 100 злотых.',
           },
           reason3: {
             title: 'Возврат денежных средств.',
@@ -2081,7 +2143,7 @@ i18n.use(initReactI18next).init({
           title: 'Я Катя.',
           content:
             'Я помогу тебе получить временный либо постоянный вид на жительство (czasowy pobyt, stały pobyt). Я прослежу за твоим делом, помогу подготовить и донести недостающие документы в Ужонд, составлю тебе правильно письма для Ужонда, аппеляции или жалобы, а также многое другое.',
-          buttonText: 'ХОЧУ КАРТУ ОТ 400 зл.',
+          buttonText: 'ХОЧУ КАРТУ ОТ 700 зл.',
         },
         section5: {
           title: 'Получи персональный план по легализации в Польше.',
@@ -2106,15 +2168,15 @@ i18n.use(initReactI18next).init({
           'Service1.getConsultation': 'Получить консультацию',
           servicesTitle: 'Мы оказываем следующие услуги в Гданьске',
           'Service1.basicPackage': {
-            title: 'Базовый пакет: 500 зл',
+            title: 'Базовый пакет: 750 зл',
             content:
-              '1) Консультация. 2) Анализ актуальных документов и составление списка недостающих. 3) Проверка пакета документов перед подачей. 4) Сбор и подготовка полного пакета документов. 5) Заполнение всех анкет. 6) Регистрация на личную подачу.',
+              '1) Персональная консультация по вашему делу. 2) Подготовка полного комплекта документов для подачи. 3) Помощь в регистрации Profil Zaufany и личного кабинета на портале MOS. 4) <strong>Взаимодействие с работодателем для обеспечения корректного заполнения и электронного подписания документов.</strong> 5) Техническое сопровождение при электронной подаче и подписании заявки в системе MOS.',
             button: 'ХОЧУ БАЗОВЫЙ ПАКЕТ',
           },
           'Service1.allInclusivePackage': {
-            title: 'Пакет "Всё включено": 1500 зл',
+            title: 'Пакет "Всё включено": 1850 зл',
             content:
-              '1) Консультация. 2) Помощь в подготовке документов от работодателя. 3) Сбор и подготовка полного пакета документов. 4) Заполнение всех анкет. 5) Регистрация на личную подачу. 6) Получение штампа в паспорт. 7) Сдача отпечатков пальцев. 8) Контроль дела, получение корреспонденции, сдача всех необходимых документов. 9) Контакт с инспектором, который ведет твое дело. 10) Комплексное сопровождение твоего дела до получения решения. 11) Подготовка номера PESEL при необходимости. 12) Регистрация доверенного профиля (profil zaufany) при необходимости. 13) В случае негативного решения по нашей вине - помощь в подготовке документов на аппеляцию и полный возврат средств.',
+              'Всё из Базового пакета, а также: 1) Предоставление адреса нашего офиса в Гданьске для официальной корреспонденции (вы не пропустите важные письма). 2) Обработка входящих звонков и уведомлений (ePUAP) на основании доверенности. 3) Регистрация и личное сопровождение нашим сотрудником на процедуру снятия отпечатков пальцев. 4) Контроль статуса дела и оперативное реагирование на запросы (wezwanie) от инспектора. 5) Донесение за вас документов в неограниченном количестве до получения децизии. 6) Контроль сроков при смене работы или места жительства в процессе рассмотрения. 7) Юридические инструменты ускорения дела: подача претензий, жалоб (ponaglenie) на бездействие инспектора в вышестоящие инстанции (Варшава).',
             button: 'ХОЧУ ПАКЕТ "ВСЁ ВКЛЮЧЕНО"',
           },
           'Service1.moreInfoService': {
@@ -2124,7 +2186,8 @@ i18n.use(initReactI18next).init({
           },
           'Service1.processingTime': {
             title: 'Срок получения',
-            content: 'Срок получения карты пребывания в Гданьске составляет в среднем 7 месяцев.',
+            content:
+              'При применении законных способов ускорения дела, на 2026 год прогнозные сроки 8 месяцев (при подаче искового заявления). По общим основаниям среднее ожидание решения - от 15 до 24 месяцев.',
           },
           'Service2.cost': 'Стоимость',
           'Service2.terming': 'Срок получения карты',
@@ -2132,15 +2195,15 @@ i18n.use(initReactI18next).init({
           'Service2.orderService': 'Заказать услугу',
           'Service2.getConsultation': 'Получить консультацию',
           'Service2.basicPackage': {
-            title: 'Базовый пакет: 500 зл',
+            title: 'Базовый пакет: 750 зл',
             content:
-              '1) Консультация. 2) Анализ актуальных документов и составление списка недостающих. 3) Проверка пакета документов перед подачей. 4) Сбор и подготовка полного пакета документов. 5) Заполнение всех анкет. 6) Регистрация на личную подачу.',
+              '1) Персональная консультация по вашему делу. 2) Подготовка полного комплекта документов для подачи. 3) Помощь в регистрации Profil Zaufany и личного кабинета на портале MOS. 4) <strong>Взаимодействие с работодателем для обеспечения корректного заполнения и электронного подписания документов.</strong> 5) Техническое сопровождение при электронной подаче и подписании заявки в системе MOS.',
             button: 'ХОЧУ БАЗОВЫЙ ПАКЕТ',
           },
           'Service2.allInclusivePackage': {
-            title: 'Пакет "Всё включено": 1500 зл',
+            title: 'Пакет "Всё включено": 1850 зл',
             content:
-              '1) Консультация. 2) Помощь в подготовке документов от работодателя. 3) Сбор и подготовка полного пакета документов. 4) Заполнение всех анкет. 5) Регистрация на личную подачу. 6) Получение штампа в паспорт. 7) Сдача отпечатков пальцев. 8) Контроль дела, получение корреспонденции, сдача всех необходимых документов. 9) Контакт с инспектором, который ведет твое дело. 10) Комплексное сопровождение твоего дела до получения решения. 11) Подготовка номера PESEL при необходимости. 12) Регистрация доверенного профиля (profil zaufany) при необходимости. 13) В случае негативного решения по нашей вине - помощь в подготовке документов на аппеляцию и полный возврат средств.',
+              'Всё из Базового пакета, а также: 1) Предоставление адреса нашего офиса в Гданьске для официальной корреспонденции (вы не пропустите важные письма). 2) Обработка входящих звонков и уведомлений (ePUAP) на основании доверенности. 3) Регистрация и личное сопровождение нашим сотрудником на процедуру снятия отпечатков пальцев. 4) Контроль статуса дела и оперативное реагирование на запросы (wezwanie) от инспектора. 5) Донесение за вас документов в неограниченном количестве до получения децизии. 6) Контроль сроков при смене работы или места жительства в процессе рассмотрения. 7) Юридические инструменты ускорения дела: подача претензий, жалоб (ponaglenie) на бездействие инспектора в вышестоящие инстанции (Варшава).',
             button: 'ХОЧУ ПАКЕТ "ВСЁ ВКЛЮЧЕНО"',
           },
           'Service2.moreInfoService': {
@@ -2150,7 +2213,8 @@ i18n.use(initReactI18next).init({
           },
           'Service2.processingTime': {
             title: 'Срок получения',
-            content: 'Срок получения карты пребывания в Гданьске составляет в среднем 7 месяцев.',
+            content:
+              'При применении законных способов ускорения дела, на 2026 год прогнозные сроки 8 месяцев (при подаче искового заявления). По общим основаниям среднее ожидание решения - от 15 до 24 месяцев.',
           },
           'Service3.cost': 'Стоимость',
           'Service3.terming': 'Время ожидания',
@@ -2311,13 +2375,22 @@ i18n.use(initReactI18next).init({
       },
     },
   },
-  // Восстанавливаем язык из localStorage (если пользователь выбирал ранее)
-  lng: localStorage.getItem('legal_line_lang') ?? 'ru',
+  // Detect language: URL path (/pl/, /ru/, /ua/, /en/, /by/) > localStorage > 'ru'.
+  lng: detectLanguage(),
   fallbackLng: 'ru',
   interpolation: {
     escapeValue: false,
   },
   // debug: true — выключен в продакшне
 });
+
+// Keep <html lang> in sync with the active i18n language for accessibility + SEO.
+if (typeof document !== 'undefined') {
+  i18n.on('languageChanged', (lng) => {
+    document.documentElement.lang = lng === 'ua' ? 'uk' : lng === 'by' ? 'be' : lng;
+  });
+  document.documentElement.lang =
+    i18n.language === 'ua' ? 'uk' : i18n.language === 'by' ? 'be' : i18n.language;
+}
 
 export default i18n;

@@ -307,6 +307,54 @@ img {
   animation-delay: 0.25s;
 }
 
+/* ── App Shell ── */
+#root {
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 0;
+  text-align: center;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+}
+
+/* File upload trigger — hover / active states for the styled <button> in
+   FileUploadField. The button uses inline styles for the base layout so it
+   is robust against the .form-group label CSS reset. */
+.file-upload-trigger:hover:not(:disabled) {
+  border-color: var(--color-accent) !important;
+  background: white !important;
+  color: var(--color-text) !important;
+}
+
+.file-upload-trigger:active:not(:disabled) {
+  transform: scale(0.99);
+}
+
+.file-upload-remove:hover:not(:disabled) {
+  background: var(--color-bg-alt) !important;
+  color: var(--color-error) !important;
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes thankYouPop {
+  from {
+    transform: scale(0.95) translateY(10px);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .benefit-item,
   .service,
