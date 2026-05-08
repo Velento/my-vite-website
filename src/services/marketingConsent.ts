@@ -5,21 +5,21 @@ let pixelLoaded = false;
 function loadMetaPixel(): void {
   if (pixelLoaded || typeof window === 'undefined') return;
   pixelLoaded = true;
-
-  (function (f: Window, b: Document, e: 'script', v: string) {
+  /* eslint-disable @typescript-eslint/no-explicit-any */
+  function insertFbqScript(f: Window & any, b: Document, e: 'script', v: string) {
     if (f.fbq) return;
     const n = (f.fbq = function (...args: unknown[]) {
-      if (n.callMethod) {
-        n.callMethod(...args);
+      if ((n as any).callMethod) {
+        (n as any).callMethod(...args);
       } else {
-        n.queue!.push(args);
+        (n as any).queue.push(args);
       }
-    } as Window['fbq']) as NonNullable<Window['fbq']>;
+    } as any) as NonNullable<Window['fbq']>;
     if (!f._fbq) f._fbq = n;
     n.push = n;
     n.loaded = true;
     n.version = '2.0';
-    n.queue = [];
+    (n as any).queue = [];
     const t = b.createElement(e);
     t.async = true;
     // Run Meta Pixel inside Partytown's Web Worker so it never blocks the main thread.
@@ -27,7 +27,10 @@ function loadMetaPixel(): void {
     t.src = v;
     const s = b.getElementsByTagName(e)[0];
     s?.parentNode?.insertBefore(t, s);
-  })(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
+  }
+
+  insertFbqScript(window as unknown as Window & any, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
+  /* eslint-enable @typescript-eslint/no-explicit-any */
 
   window.fbq?.('init', META_PIXEL_ID);
   window.fbq?.('track', 'PageView');
