@@ -6,7 +6,6 @@ on:
 permissions:
   contents: read
   pull-requests: write
-  administration: write
 
 jobs:
   protect:
@@ -15,7 +14,9 @@ jobs:
       - name: Configure branch protection for `main`
         env:
           REPO: ${{ github.repository }}
-          TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # Use a personal access token with repo administration rights.
+          # Create a repo secret named REPO_ADMIN_TOKEN containing a PAT.
+          TOKEN: ${{ secrets.REPO_ADMIN_TOKEN }}
         run: |
           echo "Setting branch protection for main"
           curl -X PUT "https://api.github.com/repos/$REPO/branches/main/protection" \
@@ -38,7 +39,8 @@ jobs:
       - name: Configure branch protection for `my-vite-website`
         env:
           REPO: ${{ github.repository }}
-          TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # Use the same admin PAT for the second branch target.
+          TOKEN: ${{ secrets.REPO_ADMIN_TOKEN }}
         run: |
           echo "Setting branch protection for my-vite-website"
           curl -X PUT "https://api.github.com/repos/$REPO/branches/my-vite-website/protection" \
