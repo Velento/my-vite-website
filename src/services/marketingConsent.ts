@@ -5,21 +5,35 @@ let pixelLoaded = false;
 function loadMetaPixel(): void {
   if (pixelLoaded || typeof window === 'undefined') return;
   pixelLoaded = true;
-  /* eslint-disable @typescript-eslint/no-explicit-any */
-  function insertFbqScript(f: Window & any, b: Document, e: 'script', v: string) {
-    if (f.fbq) return;
-    const n = (f.fbq = function (...args: unknown[]) {
-      if ((n as any).callMethod) {
-        (n as any).callMethod(...args);
+  type FbqShim = {
+    callMethod?: (...args: unknown[]) => void;
+    queue?: unknown[];
+    push?: (...args: unknown[]) => void;
+    loaded?: boolean;
+    version?: string;
+  } & ((...args: unknown[]) => void);
+
+  function insertFbqScript(f: unknown, b: Document, e: 'script', v: string) {
+    type WExt = Window & { fbq?: unknown; _fbq?: unknown };
+    const fExt = f as WExt;
+    if (fExt.fbq) return; // runtime check: fbq may exist
+
+    const n = (fExt.fbq = function (...args: unknown[]) {
+      const self = arguments.callee as unknown as FbqShim;
+      if (self && typeof (self as FbqShim).callMethod === 'function') {
+        (self as FbqShim).callMethod!(...args);
       } else {
-        (n as any).queue.push(args);
+        (self as FbqShim).queue = (self as FbqShim).queue || [];
+        (self as FbqShim).queue!.push(args);
       }
-    } as any) as NonNullable<Window['fbq']>;
-    if (!f._fbq) f._fbq = n;
-    n.push = n;
-    n.loaded = true;
-    n.version = '2.0';
-    (n as any).queue = [];
+    } as unknown as NonNullable<FbqShim>);
+
+    if (!fExt._fbq) fExt._fbq = n;
+    (n as unknown as FbqShim).push = n as unknown as (...args: unknown[]) => void;
+    (n as unknown as FbqShim).loaded = true;
+    (n as unknown as FbqShim).version = '2.0';
+    (n as unknown as FbqShim).queue = (n as unknown as FbqShim).queue || [];
+
     const t = b.createElement(e);
     t.async = true;
     // Run Meta Pixel inside Partytown's Web Worker so it never blocks the main thread.
@@ -29,8 +43,7 @@ function loadMetaPixel(): void {
     s?.parentNode?.insertBefore(t, s);
   }
 
-  insertFbqScript(window as unknown as Window & any, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
-  /* eslint-enable @typescript-eslint/no-explicit-any */
+  insertFbqScript(window, document, 'script', 'https://connect.facebook.net/en_US/fbevents.js');
 
   window.fbq?.('init', META_PIXEL_ID);
   window.fbq?.('track', 'PageView');
