@@ -15,18 +15,10 @@
 
 const TELEGRAM_API_BASE = 'https://api.telegram.org';
 
-// Hardcoded fallback for the bot token + chat ID.
-// Owner explicitly asked to bake them into the bundle; security trade-off
-// (anyone can extract from JS) is acknowledged. Rotate via @BotFather any
-// time the token shows up where it shouldn't.
-//
-// chat_id is required by Telegram. After @BotFather creates the bot, send
-// /start to it from the destination chat (private message OR group with the
-// bot as admin), then visit
-//   https://api.telegram.org/bot<TOKEN>/getUpdates
-// and copy the `chat.id` number into FALLBACK_CHAT_ID below.
-const FALLBACK_BOT_TOKEN = '8719891671:AAFq1Tm8fzT8Vh5spPqLLbNsBQGMXZsEucA';
-const FALLBACK_CHAT_ID = '509830008'; // Andrey Velento (private chat)
+// Note: do NOT hardcode bot tokens or chat IDs in client source.
+// For local development/tests, set `VITE_TELEGRAM_BOT_TOKEN` and
+// `VITE_TELEGRAM_CHAT_ID` (tests can stub these values). In production,
+// prefer a server-side proxy (Cloudflare Worker) and set `VITE_FORM_PROXY_URL`.
 
 export type LeadPayload = {
   name: string;
@@ -114,13 +106,18 @@ async function sendViaProxy(proxyUrl: string, payload: LeadPayload): Promise<Ser
 }
 
 async function sendDirect(payload: LeadPayload): Promise<ServiceResponse> {
-  const token = import.meta.env.VITE_TELEGRAM_BOT_TOKEN || FALLBACK_BOT_TOKEN;
-  const chatId = import.meta.env.VITE_TELEGRAM_CHAT_ID || FALLBACK_CHAT_ID;
+  const token = import.meta.env.VITE_TELEGRAM_BOT_TOKEN;
+  const chatId = import.meta.env.VITE_TELEGRAM_CHAT_ID;
   if (!token) {
-    throw new Error('Missing VITE_TELEGRAM_BOT_TOKEN — set it in GitHub Secrets');
+    throw new Error(
+      'Missing VITE_TELEGRAM_BOT_TOKEN — do not embed bot tokens in the client. ' +
+        'Use Cloudflare Worker (set VITE_FORM_PROXY_URL) or set this only for local tests.'
+    );
   }
   if (!chatId) {
-    throw new Error('Missing VITE_TELEGRAM_CHAT_ID — send /start to the bot, then paste chat_id');
+    throw new Error(
+      'Missing VITE_TELEGRAM_CHAT_ID — set the chat id via env for tests or use a server proxy.'
+    );
   }
   if (payload.file) {
     throw new Error(

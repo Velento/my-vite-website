@@ -9,6 +9,7 @@
     "build": "vite build",
     "postbuild": "cp dist/index.html dist/404.html",
     "preview": "vite preview",
+    "prepare": "husky install",
     "lint": "eslint src --ext js,jsx --report-unused-disable-directives",
     "lint:fix": "eslint src --ext js,jsx --fix",
     "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx,css}\"",
@@ -44,6 +45,8 @@
     "@testing-library/user-event": "^14.5.2",
     "@types/react": "^18.2.66",
     "@types/react-dom": "^18.2.22",
+    "@typescript-eslint/eslint-plugin": "^8.59.2",
+    "@typescript-eslint/parser": "^8.59.2",
     "@vitejs/plugin-react": "^4.2.1",
     "@vitest/coverage-v8": "^4.1.2",
     "eslint": "^8.57.0",
@@ -52,7 +55,9 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.6",
     "gh-pages": "^5.0.0",
+    "husky": "^9.1.7",
     "jsdom": "^24.0.0",
+    "lint-staged": "^16.4.0",
     "prettier": "^3.2.5",
     "sharp": "^0.34.5",
     "svgo": "^4.0.1",
@@ -61,5 +66,12 @@
     "vite-plugin-image-optimizer": "^2.0.3",
     "vite-plugin-pwa": "^1.2.0",
     "vitest": "^4.1.2"
+  },
+  "lint-staged": {
+    "src/**/*.{js,jsx,ts,tsx,css}": [
+      "prettier --write",
+      "eslint --fix",
+      "git add"
+    ]
   }
 }

@@ -9,7 +9,11 @@ function loadMetaPixel(): void {
   (function (f: Window, b: Document, e: 'script', v: string) {
     if (f.fbq) return;
     const n = (f.fbq = function (...args: unknown[]) {
-      n.callMethod ? n.callMethod(...args) : n.queue!.push(args);
+      if (n.callMethod) {
+        n.callMethod(...args);
+      } else {
+        n.queue!.push(args);
+      }
     } as Window['fbq']) as NonNullable<Window['fbq']>;
     if (!f._fbq) f._fbq = n;
     n.push = n;
