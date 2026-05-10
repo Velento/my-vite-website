@@ -10,20 +10,20 @@ jobs:
   gitleaks:
     name: Gitleaks scan
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
     steps:
       - name: Checkout
         uses: actions/checkout@v5
         with:
           fetch-depth: 0
 
+      # gitleaks-action v2 takes no `with:` inputs — configuration is via env.
+      # GITHUB_TOKEN is required for PR scans (per the action's 8.x release notes).
+      # The action uploads its own SARIF artifact when GITLEAKS_ENABLE_UPLOAD_ARTIFACT
+      # is true (the default), so no separate upload step is needed.
       - name: Run gitleaks
-        uses: zricethezav/gitleaks-action@v2
-        with:
-          args: '--verbose --redact --report-format=json --report-path=gitleaks-report.json'
-
-      - name: Upload gitleaks report
-        if: always()
-        uses: actions/upload-artifact@v6
-        with:
-          name: gitleaks-report
-          path: gitleaks-report.json
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
