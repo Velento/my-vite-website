@@ -1,61 +1,56 @@
 name: Configure branch protection
 
+# Manual one-shot to apply branch protection rules to `main` and
+# `my-vite-website`. Requires `REPO_ADMIN_TOKEN` (a PAT with admin rights
+# on this repo) to be set as a repository secret.
+#
+# To run: GitHub UI → Actions → "Configure branch protection" → Run workflow.
+
 on:
   workflow_dispatch:
 
 permissions:
   contents: read
-  pull-requests: write
 
 jobs:
   protect:
     runs-on: ubuntu-latest
     steps:
-      - name: Configure branch protection for `main`
+      - name: Apply protection to `main` and `my-vite-website`
         env:
           REPO: ${{ github.repository }}
-          # Use a personal access token with repo administration rights.
-          # Create a repo secret named REPO_ADMIN_TOKEN containing a PAT.
           TOKEN: ${{ secrets.REPO_ADMIN_TOKEN }}
+        # Solo-developer profile: no required reviewer count (would block the
+        # owner from merging their own PRs), but PRs still required, linear
+        # history enforced, no force-push, no branch deletion. Required CI
+        # checks are listed by name — they must match the workflow job names.
         run: |
-          echo "Setting branch protection for main"
-          curl -X PUT "https://api.github.com/repos/$REPO/branches/main/protection" \
-            -H "Authorization: Bearer $TOKEN" \
-            -H "Accept: application/vnd.github+json" \
-            -d '{
-              "required_status_checks": null,
-              "enforce_admins": true,
-              "required_pull_request_reviews": {
-                "dismiss_stale_reviews": true,
-                "require_code_owner_reviews": true,
-                "required_approving_review_count": 1
-              },
-              "restrictions": null,
-              "required_linear_history": true,
-              "allow_force_pushes": false,
-              "allow_deletions": false
-            }'
+          if [ -z "$TOKEN" ]; then
+            echo "::error::REPO_ADMIN_TOKEN is not set. Create a PAT with admin rights on this repo and add it as a repo secret."
+            exit 1
+          fi
 
-      - name: Configure branch protection for `my-vite-website`
-        env:
-          REPO: ${{ github.repository }}
-          # Use the same admin PAT for the second branch target.
-          TOKEN: ${{ secrets.REPO_ADMIN_TOKEN }}
-        run: |
-          echo "Setting branch protection for my-vite-website"
-          curl -X PUT "https://api.github.com/repos/$REPO/branches/my-vite-website/protection" \
-            -H "Authorization: Bearer $TOKEN" \
-            -H "Accept: application/vnd.github+json" \
-            -d '{
-              "required_status_checks": null,
-              "enforce_admins": true,
-              "required_pull_request_reviews": {
-                "dismiss_stale_reviews": true,
-                "require_code_owner_reviews": true,
-                "required_approving_review_count": 1
-              },
-              "restrictions": null,
-              "required_linear_history": true,
-              "allow_force_pushes": false,
-              "allow_deletions": false
-            }'
+          for BRANCH in main my-vite-website; do
+            echo "Configuring branch protection for $BRANCH"
+            curl --fail-with-body -X PUT \
+              "https://api.github.com/repos/$REPO/branches/$BRANCH/protection" \
+              -H "Authorization: Bearer $TOKEN" \
+              -H "Accept: application/vnd.github+json" \
+              -d '{
+                "required_status_checks": {
+                  "strict": true,
+                  "contexts": ["Lint", "Tests", "Build"]
+                },
+                "enforce_admins": false,
+                "required_pull_request_reviews": {
+                  "dismiss_stale_reviews": true,
+                  "require_code_owner_reviews": false,
+                  "required_approving_review_count": 0
+                },
+                "restrictions": null,
+                "required_linear_history": true,
+                "allow_force_pushes": false,
+                "allow_deletions": false
+              }'
+            echo
+          done
