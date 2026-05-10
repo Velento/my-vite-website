@@ -4,6 +4,7 @@ import Logo from './Logo';
 import Contacts from './Contacts';
 import LanguageSwitcher from './LanguageSwitcher';
 import Burger from './Burger';
+import { trackContactClick } from '../../services/analytics';
 
 function Header() {
   const { t } = useTranslation();
@@ -12,7 +13,12 @@ function Header() {
     <header className="header">
       <Logo />
       <div className="header-center">
-        <a href="tel:+48883734171" className="header-phone-cta" aria-label="Call us">
+        <a
+          href="tel:+48883734171"
+          className="header-phone-cta"
+          aria-label="Call us"
+          onClick={() => trackContactClick('phone')}
+        >
           <span className="header-phone-cta__label">
             {t('header.callLabel', 'Free consultation')}
           </span>

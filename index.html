@@ -220,19 +220,10 @@
     </script>
     <!-- End Google Tag Manager -->
 
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-802543735"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      gtag('js', new Date());
-
-      gtag('config', 'AW-802543735');
-    </script>
-
-    <!-- dataLayer init (works with or without GTM) -->
+    <!-- dataLayer init — GTM tag manager loads gtag.js itself via the
+         "Google Ads Conversion Tracking" tag configured in the GTM container.
+         A standalone gtag.js script tag here would double-load the library and
+         risk duplicate page-view events. -->
     <script>
       window.dataLayer = window.dataLayer || [];
     </script>

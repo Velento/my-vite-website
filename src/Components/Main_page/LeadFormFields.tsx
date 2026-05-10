@@ -60,7 +60,7 @@ const LeadFormFields = ({
         promo: values.promo?.trim() || undefined,
         file: values.file && values.file.length > 0 ? values.file[0] : null,
       });
-      trackLeadConversion();
+      trackLeadConversion({ value: 750, currency: 'PLN' });
       setSubmitted(true);
       timerRef.current = setTimeout(() => setShowThankYou(true), thankYouDelayMs);
     } catch (error) {

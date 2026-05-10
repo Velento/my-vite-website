@@ -31,7 +31,7 @@ const okJsonResponse = () => ({
 });
 
 // ── Analytics service tests ──────────────────────────────────────────────────
-import { trackLeadConversion } from './services/analytics';
+import { trackLeadConversion, trackContactClick } from './services/analytics';
 
 describe('trackLeadConversion', () => {
   beforeEach(() => {
@@ -40,11 +40,20 @@ describe('trackLeadConversion', () => {
     window.dataLayer = [];
   });
 
-  it('pushes lead_form_submit event to dataLayer', () => {
+  it('pushes lead_form_submit event with default value/currency to dataLayer', () => {
     trackLeadConversion();
 
     expect(window.dataLayer).toHaveLength(1);
     expect(window.dataLayer[0].event).toBe('lead_form_submit');
+    expect(window.dataLayer[0].value).toBe(750);
+    expect(window.dataLayer[0].currency).toBe('PLN');
+  });
+
+  it('honors caller-provided value + currency', () => {
+    trackLeadConversion({ value: 1500, currency: 'EUR' });
+
+    expect(window.dataLayer[0].value).toBe(1500);
+    expect(window.dataLayer[0].currency).toBe('EUR');
   });
 
   it('calls gtag conversion when gtag and conversion ID are available', () => {
@@ -53,9 +62,11 @@ describe('trackLeadConversion', () => {
 
     trackLeadConversion();
 
-    expect(window.gtag).toHaveBeenCalledWith('event', 'conversion', expect.any(Object));
-    // Roll the env back so the next test sees no conversion ID. Re-apply the
-    // Telegram bot stubs because vi.unstubAllEnvs wipes them too.
+    expect(window.gtag).toHaveBeenCalledWith(
+      'event',
+      'conversion',
+      expect.objectContaining({ send_to: 'AW-TEST/TEST', value: 750, currency: 'PLN' })
+    );
     vi.unstubAllEnvs();
     vi.stubEnv('VITE_TELEGRAM_BOT_TOKEN', '123456:test-token');
     vi.stubEnv('VITE_TELEGRAM_CHAT_ID', '987654321');
@@ -69,18 +80,53 @@ describe('trackLeadConversion', () => {
     expect(window.gtag).not.toHaveBeenCalled();
   });
 
-  it('calls fbq Lead when fbq is available', () => {
+  it('calls fbq Lead with value/currency when fbq is available', () => {
     window.fbq = vi.fn();
 
     trackLeadConversion();
 
-    expect(window.fbq).toHaveBeenCalledWith('track', 'Lead');
+    expect(window.fbq).toHaveBeenCalledWith('track', 'Lead', { value: 750, currency: 'PLN' });
   });
 
   it('does not throw when no tracking is available', () => {
     window.dataLayer = undefined;
 
     expect(() => trackLeadConversion()).not.toThrow();
+  });
+});
+
+describe('trackContactClick', () => {
+  beforeEach(() => {
+    delete window.fbq;
+    window.dataLayer = [];
+  });
+
+  it('pushes contact_click event with channel label to dataLayer', () => {
+    trackContactClick('phone');
+
+    expect(window.dataLayer).toHaveLength(1);
+    expect(window.dataLayer[0]).toMatchObject({
+      event: 'contact_click',
+      contact_channel: 'phone',
+    });
+  });
+
+  it('fires fbq Contact when pixel is loaded', () => {
+    window.fbq = vi.fn();
+
+    trackContactClick('whatsapp');
+
+    expect(window.fbq).toHaveBeenCalledWith(
+      'track',
+      'Contact',
+      expect.objectContaining({ contact_channel: 'whatsapp' })
+    );
+  });
+
+  it('does not throw when no tracking is available', () => {
+    window.dataLayer = undefined;
+
+    expect(() => trackContactClick('telegram')).not.toThrow();
   });
 });
 
