@@ -112,9 +112,6 @@ export default defineConfig({
             if (id.includes('swiper')) {
               return 'vendor-swiper';
             }
-            if (id.includes('framer-motion') || id.includes('motion-dom')) {
-              return 'vendor-motion';
-            }
           }
         },
       },
