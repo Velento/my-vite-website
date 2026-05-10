@@ -341,24 +341,6 @@ img {
   color: var(--color-text);
 }
 
-/* File upload trigger — hover / active states for the styled <button> in
-   FileUploadField. The button uses inline styles for the base layout so it
-   is robust against the .form-group label CSS reset. */
-.file-upload-trigger:hover:not(:disabled) {
-  border-color: var(--color-accent) !important;
-  background: white !important;
-  color: var(--color-text) !important;
-}
-
-.file-upload-trigger:active:not(:disabled) {
-  transform: scale(0.99);
-}
-
-.file-upload-remove:hover:not(:disabled) {
-  background: var(--color-bg-alt) !important;
-  color: var(--color-error) !important;
-}
-
 @keyframes slideInRight {
   from {
     transform: translateX(100%);

@@ -2,6 +2,7 @@ import { useRef, useState } from 'react';
 import type { ChangeEvent, FocusEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import type { UseFormRegisterReturn } from 'react-hook-form';
+import './FileUploadField.css';
 
 type FileUploadFieldProps = {
   id: string;
@@ -57,17 +58,7 @@ const FileUploadField = ({ id, registration, disabled, errorMessage }: FileUploa
         type="file"
         accept={ACCEPT}
         disabled={disabled}
-        style={{
-          position: 'absolute',
-          width: 1,
-          height: 1,
-          padding: 0,
-          margin: -1,
-          overflow: 'hidden',
-          clip: 'rect(0,0,0,0)',
-          whiteSpace: 'nowrap',
-          border: 0,
-        }}
+        className="file-upload-input"
         {...rhfRest}
         ref={(el) => {
           rhfRef(el);
@@ -77,33 +68,15 @@ const FileUploadField = ({ id, registration, disabled, errorMessage }: FileUploa
         onBlur={handleBlur}
       />
 
-      {/* Trigger button — uses inline style for layout so .form-group label CSS
-          (display: block) can't override the icon-next-to-text arrangement. */}
       <button
         type="button"
         onClick={triggerPick}
         disabled={disabled}
         aria-controls={id}
-        style={{
-          display: 'flex',
-          width: '100%',
-          alignItems: 'center',
-          justifyContent: 'center',
-          gap: 10,
-          marginTop: 4,
-          padding: '14px 18px',
-          borderRadius: 'var(--radius-md)',
-          border: '1.5px dashed var(--color-border)',
-          background: 'var(--color-bg-alt)',
-          color: 'var(--color-text-secondary)',
-          fontSize: '0.9rem',
-          fontWeight: 500,
-          cursor: disabled ? 'not-allowed' : 'pointer',
-          transition: 'all var(--duration-base) var(--ease)',
-        }}
         className="file-upload-trigger"
       >
         <svg
+          className="file-upload-trigger__icon"
           width="20"
           height="20"
           viewBox="0 0 24 24"
@@ -113,7 +86,6 @@ const FileUploadField = ({ id, registration, disabled, errorMessage }: FileUploa
           strokeLinecap="round"
           strokeLinejoin="round"
           aria-hidden="true"
-          style={{ flexShrink: 0 }}
         >
           <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
           <polyline points="17 8 12 3 7 8" />
@@ -127,80 +99,33 @@ const FileUploadField = ({ id, registration, disabled, errorMessage }: FileUploa
       </button>
 
       {selected && (
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            gap: 10,
-            marginTop: 8,
-            padding: '8px 10px',
-            borderRadius: 'var(--radius-sm)',
-            border: '1px solid var(--color-border-light)',
-            background: 'white',
-            fontSize: '0.85rem',
-          }}
-        >
-          <span
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: 8,
-              minWidth: 0,
-              flex: 1,
-            }}
-          >
+        <div className="file-upload-pill">
+          <span className="file-upload-pill__info">
             <svg
+              className="file-upload-pill__icon"
               width="16"
               height="16"
               viewBox="0 0 24 24"
               fill="none"
-              stroke="var(--color-accent)"
+              stroke="currentColor"
               strokeWidth="2"
               strokeLinecap="round"
               strokeLinejoin="round"
               aria-hidden="true"
-              style={{ flexShrink: 0 }}
             >
               <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
               <polyline points="14 2 14 8 20 8" />
             </svg>
-            <span
-              title={selected.name}
-              style={{
-                overflow: 'hidden',
-                textOverflow: 'ellipsis',
-                whiteSpace: 'nowrap',
-                color: 'var(--color-text)',
-                minWidth: 0,
-              }}
-            >
+            <span title={selected.name} className="file-upload-pill__name">
               {selected.name}
             </span>
-            <span style={{ flexShrink: 0, color: 'var(--color-text-tertiary)' }}>
-              {formatBytes(selected.size)}
-            </span>
+            <span className="file-upload-pill__size">{formatBytes(selected.size)}</span>
           </span>
           <button
             type="button"
             onClick={handleRemove}
             disabled={disabled}
             aria-label={t('feedbackForm.fileRemove', 'Usuń plik')}
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              width: 28,
-              height: 28,
-              padding: 0,
-              border: 0,
-              borderRadius: '9999px',
-              background: 'transparent',
-              color: 'var(--color-text-tertiary)',
-              cursor: disabled ? 'not-allowed' : 'pointer',
-              flexShrink: 0,
-              transition: 'all var(--duration-fast) var(--ease)',
-            }}
             className="file-upload-remove"
           >
             <svg
@@ -220,7 +145,7 @@ const FileUploadField = ({ id, registration, disabled, errorMessage }: FileUploa
         </div>
       )}
 
-      <small style={{ display: 'block', marginTop: 6, fontSize: '0.75rem', opacity: 0.7 }}>
+      <small className="file-upload-hint">
         {t('feedbackForm.fileHint', 'PDF, JPG, PNG, DOC — do 10 MB')}
       </small>
 

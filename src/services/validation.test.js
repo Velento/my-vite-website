@@ -1,191 +1,159 @@
 import { describe, it, expect } from 'vitest';
-import { isValidName, isValidPhone, canSubmitForm, NAME_REGEX, PHONE_REGEX } from './validation';
+import { NAME_REGEX, PHONE_REGEX, leadFormSchema } from './validation';
 
-describe('validation.js', () => {
-  // ── isValidName ──────────────────────────────────────────────────────────
-  describe('isValidName', () => {
-    it('returns true for empty string (optional field state)', () => {
-      expect(isValidName('')).toBe(true);
-    });
+// The form fields are validated via zod (which uses these regexes); we test
+// the regex behavior directly because the regex is the load-bearing piece —
+// keeping it correct on edge cases (Cyrillic, Ukrainian, Belarusian, hyphens,
+// apostrophes, XSS/SQLi-shaped inputs) is the whole point.
 
-    it('accepts Latin names', () => {
-      expect(isValidName('Anna')).toBe(true);
-      expect(isValidName('John')).toBe(true);
-    });
-
-    it('accepts Cyrillic names', () => {
-      expect(isValidName('Анна')).toBe(true);
-      expect(isValidName('Дмитрий')).toBe(true);
-    });
-
-    it('accepts Ukrainian characters (Є, І, Ї, Ґ)', () => {
-      expect(isValidName('Євгенія')).toBe(true);
-      expect(isValidName('Їжак')).toBe(true);
-      expect(isValidName('Ґалина')).toBe(true);
-    });
-
-    it('accepts Belarusian names', () => {
-      expect(isValidName('Алёна')).toBe(true);
-    });
-
-    it('accepts hyphenated names', () => {
-      expect(isValidName('Anna-Maria')).toBe(true);
-      expect(isValidName('Жан-Пьер')).toBe(true);
-    });
-
-    it('accepts apostrophe in names', () => {
-      expect(isValidName("О'Нил")).toBe(true);
-      expect(isValidName("Д'Артаньян")).toBe(true);
-    });
-
-    it('accepts names with spaces (multi-word)', () => {
-      expect(isValidName('Anna Maria')).toBe(true);
-      expect(isValidName('Анна Мария')).toBe(true);
-    });
-
-    it('trims whitespace before validation', () => {
-      expect(isValidName('  Анна  ')).toBe(true);
-    });
-
-    it('rejects single character (min length 2)', () => {
-      expect(isValidName('A')).toBe(false);
-      expect(isValidName('Я')).toBe(false);
-    });
-
-    it('rejects digits in name', () => {
-      expect(isValidName('Anna123')).toBe(false);
-      expect(isValidName('123')).toBe(false);
-    });
-
-    it('rejects HTML tags (XSS attempt)', () => {
-      expect(isValidName('<script>alert(1)</script>')).toBe(false);
-      expect(isValidName('<img src=x onerror=alert(1)>')).toBe(false);
-    });
-
-    it('rejects SQL injection patterns', () => {
-      expect(isValidName("'; DROP TABLE users--")).toBe(false);
-      expect(isValidName('1 OR 1=1')).toBe(false);
-    });
-
-    it('rejects special characters', () => {
-      expect(isValidName('Anna@email.com')).toBe(false);
-      expect(isValidName('Anna!')).toBe(false);
-      expect(isValidName('Anna#1')).toBe(false);
-    });
-
-    it('rejects only whitespace', () => {
-      expect(isValidName('   ')).toBe(false);
-    });
+describe('NAME_REGEX', () => {
+  it('accepts Latin names', () => {
+    expect(NAME_REGEX.test('Anna')).toBe(true);
+    expect(NAME_REGEX.test('John')).toBe(true);
   });
 
-  // ── isValidPhone ─────────────────────────────────────────────────────────
-  describe('isValidPhone', () => {
-    it('returns true for empty string (optional field state)', () => {
-      expect(isValidPhone('')).toBe(true);
-    });
-
-    it('accepts Polish format (+48)', () => {
-      expect(isValidPhone('+48883734171')).toBe(true);
-      expect(isValidPhone('+48 883 734 171')).toBe(true);
-    });
-
-    it('accepts format with dashes', () => {
-      expect(isValidPhone('+48-883-734-171')).toBe(true);
-    });
-
-    it('accepts format with parentheses', () => {
-      expect(isValidPhone('+48(883)734171')).toBe(true);
-    });
-
-    it('accepts Ukrainian format (+380)', () => {
-      expect(isValidPhone('+380501234567')).toBe(true);
-    });
-
-    it('accepts Belarusian format (+375)', () => {
-      expect(isValidPhone('+375291234567')).toBe(true);
-    });
-
-    it('accepts number without + prefix', () => {
-      expect(isValidPhone('48883734171')).toBe(true);
-    });
-
-    it('rejects phone that is too short (< 9 digits)', () => {
-      expect(isValidPhone('12345')).toBe(false);
-      expect(isValidPhone('+481234')).toBe(false);
-    });
-
-    it('rejects letters in phone number', () => {
-      expect(isValidPhone('+48abc123456')).toBe(false);
-      expect(isValidPhone('phone12345')).toBe(false);
-    });
-
-    it('rejects empty-looking strings with only spaces', () => {
-      expect(isValidPhone('   ')).toBe(false);
-    });
-
-    it('rejects special characters not typically in phones', () => {
-      expect(isValidPhone('+48@883734171')).toBe(false);
-      expect(isValidPhone('+48#883734171')).toBe(false);
-    });
+  it('accepts Cyrillic names', () => {
+    expect(NAME_REGEX.test('Анна')).toBe(true);
+    expect(NAME_REGEX.test('Дмитрий')).toBe(true);
   });
 
-  // ���─ canSubmitForm ──────���─────────────────────────────────────────────────
-  describe('canSubmitForm', () => {
-    it('returns true for valid name and phone', () => {
-      expect(canSubmitForm('Анна', '+48883734171')).toBe(true);
-    });
-
-    it('returns true for Latin name with valid phone', () => {
-      expect(canSubmitForm('Anna', '+48123456789')).toBe(true);
-    });
-
-    it('returns false when name is empty', () => {
-      expect(canSubmitForm('', '+48883734171')).toBe(false);
-    });
-
-    it('returns false when phone is empty', () => {
-      expect(canSubmitForm('Анна', '')).toBe(false);
-    });
-
-    it('returns false when both are empty', () => {
-      expect(canSubmitForm('', '')).toBe(false);
-    });
-
-    it('returns false when name is invalid', () => {
-      expect(canSubmitForm('A', '+48883734171')).toBe(false);
-    });
-
-    it('returns false when phone is invalid', () => {
-      expect(canSubmitForm('Анна', '123')).toBe(false);
-    });
-
-    it('returns false when both are invalid', () => {
-      expect(canSubmitForm('A', '123')).toBe(false);
-    });
-
-    it('trims whitespace and still validates correctly', () => {
-      expect(canSubmitForm('  Анна  ', '  +48883734171  ')).toBe(true);
-    });
-
-    it('rejects whitespace-only name', () => {
-      expect(canSubmitForm('   ', '+48883734171')).toBe(false);
-    });
-
-    it('rejects whitespace-only phone', () => {
-      expect(canSubmitForm('Анна', '   ')).toBe(false);
-    });
+  it('accepts Ukrainian characters (Є, І, Ї, Ґ)', () => {
+    expect(NAME_REGEX.test('Євгенія')).toBe(true);
+    expect(NAME_REGEX.test('Їжак')).toBe(true);
+    expect(NAME_REGEX.test('Ґалина')).toBe(true);
   });
 
-  // ── Regex exports ───────���────────────────────────────────────────────────
-  describe('exported regex patterns', () => {
-    it('NAME_REGEX is exported and functional', () => {
-      expect(NAME_REGEX).toBeInstanceOf(RegExp);
-      expect(NAME_REGEX.test('Анна')).toBe(true);
-    });
+  it('accepts Belarusian names', () => {
+    expect(NAME_REGEX.test('Алёна')).toBe(true);
+  });
 
-    it('PHONE_REGEX is exported and functional', () => {
-      expect(PHONE_REGEX).toBeInstanceOf(RegExp);
-      expect(PHONE_REGEX.test('+48883734171')).toBe(true);
+  it('accepts hyphenated names', () => {
+    expect(NAME_REGEX.test('Anna-Maria')).toBe(true);
+    expect(NAME_REGEX.test('Жан-Пьер')).toBe(true);
+  });
+
+  it('accepts apostrophe in names', () => {
+    expect(NAME_REGEX.test("О'Нил")).toBe(true);
+    expect(NAME_REGEX.test("Д'Артаньян")).toBe(true);
+  });
+
+  it('accepts compound names with spaces', () => {
+    expect(NAME_REGEX.test('Anna Maria')).toBe(true);
+    expect(NAME_REGEX.test('Анна Мария')).toBe(true);
+  });
+
+  it('rejects single character (min length 2)', () => {
+    expect(NAME_REGEX.test('A')).toBe(false);
+    expect(NAME_REGEX.test('Я')).toBe(false);
+  });
+
+  it('rejects digits', () => {
+    expect(NAME_REGEX.test('Anna123')).toBe(false);
+    expect(NAME_REGEX.test('123')).toBe(false);
+  });
+
+  it('rejects HTML/XSS payloads', () => {
+    expect(NAME_REGEX.test('<script>alert(1)</script>')).toBe(false);
+    expect(NAME_REGEX.test('<img src=x onerror=alert(1)>')).toBe(false);
+  });
+
+  it('rejects SQL injection patterns', () => {
+    expect(NAME_REGEX.test("'; DROP TABLE users--")).toBe(false);
+    expect(NAME_REGEX.test('1 OR 1=1')).toBe(false);
+  });
+
+  it('rejects punctuation', () => {
+    expect(NAME_REGEX.test('Anna@email.com')).toBe(false);
+    expect(NAME_REGEX.test('Anna!')).toBe(false);
+    expect(NAME_REGEX.test('Anna#1')).toBe(false);
+  });
+});
+
+describe('PHONE_REGEX', () => {
+  it('accepts international phone with plus', () => {
+    expect(PHONE_REGEX.test('+48883734171')).toBe(true);
+  });
+
+  it('accepts phone with spaces', () => {
+    expect(PHONE_REGEX.test('+48 883 734 171')).toBe(true);
+  });
+
+  it('accepts phone with dashes', () => {
+    expect(PHONE_REGEX.test('+48-883-734-171')).toBe(true);
+  });
+
+  it('accepts phone with parentheses', () => {
+    expect(PHONE_REGEX.test('+48(883)734171')).toBe(true);
+  });
+
+  it('accepts Ukrainian numbers', () => {
+    expect(PHONE_REGEX.test('+380501234567')).toBe(true);
+  });
+
+  it('accepts Belarusian numbers', () => {
+    expect(PHONE_REGEX.test('+375291234567')).toBe(true);
+  });
+
+  it('accepts numbers without leading plus', () => {
+    expect(PHONE_REGEX.test('48883734171')).toBe(true);
+  });
+
+  it('rejects too-short numbers', () => {
+    expect(PHONE_REGEX.test('12345')).toBe(false);
+    expect(PHONE_REGEX.test('+481234')).toBe(false);
+  });
+
+  it('rejects letters', () => {
+    expect(PHONE_REGEX.test('+48abc123456')).toBe(false);
+    expect(PHONE_REGEX.test('phone12345')).toBe(false);
+  });
+
+  it('rejects unsupported punctuation', () => {
+    expect(PHONE_REGEX.test('+48@883734171')).toBe(false);
+    expect(PHONE_REGEX.test('+48#883734171')).toBe(false);
+  });
+});
+
+describe('leadFormSchema', () => {
+  it('accepts a minimal valid lead', () => {
+    const result = leadFormSchema.safeParse({
+      name: 'Anna',
+      phone: '+48883734171',
+      promo: '',
     });
+    expect(result.success).toBe(true);
+  });
+
+  it('accepts a lead with promo', () => {
+    const result = leadFormSchema.safeParse({
+      name: 'Анна',
+      phone: '+48883734171',
+      promo: 'PROMO2024',
+    });
+    expect(result.success).toBe(true);
+  });
+
+  it('rejects an empty name', () => {
+    const result = leadFormSchema.safeParse({
+      name: '',
+      phone: '+48883734171',
+    });
+    expect(result.success).toBe(false);
+  });
+
+  it('rejects an invalid phone', () => {
+    const result = leadFormSchema.safeParse({
+      name: 'Anna',
+      phone: '12345',
+    });
+    expect(result.success).toBe(false);
+  });
+
+  it('trims whitespace before validating', () => {
+    const result = leadFormSchema.safeParse({
+      name: '  Anna  ',
+      phone: '  +48883734171  ',
+    });
+    expect(result.success).toBe(true);
   });
 });

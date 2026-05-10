@@ -42,18 +42,3 @@ export const leadFormSchema = z.object({
 });
 
 export type LeadFormValues = z.infer<typeof leadFormSchema>;
-
-/** Check if name is valid. Empty string = valid (optional field state). */
-export function isValidName(value: string): boolean {
-  return value === '' || NAME_REGEX.test(value.trim());
-}
-
-/** Check if phone is valid. Empty string = valid (optional field state). */
-export function isValidPhone(value: string): boolean {
-  return value === '' || PHONE_REGEX.test(value.trim());
-}
-
-/** Check if both fields are filled and valid — ready to submit. */
-export function canSubmitForm(name: string, phone: string): boolean {
-  return NAME_REGEX.test(name.trim()) && PHONE_REGEX.test(phone.trim());
-}
