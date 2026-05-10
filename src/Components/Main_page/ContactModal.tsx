@@ -7,6 +7,7 @@ import './ContactModal.css';
 import { useTranslation } from 'react-i18next';
 import FeedbackForm from './FeedBackForm';
 import { openViberChat } from '../../services/viber';
+import { trackContactClick } from '../../services/analytics';
 
 type ContactModalProps = {
   show: boolean;
@@ -65,16 +66,36 @@ const ContactModal = ({ show, onClose }: ContactModalProps) => {
               </button>
               <h2>{t('modal.title')}</h2>
               <p style={{ textAlign: 'center' }}>
-                {t('modal.call')} <a href="tel:+48883734171">+48883734171</a>
+                {t('modal.call')}{' '}
+                <a href="tel:+48883734171" onClick={() => trackContactClick('phone')}>
+                  +48883734171
+                </a>
               </p>
               <div className="contact-icons">
-                <a href="https://t.me/LegalLine_pl" target="_blank" rel="noopener noreferrer">
+                <a
+                  href="https://t.me/LegalLine_pl"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => trackContactClick('telegram')}
+                >
                   <img src={telegramIcon} alt="Telegram" className="contact-icon" />
                 </a>
-                <a href="https://wa.me/+48883734171" target="_blank" rel="noopener noreferrer">
+                <a
+                  href="https://wa.me/+48883734171"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => trackContactClick('whatsapp')}
+                >
                   <img src={whatsappIcon} alt="WhatsApp" className="contact-icon" />
                 </a>
-                <a href="#!" onClick={openViberChat} rel="noopener noreferrer">
+                <a
+                  href="#!"
+                  onClick={(e) => {
+                    trackContactClick('viber');
+                    openViberChat(e);
+                  }}
+                  rel="noopener noreferrer"
+                >
                   <img src={viberIcon} alt="Viber" className="contact-icon" />
                 </a>
               </div>

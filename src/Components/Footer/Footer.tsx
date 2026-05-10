@@ -7,6 +7,7 @@ import viberIcon from '../images/viber-white.png';
 import instagramIcon from '../images/instagram-white.png';
 import { useTranslation } from 'react-i18next';
 import goUpImage from '../images/goUpImage.svg';
+import { trackContactClick } from '../../services/analytics';
 
 /**
  * Site footer — contacts, company info, services links, scroll-to-top button.
@@ -21,7 +22,11 @@ const Footer = () => {
           <h2>{t('footer.contacts')}</h2>
           <div className="icon-text">
             <img src={phoneIcon} alt="" className="contact-icon" loading="lazy" />
-            <a href="tel:+48883734171" className="footer-contact-link">
+            <a
+              href="tel:+48883734171"
+              className="footer-contact-link"
+              onClick={() => trackContactClick('phone')}
+            >
               {' '}
               +48883734171
             </a>
@@ -33,6 +38,7 @@ const Footer = () => {
               className="footer-contact-link"
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => trackContactClick('telegram')}
             >
               {' '}
               Telegram
@@ -45,6 +51,7 @@ const Footer = () => {
               className="footer-contact-link"
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => trackContactClick('whatsapp')}
             >
               {' '}
               WhatsApp
@@ -57,6 +64,7 @@ const Footer = () => {
               className="footer-contact-link"
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => trackContactClick('viber')}
             >
               {' '}
               Viber
@@ -69,6 +77,7 @@ const Footer = () => {
               className="footer-contact-link"
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => trackContactClick('instagram')}
             >
               {' '}
               Instagram
@@ -83,7 +92,9 @@ const Footer = () => {
           <p>{t('footer.address')}</p>
           <p>{t('footer.timework')}</p>
           <p>
-            <a href="mailto:legalline.pl@gmail.com">legalline.pl@gmail.com</a>
+            <a href="mailto:legalline.pl@gmail.com" onClick={() => trackContactClick('email')}>
+              legalline.pl@gmail.com
+            </a>
           </p>
           <p>
             <a href="/privacy.html">{t('footer.privacyPolicy')}</a>
