@@ -1,4 +1,4 @@
-import { motion, useReducedMotion } from 'framer-motion';
+import { useEffect, useRef, useState } from 'react';
 import type { ReactNode } from 'react';
 
 type FadeInOnScrollProps = {
@@ -8,19 +8,56 @@ type FadeInOnScrollProps = {
 };
 
 const FadeInOnScroll = ({ children, delay = 0, y = 24 }: FadeInOnScrollProps) => {
-  const reduce = useReducedMotion();
+  const ref = useRef<HTMLDivElement | null>(null);
+  const [visible, setVisible] = useState(false);
 
-  if (reduce) return <>{children}</>;
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return undefined;
+
+    if (
+      typeof window !== 'undefined' &&
+      window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
+    ) {
+      setVisible(true);
+      return undefined;
+    }
+
+    if (typeof IntersectionObserver === 'undefined') {
+      setVisible(true);
+      return undefined;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            setVisible(true);
+            observer.disconnect();
+            break;
+          }
+        }
+      },
+      { threshold: 0.15 }
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.15 }}
-      transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1], delay }}
+    <div
+      ref={ref}
+      className={`fade-in-on-scroll${visible ? ' is-visible' : ''}`}
+      style={
+        {
+          '--fade-in-y': `${y}px`,
+          '--fade-in-delay': delay ? `${delay}s` : undefined,
+        } as React.CSSProperties
+      }
     >
       {children}
-    </motion.div>
+    </div>
   );
 };
 

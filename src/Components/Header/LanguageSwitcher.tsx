@@ -1,30 +1,35 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import './Header.css';
 import globeIcon from '../images/globe.png';
 import { useTranslation } from 'react-i18next';
 
-const SUPPORTED_LANGS = ['RU', 'UA', 'PL', 'EN', 'BY'];
+const SUPPORTED_LANGS = ['RU', 'UA', 'PL', 'EN', 'BY'] as const;
 const STORAGE_KEY = 'legal_line_lang';
 
 function LanguageSwitcher() {
   const { i18n, t } = useTranslation();
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const containerRef = useRef<HTMLDivElement | null>(null);
 
-  // Берём язык из i18n (он уже инициализирован с учётом localStorage в i18n.js)
   const currentLang = (i18n.language ?? 'ru').toUpperCase();
 
-  // Закрываем дропдаун при клике вне него
   useEffect(() => {
-    if (!dropdownOpen) return;
-    const close = () => setDropdownOpen(false);
-    document.addEventListener('click', close);
-    return () => document.removeEventListener('click', close);
+    if (!dropdownOpen) return undefined;
+    const handlePointer = (e: MouseEvent) => {
+      if (!containerRef.current?.contains(e.target as Node)) {
+        setDropdownOpen(false);
+      }
+    };
+    const handleEsc = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setDropdownOpen(false);
+    };
+    document.addEventListener('mousedown', handlePointer);
+    document.addEventListener('keydown', handleEsc);
+    return () => {
+      document.removeEventListener('mousedown', handlePointer);
+      document.removeEventListener('keydown', handleEsc);
+    };
   }, [dropdownOpen]);
-
-  const toggleDropdown = (e: { stopPropagation: () => void }) => {
-    e.stopPropagation();
-    setDropdownOpen((prev) => !prev);
-  };
 
   const selectLanguage = (lang: string) => {
     const lower = lang.toLowerCase();
@@ -32,8 +37,6 @@ function LanguageSwitcher() {
     localStorage.setItem(STORAGE_KEY, lower);
 
     // Sync URL path so the language is shareable / refresh-safe.
-    // GitHub Pages serves 404.html (= index.html) for non-root paths, so /pl/, /ru/, etc.
-    // resolve to the SPA which then reads the URL on init via i18n.detectLanguage.
     const url = new URL(window.location.href);
     const pathSegments = url.pathname.split('/').filter(Boolean);
     const langs = ['ru', 'pl', 'ua', 'en', 'by'];
@@ -49,42 +52,25 @@ function LanguageSwitcher() {
   };
 
   return (
-    <div className="header-language-switcher">
-      <div
+    <div className="header-language-switcher" ref={containerRef}>
+      <button
+        type="button"
         className="language-selected"
-        onClick={toggleDropdown}
-        role="button"
+        onClick={() => setDropdownOpen((prev) => !prev)}
         aria-haspopup="listbox"
         aria-expanded={dropdownOpen}
         aria-label={t('header.switchLanguage', 'Switch language')}
-        tabIndex={0}
-        onKeyDown={(e) => {
-          if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault();
-            toggleDropdown(e);
-          }
-        }}
       >
         <img src={globeIcon} alt="" className="globe-icon" aria-hidden="true" />
         {currentLang}
-      </div>
+      </button>
       {dropdownOpen && (
         <ul className="language-dropdown" role="listbox">
           {SUPPORTED_LANGS.map((lang) => (
-            <li
-              key={lang}
-              onClick={() => selectLanguage(lang)}
-              onKeyDown={(e) => {
-                if (e.key === 'Enter' || e.key === ' ') {
-                  e.preventDefault();
-                  selectLanguage(lang);
-                }
-              }}
-              role="option"
-              aria-selected={lang === currentLang}
-              tabIndex={0}
-            >
-              {lang}
+            <li key={lang} role="option" aria-selected={lang === currentLang}>
+              <button type="button" onClick={() => selectLanguage(lang)}>
+                {lang}
+              </button>
             </li>
           ))}
         </ul>

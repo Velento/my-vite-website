@@ -179,6 +179,7 @@ src/
 |---|---|---|
 | `VITE_TELEGRAM_BOT_TOKEN` | Yes | Telegram Bot API token (from [@BotFather](https://t.me/BotFather)) |
 | `VITE_TELEGRAM_CHAT_ID` | Yes | Target chat ID for leads (from [@userinfobot](https://t.me/userinfobot)) |
+| `VITE_GOOGLE_ADS_CONVERSION_ID` | No | Google Ads conversion/measurement ID (e.g. `AW-802543735`). Optional — set to enable gtag conversions. |
 
 ---
 

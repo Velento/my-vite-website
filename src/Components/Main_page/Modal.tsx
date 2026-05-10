@@ -1,4 +1,5 @@
 import FocusTrap from 'focus-trap-react';
+import { useTranslation } from 'react-i18next';
 import type { ReactNode } from 'react';
 
 type ModalProps = {
@@ -8,6 +9,7 @@ type ModalProps = {
 };
 
 const Modal = ({ show, onClose, children }: ModalProps) => {
+  const { t } = useTranslation();
   if (!show) return null;
 
   return (
@@ -22,8 +24,25 @@ const Modal = ({ show, onClose, children }: ModalProps) => {
       >
         {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */}
         <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-          <button type="button" className="close" onClick={onClose} aria-label="Close">
-            &times;
+          <button
+            type="button"
+            className="close"
+            onClick={onClose}
+            aria-label={t('feedbackForm.cancel', 'Close')}
+          >
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.5"
+              strokeLinecap="round"
+              aria-hidden="true"
+            >
+              <line x1="6" y1="6" x2="18" y2="18" />
+              <line x1="18" y1="6" x2="6" y2="18" />
+            </svg>
           </button>
           {children}
         </div>

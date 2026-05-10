@@ -14,9 +14,8 @@ dist-ssr
 
 # Environment variables — НИКОГДА не коммитить!
 .env
-.env.local
-.env.*.local
-.env.production
+.env.*
+!.env.example
 
 # Coverage
 coverage/

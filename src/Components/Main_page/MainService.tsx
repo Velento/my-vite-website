@@ -186,33 +186,31 @@ const Services = () => {
   return (
     <section className="services" id="services">
       <h2 className="services-h">{t('services.servicesTitle')}</h2>
-      {SERVICE_KEYS.map(({ id, labelKey }) => (
-        <div
-          key={id}
-          className={`service-item ${activeService === id ? 'active' : ''}`}
-          onClick={() => handleServiceClick(id)}
-          role="button"
-          tabIndex={0}
-          onKeyDown={(e) => {
-            if (e.key === 'Enter' || e.key === ' ') {
-              e.preventDefault();
-              handleServiceClick(id);
-            }
-          }}
-        >
-          {t(labelKey)}
-          {activeService === id && (
-            <ServiceDetails
-              serviceName={id}
-              onShowCostDetails={() => setShowCostDetails(true)}
-              onShowMoreInfo={() => setShowMoreInfo(true)}
-              onShowProcessingTime={() => setShowProcessingTime(true)}
-              onShowContactModal={() => setShowContactModal(true)}
-              t={t}
-            />
-          )}
-        </div>
-      ))}
+      {SERVICE_KEYS.map(({ id, labelKey }) => {
+        const isActive = activeService === id;
+        return (
+          <div key={id} className={`service-item-wrapper ${isActive ? 'active' : ''}`}>
+            <button
+              type="button"
+              className={`service-item ${isActive ? 'active' : ''}`}
+              onClick={() => handleServiceClick(id)}
+              aria-expanded={isActive}
+            >
+              {t(labelKey)}
+            </button>
+            {isActive && (
+              <ServiceDetails
+                serviceName={id}
+                onShowCostDetails={() => setShowCostDetails(true)}
+                onShowMoreInfo={() => setShowMoreInfo(true)}
+                onShowProcessingTime={() => setShowProcessingTime(true)}
+                onShowContactModal={() => setShowContactModal(true)}
+                t={t}
+              />
+            )}
+          </div>
+        );
+      })}
       {activeService &&
         (showCostDetails || showMoreInfo || showProcessingTime || showContactModal) && (
           <Modal

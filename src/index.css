@@ -271,6 +271,30 @@ img {
   background: var(--color-text-tertiary);
 }
 
+/* ── Scroll-triggered fade-in (replaces framer-motion's whileInView).
+   Component <FadeInOnScroll> toggles `.is-visible` via IntersectionObserver. ── */
+.fade-in-on-scroll {
+  opacity: 0;
+  transform: translateY(var(--fade-in-y, 24px));
+  transition:
+    opacity 600ms var(--ease) var(--fade-in-delay, 0s),
+    transform 600ms var(--ease) var(--fade-in-delay, 0s);
+  will-change: opacity, transform;
+}
+
+.fade-in-on-scroll.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fade-in-on-scroll {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
 /* ── CRO: Scroll Reveal Animation ── */
 @keyframes revealUp {
   from {

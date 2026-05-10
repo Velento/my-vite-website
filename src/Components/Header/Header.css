@@ -213,11 +213,15 @@ a:hover .tooltip {
   cursor: pointer;
   display: flex;
   align-items: center;
+  font: inherit;
   font-size: 0.85rem;
   font-weight: 500;
+  color: inherit;
   padding: 6px 10px;
   min-height: 44px;
   min-width: 44px;
+  border: 0;
+  background: transparent;
   border-radius: var(--radius-sm);
   transition: background-color var(--duration-fast) var(--ease);
 }
@@ -256,17 +260,28 @@ a:hover .tooltip {
 }
 
 .language-dropdown li {
+  list-style: none;
+}
+
+.language-dropdown li button {
+  width: 100%;
   padding: 10px 14px;
   min-height: 44px;
   display: flex;
   align-items: center;
   cursor: pointer;
+  font: inherit;
   font-size: 0.85rem;
+  color: inherit;
+  background: transparent;
+  border: 0;
   border-radius: var(--radius-sm);
+  text-align: left;
   transition: background-color var(--duration-fast) var(--ease);
 }
 
-.language-dropdown li:hover {
+.language-dropdown li button:hover,
+.language-dropdown li button:focus-visible {
   background-color: var(--color-bg-alt);
 }
 

@@ -1,0 +1,6 @@
+# Code owners: assign reviews to repository owner for critical paths
+
+/.github/ @Velento
+/src/ @Velento
+/worker/ @Velento
+/package.json @Velento
