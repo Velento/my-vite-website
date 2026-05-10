@@ -1,3 +1,4 @@
+
 # Branch protection setup
 
 The repo currently has **no branch protection** on `my-vite-website` or `main`. Anyone with push access can rewrite history. The workflow at [`.github/workflows/branch-protection.yml`](../.github/workflows/branch-protection.yml) is wired up to configure protection but needs a real Personal Access Token to run.
