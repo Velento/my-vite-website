@@ -1,129 +1,147 @@
 import { useState, useEffect } from 'react';
+import FocusTrap from 'focus-trap-react';
 import { useTranslation } from 'react-i18next';
 import { applyMarketingConsent } from '../../services/marketingConsent';
 import './CookieConsent.css';
+
+const STORAGE_KEY = 'cookieConsent';
+
+type Consent = {
+  essential: boolean;
+  analytics: boolean;
+  marketing: boolean;
+};
+
+const DECLINED_CONSENT: Consent = { essential: false, analytics: false, marketing: false };
 
 const CookieConsent = () => {
   const { t } = useTranslation();
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
-  const [cookies, setCookies] = useState({
+  const [cookies, setCookies] = useState<Consent>({
     essential: false,
     analytics: false,
     marketing: false,
   });
 
   useEffect(() => {
-    let cookieConsent = null;
+    let stored: Consent | null = null;
     try {
-      const stored = localStorage.getItem('cookieConsent');
-      if (stored) cookieConsent = JSON.parse(stored);
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (raw) stored = JSON.parse(raw) as Consent;
     } catch {
-      localStorage.removeItem('cookieConsent');
+      localStorage.removeItem(STORAGE_KEY);
     }
-    if (cookieConsent) {
-      setCookies(cookieConsent);
+    if (stored) {
+      setCookies(stored);
       setIsVisible(false);
-      applyMarketingConsent(cookieConsent);
+      applyMarketingConsent(stored);
     }
   }, []);
 
-  const handleAcceptAll = () => {
-    const consent = { essential: true, analytics: true, marketing: true };
-    localStorage.setItem('cookieConsent', JSON.stringify(consent));
+  const persist = (consent: Consent) => {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(consent));
     setCookies(consent);
     setIsVisible(false);
     applyMarketingConsent(consent);
   };
 
-  const handleAcceptSelected = () => {
-    localStorage.setItem('cookieConsent', JSON.stringify(cookies));
-    setIsVisible(false);
-    applyMarketingConsent(cookies);
-  };
-
-  const handleDecline = () => {
-    localStorage.removeItem('cookieConsent');
-    setIsVisible(false);
-  };
+  const handleAcceptAll = () => persist({ essential: true, analytics: true, marketing: true });
+  const handleAcceptSelected = () => persist(cookies);
+  const handleDecline = () => persist(DECLINED_CONSENT);
 
   const isAcceptButtonDisabled = !cookies.essential && !cookies.analytics && !cookies.marketing;
 
-  return isVisible ? (
-    <aside className="cookie-consent-overlay" aria-label="Cookie consent">
-      <div className="cookie-consent">
-        <button className="close-button" aria-label="Close" onClick={() => setIsVisible(false)}>
-          ✕
-        </button>
-        {!isSettingsOpen ? (
-          <>
-            <p className="cookie-settings-p">{t('cookieMessage')}</p>
-            <button className="settings-button" onClick={() => setIsSettingsOpen(true)}>
-              {t('allowMeToChoose')}
-            </button>
-            <button className="accept-button" onClick={handleAcceptAll}>
-              {t('acceptAll')}
-            </button>
-            <button className="decline-button" onClick={handleDecline}>
-              {t('decline')}
-            </button>
-          </>
-        ) : (
-          <div className="cookie-settings">
-            <button
-              className="close-button"
-              aria-label="Close"
-              onClick={() => setIsSettingsOpen(false)}
-            >
-              ✕
-            </button>
-            <h3>{t('cookieSettings')}</h3>
-            <p className="cookie-settings-p">{t('cookieUsageDescription')}</p>
-            <div className="cookie-option">
-              <label>
-                {t('essentialCookies')}
-                <input
-                  type="checkbox"
-                  checked={cookies.essential}
-                  onChange={() => setCookies({ ...cookies, essential: !cookies.essential })}
-                />
-              </label>
+  if (!isVisible) return null;
+
+  return (
+    <FocusTrap focusTrapOptions={{ allowOutsideClick: true, escapeDeactivates: false }}>
+      <aside className="cookie-consent-overlay" aria-label={t('cookieSettings', 'Cookie consent')}>
+        <div className="cookie-consent" role="dialog" aria-modal="true">
+          <button
+            type="button"
+            className="close-button"
+            aria-label={t('feedbackForm.cancel', 'Close')}
+            onClick={handleDecline}
+          >
+            ✕
+          </button>
+          {!isSettingsOpen ? (
+            <>
+              <p className="cookie-settings-p">{t('cookieMessage')}</p>
+              <button
+                type="button"
+                className="settings-button"
+                onClick={() => setIsSettingsOpen(true)}
+              >
+                {t('allowMeToChoose')}
+              </button>
+              <button type="button" className="accept-button" onClick={handleAcceptAll}>
+                {t('acceptAll')}
+              </button>
+              <button type="button" className="decline-button" onClick={handleDecline}>
+                {t('decline')}
+              </button>
+            </>
+          ) : (
+            <div className="cookie-settings">
+              <button
+                type="button"
+                className="close-button"
+                aria-label={t('feedbackForm.cancel', 'Close')}
+                onClick={() => setIsSettingsOpen(false)}
+              >
+                ✕
+              </button>
+              <h3>{t('cookieSettings')}</h3>
+              <p className="cookie-settings-p">{t('cookieUsageDescription')}</p>
+              <div className="cookie-option">
+                <label>
+                  {t('essentialCookies')}
+                  <input
+                    type="checkbox"
+                    checked={cookies.essential}
+                    onChange={() => setCookies({ ...cookies, essential: !cookies.essential })}
+                  />
+                </label>
+              </div>
+              <div className="cookie-option">
+                <label>
+                  {t('analyticsCookies')}
+                  <input
+                    type="checkbox"
+                    checked={cookies.analytics}
+                    onChange={() => setCookies({ ...cookies, analytics: !cookies.analytics })}
+                  />
+                </label>
+              </div>
+              <div className="cookie-option">
+                <label>
+                  {t('marketingCookies')}
+                  <input
+                    type="checkbox"
+                    checked={cookies.marketing}
+                    onChange={() => setCookies({ ...cookies, marketing: !cookies.marketing })}
+                  />
+                </label>
+              </div>
+              <button
+                type="button"
+                className="accept-button"
+                onClick={handleAcceptSelected}
+                disabled={isAcceptButtonDisabled}
+              >
+                {t('acceptSelected')}
+              </button>
+              <button type="button" className="decline-button" onClick={handleDecline}>
+                {t('decline')}
+              </button>
             </div>
-            <div className="cookie-option">
-              <label>
-                {t('analyticsCookies')}
-                <input
-                  type="checkbox"
-                  checked={cookies.analytics}
-                  onChange={() => setCookies({ ...cookies, analytics: !cookies.analytics })}
-                />
-              </label>
-            </div>
-            <div className="cookie-option">
-              <label>
-                {t('marketingCookies')}
-                <input
-                  type="checkbox"
-                  checked={cookies.marketing}
-                  onChange={() => setCookies({ ...cookies, marketing: !cookies.marketing })}
-                />
-              </label>
-            </div>
-            <button
-              className="accept-button"
-              onClick={handleAcceptSelected}
-              disabled={isAcceptButtonDisabled}
-            >
-              {t('acceptSelected')}
-            </button>
-            <button className="decline-button" onClick={handleDecline}>
-              {t('decline')}
-            </button>
-          </div>
-        )}
-      </div>
-    </aside>
-  ) : null;
+          )}
+        </div>
+      </aside>
+    </FocusTrap>
+  );
 };
 
 export default CookieConsent;
