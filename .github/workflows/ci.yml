@@ -79,11 +79,8 @@ jobs:
       - name: Build production
         run: npm run build
         env:
-          # Optional secrets — `|| ''` lets the workflow run cleanly even if
-          # they aren't set yet, and suppresses the "Context access might be
-          # invalid" lint warning from the GitHub Actions VS Code extension.
-          VITE_FORM_PROXY_URL: ${{ secrets.VITE_FORM_PROXY_URL || '' }}
-          VITE_GOOGLE_ADS_CONVERSION_ID: ${{ secrets.VITE_GOOGLE_ADS_CONVERSION_ID || '' }}
+          VITE_FORM_PROXY_URL: ${{ secrets.VITE_FORM_PROXY_URL }}
+          VITE_GOOGLE_ADS_CONVERSION_ID: ${{ secrets.VITE_GOOGLE_ADS_CONVERSION_ID }}
 
       - name: Upload build artifact
         uses: actions/upload-artifact@v6
