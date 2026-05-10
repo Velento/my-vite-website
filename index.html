@@ -36,7 +36,7 @@
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap"
       media="print"
-      onload="this.media='all'"
+      onload="this.media = 'all'"
     />
     <noscript>
       <link
@@ -46,7 +46,6 @@
     </noscript>
 
     <link rel="dns-prefetch" href="https://connect.facebook.net" />
-    <link rel="dns-prefetch" href="https://api.web3forms.com" />
     <title>Legal Line | Легализация иностранцев в Гданьске | Karta pobytu Gdansk</title>
     <meta
       name="description"
@@ -174,10 +173,7 @@
             }
           ]
         },
-        "sameAs": [
-          "https://t.me/LegalLine_pl",
-          "https://www.instagram.com/legal_line_pl/"
-        ]
+        "sameAs": ["https://t.me/LegalLine_pl", "https://www.instagram.com/legal_line_pl/"]
       }
     </script>
 
@@ -209,13 +205,32 @@
       }
     </script>
 
-    <!-- Google Tag Manager — replace GTM-XXXXXXX with your container ID -->
-    <!-- <script async src="https://www.googletagmanager.com/gtm.js?id=GTM-XXXXXXX"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-  </script> -->
+    <!-- Google Tag Manager -->
+    <script>
+      (function (w, d, s, l, i) {
+        w[l] = w[l] || [];
+        w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+        var f = d.getElementsByTagName(s)[0],
+          j = d.createElement(s),
+          dl = l != 'dataLayer' ? '&l=' + l : '';
+        j.async = true;
+        j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
+        f.parentNode.insertBefore(j, f);
+      })(window, document, 'script', 'dataLayer', 'GTM-KWWX8WJZ');
+    </script>
+    <!-- End Google Tag Manager -->
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-802543735"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag('js', new Date());
+
+      gtag('config', 'AW-802543735');
+    </script>
 
     <!-- dataLayer init (works with or without GTM) -->
     <script>
@@ -234,17 +249,24 @@
 
     <!-- Meta Pixel — loaded only after user grants marketing consent (RODO/GDPR). -->
     <!-- See src/Components/Main_page/CookieConsent.jsx for the consent gate. -->
-    <script type="module" crossorigin src="/assets/index-CroBgv7-.js"></script>
+    <script type="module" crossorigin src="/assets/index-BEC-lEZ9.js"></script>
     <link rel="modulepreload" crossorigin href="/assets/vendor-react-CJdQVFLW.js">
     <link rel="modulepreload" crossorigin href="/assets/vendor-i18n-Bjqu_vas.js">
     <link rel="modulepreload" crossorigin href="/assets/vendor-swiper-BCdGaSFB.js">
-    <link rel="modulepreload" crossorigin href="/assets/vendor-motion-M-Ss_s_N.js">
     <link rel="stylesheet" crossorigin href="/assets/vendor-swiper-DfCQwPr7.css">
-    <link rel="stylesheet" crossorigin href="/assets/index-BIb05GZo.css">
+    <link rel="stylesheet" crossorigin href="/assets/index-6wwvKa29.css">
   <link rel="manifest" href="/manifest.webmanifest"><script id="vite-plugin-pwa:register-sw" src="/registerSW.js"></script></head>
   <body>
-    <!-- Google Tag Manager (noscript) — uncomment when GTM is configured -->
-    <!-- <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXXX" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript> -->
+    <!-- Google Tag Manager (noscript) -->
+    <noscript
+      ><iframe
+        src="https://www.googletagmanager.com/ns.html?id=GTM-KWWX8WJZ"
+        height="0"
+        width="0"
+        style="display: none; visibility: hidden"
+      ></iframe
+    ></noscript>
+    <!-- End Google Tag Manager (noscript) -->
 
     <div id="root"></div>
     <!-- Vite entry point -->
