@@ -412,12 +412,14 @@ async function handleTrack(request: Request, env: Env, cors: HeadersInit): Promi
 
 // ── reporting / export ───────────────────────────────────────────────────────
 
-function checkBearer(request: Request, env: Env): boolean {
+function checkToken(request: Request, env: Env): boolean {
   const token = env.REPORT_TOKEN;
   if (!token) return false;
   const header = request.headers.get('Authorization') ?? '';
   const match = /^Bearer\s+(.+)$/i.exec(header.trim());
-  return match !== null && match[1] === token;
+  if (match !== null && match[1] === token) return true;
+  // Also accept ?token= so dashboard bookmarks and CSV links work without JS
+  return new URL(request.url).searchParams.get('token') === token;
 }
 
 interface ReportParams {
@@ -521,7 +523,7 @@ function buildReport(events: LogEntry[], deduped: LogEntry[]) {
 }
 
 async function handleReport(request: Request, env: Env): Promise<Response> {
-  if (!checkBearer(request, env)) {
+  if (!checkToken(request, env)) {
     return jsonResponse({ ok: false, error: 'Unauthorized' }, 401);
   }
   const url = new URL(request.url);
@@ -555,7 +557,7 @@ function csvEscape(value: string): string {
 }
 
 async function handleExport(request: Request, env: Env): Promise<Response> {
-  if (!checkBearer(request, env)) {
+  if (!checkToken(request, env)) {
     return jsonResponse({ ok: false, error: 'Unauthorized' }, 401);
   }
   const url = new URL(request.url);
@@ -613,6 +615,192 @@ async function handleExport(request: Request, env: Env): Promise<Response> {
   });
 }
 
+// ── dashboard ────────────────────────────────────────────────────────────────
+
+const MONTHS_PL = [
+  'Styczeń','Luty','Marzec','Kwiecień','Maj','Czerwiec',
+  'Lipiec','Sierpień','Wrzesień','Październik','Listopad','Grudzień',
+];
+
+const CHANNEL_LABELS: Record<string, string> = {
+  form: '📋 Formularz (potwierdzony)',
+  phone: '📞 Kliknięcie – telefon',
+  whatsapp: '💬 WhatsApp',
+  telegram: '✈️ Telegram',
+  viber: '📳 Viber',
+  instagram: '📸 Instagram',
+  email: '✉️ E-mail',
+};
+
+function dashboardHtml(p: {
+  monthName: string; year: number; from: string; to: string;
+  report: ReturnType<typeof buildReport>;
+  prevUrl: string; nextUrl: string; csvUrl: string;
+  isCurrentMonth: boolean; generatedAt: string;
+}): string {
+  const { monthName, year, from, to, report, prevUrl, nextUrl, csvUrl, isCurrentMonth, generatedAt } = p;
+  const entries = Object.entries(report.by_channel || {}).sort(([, a], [, b]) => b - a);
+  const maxVal = Math.max(...entries.map(([, n]) => n), 1);
+  const forms = report.by_channel.form ?? 0;
+  const clicks = report.total_billable - forms;
+
+  const rows = entries.map(([key, count]) => {
+    const label = CHANNEL_LABELS[key] ?? key;
+    const pct = Math.round((count / maxVal) * 100);
+    const chip = key === 'form'
+      ? '<span class="chip cf">forma</span>'
+      : '<span class="chip cc">klik</span>';
+    return `<div class="row">
+      <span class="row-lbl">${label}${chip}</span>
+      <div class="bar-w"><div class="bar" style="width:${pct}%"></div></div>
+      <span class="row-n">${count}</span>
+    </div>`;
+  }).join('');
+
+  const nextDisabled = isCurrentMonth ? ' style="background:#ccc;pointer-events:none"' : '';
+
+  return `<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Legal Line — Raport Lidów ${monthName} ${year}</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:system-ui,-apple-system,sans-serif;background:#f5f5f0;color:#1a2332;min-height:100vh}
+.hd{background:#1a2332;color:#fff;padding:18px 28px;display:flex;align-items:center;justify-content:space-between}
+.hd h1{font-size:.95rem;letter-spacing:.14em;font-weight:700}
+.hd p{font-size:.72rem;opacity:.5}
+.wrap{max-width:620px;margin:0 auto;padding:26px 16px}
+.nav{display:flex;align-items:center;justify-content:center;gap:14px;margin-bottom:22px}
+.nav a{background:#1a2332;color:#fff;text-decoration:none;padding:8px 18px;border-radius:6px;font-size:1.1rem;line-height:1;transition:background .15s}
+.nav a:hover{background:#b8943e}
+.nav-lbl{font-size:1.2rem;font-weight:600;min-width:190px;text-align:center}
+.card{background:#fff;border-radius:10px;padding:22px;margin-bottom:14px;box-shadow:0 1px 5px rgba(0,0,0,.07)}
+.hero{text-align:center;padding:30px 20px}
+.hero .num{font-size:5.5rem;font-weight:800;color:#b8943e;line-height:1}
+.hero .lbl{font-size:.95rem;color:#555;margin-top:8px}
+.hero .sub{font-size:.78rem;color:#aaa;margin-top:5px}
+.sec{font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#aaa;margin-bottom:14px}
+.row{display:flex;align-items:center;gap:10px;margin-bottom:9px}
+.row-lbl{flex:1;font-size:.86rem}
+.bar-w{width:110px;height:8px;background:#f0f0ea;border-radius:4px;overflow:hidden}
+.bar{height:100%;background:#b8943e;border-radius:4px}
+.row-n{font-weight:700;font-size:.9rem;min-width:26px;text-align:right}
+.chip{display:inline-block;padding:1px 7px;border-radius:20px;font-size:.63rem;font-weight:600;margin-left:5px}
+.cf{background:#e8f5e9;color:#2e7d32}.cc{background:#fff3e0;color:#e65100}
+.csv-row{display:flex;justify-content:center;margin-top:8px}
+.csv-btn{background:#1a2332;color:#fff;text-decoration:none;padding:11px 28px;border-radius:6px;font-size:.9rem;display:inline-block;transition:background .15s}
+.csv-btn:hover{background:#b8943e}
+.note{font-size:.73rem;color:#aaa;text-align:center;margin-top:18px;line-height:1.6}
+</style>
+</head>
+<body>
+<div class="hd">
+  <h1>LEGAL LINE &mdash; Rozliczenie Lid&oacute;w</h1>
+  <p>Cloudflare KV &middot; ${from} &mdash; ${to} &middot; ${generatedAt}</p>
+</div>
+<div class="wrap">
+  <div class="nav">
+    <a href="${prevUrl}">&larr;</a>
+    <span class="nav-lbl">${monthName} ${year}</span>
+    <a href="${nextUrl}"${nextDisabled}>&rarr;</a>
+  </div>
+  <div class="card hero">
+    <div class="num">${report.total_billable}</div>
+    <div class="lbl">rozliczonych lid&oacute;w (dedup 24&nbsp;h)</div>
+    <div class="sub">zdarze&#324; w logu: ${report.total_raw}&nbsp;&nbsp;&middot;&nbsp;&nbsp;formularze: ${forms}&nbsp;&nbsp;&middot;&nbsp;&nbsp;klikni&#281;cia: ${clicks}</div>
+  </div>
+  <div class="card">
+    <div class="sec">Podzia&#322; wed&#322;ug kana&#322;u</div>
+    ${rows || '<p style="color:#aaa;font-size:.85rem">Brak danych za ten miesi&#261;c.</p>'}
+  </div>
+  <div class="csv-row">
+    <a class="csv-btn" href="${csvUrl}">&#8659;&nbsp; Pobierz CSV &mdash; ${from} do ${to}</a>
+  </div>
+  <p class="note">
+    Obaj widz&#261; t&#281; sam&#261; liczb&#281; &mdash; &#378;r&oacute;d&#322;o prawdy do rozlicze&#324;.<br>
+    Timestamp ustawia Cloudflare (nie da si&#281; sfabrykowa&#263;).<br>
+    Dedup: jedno zdarzenie na (typ&nbsp;+&nbsp;kana&#322;&nbsp;+&nbsp;identyfikator) w&nbsp;24&nbsp;h.
+  </p>
+</div>
+</body>
+</html>`;
+}
+
+async function handleDashboard(request: Request, env: Env): Promise<Response> {
+  if (!checkToken(request, env)) {
+    return new Response(
+      '<!DOCTYPE html><html lang="pl"><body style="font-family:sans-serif;text-align:center;padding:80px">' +
+      '<h2 style="color:#c0392b">401 &mdash; Brak dost&#281;pu</h2>' +
+      '<p style="color:#666;margin-top:12px">Link zawiera nieprawid&#322;owy lub brakuj&#261;cy token.</p>' +
+      '</body></html>',
+      { status: 401, headers: { 'Content-Type': 'text/html; charset=utf-8' } },
+    );
+  }
+
+  const url = new URL(request.url);
+  const token = url.searchParams.get('token') ?? '';
+
+  const now = new Date();
+  const monthParam = url.searchParams.get('month') ?? '';
+  let year: number, month: number; // month is 1-based
+  if (/^\d{4}-\d{2}$/.test(monthParam)) {
+    const parts = monthParam.split('-').map(Number);
+    year = parts[0]!;
+    month = parts[1]!;
+  } else {
+    year = now.getUTCFullYear();
+    month = now.getUTCMonth() + 1;
+  }
+
+  const pad = (n: number) => String(n).padStart(2, '0');
+  const from = `${year}-${pad(month)}-01`;
+  const lastDay = new Date(Date.UTC(year, month, 0)).getUTCDate();
+  const to = `${year}-${pad(month)}-${pad(lastDay)}`;
+
+  const fromIso = `${from}T00:00:00.000Z`;
+  const toEnd = new Date(`${to}T00:00:00.000Z`);
+  toEnd.setUTCDate(toEnd.getUTCDate() + 1);
+
+  const events = await loadEvents(env, fromIso, toEnd.toISOString());
+  const deduped = dedupEvents(events, DEFAULT_DEDUP_WINDOW_SECONDS);
+  const report = buildReport(events, deduped);
+
+  const prevD = new Date(Date.UTC(year, month - 2, 1));
+  const nextD = new Date(Date.UTC(year, month, 1));
+  const fmtMonth = (d: Date) =>
+    `${d.getUTCFullYear()}-${pad(d.getUTCMonth() + 1)}`;
+
+  const base = `${url.origin}/dashboard?token=${encodeURIComponent(token)}`;
+  const prevUrl = `${base}&month=${fmtMonth(prevD)}`;
+  const nextUrl = `${base}&month=${fmtMonth(nextD)}`;
+  const csvUrl =
+    `${url.origin}/export?token=${encodeURIComponent(token)}&from=${from}&to=${to}&dedup=true`;
+
+  const isCurrentMonth =
+    year === now.getUTCFullYear() && month === now.getUTCMonth() + 1;
+
+  const generatedAt = now.toLocaleTimeString('pl-PL', { timeZone: 'Europe/Warsaw' });
+
+  const html = dashboardHtml({
+    monthName: MONTHS_PL[month - 1]!,
+    year, from, to, report,
+    prevUrl, nextUrl, csvUrl,
+    isCurrentMonth, generatedAt,
+  });
+
+  return new Response(html, {
+    status: 200,
+    headers: {
+      'Content-Type': 'text/html; charset=utf-8',
+      'X-Frame-Options': 'DENY',
+      'X-Content-Type-Options': 'nosniff',
+      'Cache-Control': 'no-store',
+    },
+  });
+}
+
 // ── router ───────────────────────────────────────────────────────────────────
 
 export default {
@@ -630,7 +818,10 @@ export default {
     const url = new URL(request.url);
     const path = url.pathname.replace(/\/+$/, '') || '/';
 
-    // /report and /export are admin endpoints — no CORS required (called via curl / server)
+    // Admin endpoints — no CORS required (browser/curl, token-protected)
+    if (path === '/dashboard' && request.method === 'GET') {
+      return handleDashboard(request, env);
+    }
     if (path === '/report' && request.method === 'GET') {
       return handleReport(request, env);
     }
