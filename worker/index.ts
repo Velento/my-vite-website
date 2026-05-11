@@ -1,25 +1,41 @@
 /**
- * Cloudflare Worker that proxies form submissions to Telegram.
+ * Cloudflare Worker — form proxy + server-side interaction log.
  *
- * Two paths:
- *   1. Content-Type: application/json   → text-only lead, sendMessage
- *   2. Content-Type: multipart/form-data → lead with attached document,
- *      forwarded as multipart to Telegram's sendDocument endpoint.
+ * Routes (all POST/GET, CORS-enabled for the site origin):
  *
- * Bot token + chat ID live as Worker secrets — they are NEVER shipped to
- * the browser.
+ *   POST /          → form submission. Validates + forwards to Telegram, logs
+ *                     to INTERACTION_LOG KV with type='form_submit'.
+ *   POST /track     → micro-event ping (phone click, messenger click, etc).
+ *                     Logged to INTERACTION_LOG with type='contact_click'.
+ *                     Returns 204 No Content; fire-and-forget from the page.
+ *   GET  /report    → JSON breakdown for a date range. Bearer-auth via
+ *                     REPORT_TOKEN. Used for invoice reconciliation.
+ *   GET  /export    → CSV dump for the same date range. Same auth.
  *
- * Deploy: wrangler deploy
- * Set secrets:
- *   wrangler secret put TELEGRAM_BOT_TOKEN
- *   wrangler secret put TELEGRAM_CHAT_ID
+ * KV entry shape:
+ *   key: `event:YYYY-MM-DDTHH:MM:SS.sssZ:UUID`     (sortable by date)
+ *   value (JSON): {
+ *     id, ts, type, channel, fingerprint, ua, country, referer, utm, lang
+ *   }
+ *
+ * Dedup is done at REPORT time using `fingerprint` + a configurable window
+ * (default 24 h). The raw log keeps every event so you can audit dedup choices.
+ *
+ * Secrets (set via `wrangler secret put …`):
+ *   TELEGRAM_BOT_TOKEN
+ *   TELEGRAM_CHAT_ID
+ *   REPORT_TOKEN          — bearer token for /report and /export
+ *
+ * KV namespace binding (in wrangler.toml):
+ *   INTERACTION_LOG       — kv_namespaces entry
  */
 
 interface Env {
   TELEGRAM_BOT_TOKEN: string;
   TELEGRAM_CHAT_ID: string;
-  /** Comma-separated list of allowed Origins. Optional — defaults to legalline.pl */
+  REPORT_TOKEN?: string;
   ALLOWED_ORIGINS?: string;
+  INTERACTION_LOG?: KVNamespace;
 }
 
 const DEFAULT_ALLOWED = ['https://legalline.pl', 'https://www.legalline.pl'];
@@ -27,7 +43,7 @@ const DEFAULT_ALLOWED = ['https://legalline.pl', 'https://www.legalline.pl'];
 const NAME_REGEX = /^[A-Za-zА-Яа-яЁёЄєІіЇїҐґ\s'-]{2,50}$/u;
 const PHONE_REGEX = /^\+?[\d\s\-()]{9,20}$/;
 
-const MAX_FILE_BYTES = 10 * 1024 * 1024; // 10 MB
+const MAX_FILE_BYTES = 10 * 1024 * 1024;
 const ALLOWED_FILE_TYPES = new Set([
   'application/pdf',
   'image/jpeg',
@@ -37,30 +53,139 @@ const ALLOWED_FILE_TYPES = new Set([
   'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
 ]);
 
+const ALLOWED_CHANNELS = new Set([
+  'phone',
+  'whatsapp',
+  'telegram',
+  'viber',
+  'instagram',
+  'email',
+]);
+
+// Keep raw events for two years. Plenty for tax/invoice audit, KV cost is
+// negligible at this scale (each entry ~300 B).
+const KV_TTL_SECONDS = 60 * 60 * 24 * 730;
+
+const DEFAULT_DEDUP_WINDOW_SECONDS = 60 * 60 * 24;
+
+// ── helpers ──────────────────────────────────────────────────────────────────
+
 function corsHeaders(origin: string | null, allowed: string[]): HeadersInit {
   const allow = origin && allowed.includes(origin) ? origin : allowed[0]!;
   return {
     'Access-Control-Allow-Origin': allow,
-    'Access-Control-Allow-Methods': 'POST, OPTIONS',
-    'Access-Control-Allow-Headers': 'Content-Type',
+    'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+    'Access-Control-Allow-Headers': 'Content-Type, Authorization',
     Vary: 'Origin',
   };
 }
 
-function escapeHtml(value: string): string {
-  return value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-}
-
-function jsonResponse(data: unknown, status: number, extraHeaders: HeadersInit): Response {
+function jsonResponse(data: unknown, status: number, extraHeaders: HeadersInit = {}): Response {
   return new Response(JSON.stringify(data), {
     status,
     headers: { 'Content-Type': 'application/json', ...extraHeaders },
   });
 }
 
+function escapeHtml(value: string): string {
+  return value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+
+function uuid(): string {
+  // Web Crypto is available in Workers.
+  return crypto.randomUUID();
+}
+
+async function sha256Hex(input: string): Promise<string> {
+  const data = new TextEncoder().encode(input);
+  const digest = await crypto.subtle.digest('SHA-256', data);
+  return Array.from(new Uint8Array(digest))
+    .map((b) => b.toString(16).padStart(2, '0'))
+    .join('');
+}
+
+/** Stable per-visitor signal for dedup: hashed IP + UA. Not stored. */
+async function makeSessionFingerprint(request: Request): Promise<string> {
+  const ip = request.headers.get('CF-Connecting-IP') ?? 'unknown';
+  const ua = request.headers.get('User-Agent') ?? 'unknown';
+  return (await sha256Hex(`${ip}::${ua}`)).slice(0, 24);
+}
+
+/** Hashed phone (or sessionFP) for billing dedup. Last 4 digits kept for matching with Telegram chat. */
+async function makeBillingFingerprint(phone: string | null, sessionFp: string): Promise<string> {
+  if (phone) {
+    const digits = phone.replace(/\D/g, '');
+    const tail = digits.slice(-4);
+    const hash = (await sha256Hex(digits)).slice(0, 20);
+    return `p_${hash}_${tail}`;
+  }
+  return `s_${sessionFp}`;
+}
+
+function isBotUserAgent(ua: string | null): boolean {
+  if (!ua) return false;
+  return /\b(bot|crawler|spider|crawling|preview|scrape|headless|phantom|selenium)\b/i.test(ua);
+}
+
+// ── KV log entry ─────────────────────────────────────────────────────────────
+
+type EventType = 'form_submit' | 'contact_click';
+
+type Channel =
+  | 'form'
+  | 'phone'
+  | 'whatsapp'
+  | 'telegram'
+  | 'viber'
+  | 'instagram'
+  | 'email';
+
+interface LogEntry {
+  id: string;
+  ts: string;
+  type: EventType;
+  channel: Channel;
+  fingerprint: string;
+  ua: string;
+  country: string | null;
+  referer: string | null;
+  utm: {
+    source: string | null;
+    medium: string | null;
+    campaign: string | null;
+    term: string | null;
+    content: string | null;
+  };
+  lang: string | null;
+}
+
+async function logEvent(env: Env, entry: LogEntry): Promise<void> {
+  if (!env.INTERACTION_LOG) {
+    console.warn('INTERACTION_LOG KV binding missing; event not persisted', entry.id);
+    return;
+  }
+  const key = `event:${entry.ts}:${entry.id}`;
+  await env.INTERACTION_LOG.put(key, JSON.stringify(entry), { expirationTtl: KV_TTL_SECONDS });
+}
+
+function pickUtm(url: URL): LogEntry['utm'] {
+  const sp = url.searchParams;
+  return {
+    source: sp.get('utm_source'),
+    medium: sp.get('utm_medium'),
+    campaign: sp.get('utm_campaign'),
+    term: sp.get('utm_term'),
+    content: sp.get('utm_content'),
+  };
+}
+
+// ── form submit (existing path, now logging) ────────────────────────────────
+
 type Lead = { name: string; phone: string; promo?: string };
 
-function validateLead(lead: Partial<Lead>): { ok: true; lead: Lead } | { ok: false; error: string } {
+function validateLead(
+  lead: Partial<Lead>
+): { ok: true; lead: Lead } | { ok: false; error: string } {
   const { name, phone, promo } = lead;
   if (typeof name !== 'string' || !NAME_REGEX.test(name.trim())) {
     return { ok: false, error: 'Invalid name' };
@@ -74,7 +199,7 @@ function validateLead(lead: Partial<Lead>): { ok: true; lead: Lead } | { ok: fal
   return { ok: true, lead: { name: name.trim(), phone: phone.trim(), promo: promo?.trim() } };
 }
 
-function buildCaption(lead: Lead): string {
+function buildCaption(lead: Lead, eventId: string): string {
   const safeName = escapeHtml(lead.name);
   const safePhone = escapeHtml(lead.phone);
   const safePromo = lead.promo ? escapeHtml(lead.promo) : '';
@@ -86,10 +211,11 @@ function buildCaption(lead: Lead): string {
     `📞 <b>Telefon:</b> <a href="tel:${safePhone}">${safePhone}</a>`,
   ];
   if (safePromo) lines.push(`🎁 <b>Promo:</b> ${safePromo}`);
+  lines.push('', `🆔 <code>${escapeHtml(eventId)}</code>`);
   return lines.join('\n');
 }
 
-async function sendMessage(env: Env, text: string): Promise<Response> {
+async function sendTelegramMessage(env: Env, text: string): Promise<Response> {
   return fetch(`https://api.telegram.org/bot${env.TELEGRAM_BOT_TOKEN}/sendMessage`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -102,7 +228,7 @@ async function sendMessage(env: Env, text: string): Promise<Response> {
   });
 }
 
-async function sendDocument(env: Env, caption: string, file: File): Promise<Response> {
+async function sendTelegramDocument(env: Env, caption: string, file: File): Promise<Response> {
   const tgForm = new FormData();
   tgForm.append('chat_id', env.TELEGRAM_CHAT_ID);
   tgForm.append('caption', caption);
@@ -113,6 +239,381 @@ async function sendDocument(env: Env, caption: string, file: File): Promise<Resp
     body: tgForm,
   });
 }
+
+async function handleFormSubmit(
+  request: Request,
+  env: Env,
+  cors: HeadersInit
+): Promise<Response> {
+  const ua = request.headers.get('User-Agent') ?? '';
+  if (isBotUserAgent(ua)) {
+    return jsonResponse({ ok: false, error: 'Bot blocked' }, 403, cors);
+  }
+
+  const contentType = request.headers.get('Content-Type') || '';
+  let lead: Lead;
+  let file: File | null = null;
+
+  if (contentType.includes('multipart/form-data')) {
+    let formData: FormData;
+    try {
+      formData = await request.formData();
+    } catch {
+      return jsonResponse({ ok: false, error: 'Invalid multipart' }, 400, cors);
+    }
+
+    const candidate = {
+      name: formData.get('name'),
+      phone: formData.get('phone'),
+      promo: formData.get('promo') ?? undefined,
+    };
+    const validated = validateLead({
+      name: typeof candidate.name === 'string' ? candidate.name : undefined,
+      phone: typeof candidate.phone === 'string' ? candidate.phone : undefined,
+      promo: typeof candidate.promo === 'string' ? candidate.promo : undefined,
+    });
+    if (!validated.ok) {
+      return jsonResponse({ ok: false, error: validated.error }, 400, cors);
+    }
+    lead = validated.lead;
+
+    const fileEntry = formData.get('file');
+    if (
+      fileEntry !== null &&
+      typeof fileEntry !== 'string' &&
+      typeof fileEntry === 'object' &&
+      'size' in fileEntry &&
+      'type' in fileEntry &&
+      'name' in fileEntry
+    ) {
+      const f = fileEntry as File;
+      if (f.size > 0) {
+        if (f.size > MAX_FILE_BYTES) {
+          return jsonResponse({ ok: false, error: 'File too large (max 10 MB)' }, 413, cors);
+        }
+        if (!ALLOWED_FILE_TYPES.has(f.type)) {
+          return jsonResponse({ ok: false, error: 'File type not allowed' }, 415, cors);
+        }
+        file = f;
+      }
+    }
+  } else {
+    let body: unknown;
+    try {
+      body = await request.json();
+    } catch {
+      return jsonResponse({ ok: false, error: 'Invalid JSON' }, 400, cors);
+    }
+    if (!body || typeof body !== 'object') {
+      return jsonResponse({ ok: false, error: 'Invalid payload' }, 400, cors);
+    }
+    const validated = validateLead(body as Partial<Lead>);
+    if (!validated.ok) {
+      return jsonResponse({ ok: false, error: validated.error }, 400, cors);
+    }
+    lead = validated.lead;
+  }
+
+  const sessionFp = await makeSessionFingerprint(request);
+  const fingerprint = await makeBillingFingerprint(lead.phone, sessionFp);
+  const eventId = uuid();
+  const ts = new Date().toISOString();
+  const url = new URL(request.url);
+
+  const entry: LogEntry = {
+    id: eventId,
+    ts,
+    type: 'form_submit',
+    channel: 'form',
+    fingerprint,
+    ua,
+    country: request.headers.get('CF-IPCountry'),
+    referer: request.headers.get('Referer'),
+    utm: pickUtm(url),
+    lang: request.headers.get('Accept-Language')?.split(',')[0] ?? null,
+  };
+  await logEvent(env, entry);
+
+  const caption = buildCaption(lead, eventId);
+  const tgRes = file
+    ? await sendTelegramDocument(env, caption, file)
+    : await sendTelegramMessage(env, caption);
+
+  if (!tgRes.ok) {
+    return jsonResponse({ ok: false, error: 'Upstream error', id: eventId }, 502, cors);
+  }
+  return jsonResponse({ ok: true, id: eventId }, 200, cors);
+}
+
+// ── click tracking ───────────────────────────────────────────────────────────
+
+interface TrackPayload {
+  channel?: unknown;
+  utm?: {
+    source?: unknown;
+    medium?: unknown;
+    campaign?: unknown;
+    term?: unknown;
+    content?: unknown;
+  };
+  referer?: unknown;
+  lang?: unknown;
+}
+
+function s(value: unknown): string | null {
+  return typeof value === 'string' && value.length > 0 && value.length < 300 ? value : null;
+}
+
+async function handleTrack(request: Request, env: Env, cors: HeadersInit): Promise<Response> {
+  const ua = request.headers.get('User-Agent') ?? '';
+  if (isBotUserAgent(ua)) {
+    return new Response(null, { status: 204, headers: cors });
+  }
+
+  let body: TrackPayload;
+  try {
+    body = (await request.json()) as TrackPayload;
+  } catch {
+    return jsonResponse({ ok: false, error: 'Invalid JSON' }, 400, cors);
+  }
+
+  const channel = typeof body.channel === 'string' ? body.channel : '';
+  if (!ALLOWED_CHANNELS.has(channel)) {
+    return jsonResponse({ ok: false, error: 'Invalid channel' }, 400, cors);
+  }
+
+  const sessionFp = await makeSessionFingerprint(request);
+  const fingerprint = await makeBillingFingerprint(null, sessionFp);
+  const eventId = uuid();
+  const ts = new Date().toISOString();
+
+  const entry: LogEntry = {
+    id: eventId,
+    ts,
+    type: 'contact_click',
+    channel: channel as Channel,
+    fingerprint,
+    ua,
+    country: request.headers.get('CF-IPCountry'),
+    referer: s(body.referer) ?? request.headers.get('Referer'),
+    utm: {
+      source: s(body.utm?.source),
+      medium: s(body.utm?.medium),
+      campaign: s(body.utm?.campaign),
+      term: s(body.utm?.term),
+      content: s(body.utm?.content),
+    },
+    lang: s(body.lang) ?? (request.headers.get('Accept-Language')?.split(',')[0] ?? null),
+  };
+
+  await logEvent(env, entry);
+  return new Response(null, { status: 204, headers: cors });
+}
+
+// ── reporting / export ───────────────────────────────────────────────────────
+
+function checkBearer(request: Request, env: Env): boolean {
+  const token = env.REPORT_TOKEN;
+  if (!token) return false;
+  const header = request.headers.get('Authorization') ?? '';
+  const match = /^Bearer\s+(.+)$/i.exec(header.trim());
+  return match !== null && match[1] === token;
+}
+
+interface ReportParams {
+  from: string;
+  to: string;
+  dedup: boolean;
+  dedupWindowSeconds: number;
+}
+
+function parseReportParams(url: URL): { ok: true; params: ReportParams } | { ok: false; error: string } {
+  const from = url.searchParams.get('from');
+  const to = url.searchParams.get('to');
+  if (!from || !to || !/^\d{4}-\d{2}-\d{2}$/.test(from) || !/^\d{4}-\d{2}-\d{2}$/.test(to)) {
+    return { ok: false, error: 'from/to must be YYYY-MM-DD' };
+  }
+  const dedup = url.searchParams.get('dedup') !== 'false';
+  const dedupWindowSeconds = Number(
+    url.searchParams.get('dedup_window_seconds') ?? DEFAULT_DEDUP_WINDOW_SECONDS
+  );
+  if (!Number.isFinite(dedupWindowSeconds) || dedupWindowSeconds < 0) {
+    return { ok: false, error: 'dedup_window_seconds must be a non-negative number' };
+  }
+  return { ok: true, params: { from, to, dedup, dedupWindowSeconds } };
+}
+
+async function loadEvents(
+  env: Env,
+  fromIso: string,
+  toIsoExclusive: string
+): Promise<LogEntry[]> {
+  if (!env.INTERACTION_LOG) return [];
+
+  const events: LogEntry[] = [];
+  let cursor: string | undefined;
+  const prefix = 'event:';
+  const startKey = `event:${fromIso}`;
+  const endKey = `event:${toIsoExclusive}`;
+
+  do {
+    const page = await env.INTERACTION_LOG.list({ prefix, cursor, limit: 1000 });
+    for (const k of page.keys) {
+      if (k.name < startKey) continue;
+      if (k.name >= endKey) {
+        // Keys are returned sorted; we can stop here.
+        return events;
+      }
+      const raw = await env.INTERACTION_LOG.get(k.name);
+      if (raw) {
+        try {
+          events.push(JSON.parse(raw) as LogEntry);
+        } catch {
+          // Skip malformed entry.
+        }
+      }
+    }
+    cursor = page.list_complete ? undefined : page.cursor;
+  } while (cursor);
+
+  return events;
+}
+
+function dedupEvents(events: LogEntry[], windowSeconds: number): LogEntry[] {
+  if (windowSeconds <= 0) return events;
+  const lastSeen = new Map<string, number>();
+  const kept: LogEntry[] = [];
+  for (const e of events) {
+    const tsMs = Date.parse(e.ts);
+    const key = `${e.type}:${e.channel}:${e.fingerprint}`;
+    const prev = lastSeen.get(key);
+    if (prev === undefined || tsMs - prev > windowSeconds * 1000) {
+      kept.push(e);
+      lastSeen.set(key, tsMs);
+    }
+  }
+  return kept;
+}
+
+function buildReport(events: LogEntry[], deduped: LogEntry[]) {
+  const byType: Record<string, number> = {};
+  const byChannel: Record<string, number> = {};
+  const bySource: Record<string, number> = {};
+  const byDay: Record<string, number> = {};
+
+  for (const e of deduped) {
+    byType[e.type] = (byType[e.type] ?? 0) + 1;
+    byChannel[e.channel] = (byChannel[e.channel] ?? 0) + 1;
+    const src = e.utm.source ?? 'direct';
+    bySource[src] = (bySource[src] ?? 0) + 1;
+    const day = e.ts.slice(0, 10);
+    byDay[day] = (byDay[day] ?? 0) + 1;
+  }
+
+  return {
+    total_raw: events.length,
+    total_billable: deduped.length,
+    by_type: byType,
+    by_channel: byChannel,
+    by_source: bySource,
+    by_day: byDay,
+  };
+}
+
+async function handleReport(request: Request, env: Env): Promise<Response> {
+  if (!checkBearer(request, env)) {
+    return jsonResponse({ ok: false, error: 'Unauthorized' }, 401);
+  }
+  const url = new URL(request.url);
+  const parsed = parseReportParams(url);
+  if (!parsed.ok) return jsonResponse({ ok: false, error: parsed.error }, 400);
+
+  const fromIso = `${parsed.params.from}T00:00:00.000Z`;
+  // exclusive upper bound: next day after `to`
+  const toDate = new Date(`${parsed.params.to}T00:00:00.000Z`);
+  toDate.setUTCDate(toDate.getUTCDate() + 1);
+  const toIsoExclusive = toDate.toISOString();
+
+  const events = await loadEvents(env, fromIso, toIsoExclusive);
+  const deduped = parsed.params.dedup
+    ? dedupEvents(events, parsed.params.dedupWindowSeconds)
+    : events;
+
+  return jsonResponse({
+    ok: true,
+    from: parsed.params.from,
+    to: parsed.params.to,
+    dedup: parsed.params.dedup,
+    dedup_window_seconds: parsed.params.dedupWindowSeconds,
+    report: buildReport(events, deduped),
+  }, 200);
+}
+
+function csvEscape(value: string): string {
+  if (/[",\n]/.test(value)) return `"${value.replace(/"/g, '""')}"`;
+  return value;
+}
+
+async function handleExport(request: Request, env: Env): Promise<Response> {
+  if (!checkBearer(request, env)) {
+    return jsonResponse({ ok: false, error: 'Unauthorized' }, 401);
+  }
+  const url = new URL(request.url);
+  const parsed = parseReportParams(url);
+  if (!parsed.ok) return jsonResponse({ ok: false, error: parsed.error }, 400);
+
+  const fromIso = `${parsed.params.from}T00:00:00.000Z`;
+  const toDate = new Date(`${parsed.params.to}T00:00:00.000Z`);
+  toDate.setUTCDate(toDate.getUTCDate() + 1);
+  const toIsoExclusive = toDate.toISOString();
+
+  const events = await loadEvents(env, fromIso, toIsoExclusive);
+  const rows = parsed.params.dedup
+    ? dedupEvents(events, parsed.params.dedupWindowSeconds)
+    : events;
+
+  const header = [
+    'id',
+    'ts',
+    'type',
+    'channel',
+    'fingerprint',
+    'country',
+    'utm_source',
+    'utm_campaign',
+    'lang',
+    'referer',
+  ];
+  const lines = [header.join(',')];
+  for (const e of rows) {
+    lines.push(
+      [
+        e.id,
+        e.ts,
+        e.type,
+        e.channel,
+        e.fingerprint,
+        e.country ?? '',
+        e.utm.source ?? '',
+        e.utm.campaign ?? '',
+        e.lang ?? '',
+        e.referer ?? '',
+      ]
+        .map((v) => csvEscape(String(v)))
+        .join(',')
+    );
+  }
+
+  return new Response(lines.join('\n') + '\n', {
+    status: 200,
+    headers: {
+      'Content-Type': 'text/csv; charset=utf-8',
+      'Content-Disposition': `attachment; filename="leads_${parsed.params.from}_${parsed.params.to}.csv"`,
+    },
+  });
+}
+
+// ── router ───────────────────────────────────────────────────────────────────
 
 export default {
   async fetch(request: Request, env: Env): Promise<Response> {
@@ -125,88 +626,30 @@ export default {
     if (request.method === 'OPTIONS') {
       return new Response(null, { status: 204, headers: cors });
     }
-    if (request.method !== 'POST') {
-      return jsonResponse({ ok: false, error: 'Method not allowed' }, 405, cors);
+
+    const url = new URL(request.url);
+    const path = url.pathname.replace(/\/+$/, '') || '/';
+
+    // /report and /export are admin endpoints — no CORS required (called via curl / server)
+    if (path === '/report' && request.method === 'GET') {
+      return handleReport(request, env);
     }
+    if (path === '/export' && request.method === 'GET') {
+      return handleExport(request, env);
+    }
+
+    // Public routes — enforce the Origin allowlist.
     if (origin && !allowed.includes(origin)) {
       return jsonResponse({ ok: false, error: 'Forbidden origin' }, 403, cors);
     }
 
-    const contentType = request.headers.get('Content-Type') || '';
-    let lead: Lead;
-    let file: File | null = null;
-
-    if (contentType.includes('multipart/form-data')) {
-      let formData: FormData;
-      try {
-        formData = await request.formData();
-      } catch {
-        return jsonResponse({ ok: false, error: 'Invalid multipart' }, 400, cors);
-      }
-
-      const candidate = {
-        name: formData.get('name'),
-        phone: formData.get('phone'),
-        promo: formData.get('promo') ?? undefined,
-      };
-      // FormData entries can be File or string — coerce to string for validation.
-      const validated = validateLead({
-        name: typeof candidate.name === 'string' ? candidate.name : undefined,
-        phone: typeof candidate.phone === 'string' ? candidate.phone : undefined,
-        promo: typeof candidate.promo === 'string' ? candidate.promo : undefined,
-      });
-      if (!validated.ok) {
-        return jsonResponse({ ok: false, error: validated.error }, 400, cors);
-      }
-      lead = validated.lead;
-
-      const fileEntry = formData.get('file');
-      // Duck-type instead of `instanceof File` — the global File type is
-      // available in Workers but tsc with @cloudflare/workers-types isn't
-      // happy with `instanceof File` in strict mode.
-      if (
-        fileEntry !== null &&
-        typeof fileEntry !== 'string' &&
-        typeof fileEntry === 'object' &&
-        'size' in fileEntry &&
-        'type' in fileEntry &&
-        'name' in fileEntry
-      ) {
-        const f = fileEntry as File;
-        if (f.size > 0) {
-          if (f.size > MAX_FILE_BYTES) {
-            return jsonResponse({ ok: false, error: 'File too large (max 10 MB)' }, 413, cors);
-          }
-          if (!ALLOWED_FILE_TYPES.has(f.type)) {
-            return jsonResponse({ ok: false, error: 'File type not allowed' }, 415, cors);
-          }
-          file = f;
-        }
-      }
-    } else {
-      // application/json path
-      let body: unknown;
-      try {
-        body = await request.json();
-      } catch {
-        return jsonResponse({ ok: false, error: 'Invalid JSON' }, 400, cors);
-      }
-      if (!body || typeof body !== 'object') {
-        return jsonResponse({ ok: false, error: 'Invalid payload' }, 400, cors);
-      }
-      const validated = validateLead(body as Partial<Lead>);
-      if (!validated.ok) {
-        return jsonResponse({ ok: false, error: validated.error }, 400, cors);
-      }
-      lead = validated.lead;
+    if (path === '/track' && request.method === 'POST') {
+      return handleTrack(request, env, cors);
+    }
+    if (path === '/' && request.method === 'POST') {
+      return handleFormSubmit(request, env, cors);
     }
 
-    const caption = buildCaption(lead);
-    const tgRes = file ? await sendDocument(env, caption, file) : await sendMessage(env, caption);
-
-    if (!tgRes.ok) {
-      return jsonResponse({ ok: false, error: 'Upstream error' }, 502, cors);
-    }
-    return jsonResponse({ ok: true }, 200, cors);
+    return jsonResponse({ ok: false, error: 'Not found' }, 404, cors);
   },
 };

@@ -128,6 +128,57 @@ describe('trackContactClick', () => {
 
     expect(() => trackContactClick('telegram')).not.toThrow();
   });
+
+  describe('Worker /track beacon', () => {
+    beforeEach(() => {
+      vi.stubEnv('VITE_FORM_PROXY_URL', 'https://worker.example.dev/proxy');
+    });
+
+    it('uses navigator.sendBeacon to POST contact_click to /track', () => {
+      const sendBeacon = vi.fn(() => true);
+      // sendBeacon doesn't exist on jsdom's navigator by default; assign it.
+      Object.defineProperty(navigator, 'sendBeacon', { value: sendBeacon, configurable: true });
+
+      trackContactClick('phone');
+
+      expect(sendBeacon).toHaveBeenCalledOnce();
+      const [url, blob] = sendBeacon.mock.calls[0];
+      expect(url).toBe('https://worker.example.dev/proxy/track');
+      // jsdom Blob exposes `text()` for assertion
+      return blob.text().then((body) => {
+        const parsed = JSON.parse(body);
+        expect(parsed.channel).toBe('phone');
+        expect(parsed).toHaveProperty('utm');
+      });
+    });
+
+    it('falls back to keepalive fetch if sendBeacon rejects the request', () => {
+      const sendBeacon = vi.fn(() => false);
+      Object.defineProperty(navigator, 'sendBeacon', { value: sendBeacon, configurable: true });
+      vi.mocked(global.fetch).mockResolvedValueOnce({ ok: true, status: 204 });
+
+      trackContactClick('whatsapp');
+
+      expect(sendBeacon).toHaveBeenCalledOnce();
+      expect(global.fetch).toHaveBeenCalledWith(
+        'https://worker.example.dev/proxy/track',
+        expect.objectContaining({ method: 'POST', keepalive: true })
+      );
+    });
+
+    it('skips the beacon entirely when VITE_FORM_PROXY_URL is unset', () => {
+      vi.unstubAllEnvs();
+      // Re-apply other envs that the rest of the suite depends on
+      vi.stubEnv('VITE_TELEGRAM_BOT_TOKEN', '123456:test-token');
+      vi.stubEnv('VITE_TELEGRAM_CHAT_ID', '987654321');
+      const sendBeacon = vi.fn(() => true);
+      Object.defineProperty(navigator, 'sendBeacon', { value: sendBeacon, configurable: true });
+
+      trackContactClick('telegram');
+
+      expect(sendBeacon).not.toHaveBeenCalled();
+    });
+  });
 });
 
 // ── Telegram service smoke test ──────────────────────────────────────────────
