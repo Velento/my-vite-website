@@ -131,7 +131,18 @@ Open in Sheets/Excel; one row per billable event with id, timestamp, type, chann
    wrangler deploy
    ```
 
-5. **Smoke-test** (from a non-blocked browser)
+   Copy the `*.workers.dev` URL that `wrangler deploy` prints (e.g. `https://legalline-form-proxy.your-account.workers.dev`).
+
+5. **Set the Worker URL as a GitHub secret** (so the site build bakes in the correct proxy URL)
+
+   In GitHub → repository → Settings → Secrets and variables → Actions → New repository secret:
+
+   - Name: `VITE_FORM_PROXY_URL`
+   - Value: the `*.workers.dev` URL from step 4
+
+   Then re-run the CI pipeline (push a commit or manually trigger it) so the site rebuilds with the new URL. **Without this step, file uploads and contact-click billing events will not work in production.**
+
+6. **Smoke-test** (from a non-blocked browser)
 
    - Submit the lead form → check Telegram message arrived AND that the message now ends with an `🆔 <uuid>` line
    - Click any messenger icon → no visible effect (204 No Content), but the KV log got a row

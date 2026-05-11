@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import './Header.css';
 import globeIcon from '../images/globe.png';
 import { useTranslation } from 'react-i18next';
+import { loadBundle, type Lang } from '../../i18n';
 
 const SUPPORTED_LANGS = ['RU', 'UA', 'PL', 'EN', 'BY'] as const;
 const STORAGE_KEY = 'legal_line_lang';
@@ -31,9 +32,10 @@ function LanguageSwitcher() {
     };
   }, [dropdownOpen]);
 
-  const selectLanguage = (lang: string) => {
-    const lower = lang.toLowerCase();
-    i18n.changeLanguage(lower);
+  const selectLanguage = async (lang: string) => {
+    const lower = lang.toLowerCase() as Lang;
+    await loadBundle(lower);
+    void i18n.changeLanguage(lower);
     localStorage.setItem(STORAGE_KEY, lower);
 
     // Sync URL path so the language is shareable / refresh-safe.
@@ -75,9 +77,6 @@ function LanguageSwitcher() {
           ))}
         </ul>
       )}
-      <a href="#footer" className="contact-link-infooter">
-        {t('header.contacts')}
-      </a>
     </div>
   );
 }

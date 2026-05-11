@@ -33,7 +33,9 @@ function htmlLangFor(lng: string): string {
   return lng === 'ua' ? 'uk' : lng === 'by' ? 'be' : lng;
 }
 
-async function loadBundle(lng: Lang): Promise<void> {
+export type { Lang };
+
+export async function loadBundle(lng: Lang): Promise<void> {
   if (i18n.hasResourceBundle(lng, 'translation')) return;
   const mod = await loaders[lng]();
   i18n.addResourceBundle(lng, 'translation', mod.default, true, true);
