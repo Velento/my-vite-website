@@ -27,6 +27,14 @@ describe('NAME_REGEX', () => {
     expect(NAME_REGEX.test('Алёна')).toBe(true);
   });
 
+  it('accepts Polish names with diacritics (ą ć ę ł ń ó ś ź ż)', () => {
+    expect(NAME_REGEX.test('Łukasz')).toBe(true);
+    expect(NAME_REGEX.test('Małgorzata')).toBe(true);
+    expect(NAME_REGEX.test('Świątek')).toBe(true);
+    expect(NAME_REGEX.test('Żółć')).toBe(true);
+    expect(NAME_REGEX.test('Łąka')).toBe(true);
+  });
+
   it('accepts hyphenated names', () => {
     expect(NAME_REGEX.test('Anna-Maria')).toBe(true);
     expect(NAME_REGEX.test('Жан-Пьер')).toBe(true);

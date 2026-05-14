@@ -6,8 +6,14 @@
 import { z } from 'zod';
 import { ALLOWED_LEAD_FILE_TYPES, MAX_LEAD_FILE_BYTES } from './telegram';
 
-/** Matches Latin, Cyrillic, Ukrainian, Belarusian names (min 2 chars). */
-export const NAME_REGEX = /^[A-Za-zА-Яа-яЁёЄєІіЇїҐґ\s'-]{2,}$/u;
+/**
+ * Matches names in any script (Latin with Polish/PL diacritics, Cyrillic,
+ * Ukrainian, Belarusian, etc.). `\p{L}` is the Unicode “letter” class — covers
+ * ą ć ę ł ń ó ś ź ż, ä ö ü, ñ, õ and the rest without hand-enumerating ranges.
+ * `\p{M}` is included so combining marks (e.g. accents in normalized form) pass.
+ * Min 2 chars.
+ */
+export const NAME_REGEX = /^[\p{L}\p{M}\s'-]{2,}$/u;
 
 /** Matches international phone numbers (min 9 digits, allows +, spaces, dashes, parens). */
 export const PHONE_REGEX = /^\+?[\d\s\-()]{9,}$/;

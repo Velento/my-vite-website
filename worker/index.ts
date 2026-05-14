@@ -40,7 +40,9 @@ interface Env {
 
 const DEFAULT_ALLOWED = ['https://legalline.pl', 'https://www.legalline.pl'];
 
-const NAME_REGEX = /^[A-Za-zА-Яа-яЁёЄєІіЇїҐґ\s'-]{2,50}$/u;
+// `\p{L}` matches any Unicode letter — Latin (incl. Polish ą ć ę ł ń ó ś ź ż),
+// Cyrillic, Ukrainian, Belarusian, etc. `\p{M}` covers combining marks.
+const NAME_REGEX = /^[\p{L}\p{M}\s'-]{2,50}$/u;
 const PHONE_REGEX = /^\+?[\d\s\-()]{9,20}$/;
 
 const MAX_FILE_BYTES = 10 * 1024 * 1024;

@@ -105,6 +105,30 @@ async function sendViaProxy(proxyUrl: string, payload: LeadPayload): Promise<Ser
   return data;
 }
 
+async function deliverTextOnly(
+  token: string,
+  chatId: string,
+  payload: LeadPayload
+): Promise<ServiceResponse> {
+  const url = `${TELEGRAM_API_BASE}/bot${token}/sendMessage`;
+  const response = await fetch(url, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      chat_id: chatId,
+      text: buildMessage(payload),
+      parse_mode: 'HTML',
+      disable_web_page_preview: true,
+    }),
+  });
+  const data = await readResponse(response);
+  if (!response.ok || !data?.ok) {
+    const description = data?.description || `HTTP ${response.status}`;
+    throw new Error(`Telegram ${response.status}: ${description}`);
+  }
+  return data;
+}
+
 async function sendDirect(payload: LeadPayload): Promise<ServiceResponse> {
   const token = import.meta.env.VITE_TELEGRAM_BOT_TOKEN;
   const chatId = import.meta.env.VITE_TELEGRAM_CHAT_ID;
@@ -119,10 +143,17 @@ async function sendDirect(payload: LeadPayload): Promise<ServiceResponse> {
       'Missing VITE_TELEGRAM_CHAT_ID — set the chat id via env for tests or use a server proxy.'
     );
   }
+  // No file proxy → deliver the lead text only and tell the form to ask the
+  // user to send the file separately via Telegram/WhatsApp. The contact
+  // details still reach the agent, so the lead isn't lost.
   if (payload.file) {
-    throw new Error(
-      'File upload requires VITE_FORM_PROXY_URL (Cloudflare Worker). Direct-to-Telegram fallback only supports text submissions.'
-    );
+    const textResult = await deliverTextOnly(token, chatId, payload);
+    const err = new Error(
+      'File upload requires VITE_FORM_PROXY_URL (Cloudflare Worker). Lead text was delivered, file was not.'
+    ) as Error & { code?: string; textResult?: ServiceResponse };
+    err.code = 'FILE_PROXY_MISSING';
+    err.textResult = textResult;
+    throw err;
   }
 
   const url = `${TELEGRAM_API_BASE}/bot${token}/sendMessage`;

@@ -65,6 +65,21 @@ const LeadFormFields = ({
       timerRef.current = setTimeout(() => setShowThankYou(true), thankYouDelayMs);
     } catch (error) {
       console.error('Lead form submit error:', error);
+      // Special case: text was delivered but file couldn't (proxy not configured).
+      // Treat as success for the lead, but tell the user to send the file separately.
+      const code = (error as { code?: string } | null)?.code;
+      if (code === 'FILE_PROXY_MISSING') {
+        trackLeadConversion({ value: 750, currency: 'PLN' });
+        setSubmitError(
+          t(
+            'feedbackForm.fileProxyMissing',
+            'Twoje dane zostały wysłane, ale nie udało się załączyć pliku. Wyślij go bezpośrednio na Telegram lub WhatsApp.'
+          )
+        );
+        setSubmitted(true);
+        timerRef.current = setTimeout(() => setShowThankYou(true), thankYouDelayMs);
+        return;
+      }
       setSubmitError(t('feedbackForm.errorMessage', 'An error occurred. Please try again.'));
     }
   };

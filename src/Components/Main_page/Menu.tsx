@@ -120,7 +120,11 @@ type MenuProps = {
 };
 
 const horizontalLink =
-  "group relative inline-flex items-center gap-2 py-2 px-1 text-[0.9rem] font-semibold uppercase tracking-[0.08em] text-[var(--color-primary)] transition-colors duration-200 hover:text-[var(--color-accent)] after:content-[''] after:absolute after:left-0 after:bottom-0 after:h-[2px] after:w-0 after:bg-[var(--color-accent)] after:transition-[width] after:duration-300 hover:after:w-full max-lg:text-[0.8rem] max-lg:tracking-wider";
+  // Premium nav link: balanced padding, underline that grows from the center,
+  // and a subtle icon scale on hover. The underline `left-1/2 -translate-x-1/2`
+  // keeps the growing bar visually centered under each item — looks tidier
+  // than the old left-anchored animation.
+  "group relative inline-flex items-center gap-2 py-2.5 px-2 text-[0.875rem] font-semibold uppercase tracking-[0.1em] text-[var(--color-primary)] transition-colors duration-200 hover:text-[var(--color-accent)] after:content-[''] after:absolute after:left-1/2 after:bottom-0 after:h-[2px] after:w-0 after:-translate-x-1/2 after:rounded-full after:bg-[var(--color-accent)] after:transition-[width] after:duration-300 hover:after:w-[calc(100%-1rem)] max-lg:text-[0.75rem] max-lg:tracking-[0.08em] max-lg:gap-1.5";
 
 const verticalLink =
   'group grid w-full grid-cols-[40px_1fr_24px] items-center gap-3 rounded-lg px-4 py-3.5 text-[0.95rem] font-semibold uppercase tracking-[0.08em] text-[var(--color-primary)] transition-[background-color,color,transform] duration-200 hover:bg-[var(--color-bg-alt)] hover:text-[var(--color-accent)] active:scale-[0.98] active:bg-[var(--color-bg-subtle)]';
@@ -159,13 +163,31 @@ const Menu = ({ vertical = false, onItemClick }: MenuProps) => {
   }
 
   return (
-    <nav className="hidden md:block border-b border-[var(--color-border-light)] bg-gradient-to-b from-white to-[var(--color-bg-alt)] shadow-[0_1px_0_rgba(0,0,0,0.02)]">
-      <ul className="mx-auto flex max-w-[var(--max-width)] list-none items-center justify-center gap-8 px-[var(--content-padding)] py-3 lg:gap-4">
+    <nav
+      className={[
+        // Hidden on mobile (replaced by Burger). On md+ becomes the main nav.
+        'hidden md:block',
+        'border-b border-[var(--color-border-light)]',
+        'bg-gradient-to-b from-white to-[var(--color-bg-alt)]',
+        'shadow-[0_1px_0_rgba(0,0,0,0.02)]',
+      ].join(' ')}
+      aria-label="Main navigation"
+    >
+      <ul
+        className={[
+          // mx-auto + max-width = the list is centered in the viewport.
+          // justify-center inside the list keeps the items balanced even
+          // when the list is narrower than the wrapper.
+          'mx-auto flex max-w-[var(--max-width)] list-none items-center justify-center',
+          'gap-10 lg:gap-8 max-lg:gap-4',
+          'px-[var(--content-padding)] py-3',
+        ].join(' ')}
+      >
         {MENU_ITEMS.map(({ href, key, icon }) => (
           <li key={key}>
             <a href={href} className={horizontalLink} onClick={onItemClick}>
               <span
-                className="inline-flex h-4 w-4 align-[-2px] text-[var(--color-accent)] transition-transform duration-200 group-hover:scale-110 [&>svg]:h-full [&>svg]:w-full"
+                className="inline-flex h-[18px] w-[18px] align-[-3px] text-[var(--color-accent)] transition-transform duration-200 group-hover:scale-110 [&>svg]:h-full [&>svg]:w-full"
                 aria-hidden="true"
               >
                 {icon}

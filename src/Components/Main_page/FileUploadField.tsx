@@ -39,10 +39,19 @@ const FileUploadField = ({ id, registration, disabled, errorMessage }: FileUploa
   };
 
   const handleRemove = () => {
+    // Clear the native input first so the browser drops its FileList…
     if (internalInputRef.current) internalInputRef.current.value = '';
     setSelected(null);
+    // …then notify RHF. For file inputs, RHF reads `event.target.files` —
+    // sending `value: undefined` alone leaves the previous FileList in the
+    // form state and the next submit would re-send the “removed” file.
     rhfOnChange({
-      target: { name: registration.name, value: undefined },
+      target: {
+        name: registration.name,
+        type: 'file',
+        value: '',
+        files: null,
+      },
     } as unknown as ChangeEvent<HTMLInputElement>);
   };
 
