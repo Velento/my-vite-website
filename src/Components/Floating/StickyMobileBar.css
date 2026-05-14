@@ -23,6 +23,7 @@
 
 .sticky-mobile-bar__btn {
   flex: 1;
+  min-width: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -36,8 +37,12 @@
   letter-spacing: 0.02em;
   background: transparent;
   border: none;
+  cursor: pointer;
+  font-family: inherit;
   transition: background 0.15s ease;
   min-height: 56px;
+  -webkit-tap-highlight-color: transparent;
+  appearance: none;
 }
 
 .sticky-mobile-bar__btn svg {

@@ -33,6 +33,17 @@ const StickyMobileBar = () => {
     if (target) target.scrollIntoView({ behavior: 'smooth' });
   };
 
+  const scrollToTop = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    const supportsSmooth =
+      typeof document !== 'undefined' && 'scrollBehavior' in document.documentElement.style;
+    if (supportsSmooth) {
+      window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+    } else {
+      window.scrollTo(0, 0);
+    }
+  };
+
   return (
     <nav
       className={`sticky-mobile-bar ${visible ? 'sticky-mobile-bar--visible' : ''}`}
@@ -80,6 +91,25 @@ const StickyMobileBar = () => {
         </svg>
         <span>{t('stickyBar.form', 'Formularz')}</span>
       </a>
+      <button
+        type="button"
+        className="sticky-mobile-bar__btn sticky-mobile-bar__btn--up"
+        onClick={scrollToTop}
+        aria-label={t('stickyBar.up', 'Do góry')}
+        tabIndex={visible ? 0 : -1}
+      >
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <path
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2.5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M6 14l6-6 6 6"
+          />
+        </svg>
+        <span>{t('stickyBar.up', 'Do góry')}</span>
+      </button>
     </nav>
   );
 };

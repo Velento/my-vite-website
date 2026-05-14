@@ -132,6 +132,7 @@ const translations = {
   'stickyBar.label': 'Quick contact',
   'stickyBar.call': 'Call',
   'stickyBar.form': 'Form',
+  'stickyBar.up': 'Top',
   'exitPopup.close': 'Close',
   'exitPopup.badge': 'Wait!',
   'exitPopup.title': 'Free consultation',

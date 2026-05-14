@@ -129,6 +129,7 @@ const translations = {
   'stickyBar.label': 'Szybki kontakt',
   'stickyBar.call': 'Zadzwoń',
   'stickyBar.form': 'Formularz',
+  'stickyBar.up': 'Do góry',
   'exitPopup.close': 'Zamknij',
   'exitPopup.badge': 'Czekaj!',
   'exitPopup.title': 'Bezpłatna konsultacja',

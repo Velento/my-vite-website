@@ -129,6 +129,7 @@ const translations = {
   'stickyBar.label': 'Хуткі кантакт',
   'stickyBar.call': 'Патэлефанаваць',
   'stickyBar.form': 'Заяўка',
+  'stickyBar.up': 'Уверх',
   'exitPopup.close': 'Закрыць',
   'exitPopup.badge': 'Пачакайце!',
   'exitPopup.title': 'Бясплатная кансультацыя',

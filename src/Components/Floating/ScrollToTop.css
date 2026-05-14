@@ -63,13 +63,14 @@
   height: 20px;
 }
 
-/* Mobile: float clearly ABOVE the StickyMobileBar (56px content height +
-   safe-area inset). 22px of breathing room - matches the desktop gap so the
-   two contexts feel consistent. */
+/* Mobile: hide the orphan floating button entirely. StickyMobileBar gets
+   its own scroll-up cell so all four primary actions (call, WhatsApp, form,
+   up) live in one row. One CTA group instead of two prevents the floating
+   button from sitting over footer content / nibbling at the corner of the
+   page. */
 @media (max-width: 768px) {
   .scroll-to-top {
-    right: 16px;
-    bottom: calc(56px + 22px + env(safe-area-inset-bottom, 0));
+    display: none;
   }
 }
 

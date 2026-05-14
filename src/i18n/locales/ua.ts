@@ -130,6 +130,7 @@ const translations = {
   'stickyBar.label': 'Швидкий контакт',
   'stickyBar.call': 'Подзвонити',
   'stickyBar.form': 'Заявка',
+  'stickyBar.up': 'Догори',
   'exitPopup.close': 'Закрити',
   'exitPopup.badge': 'Зачекайте!',
   'exitPopup.title': 'Безкоштовна консультація',
