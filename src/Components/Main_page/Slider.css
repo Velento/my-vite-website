@@ -62,6 +62,240 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
 }
 
+/* ── Hero Slide (slide 1 — main positioning, dark navy + gold) ── */
+.slide-hero {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background:
+    radial-gradient(ellipse 70% 50% at 80% 20%, rgba(184, 148, 62, 0.18) 0%, transparent 60%),
+    linear-gradient(135deg, #0f1924 0%, #1a2332 55%, #0f1924 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.slide-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(184, 148, 62, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(184, 148, 62, 0.05) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 50%, #000 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.slide-hero__inner {
+  position: relative;
+  z-index: 1;
+  max-width: 880px;
+  padding: clamp(24px, 5vw, 56px) clamp(20px, 5vw, 64px);
+  text-align: center;
+}
+
+.slide-hero__badge {
+  display: inline-block;
+  padding: 5px 16px;
+  background: rgba(184, 148, 62, 0.15);
+  border: 1px solid rgba(184, 148, 62, 0.4);
+  color: var(--color-accent);
+  font-size: clamp(0.62rem, 1.2vw, 0.74rem);
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  border-radius: 100px;
+  margin-bottom: clamp(14px, 2.4vw, 22px);
+}
+
+.slide-hero__title {
+  font-family: var(--font-heading);
+  font-size: clamp(1.7rem, 5vw, 3.6rem);
+  font-weight: 700;
+  color: white;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  margin-bottom: clamp(10px, 1.8vw, 18px);
+}
+
+.slide-hero__text {
+  font-family: var(--font-body);
+  font-size: clamp(0.9rem, 1.7vw, 1.15rem);
+  color: rgba(255, 255, 255, 0.78);
+  line-height: 1.55;
+  margin-bottom: clamp(18px, 3vw, 32px);
+  max-width: 640px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.slide-hero__ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(10px, 1.5vw, 14px);
+  justify-content: center;
+}
+
+.slide-hero__cta {
+  display: inline-block;
+  padding: clamp(12px, 1.6vw, 16px) clamp(24px, 3.5vw, 40px);
+  background: var(--color-accent);
+  color: white;
+  font-family: var(--font-body);
+  font-size: clamp(0.86rem, 1.4vw, 1rem);
+  font-weight: 700;
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  box-shadow: 0 4px 20px rgba(184, 148, 62, 0.4);
+  transition: all var(--duration-base) var(--ease);
+  white-space: nowrap;
+}
+
+.slide-hero__cta:hover {
+  background: var(--color-accent-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 28px rgba(184, 148, 62, 0.55);
+  color: white;
+}
+
+.slide-hero__cta--ghost {
+  background: transparent;
+  border: 1.5px solid rgba(255, 255, 255, 0.35);
+  color: rgba(255, 255, 255, 0.9);
+  box-shadow: none;
+}
+
+.slide-hero__cta--ghost:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.6);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: none;
+}
+
+/* ── Trust Slide (slide 2 — light card with checkmark bullets) ── */
+.slide-trust {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background:
+    radial-gradient(ellipse 50% 40% at 20% 80%, rgba(184, 148, 62, 0.08) 0%, transparent 60%),
+    linear-gradient(135deg, #f7f5f0 0%, #fdfbf5 50%, #f3eee1 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.slide-trust::after {
+  content: '';
+  position: absolute;
+  width: 360px;
+  height: 360px;
+  border-radius: 50%;
+  border: 1px solid rgba(184, 148, 62, 0.18);
+  top: -90px;
+  right: -80px;
+  pointer-events: none;
+}
+
+.slide-trust__inner {
+  position: relative;
+  z-index: 1;
+  max-width: 880px;
+  padding: clamp(24px, 5vw, 56px) clamp(20px, 5vw, 64px);
+  text-align: center;
+}
+
+.slide-trust__title {
+  font-family: var(--font-heading);
+  font-size: clamp(1.5rem, 4.2vw, 2.8rem);
+  font-weight: 700;
+  color: var(--color-primary);
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  margin-bottom: clamp(18px, 3vw, 30px);
+}
+
+.slide-trust__list {
+  list-style: none;
+  margin: 0 auto clamp(20px, 3vw, 32px);
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
+  gap: clamp(8px, 1.5vw, 14px);
+  max-width: 760px;
+  text-align: left;
+}
+
+.slide-trust__item {
+  position: relative;
+  padding: clamp(10px, 1.5vw, 14px) clamp(14px, 2vw, 20px) clamp(10px, 1.5vw, 14px)
+    clamp(38px, 4vw, 46px);
+  background: rgba(255, 255, 255, 0.65);
+  border: 1px solid rgba(184, 148, 62, 0.18);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-body);
+  font-size: clamp(0.82rem, 1.4vw, 0.98rem);
+  color: var(--color-text);
+  font-weight: 500;
+  line-height: 1.4;
+  backdrop-filter: blur(4px);
+}
+
+.slide-trust__item::before {
+  content: '✓';
+  position: absolute;
+  left: clamp(12px, 1.6vw, 16px);
+  top: 50%;
+  transform: translateY(-50%);
+  width: clamp(20px, 2.2vw, 24px);
+  height: clamp(20px, 2.2vw, 24px);
+  background: var(--color-accent);
+  color: white;
+  border-radius: 50%;
+  font-size: clamp(0.7rem, 1.1vw, 0.82rem);
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 6px rgba(184, 148, 62, 0.4);
+}
+
+.slide-trust__cta {
+  display: inline-block;
+  padding: clamp(12px, 1.6vw, 16px) clamp(28px, 3.5vw, 44px);
+  background: var(--color-primary);
+  color: white;
+  font-family: var(--font-body);
+  font-size: clamp(0.86rem, 1.4vw, 1rem);
+  font-weight: 700;
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  box-shadow: 0 4px 18px rgba(26, 35, 50, 0.25);
+  transition: all var(--duration-base) var(--ease);
+}
+
+.slide-trust__cta:hover {
+  background: #0f1924;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px rgba(26, 35, 50, 0.4);
+  color: white;
+}
+
+/* Responsive — keep both new slides readable on small screens */
+@media (max-width: 600px) {
+  .slide-hero__title,
+  .slide-trust__title {
+    font-size: clamp(1.4rem, 6vw, 2rem);
+  }
+  .slide-hero__text {
+    font-size: 0.92rem;
+  }
+}
+
 /* ── Text Overlay Slide (third "Ускорение" slide) ── */
 .slide-overlay {
   position: relative;

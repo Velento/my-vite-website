@@ -5,7 +5,10 @@
 .scroll-to-top {
   position: fixed;
   right: 22px;
-  bottom: 22px;
+  /* Stack above the FloatingWhatsApp button (60px tall, anchored at bottom: 22px)
+     with a 12px gap, so the two never collide on desktop. Mobile override below
+     swaps in the StickyMobileBar clearance instead. */
+  bottom: calc(22px + 60px + 12px);
   width: 44px;
   height: 44px;
   border-radius: 50%;

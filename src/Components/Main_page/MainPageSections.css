@@ -67,26 +67,15 @@
   color: var(--color-text-secondary);
 }
 
-/* ── Two-Column Layout ── */
+/* ── Sections grid — two cards side-by-side on desktop, stacked on mobile ── */
 .main-page-sections {
   display: grid;
-  /* minmax(0, 1fr) lets the columns shrink below their content's intrinsic
-     width, preventing a wide image / button text from blowing out the grid
-     and pushing one column off-screen on desktop. */
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
   gap: var(--space-2xl);
   padding: var(--space-section) var(--content-padding);
   max-width: var(--max-width);
   margin: 0 auto;
   align-items: stretch;
-}
-
-.main-page-sections__left,
-.main-page-sections__right {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-xl);
-  min-width: 0;
 }
 
 /* ── Section Card — weightless ── */

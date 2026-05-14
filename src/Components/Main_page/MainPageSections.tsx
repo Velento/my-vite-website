@@ -2,7 +2,6 @@ import { useState, memo } from 'react';
 import './MainPageSections.css';
 import { useTranslation } from 'react-i18next';
 import ContactModal from './ContactModal';
-import kateFoto from '../images/Kate.webp';
 import sectionMoney from '../images/section_money.svg';
 import sectionService from '../images/section_service.svg';
 import icon1 from '../images/icon1.svg';
@@ -86,28 +85,18 @@ const MainPageSections = () => {
       </section>
 
       <section className="main-page-sections">
-        <div className="main-page-sections__left">
-          <Section
-            title={t('section1.title')}
-            content={t('section1.content')}
-            iconSrc={sectionMoney}
-            buttonText={t('section1.buttonText')}
-          />
-          <Section
-            title={t('section2.title')}
-            content={t('section2.content')}
-            iconSrc={sectionService}
-            buttonText={t('section2.buttonText')}
-          />
-        </div>
-        <div className="main-page-sections__right">
-          <Section
-            title={t('section4.title')}
-            imgSrc={kateFoto}
-            content={t('section4.content')}
-            buttonText={t('section4.buttonText')}
-          />
-        </div>
+        <Section
+          title={t('section1.title')}
+          content={t('section1.content')}
+          iconSrc={sectionMoney}
+          buttonText={t('section1.buttonText')}
+        />
+        <Section
+          title={t('section2.title')}
+          content={t('section2.content')}
+          iconSrc={sectionService}
+          buttonText={t('section2.buttonText')}
+        />
       </section>
     </>
   );

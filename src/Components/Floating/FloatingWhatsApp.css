@@ -85,8 +85,10 @@
   }
 }
 
-/* Hide on small mobile — StickyMobileBar handles that range. */
-@media (max-width: 600px) {
+/* Hide on phones+small tablets — StickyMobileBar handles that range.
+   Aligned with StickyMobileBar's `max-width: 768px` show query so the two
+   never coexist (which would stack two CTAs in the same corner). */
+@media (max-width: 768px) {
   .floating-whatsapp {
     display: none;
   }
