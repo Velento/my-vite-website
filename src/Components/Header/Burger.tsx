@@ -120,13 +120,7 @@ function Burger() {
                 <button
                   type="button"
                   onClick={() => setShowContactModal(true)}
-                  className={[
-                    'w-full rounded-md bg-[var(--color-accent)] px-6 py-3.5 text-[0.9rem] font-bold uppercase tracking-[0.1em] text-white',
-                    'shadow-[0_4px_16px_rgba(184,148,62,0.35)]',
-                    'transition-[background-color,transform,box-shadow] duration-200',
-                    'hover:bg-[var(--color-accent-hover)] hover:-translate-y-0.5 hover:shadow-[0_6px_22px_rgba(184,148,62,0.5)]',
-                    'active:translate-y-0',
-                  ].join(' ')}
+                  className="burger-cta"
                 >
                   {t('footer.question')}
                 </button>
