@@ -131,6 +131,211 @@
   color: white;
 }
 
+/* ── Promo Banner Slide (4th slide — CSS-only, no image needed) ── */
+.slide-promo {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  /* Deep navy → slightly lighter navy gradient, gold diagonal accent */
+  background:
+    linear-gradient(135deg, rgba(184, 148, 62, 0.07) 0%, transparent 60%),
+    linear-gradient(160deg, #1a2332 0%, #0f1924 55%, #1a2332 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* Decorative gold circles in the background */
+.slide-promo::before,
+.slide-promo::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+}
+.slide-promo::before {
+  width: 480px;
+  height: 480px;
+  border: 1px solid rgba(184, 148, 62, 0.12);
+  top: -140px;
+  right: -100px;
+}
+.slide-promo::after {
+  width: 260px;
+  height: 260px;
+  border: 1px solid rgba(184, 148, 62, 0.08);
+  bottom: -80px;
+  left: -60px;
+}
+
+.slide-promo__inner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: clamp(24px, 4vw, 64px);
+  padding: clamp(24px, 5vw, 56px) clamp(28px, 6vw, 80px);
+  width: 100%;
+  max-width: 1200px;
+}
+
+/* Left column — copy */
+.slide-promo__copy {
+  flex: 1 1 auto;
+  min-width: 0;
+  text-align: left;
+}
+
+.slide-promo__badge {
+  display: inline-block;
+  padding: 4px 14px;
+  background: var(--color-accent);
+  color: white;
+  font-size: clamp(0.6rem, 1.2vw, 0.72rem);
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  border-radius: 100px;
+  margin-bottom: clamp(10px, 2vw, 18px);
+}
+
+.slide-promo__title {
+  font-family: var(--font-heading);
+  font-size: clamp(1.6rem, 4.5vw, 3.4rem);
+  font-weight: 700;
+  color: white;
+  line-height: 1.1;
+  margin-bottom: clamp(6px, 1.2vw, 14px);
+  letter-spacing: -0.01em;
+  /* Gold underline for the price */
+}
+
+.slide-promo__title span {
+  color: var(--color-accent);
+}
+
+.slide-promo__subtitle {
+  font-family: var(--font-body);
+  font-size: clamp(0.8rem, 1.6vw, 1rem);
+  color: rgba(255, 255, 255, 0.6);
+  letter-spacing: 0.04em;
+  margin-bottom: clamp(14px, 2.5vw, 28px);
+}
+
+.slide-promo__ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(8px, 1.5vw, 14px);
+  align-items: center;
+}
+
+.slide-promo__cta {
+  display: inline-block;
+  padding: clamp(10px, 1.5vw, 14px) clamp(20px, 3vw, 36px);
+  background: var(--color-accent);
+  color: white;
+  font-family: var(--font-body);
+  font-size: clamp(0.82rem, 1.4vw, 0.96rem);
+  font-weight: 700;
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  box-shadow: 0 4px 20px rgba(184, 148, 62, 0.35);
+  transition: all var(--duration-base) var(--ease);
+  white-space: nowrap;
+}
+
+.slide-promo__cta:hover {
+  background: var(--color-accent-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 28px rgba(184, 148, 62, 0.55);
+  color: white;
+}
+
+.slide-promo__cta--ghost {
+  background: transparent;
+  border: 1.5px solid rgba(255, 255, 255, 0.35);
+  color: rgba(255, 255, 255, 0.85);
+  box-shadow: none;
+}
+
+.slide-promo__cta--ghost:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.6);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: none;
+}
+
+/* Right column — price cards */
+.slide-promo__cards {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(6px, 1.2vw, 10px);
+}
+
+.slide-promo__card {
+  display: flex;
+  align-items: center;
+  gap: clamp(8px, 1.5vw, 14px);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: var(--radius-sm);
+  padding: clamp(8px, 1.2vw, 12px) clamp(12px, 2vw, 20px);
+  backdrop-filter: blur(6px);
+  transition: background var(--duration-base) var(--ease);
+  min-width: clamp(200px, 24vw, 310px);
+}
+
+.slide-promo__card:first-child {
+  background: rgba(184, 148, 62, 0.12);
+  border-color: rgba(184, 148, 62, 0.3);
+}
+
+.slide-promo__card-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  flex-shrink: 0;
+}
+
+.slide-promo__card:first-child .slide-promo__card-dot {
+  width: 9px;
+  height: 9px;
+  box-shadow: 0 0 8px rgba(184, 148, 62, 0.7);
+}
+
+.slide-promo__card-text {
+  font-family: var(--font-body);
+  font-size: clamp(0.72rem, 1.25vw, 0.9rem);
+  color: rgba(255, 255, 255, 0.85);
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+
+.slide-promo__card:first-child .slide-promo__card-text {
+  color: white;
+  font-weight: 700;
+}
+
+/* Responsive — hide cards below 600px to keep copy readable */
+@media (max-width: 680px) {
+  .slide-promo__inner {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: clamp(20px, 5vw, 32px) clamp(20px, 5vw, 32px);
+  }
+  .slide-promo__cards {
+    display: none;
+  }
+  .slide-promo__title {
+    font-size: clamp(1.4rem, 6vw, 2rem);
+  }
+}
+
 /* ── Hero CTA (below slider) ── */
 .hero-cta {
   text-align: center;

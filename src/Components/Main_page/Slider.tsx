@@ -111,7 +111,7 @@ const SliderComponent = () => {
         effect="fade"
         fadeEffect={{ crossFade: true }}
         loop
-        autoplay={{ delay: 4000, disableOnInteraction: false, pauseOnMouseEnter: true }}
+        autoplay={{ delay: 4500, disableOnInteraction: false, pauseOnMouseEnter: true }}
         speed={700}
         pagination={{ clickable: true }}
         a11y={{ enabled: true }}
@@ -133,6 +133,7 @@ const SliderComponent = () => {
           </SwiperSlide>
         ))}
 
+        {/* Slide 3 — case acceleration (image + text overlay) */}
         <SwiperSlide>
           <div className="slide-overlay">
             <picture>
@@ -152,6 +153,40 @@ const SliderComponent = () => {
               <a href="#pricelist" className="slide-overlay__btn">
                 {t('packages.orderBtn')}
               </a>
+            </div>
+          </div>
+        </SwiperSlide>
+
+        {/* Slide 4 — promotional pricing banner (CSS-only, no image needed) */}
+        <SwiperSlide>
+          <div className="slide-promo" role="img" aria-label={t('slider.promoSlide.title')}>
+            <div className="slide-promo__inner">
+              <div className="slide-promo__copy">
+                <span className="slide-promo__badge">{t('slider.promoSlide.badge')}</span>
+                <h2 className="slide-promo__title">
+                  {t('slider.promoSlide.titleMain')}{' '}
+                  <span>{t('slider.promoSlide.titlePrice')}</span>
+                </h2>
+                <p className="slide-promo__subtitle">{t('slider.promoSlide.subtitle')}</p>
+                <div className="slide-promo__ctas">
+                  <a href="#pricelist" className="slide-promo__cta">
+                    {t('slider.promoSlide.cta')}
+                  </a>
+                  <a href="#leedform" className="slide-promo__cta slide-promo__cta--ghost">
+                    {t('slider.promoSlide.ctaSecondary')}
+                  </a>
+                </div>
+              </div>
+              <div className="slide-promo__cards" aria-hidden="true">
+                {([0, 1, 2] as const).map((i) => (
+                  <div key={i} className="slide-promo__card">
+                    <span className="slide-promo__card-dot" />
+                    <span className="slide-promo__card-text">
+                      {t(`slider.promoSlide.list.${i}`)}
+                    </span>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </SwiperSlide>
