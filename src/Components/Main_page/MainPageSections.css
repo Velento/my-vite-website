@@ -67,7 +67,7 @@
   color: var(--color-text-secondary);
 }
 
-/* ── Sections grid — two cards side-by-side on desktop, stacked on mobile ── */
+/* ── Sections grid - two cards side-by-side on desktop, stacked on mobile ── */
 .main-page-sections {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
@@ -78,7 +78,7 @@
   align-items: stretch;
 }
 
-/* ── Section Card — weightless ── */
+/* ── Section Card - weightless ── */
 .section {
   background: var(--color-bg);
   border-radius: var(--radius-lg);

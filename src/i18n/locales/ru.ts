@@ -1,4 +1,4 @@
-// Auto-extracted from src/i18n.js — translation bundle for 'ru'.
+// Auto-extracted from src/i18n.js - translation bundle for 'ru'.
 // Loaded on demand by src/i18n.js based on the active language.
 const translations = {
   'menu.pricelist': 'Прайс-Лист',
@@ -68,7 +68,7 @@ const translations = {
   'packages.standard.price': '1 100 PLN',
   'packages.standard.features.0': 'Всё за клиента по доверенности',
   'packages.standard.features.1': 'Личное сопровождение до отпечатков и встречи с инспектором',
-  'packages.standard.features.2': 'Далее — клиент контролирует процесс самостоятельно',
+  'packages.standard.features.2': 'Далее - клиент контролирует процесс самостоятельно',
   'packages.standard.note': 'Донесение документов и ускорение не входят',
   'packages.ultra.title': 'Ультра',
   'packages.ultra.badge': 'Максимальная Скорость',
@@ -85,9 +85,9 @@ const translations = {
   'packages.basic.features.1': 'Регистрация в MOS',
   'packages.basic.features.2': 'Консультация на всех этапах',
   'packages.basic.features.3': 'Подача документов',
-  'packages.basic.note': 'Далее — клиент контролирует дело самостоятельно',
+  'packages.basic.note': 'Далее - клиент контролирует дело самостоятельно',
 
-  'reason_texts.reason1': 'Мы обеспечиваем доступность цен! Цена — это ключ!',
+  'reason_texts.reason1': 'Мы обеспечиваем доступность цен! Цена - это ключ!',
   'reason_texts.reason2':
     'Если мы не перезвоним вам в течение 45 минут после отправки запроса на сайте, мы дадим вам скидку 50 PLN на покупку услуги.',
   'reason_texts.reason3':
@@ -106,7 +106,7 @@ const translations = {
     fileChoose: 'Выбрать файл',
     fileChange: 'Изменить файл',
     fileRemove: 'Удалить файл',
-    fileHint: 'PDF, JPG, PNG, DOC — до 10 МБ',
+    fileHint: 'PDF, JPG, PNG, DOC - до 10 МБ',
     fileError: 'Неверный файл',
     fileTooLarge: 'Файл слишком большой (макс. 10 МБ)',
     fileTypeError: 'Этот тип файла не поддерживается',
@@ -114,11 +114,11 @@ const translations = {
     errorWithFallback: 'Не удалось отправить форму. Свяжитесь с нами напрямую:',
     fallbackWhatsApp: 'Написать в WhatsApp',
     fileProxyMissing:
-      'Ваши данные отправлены. К сожалению, прикрепить файл не удалось — отправьте его напрямую через Telegram или WhatsApp.',
+      'Ваши данные отправлены. К сожалению, прикрепить файл не удалось - отправьте его напрямую через Telegram или WhatsApp.',
     namePlaceholder: 'Анна',
     phonePlaceholder: '+48 123 456 789',
   },
-  'seo.h1': 'Легализация иностранцев в Гданьске — Legal Line',
+  'seo.h1': 'Легализация иностранцев в Гданьске - Legal Line',
   'slider.subtitle': 'Карта побыту, легализация, документы',
   'slider.cta': 'Бесплатная консультация',
   'trustBar.clients': '500+ довольных клиентов',
@@ -133,15 +133,15 @@ const translations = {
   'exitPopup.badge': 'Подождите!',
   'exitPopup.title': 'Бесплатная консультация',
   'exitPopup.text':
-    'Оставьте контакт — перезвоним в течение 30 минут и бесплатно оценим ваше дело.',
-  'exitPopup.perk1': 'Первая консультация — бесплатно',
+    'Оставьте контакт - перезвоним в течение 30 минут и бесплатно оценим ваше дело.',
+  'exitPopup.perk1': 'Первая консультация - бесплатно',
   'exitPopup.perk2': 'Карта побыта от 750 PLN',
   'exitPopup.perk3': 'Гарантия возврата денег',
   'exitPopup.ctaWhatsApp': 'Написать в WhatsApp',
   'exitPopup.ctaForm': 'Заполнить форму',
-  'slider.alt': 'Legal Line — иммиграционные услуги в Гданьске, слайд {{index}}',
+  'slider.alt': 'Legal Line - иммиграционные услуги в Гданьске, слайд {{index}}',
   'slider.heroSlide.badge': 'КАРТА ПОБЫТУ · ЛЕГАЛИЗАЦИЯ · ГРАЖДАНСТВО',
-  'slider.heroSlide.title': 'Твоя карта побыту — без стресса и ошибок',
+  'slider.heroSlide.title': 'Твоя карта побыту - без стресса и ошибок',
   'slider.heroSlide.text':
     'Опытные юристы ведут дело от консультации до решения. Бесплатная первая консультация. Представительство в Управе и суде.',
   'slider.heroSlide.ctaPrimary': 'Бесплатная консультация',
@@ -151,17 +151,17 @@ const translations = {
   'slider.trustSlide.list.1': 'Более 1500 закрытых иммиграционных дел',
   'slider.trustSlide.list.2': 'Поддержка на 5 языках (PL, RU, UA, EN, BY)',
   'slider.trustSlide.list.3': 'Первая консультация всегда бесплатна',
-  'slider.trustSlide.cta': 'Оставь контакт — перезвоним за 30 мин',
+  'slider.trustSlide.cta': 'Оставь контакт - перезвоним за 30 мин',
   'slider.newSlide.title': 'Ускорение дел в Поморском воеводстве',
-  'slider.newSlide.text': 'Подача исков на бездействие — быстрые результаты через суд',
+  'slider.newSlide.text': 'Подача исков на бездействие - быстрые результаты через суд',
   'slider.promoSlide.badge': 'АКЦИЯ МЕСЯЦА',
   'slider.promoSlide.titleMain': 'Карта Побыту',
   'slider.promoSlide.titlePrice': 'от 750 PLN',
   'slider.promoSlide.title': 'Карта Побыту от 750 PLN',
   'slider.promoSlide.subtitle': 'Быстро · Легально · С гарантией возврата денег',
-  'slider.promoSlide.list.0': 'Пакет Базовый — 750 PLN',
-  'slider.promoSlide.list.1': 'Пакет Всё включено — 1 850 PLN',
-  'slider.promoSlide.list.2': 'Пакет Ультра (с адвокатом) — 2 400 PLN',
+  'slider.promoSlide.list.0': 'Пакет Базовый - 750 PLN',
+  'slider.promoSlide.list.1': 'Пакет Всё включено - 1 850 PLN',
+  'slider.promoSlide.list.2': 'Пакет Ультра (с адвокатом) - 2 400 PLN',
   'slider.promoSlide.cta': 'Смотреть цены',
   'slider.promoSlide.ctaSecondary': 'Бесплатная консультация',
   'team.memberAlt': 'Член команды Legal Line',
@@ -390,7 +390,7 @@ const translations = {
     'Service4.moreInfoService': {
       title: 'Ускорение дел через судебный иск',
       content:
-        'Если ваше дело в воеводском управлении рассматривается слишком долго, вы имеете право его ускорить. Мы предлагаем два варианта: досудебное ускорение — жалобы и требования к органу, и ускорение через суд — иск на бездействие. Наш лицензированный адвокат будет представлять ваши интересы в суде, что значительно ускоряет процесс принятия решения. Услуга особенно актуал��на для жителей Поморского воеводства.',
+        'Если ваше дело в воеводском управлении рассматривается слишком долго, вы имеете право его ускорить. Мы предлагаем два варианта: досудебное ускорение - жалобы и требования к органу, и ускорение через суд - иск на бездействие. Наш лицензированный адвокат будет представлять ваши интересы в суде, что значительно ускоряет процесс принятия решения. Услуга особенно актуал��на для жителей Поморского воеводства.',
     },
     'Service4.processingTime': {
       title: 'Сроки ускорения дела',

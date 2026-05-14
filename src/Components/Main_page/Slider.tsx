@@ -6,7 +6,7 @@ import 'swiper/css/effect-fade';
 import 'swiper/css/pagination';
 import './Slider.css';
 
-// Third slide — image background + text overlay, common across all languages.
+// Third slide - image background + text overlay, common across all languages.
 import slide3Bg from '../images/slider3.jpg';
 import slide3BgW from '../images/slider3.webp';
 import slide3BgMobile from '../images/slider3_768px.jpg';
@@ -32,7 +32,7 @@ const SliderComponent = () => {
         a11y={{ enabled: true }}
         slidesPerView={1}
       >
-        {/* Slide 1 — hero positioning slide (CSS-only, dark navy + gold accent) */}
+        {/* Slide 1 - hero positioning slide (CSS-only, dark navy + gold accent) */}
         <SwiperSlide>
           <div className="slide-hero" role="img" aria-label={t('slider.heroSlide.title')}>
             <div className="slide-hero__inner">
@@ -56,7 +56,7 @@ const SliderComponent = () => {
           </div>
         </SwiperSlide>
 
-        {/* Slide 2 — trust / guarantees slide (CSS-only, light card with bullets) */}
+        {/* Slide 2 - trust / guarantees slide (CSS-only, light card with bullets) */}
         <SwiperSlide>
           <div className="slide-trust" role="img" aria-label={t('slider.trustSlide.title')}>
             <div className="slide-trust__inner">
@@ -75,7 +75,7 @@ const SliderComponent = () => {
           </div>
         </SwiperSlide>
 
-        {/* Slide 3 — case acceleration (image + text overlay) */}
+        {/* Slide 3 - case acceleration (image + text overlay) */}
         <SwiperSlide>
           <div className="slide-overlay">
             <picture>
@@ -99,7 +99,7 @@ const SliderComponent = () => {
           </div>
         </SwiperSlide>
 
-        {/* Slide 4 — promotional pricing banner (CSS-only, no image needed) */}
+        {/* Slide 4 - promotional pricing banner (CSS-only, no image needed) */}
         <SwiperSlide>
           <div className="slide-promo" role="img" aria-label={t('slider.promoSlide.title')}>
             <div className="slide-promo__inner">

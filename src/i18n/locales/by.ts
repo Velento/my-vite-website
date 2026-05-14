@@ -1,4 +1,4 @@
-// Auto-extracted from src/i18n.js — translation bundle for 'by'.
+// Auto-extracted from src/i18n.js - translation bundle for 'by'.
 // Loaded on demand by src/i18n.js based on the active language.
 const translations = {
   'menu.pricelist': 'Прайс-ліст',
@@ -69,7 +69,7 @@ const translations = {
   'packages.standard.price': '1 100 PLN',
   'packages.standard.features.0': 'Усё за кліента па даручэнні',
   'packages.standard.features.1': 'Асабісты суправод на адбіткі пальцаў і да інспектара',
-  'packages.standard.features.2': 'Далей — кліент кантралюе працэс самастойна',
+  'packages.standard.features.2': 'Далей - кліент кантралюе працэс самастойна',
   'packages.standard.note': 'Данясенне дакументаў і паскарэнне не ўваходзяць',
   'packages.ultra.title': 'Ультра',
   'packages.ultra.badge': 'Максімальная Хуткасць',
@@ -85,9 +85,9 @@ const translations = {
   'packages.basic.features.1': 'Рэгістрацыя ў MOS',
   'packages.basic.features.2': 'Кансультацыя на ўсіх этапах',
   'packages.basic.features.3': 'Падача дакументаў',
-  'packages.basic.note': 'Далей — кліент кантралюе справу самастойна',
+  'packages.basic.note': 'Далей - кліент кантралюе справу самастойна',
 
-  'reason_texts.reason1': 'Мы забяспечваем даступнасць цэн! Цана — гэта ключ!',
+  'reason_texts.reason1': 'Мы забяспечваем даступнасць цэн! Цана - гэта ключ!',
   'reason_texts.reason2':
     'Калі мы не ператэлефануем вам на працягу 45 хвілін пасля адпраўкі запыту на сайце, мы дамо вам зніжку 50 PLN на куплю паслугі.',
   'reason_texts.reason3':
@@ -106,7 +106,7 @@ const translations = {
     fileChoose: 'Выбраць файл',
     fileChange: 'Змяніць файл',
     fileRemove: 'Выдаліць файл',
-    fileHint: 'PDF, JPG, PNG, DOC — да 10 МБ',
+    fileHint: 'PDF, JPG, PNG, DOC - да 10 МБ',
     fileError: 'Няправільны файл',
     fileTooLarge: 'Файл занадта вялікі (макс. 10 МБ)',
     fileTypeError: 'Гэты тып файла не падтрымліваецца',
@@ -114,11 +114,11 @@ const translations = {
     errorWithFallback: 'Не атрымалася адправіць форму. Звяжыцеся з намі напрамую:',
     fallbackWhatsApp: 'Напісаць у WhatsApp',
     fileProxyMissing:
-      'Вашы дадзеныя адпраўлены. На жаль, прымацаваць файл не атрымалася — адпраўце яго напрамую праз Telegram або WhatsApp.',
+      'Вашы дадзеныя адпраўлены. На жаль, прымацаваць файл не атрымалася - адпраўце яго напрамую праз Telegram або WhatsApp.',
     namePlaceholder: 'Ганна',
     phonePlaceholder: '+48 123 456 789',
   },
-  'seo.h1': 'Легалізацыя замежнікаў у Гданьску — Legal Line',
+  'seo.h1': 'Легалізацыя замежнікаў у Гданьску - Legal Line',
   'slider.subtitle': 'Карта пабыту, легалізацыя, дакументы',
   'slider.cta': 'Бясплатная кансультацыя',
   'trustBar.clients': '500+ задаволеных кліентаў',
@@ -133,15 +133,15 @@ const translations = {
   'exitPopup.badge': 'Пачакайце!',
   'exitPopup.title': 'Бясплатная кансультацыя',
   'exitPopup.text':
-    'Пакіньце кантакт — ператэлефануем на працягу 30 хвілін і бясплатна ацэнім вашу справу.',
-  'exitPopup.perk1': 'Першая кансультацыя — бясплатна',
+    'Пакіньце кантакт - ператэлефануем на працягу 30 хвілін і бясплатна ацэнім вашу справу.',
+  'exitPopup.perk1': 'Першая кансультацыя - бясплатна',
   'exitPopup.perk2': 'Карта побыту ад 750 PLN',
   'exitPopup.perk3': 'Гарантыя вяртання грошай',
   'exitPopup.ctaWhatsApp': 'Напісаць у WhatsApp',
   'exitPopup.ctaForm': 'Запоўніць форму',
-  'slider.alt': 'Legal Line — іміграцыйныя паслугі ў Гданьску, слайд {{index}}',
+  'slider.alt': 'Legal Line - іміграцыйныя паслугі ў Гданьску, слайд {{index}}',
   'slider.heroSlide.badge': 'КАРТА ПАБЫТУ · ЛЕГАЛІЗАЦЫЯ · ГРАМАДЗЯНСТВА',
-  'slider.heroSlide.title': 'Твая карта пабыту — без стрэсу і памылак',
+  'slider.heroSlide.title': 'Твая карта пабыту - без стрэсу і памылак',
   'slider.heroSlide.text':
     'Дасведчаныя юрысты вядуць справу ад кансультацыі да рашэння. Бясплатная першая кансультацыя. Прадстаўніцтва ва Управе і судзе.',
   'slider.heroSlide.ctaPrimary': 'Бясплатная кансультацыя',
@@ -151,17 +151,17 @@ const translations = {
   'slider.trustSlide.list.1': 'Больш за 1500 закрытых іміграцыйных спраў',
   'slider.trustSlide.list.2': 'Падтрымка на 5 мовах (PL, RU, UA, EN, BY)',
   'slider.trustSlide.list.3': 'Першая кансультацыя заўсёды бясплатная',
-  'slider.trustSlide.cta': 'Пакінь кантакт — перазвонім за 30 хв',
+  'slider.trustSlide.cta': 'Пакінь кантакт - перазвонім за 30 хв',
   'slider.newSlide.title': 'Паскарэнне спраў у Паморскім ваяводстве',
-  'slider.newSlide.text': 'Іскі на бяздзейнасць органа — хуткія вынікі праз суд',
+  'slider.newSlide.text': 'Іскі на бяздзейнасць органа - хуткія вынікі праз суд',
   'slider.promoSlide.badge': 'АКЦЫЯ МЕСЯЦА',
   'slider.promoSlide.titleMain': 'Карта Пабыту',
   'slider.promoSlide.titlePrice': 'ад 750 PLN',
   'slider.promoSlide.title': 'Карта Пабыту ад 750 PLN',
   'slider.promoSlide.subtitle': 'Хутка · Легальна · З гарантыяй вяртання грошай',
-  'slider.promoSlide.list.0': 'Пакет Базавы — 750 PLN',
-  'slider.promoSlide.list.1': 'Пакет Усё ўключана — 1 850 PLN',
-  'slider.promoSlide.list.2': 'Пакет Ультра (з адвакатам) — 2 400 PLN',
+  'slider.promoSlide.list.0': 'Пакет Базавы - 750 PLN',
+  'slider.promoSlide.list.1': 'Пакет Усё ўключана - 1 850 PLN',
+  'slider.promoSlide.list.2': 'Пакет Ультра (з адвакатам) - 2 400 PLN',
   'slider.promoSlide.cta': 'Глядзець цэны',
   'slider.promoSlide.ctaSecondary': 'Бясплатная кансультацыя',
   'team.memberAlt': 'Удзельнік каманды Legal Line',
@@ -386,7 +386,7 @@ const translations = {
     'Service4.moreInfoService': {
       title: 'Паскарэнне спраў праз судовы іск',
       content:
-        'Калі ваша справа ў ваяводскім упраўленні разглядаецца занадта доўга, вы маеце права яе паскорыць. Мы прапануем два варыянты: дасудовае паскарэнне — скаргі і патрабаванні да органа, і паскарэнне праз суд — іск на бяздзейнасць. Наш ліцэнзаваны адвакат будзе прадстаўляць вашыя інтарэсы ў судзе, што значна паскарае працэс прыняцця рашэння. Паслуга асабліва актуальная для жыхароў Паморскага ваяводства.',
+        'Калі ваша справа ў ваяводскім упраўленні разглядаецца занадта доўга, вы маеце права яе паскорыць. Мы прапануем два варыянты: дасудовае паскарэнне - скаргі і патрабаванні да органа, і паскарэнне праз суд - іск на бяздзейнасць. Наш ліцэнзаваны адвакат будзе прадстаўляць вашыя інтарэсы ў судзе, што значна паскарае працэс прыняцця рашэння. Паслуга асабліва актуальная для жыхароў Паморскага ваяводства.',
     },
     'Service4.processingTime': {
       title: 'Тэрміны паскарэння справы',

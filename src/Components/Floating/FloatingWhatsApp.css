@@ -1,4 +1,4 @@
-/* Floating WhatsApp button — always visible bottom-right.
+/* Floating WhatsApp button - always visible bottom-right.
    Hidden on small mobile (≤480px) since StickyMobileBar covers that space. */
 
 .floating-whatsapp {
@@ -48,7 +48,7 @@
   z-index: 2;
 }
 
-/* Pulse animation — draws the eye without being obnoxious. */
+/* Pulse animation - draws the eye without being obnoxious. */
 .floating-whatsapp__pulse {
   position: absolute;
   inset: 0;
@@ -85,7 +85,7 @@
   }
 }
 
-/* Hide on phones+small tablets — StickyMobileBar handles that range.
+/* Hide on phones+small tablets - StickyMobileBar handles that range.
    Aligned with StickyMobileBar's `max-width: 768px` show query so the two
    never coexist (which would stack two CTAs in the same corner). */
 @media (max-width: 768px) {

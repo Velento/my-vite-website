@@ -1,4 +1,4 @@
-// Auto-extracted from src/i18n.js — translation bundle for 'en'.
+// Auto-extracted from src/i18n.js - translation bundle for 'en'.
 // Loaded on demand by src/i18n.js based on the active language.
 const translations = {
   'menu.pricelist': 'Price List',
@@ -70,7 +70,7 @@ const translations = {
   'packages.standard.price': '1 100 PLN',
   'packages.standard.features.0': 'Everything done for the client by power of attorney',
   'packages.standard.features.1': 'Personal escort for fingerprints and inspector meetings',
-  'packages.standard.features.2': 'Further — the client controls the process independently',
+  'packages.standard.features.2': 'Further - the client controls the process independently',
   'packages.standard.note': 'Document delivery and acceleration not included',
   'packages.ultra.title': 'Ultra',
   'packages.ultra.badge': 'Maximum Speed',
@@ -87,7 +87,7 @@ const translations = {
   'packages.basic.features.1': 'Registration at MOS',
   'packages.basic.features.2': 'Consultation at all stages',
   'packages.basic.features.3': 'Document submission',
-  'packages.basic.note': 'Further — the client controls the case independently',
+  'packages.basic.note': 'Further - the client controls the case independently',
 
   'reason_texts.reason1': 'We ensure price accessibility! Price is key!',
   'reason_texts.reason2':
@@ -109,7 +109,7 @@ const translations = {
     fileChoose: 'Choose file',
     fileChange: 'Change file',
     fileRemove: 'Remove file',
-    fileHint: 'PDF, JPG, PNG, DOC — up to 10 MB',
+    fileHint: 'PDF, JPG, PNG, DOC - up to 10 MB',
     fileError: 'Invalid file',
     fileTooLarge: 'File is too large (max 10 MB)',
     fileTypeError: 'File type not allowed',
@@ -117,11 +117,11 @@ const translations = {
     errorWithFallback: 'Could not submit the form. Reach us directly:',
     fallbackWhatsApp: 'Message on WhatsApp',
     fileProxyMissing:
-      'Your details were sent. Unfortunately, the file could not be attached — please send it directly via Telegram or WhatsApp.',
+      'Your details were sent. Unfortunately, the file could not be attached - please send it directly via Telegram or WhatsApp.',
     namePlaceholder: 'Anna',
     phonePlaceholder: '+48 123 456 789',
   },
-  'seo.h1': 'Legalization of foreigners in Gdansk — Legal Line',
+  'seo.h1': 'Legalization of foreigners in Gdansk - Legal Line',
   'slider.subtitle': 'Residence card, legalization, documents',
   'slider.cta': 'Free consultation',
   'trustBar.clients': '500+ satisfied clients',
@@ -136,15 +136,15 @@ const translations = {
   'exitPopup.badge': 'Wait!',
   'exitPopup.title': 'Free consultation',
   'exitPopup.text':
-    'Leave your contact — we will call back within 30 minutes and assess your case for free.',
-  'exitPopup.perk1': 'First consultation — free',
+    'Leave your contact - we will call back within 30 minutes and assess your case for free.',
+  'exitPopup.perk1': 'First consultation - free',
   'exitPopup.perk2': 'Residence permit from 750 PLN',
   'exitPopup.perk3': 'Money-back guarantee',
   'exitPopup.ctaWhatsApp': 'Message on WhatsApp',
   'exitPopup.ctaForm': 'Fill out form',
-  'slider.alt': 'Legal Line — immigration services in Gdansk, slide {{index}}',
+  'slider.alt': 'Legal Line - immigration services in Gdansk, slide {{index}}',
   'slider.heroSlide.badge': 'RESIDENCE CARD · LEGALIZATION · CITIZENSHIP',
-  'slider.heroSlide.title': 'Your residence card — no stress, no mistakes',
+  'slider.heroSlide.title': 'Your residence card - no stress, no mistakes',
   'slider.heroSlide.text':
     'Experienced lawyers run your case from consultation to decision. First consultation is free. Representation at the Office and in court.',
   'slider.heroSlide.ctaPrimary': 'Free consultation',
@@ -154,17 +154,17 @@ const translations = {
   'slider.trustSlide.list.1': '1500+ closed immigration cases',
   'slider.trustSlide.list.2': 'Full support in 5 languages (PL, RU, UA, EN, BY)',
   'slider.trustSlide.list.3': 'First consultation always free',
-  'slider.trustSlide.cta': 'Leave your number — we call back in 30 min',
+  'slider.trustSlide.cta': 'Leave your number - we call back in 30 min',
   'slider.newSlide.title': 'Case Acceleration in the Pomeranian Voivodeship',
-  'slider.newSlide.text': 'Filing lawsuits for inactivity — fast results through court',
+  'slider.newSlide.text': 'Filing lawsuits for inactivity - fast results through court',
   'slider.promoSlide.badge': 'THIS MONTH OFFER',
   'slider.promoSlide.titleMain': 'Residence Card',
   'slider.promoSlide.titlePrice': 'from 750 PLN',
   'slider.promoSlide.title': 'Residence Card from 750 PLN',
   'slider.promoSlide.subtitle': 'Fast · Legal · Money-back guaranteed',
-  'slider.promoSlide.list.0': 'Basic Package — 750 PLN',
-  'slider.promoSlide.list.1': 'All-Inclusive Package — 1,850 PLN',
-  'slider.promoSlide.list.2': 'Ultra Package (with attorney) — 2,400 PLN',
+  'slider.promoSlide.list.0': 'Basic Package - 750 PLN',
+  'slider.promoSlide.list.1': 'All-Inclusive Package - 1,850 PLN',
+  'slider.promoSlide.list.2': 'Ultra Package (with attorney) - 2,400 PLN',
   'slider.promoSlide.cta': 'View pricing',
   'slider.promoSlide.ctaSecondary': 'Free consultation',
   'team.memberAlt': 'Legal Line team member',
@@ -394,7 +394,7 @@ const translations = {
     'Service4.moreInfoService': {
       title: 'Case Acceleration Through Court Lawsuit',
       content:
-        'If your case at the voivodeship office has been pending for too long, you have the right to accelerate it. We offer two options: pre-trial acceleration — complaints and demands to the authority, and court acceleration — filing a lawsuit for inactivity. Our licensed attorney will represent your interests in court, which significantly speeds up the decision-making process. The service is especially relevant for residents of the Pomeranian Voivodeship.',
+        'If your case at the voivodeship office has been pending for too long, you have the right to accelerate it. We offer two options: pre-trial acceleration - complaints and demands to the authority, and court acceleration - filing a lawsuit for inactivity. Our licensed attorney will represent your interests in court, which significantly speeds up the decision-making process. The service is especially relevant for residents of the Pomeranian Voivodeship.',
     },
     'Service4.processingTime': {
       title: 'Acceleration Processing Time',

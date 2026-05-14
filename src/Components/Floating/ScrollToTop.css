@@ -1,4 +1,4 @@
-/* Scroll-to-top — anchored to the viewport (not the footer). Hidden until
+/* Scroll-to-top - anchored to the viewport (not the footer). Hidden until
    the user has scrolled past ~480px. On mobile it floats above the
    StickyMobileBar so the two never collide. */
 

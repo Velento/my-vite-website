@@ -1,4 +1,4 @@
-/* ── Hero Slider — Swiper Edition ── */
+/* ── Hero Slider - Swiper Edition ── */
 .slider-container {
   width: 100%;
   margin: 0 auto;
@@ -6,7 +6,7 @@
   position: relative;
 }
 
-/* Wymusza spójną wysokość każdego slajdu w trybie fade — bez tego slajdy o
+/* Wymusza spójną wysokość każdego slajdu w trybie fade - bez tego slajdy o
    różnych proporcjach (zwłaszcza overlay slide 3) powodują skoki layoutu. */
 .slider-container .swiper-slide {
   aspect-ratio: 1961 / 582;
@@ -38,7 +38,7 @@
 }
 
 /* Two-tone bullets so they stay visible on both light and dark slide
-   backgrounds — dark fill with a bright white border + soft dark drop
+   backgrounds - dark fill with a bright white border + soft dark drop
    shadow gives contrast in either direction. */
 .slider-container .swiper-pagination-bullet {
   width: 11px;
@@ -62,7 +62,7 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
 }
 
-/* ── Hero Slide (slide 1 — main positioning, dark navy + gold) ── */
+/* ── Hero Slide (slide 1 - main positioning, dark navy + gold) ── */
 .slide-hero {
   position: relative;
   width: 100%;
@@ -175,7 +175,7 @@
   box-shadow: none;
 }
 
-/* ── Trust Slide (slide 2 — light card with checkmark bullets) ── */
+/* ── Trust Slide (slide 2 - light card with checkmark bullets) ── */
 .slide-trust {
   position: relative;
   width: 100%;
@@ -285,7 +285,7 @@
   color: white;
 }
 
-/* Responsive — keep both new slides readable on small screens */
+/* Responsive - keep both new slides readable on small screens */
 @media (max-width: 600px) {
   .slide-hero__title,
   .slide-trust__title {
@@ -365,7 +365,7 @@
   color: white;
 }
 
-/* ── Promo Banner Slide (4th slide — CSS-only, no image needed) ── */
+/* ── Promo Banner Slide (4th slide - CSS-only, no image needed) ── */
 .slide-promo {
   position: relative;
   width: 100%;
@@ -415,7 +415,7 @@
   max-width: 1200px;
 }
 
-/* Left column — copy */
+/* Left column - copy */
 .slide-promo__copy {
   flex: 1 1 auto;
   min-width: 0;
@@ -502,7 +502,7 @@
   box-shadow: none;
 }
 
-/* Right column — price cards */
+/* Right column - price cards */
 .slide-promo__cards {
   flex: 0 0 auto;
   display: flex;
@@ -555,7 +555,7 @@
   font-weight: 700;
 }
 
-/* Responsive — hide cards below 600px to keep copy readable */
+/* Responsive - hide cards below 600px to keep copy readable */
 @media (max-width: 680px) {
   .slide-promo__inner {
     flex-direction: column;

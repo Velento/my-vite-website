@@ -1,4 +1,4 @@
-// Auto-extracted from src/i18n.js — translation bundle for 'pl'.
+// Auto-extracted from src/i18n.js - translation bundle for 'pl'.
 // Loaded on demand by src/i18n.js based on the active language.
 const translations = {
   'menu.pricelist': 'Cennik',
@@ -69,7 +69,7 @@ const translations = {
   'packages.standard.price': '1 100 PLN',
   'packages.standard.features.0': 'Wszystko za klienta na podstawie pełnomocnictwa',
   'packages.standard.features.1': 'Osobiste towarzyszenie na odciski palców i do inspektora',
-  'packages.standard.features.2': 'Dalej — klient kontroluje proces samodzielnie',
+  'packages.standard.features.2': 'Dalej - klient kontroluje proces samodzielnie',
   'packages.standard.note': 'Doniesienie dokumentów i przyspieszenie nie wchodzi w cenę',
   'packages.ultra.title': 'Ultra',
   'packages.ultra.badge': 'Maksymalna Szybkość',
@@ -85,7 +85,7 @@ const translations = {
   'packages.basic.features.1': 'Rejestracja w MOS',
   'packages.basic.features.2': 'Konsultacja na każdym etapie',
   'packages.basic.features.3': 'Złożenie dokumentów',
-  'packages.basic.note': 'Dalej — klient kontroluje sprawę samodzielnie',
+  'packages.basic.note': 'Dalej - klient kontroluje sprawę samodzielnie',
 
   'reason_texts.reason1': 'Zapewniamy dostępność cenową! Cena ma znaczenie!',
   'reason_texts.reason2':
@@ -106,7 +106,7 @@ const translations = {
     fileChoose: 'Wybierz plik',
     fileChange: 'Zmień plik',
     fileRemove: 'Usuń plik',
-    fileHint: 'PDF, JPG, PNG, DOC — do 10 MB',
+    fileHint: 'PDF, JPG, PNG, DOC - do 10 MB',
     fileError: 'Nieprawidłowy plik',
     fileTooLarge: 'Plik za duży (maks. 10 MB)',
     fileTypeError: 'Nieobsługiwany typ pliku',
@@ -114,11 +114,11 @@ const translations = {
     errorWithFallback: 'Nie udało się wysłać formularza. Skontaktuj się z nami bezpośrednio:',
     fallbackWhatsApp: 'Wyślij przez WhatsApp',
     fileProxyMissing:
-      'Twoje dane zostały wysłane. Niestety nie udało się dołączyć pliku — prześlij go bezpośrednio przez Telegram lub WhatsApp.',
+      'Twoje dane zostały wysłane. Niestety nie udało się dołączyć pliku - prześlij go bezpośrednio przez Telegram lub WhatsApp.',
     namePlaceholder: 'Anna',
     phonePlaceholder: '+48 123 456 789',
   },
-  'seo.h1': 'Legalizacja cudzoziemców w Gdańsku — Legal Line',
+  'seo.h1': 'Legalizacja cudzoziemców w Gdańsku - Legal Line',
   'slider.subtitle': 'Karta pobytu, legalizacja, dokumenty',
   'slider.cta': 'Bezpłatna konsultacja',
   'trustBar.clients': '500+ zadowolonych klientów',
@@ -133,15 +133,15 @@ const translations = {
   'exitPopup.badge': 'Czekaj!',
   'exitPopup.title': 'Bezpłatna konsultacja',
   'exitPopup.text':
-    'Zostaw kontakt — oddzwonimy w ciągu 30 minut i wycenimy Twoją sprawę za darmo.',
-  'exitPopup.perk1': 'Pierwsza konsultacja — bezpłatna',
+    'Zostaw kontakt - oddzwonimy w ciągu 30 minut i wycenimy Twoją sprawę za darmo.',
+  'exitPopup.perk1': 'Pierwsza konsultacja - bezpłatna',
   'exitPopup.perk2': 'Karta pobytu już od 750 PLN',
   'exitPopup.perk3': 'Gwarancja zwrotu pieniędzy',
   'exitPopup.ctaWhatsApp': 'Napisz na WhatsApp',
   'exitPopup.ctaForm': 'Wypełnij formularz',
-  'slider.alt': 'Legal Line — usługi imigracyjne w Gdańsku, slajd {{index}}',
+  'slider.alt': 'Legal Line - usługi imigracyjne w Gdańsku, slajd {{index}}',
   'slider.heroSlide.badge': 'KARTA POBYTU · LEGALIZACJA · OBYWATELSTWO',
-  'slider.heroSlide.title': 'Twoja karta pobytu — bez stresu, bez błędów',
+  'slider.heroSlide.title': 'Twoja karta pobytu - bez stresu, bez błędów',
   'slider.heroSlide.text':
     'Doświadczeni prawnicy poprowadzą Twoją sprawę od konsultacji do decyzji. Bezpłatna pierwsza konsultacja. Reprezentacja w Urzędzie i sądzie.',
   'slider.heroSlide.ctaPrimary': 'Bezpłatna konsultacja',
@@ -151,17 +151,17 @@ const translations = {
   'slider.trustSlide.list.1': 'Ponad 1500 zamkniętych spraw imigracyjnych',
   'slider.trustSlide.list.2': 'Pełna obsługa w 5 językach (PL, RU, UA, EN, BY)',
   'slider.trustSlide.list.3': 'Pierwsza konsultacja zawsze bezpłatna',
-  'slider.trustSlide.cta': 'Zostaw kontakt — oddzwonimy w 30 min',
+  'slider.trustSlide.cta': 'Zostaw kontakt - oddzwonimy w 30 min',
   'slider.newSlide.title': 'Przyspieszenie spraw w województwie pomorskim',
-  'slider.newSlide.text': 'Pozwy na bezczynność organu — szybkie rezultaty przez sąd',
+  'slider.newSlide.text': 'Pozwy na bezczynność organu - szybkie rezultaty przez sąd',
   'slider.promoSlide.badge': 'PROMOCJA MIESIĄCA',
   'slider.promoSlide.titleMain': 'Karta Pobytu',
   'slider.promoSlide.titlePrice': 'od 750 PLN',
   'slider.promoSlide.title': 'Karta Pobytu od 750 PLN',
   'slider.promoSlide.subtitle': 'Szybko · Legalnie · Z gwarancją zwrotu pieniędzy',
-  'slider.promoSlide.list.0': 'Pakiet Podstawowy — 750 PLN',
-  'slider.promoSlide.list.1': 'Pakiet Wszystko w cenie — 1 850 PLN',
-  'slider.promoSlide.list.2': 'Pakiet Ultra (z adwokatem) — 2 400 PLN',
+  'slider.promoSlide.list.0': 'Pakiet Podstawowy - 750 PLN',
+  'slider.promoSlide.list.1': 'Pakiet Wszystko w cenie - 1 850 PLN',
+  'slider.promoSlide.list.2': 'Pakiet Ultra (z adwokatem) - 2 400 PLN',
   'slider.promoSlide.cta': 'Zobacz cennik',
   'slider.promoSlide.ctaSecondary': 'Bezpłatna konsultacja',
   'team.memberAlt': 'Członek zespołu Legal Line',
@@ -389,7 +389,7 @@ const translations = {
     'Service4.moreInfoService': {
       title: 'Przyspieszenie spraw przez pozew sądowy',
       content:
-        'Jeśli Twoja sprawa w urzędzie wojewódzkim trwa zbyt długo, masz prawo ją przyspieszyć. Oferujemy dwie opcje: przyspieszenie przedsądowe — skargi i wezwania do organu, oraz przyspieszenie przez sąd — pozew na bezczynność. Nasz licencjonowany adwokat będzie reprezentował Twoje interesy w sądzie, co znacząco przyspiesza proces decyzyjny. Usługa jest szczególnie aktualna dla mieszkańców województwa pomorskiego.',
+        'Jeśli Twoja sprawa w urzędzie wojewódzkim trwa zbyt długo, masz prawo ją przyspieszyć. Oferujemy dwie opcje: przyspieszenie przedsądowe - skargi i wezwania do organu, oraz przyspieszenie przez sąd - pozew na bezczynność. Nasz licencjonowany adwokat będzie reprezentował Twoje interesy w sądzie, co znacząco przyspiesza proces decyzyjny. Usługa jest szczególnie aktualna dla mieszkańców województwa pomorskiego.',
     },
     'Service4.processingTime': {
       title: 'Czas przyspieszenia sprawy',
