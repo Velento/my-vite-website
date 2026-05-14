@@ -1,0 +1,93 @@
+/* Floating WhatsApp button — always visible bottom-right.
+   Hidden on small mobile (≤480px) since StickyMobileBar covers that space. */
+
+.floating-whatsapp {
+  position: fixed;
+  right: 22px;
+  bottom: 22px;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: #25d366;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow:
+    0 4px 14px rgba(37, 211, 102, 0.45),
+    0 2px 6px rgba(0, 0, 0, 0.18);
+  z-index: 950;
+  transition:
+    transform 0.18s ease,
+    box-shadow 0.18s ease,
+    background 0.18s ease;
+  text-decoration: none;
+  isolation: isolate;
+}
+
+.floating-whatsapp:hover,
+.floating-whatsapp:focus-visible {
+  transform: scale(1.08);
+  background: #1ebe57;
+  box-shadow:
+    0 6px 20px rgba(37, 211, 102, 0.55),
+    0 3px 10px rgba(0, 0, 0, 0.22);
+  outline: none;
+}
+
+.floating-whatsapp:focus-visible {
+  box-shadow:
+    0 0 0 3px rgba(37, 211, 102, 0.45),
+    0 6px 20px rgba(37, 211, 102, 0.55);
+}
+
+.floating-whatsapp__icon {
+  width: 32px;
+  height: 32px;
+  position: relative;
+  z-index: 2;
+}
+
+/* Pulse animation — draws the eye without being obnoxious. */
+.floating-whatsapp__pulse {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: #25d366;
+  opacity: 0.55;
+  z-index: 1;
+  animation: floating-whatsapp-pulse 2.4s ease-out infinite;
+  pointer-events: none;
+}
+
+@keyframes floating-whatsapp-pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.55;
+  }
+  70% {
+    transform: scale(1.6);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1.6);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .floating-whatsapp__pulse {
+    animation: none;
+    opacity: 0;
+  }
+  .floating-whatsapp {
+    transition: none;
+  }
+}
+
+/* Hide on small mobile — StickyMobileBar handles that range. */
+@media (max-width: 600px) {
+  .floating-whatsapp {
+    display: none;
+  }
+}

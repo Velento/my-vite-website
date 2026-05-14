@@ -166,37 +166,39 @@ const Menu = ({ vertical = false, onItemClick }: MenuProps) => {
     <nav
       className={[
         // Hidden on mobile (replaced by Burger). On md+ becomes the main nav.
-        'hidden md:block',
+        'hidden md:block w-full',
         'border-b border-[var(--color-border-light)]',
         'bg-gradient-to-b from-white to-[var(--color-bg-alt)]',
         'shadow-[0_1px_0_rgba(0,0,0,0.02)]',
       ].join(' ')}
       aria-label="Main navigation"
     >
-      <ul
-        className={[
-          // mx-auto + max-width = the list is centered in the viewport.
-          // justify-center inside the list keeps the items balanced even
-          // when the list is narrower than the wrapper.
-          'mx-auto flex max-w-[var(--max-width)] list-none items-center justify-center',
-          'gap-10 lg:gap-8 max-lg:gap-4',
-          'px-[var(--content-padding)] py-3',
-        ].join(' ')}
-      >
-        {MENU_ITEMS.map(({ href, key, icon }) => (
-          <li key={key}>
-            <a href={href} className={horizontalLink} onClick={onItemClick}>
-              <span
-                className="inline-flex h-[18px] w-[18px] align-[-3px] text-[var(--color-accent)] transition-transform duration-200 group-hover:scale-110 [&>svg]:h-full [&>svg]:w-full"
-                aria-hidden="true"
-              >
-                {icon}
-              </span>
-              <span>{t(key)}</span>
-            </a>
-          </li>
-        ))}
-      </ul>
+      {/* Outer flex container centers the inline-flex list. Using inline-flex
+          on the <ul> means it sizes to its content (not max-width), so items
+          form a tight centered group instead of stretching edge-to-edge. */}
+      <div className="flex w-full justify-center px-[var(--content-padding)] py-3">
+        <ul
+          className={[
+            'm-0 inline-flex list-none flex-wrap items-center justify-center',
+            'gap-x-7 gap-y-1 lg:gap-x-8 xl:gap-x-10 max-lg:gap-x-5',
+            'max-w-full p-0',
+          ].join(' ')}
+        >
+          {MENU_ITEMS.map(({ href, key, icon }) => (
+            <li key={key}>
+              <a href={href} className={horizontalLink} onClick={onItemClick}>
+                <span
+                  className="inline-flex h-[18px] w-[18px] align-[-3px] text-[var(--color-accent)] transition-transform duration-200 group-hover:scale-110 [&>svg]:h-full [&>svg]:w-full"
+                  aria-hidden="true"
+                >
+                  {icon}
+                </span>
+                <span>{t(key)}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
     </nav>
   );
 };

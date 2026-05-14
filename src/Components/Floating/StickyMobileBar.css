@@ -1,0 +1,72 @@
+/* Sticky bottom CTA bar — mobile only. Hidden on tablets+ where there's
+   already a permanent header with contact icons. Appears after scroll past
+   the hero so it doesn't compete with the slide CTAs above the fold. */
+
+.sticky-mobile-bar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: none;
+  background: #ffffff;
+  box-shadow: 0 -4px 14px rgba(0, 0, 0, 0.12);
+  border-top: 1px solid rgba(184, 148, 62, 0.18);
+  z-index: 940;
+  transform: translateY(100%);
+  transition: transform 0.28s ease;
+  padding-bottom: env(safe-area-inset-bottom, 0);
+}
+
+.sticky-mobile-bar--visible {
+  transform: translateY(0);
+}
+
+.sticky-mobile-bar__btn {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 10px 4px 11px;
+  text-decoration: none;
+  color: #1a2332;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  background: transparent;
+  border: none;
+  transition: background 0.15s ease;
+  min-height: 56px;
+}
+
+.sticky-mobile-bar__btn svg {
+  width: 22px;
+  height: 22px;
+}
+
+.sticky-mobile-bar__btn:active {
+  background: rgba(184, 148, 62, 0.12);
+}
+
+.sticky-mobile-bar__btn--primary {
+  background: linear-gradient(135deg, #b8943e 0%, #c9a44a 100%);
+  color: #fff;
+}
+
+.sticky-mobile-bar__btn--primary:active {
+  background: linear-gradient(135deg, #a78237 0%, #b8943e 100%);
+}
+
+/* Mobile-only: show on phones, hide on tablets and desktop. */
+@media (max-width: 768px) {
+  .sticky-mobile-bar {
+    display: flex;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sticky-mobile-bar {
+    transition: none;
+  }
+}

@@ -1,0 +1,206 @@
+/* Exit-intent popup — fires once per session on desktop when the cursor
+   leaves the top of the viewport (typical "I'm closing this tab" signal). */
+
+.exit-popup {
+  position: fixed;
+  inset: 0;
+  z-index: 1100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  animation: exit-popup-fade-in 0.2s ease-out;
+}
+
+.exit-popup__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(15, 23, 35, 0.72);
+  backdrop-filter: blur(2px);
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+.exit-popup__card {
+  position: relative;
+  background: #fff;
+  border-radius: 14px;
+  padding: 40px 38px 34px;
+  max-width: 460px;
+  width: 100%;
+  box-shadow:
+    0 22px 60px rgba(0, 0, 0, 0.35),
+    0 4px 14px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  animation: exit-popup-zoom-in 0.28s cubic-bezier(0.2, 0.9, 0.3, 1.2);
+}
+
+.exit-popup__close {
+  position: absolute;
+  top: 10px;
+  right: 14px;
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: transparent;
+  font-size: 1.8rem;
+  line-height: 1;
+  color: #9ca3af;
+  cursor: pointer;
+  border-radius: 50%;
+  transition:
+    background 0.15s ease,
+    color 0.15s ease;
+}
+
+.exit-popup__close:hover,
+.exit-popup__close:focus-visible {
+  background: #f3f4f6;
+  color: #1a2332;
+  outline: none;
+}
+
+.exit-popup__badge {
+  display: inline-block;
+  background: linear-gradient(135deg, #b8943e 0%, #d4af5a 100%);
+  color: #1a2332;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  padding: 5px 14px;
+  border-radius: 999px;
+  margin-bottom: 14px;
+}
+
+.exit-popup__title {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 1.85rem;
+  font-weight: 700;
+  color: #1a2332;
+  margin: 0 0 10px;
+  line-height: 1.18;
+}
+
+.exit-popup__text {
+  font-size: 0.96rem;
+  line-height: 1.55;
+  color: #4b5563;
+  margin: 0 0 20px;
+}
+
+.exit-popup__perks {
+  list-style: none;
+  margin: 0 0 24px;
+  padding: 0;
+  text-align: left;
+  display: inline-block;
+}
+
+.exit-popup__perks li {
+  position: relative;
+  padding: 4px 0 4px 24px;
+  font-size: 0.9rem;
+  color: #374151;
+}
+
+.exit-popup__perks li::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  top: 4px;
+  width: 18px;
+  height: 18px;
+  background: #b8943e;
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: 700;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.exit-popup__ctas {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.exit-popup__cta {
+  display: inline-block;
+  padding: 14px 22px;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease,
+    background 0.15s ease;
+}
+
+.exit-popup__cta--primary {
+  background: #25d366;
+  color: #fff;
+  box-shadow: 0 4px 14px rgba(37, 211, 102, 0.4);
+}
+
+.exit-popup__cta--primary:hover,
+.exit-popup__cta--primary:focus-visible {
+  background: #1ebe57;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(37, 211, 102, 0.5);
+  outline: none;
+}
+
+.exit-popup__cta--ghost {
+  background: transparent;
+  color: #1a2332;
+  border: 1.5px solid #1a2332;
+}
+
+.exit-popup__cta--ghost:hover,
+.exit-popup__cta--ghost:focus-visible {
+  background: #1a2332;
+  color: #fff;
+  outline: none;
+}
+
+@keyframes exit-popup-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes exit-popup-zoom-in {
+  from {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .exit-popup,
+  .exit-popup__card {
+    animation: none;
+  }
+}
+
+@media (max-width: 520px) {
+  .exit-popup__card {
+    padding: 32px 24px 28px;
+  }
+  .exit-popup__title {
+    font-size: 1.55rem;
+  }
+}

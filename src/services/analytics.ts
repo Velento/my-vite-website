@@ -1,7 +1,7 @@
 /**
  * Analytics Service — fires conversion + engagement events to GTM (dataLayer),
  * Google Ads (gtag), Meta Pixel (fbq) AND the Cloudflare Worker's audit log
- * (server-side, billing-grade record).
+ * (server-side record, immune to ad-blockers).
  *
  * All calls are safe when the underlying tag manager isn't loaded — they
  * no-op gracefully. The Worker beacon also no-ops if VITE_FORM_PROXY_URL
@@ -43,9 +43,8 @@ function readUtm(): Record<'source' | 'medium' | 'campaign' | 'term' | 'content'
 }
 
 /**
- * Server-side beacon to the Cloudflare Worker. Used to record contact clicks
- * in the KV audit log so they count toward billing even if the client-side
- * tags are blocked.
+ * Server-side beacon to the Cloudflare Worker. Records contact clicks in the
+ * KV audit log even when client-side tags are blocked by ad-blockers.
  *
  * Uses `navigator.sendBeacon` when available so the request survives the
  * page-unload that immediately follows a tel: or messenger deeplink click.
@@ -126,7 +125,7 @@ export function trackLeadConversion(options: LeadConversionOptions = {}): void {
  * Three sinks:
  *  - dataLayer push (GTM)
  *  - Meta Pixel `Contact` event
- *  - Cloudflare Worker `/track` beacon — the billing-grade audit trail
+ *  - Cloudflare Worker `/track` beacon — survives ad-blockers
  *
  * Wire this via `onClick` on every tel:, wa.me, t.me, viber, instagram,
  * mailto link in the app.
@@ -144,4 +143,33 @@ export function trackContactClick(channel: ContactChannel): void {
   }
 
   trackOnWorker(channel);
+}
+
+/**
+ * Fires once when a user starts interacting with the lead form (first focus
+ * on any field). Client-side only — used to measure form abandonment
+ * (form_start vs form_submit funnel).
+ */
+export function trackFormStart(): void {
+  safeDataLayerPush({
+    event: 'lead_form_start',
+    event_category: 'lead',
+    event_label: 'contact_form',
+  });
+
+  if (typeof window !== 'undefined' && typeof window.fbq === 'function') {
+    window.fbq('track', 'InitiateCheckout');
+  }
+}
+
+/**
+ * Fires when a marketing popup is shown (e.g. exit-intent). Helps measure
+ * popup conversion vs annoyance.
+ */
+export function trackPopupShown(name: string): void {
+  safeDataLayerPush({
+    event: 'popup_shown',
+    event_category: 'engagement',
+    event_label: name,
+  });
 }

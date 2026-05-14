@@ -1,0 +1,67 @@
+/* Scroll-to-top — anchored to the viewport (not the footer). Hidden until
+   the user has scrolled past ~480px. On mobile it floats above the
+   StickyMobileBar so the two never collide. */
+
+.scroll-to-top {
+  position: fixed;
+  right: 22px;
+  bottom: 22px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #1a2332;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  box-shadow:
+    0 6px 18px rgba(0, 0, 0, 0.25),
+    0 2px 6px rgba(0, 0, 0, 0.12);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(8px);
+  transition:
+    opacity 0.22s ease,
+    transform 0.22s ease,
+    visibility 0.22s,
+    background-color 0.15s ease;
+  z-index: 920;
+}
+
+.scroll-to-top--visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.scroll-to-top:hover,
+.scroll-to-top:focus-visible {
+  background: #b8943e;
+  outline: none;
+  transform: translateY(-2px);
+}
+
+.scroll-to-top svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* Mobile: float above the StickyMobileBar (which occupies bottom: 0 with
+   ~56px of content + safe-area inset). Account for iOS home indicator. */
+@media (max-width: 768px) {
+  .scroll-to-top {
+    right: 14px;
+    bottom: calc(56px + 14px + env(safe-area-inset-bottom, 0));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll-to-top {
+    transition:
+      opacity 0.1s,
+      visibility 0.1s;
+  }
+}

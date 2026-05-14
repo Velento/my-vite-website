@@ -1,12 +1,31 @@
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useForm, type SubmitHandler } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
 import ThankYou from './ThankYou';
 import FileUploadField from './FileUploadField';
 import { sendLeadToTelegram } from '../../services/telegram';
-import { trackLeadConversion } from '../../services/analytics';
+import { trackContactClick, trackFormStart, trackLeadConversion } from '../../services/analytics';
 import { leadFormSchema, type LeadFormValues } from '../../services/validation';
+
+const WHATSAPP_FALLBACK_NUMBER = '+48883734171';
+
+/** Builds a pre-filled WhatsApp deeplink so a failed form submission can still
+ *  reach the team. The agent gets all the data the user already typed. */
+function buildWhatsAppFallbackUrl(values: {
+  name: string;
+  phone: string;
+  promo?: string | undefined;
+}): string {
+  const lines = [
+    'Zapytanie ze strony Legal Line:',
+    `Imię: ${values.name}`,
+    `Telefon: ${values.phone}`,
+  ];
+  if (values.promo) lines.push(`Kod promocyjny: ${values.promo}`);
+  const text = encodeURIComponent(lines.join('\n'));
+  return `https://wa.me/${WHATSAPP_FALLBACK_NUMBER.replace(/\D/g, '')}?text=${text}`;
+}
 
 type LeadFormFieldsProps = {
   /** id prefix for form inputs — keeps multiple form instances on one page distinct. */
@@ -31,7 +50,15 @@ const LeadFormFields = ({
   const [submitError, setSubmitError] = useState('');
   const [submitted, setSubmitted] = useState(false);
   const [showThankYou, setShowThankYou] = useState(false);
+  const [fallbackUrl, setFallbackUrl] = useState<string | null>(null);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const formStartedRef = useRef(false);
+
+  const handleFormStart = useCallback(() => {
+    if (formStartedRef.current) return;
+    formStartedRef.current = true;
+    trackFormStart();
+  }, []);
 
   const {
     register,
@@ -53,11 +80,15 @@ const LeadFormFields = ({
 
   const onSubmit: SubmitHandler<LeadFormValues> = async (values) => {
     setSubmitError('');
+    setFallbackUrl(null);
+    const trimmed = {
+      name: values.name.trim(),
+      phone: values.phone.trim(),
+      promo: values.promo?.trim() || undefined,
+    };
     try {
       await sendLeadToTelegram({
-        name: values.name.trim(),
-        phone: values.phone.trim(),
-        promo: values.promo?.trim() || undefined,
+        ...trimmed,
         file: values.file && values.file.length > 0 ? values.file[0] : null,
       });
       trackLeadConversion({ value: 750, currency: 'PLN' });
@@ -80,14 +111,29 @@ const LeadFormFields = ({
         timerRef.current = setTimeout(() => setShowThankYou(true), thankYouDelayMs);
         return;
       }
-      setSubmitError(t('feedbackForm.errorMessage', 'An error occurred. Please try again.'));
+      // Generic submission failure (proxy down, network, CORS, worker secrets
+      // missing — anything). Don't lose the lead: show a WhatsApp deeplink
+      // pre-filled with whatever the user already typed so they can reach
+      // the team with one tap.
+      setFallbackUrl(buildWhatsAppFallbackUrl(trimmed));
+      setSubmitError(
+        t(
+          'feedbackForm.errorWithFallback',
+          'Nie udało się wysłać formularza. Skontaktuj się z nami bezpośrednio:'
+        )
+      );
     }
+  };
+
+  const handleFallbackClick = () => {
+    trackContactClick('whatsapp');
   };
 
   const handleThankYouClose = () => {
     setShowThankYou(false);
     setSubmitted(false);
     setSubmitError('');
+    setFallbackUrl(null);
     reset();
     onClose?.();
   };
@@ -105,7 +151,7 @@ const LeadFormFields = ({
   const fileId = `${idPrefix}-file`;
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} noValidate>
+    <form onSubmit={handleSubmit(onSubmit)} onFocus={handleFormStart} noValidate>
       <div className={`form-group ${nameError ? 'form-group--error' : ''}`}>
         <label htmlFor={nameId}>{t('feedbackForm.name')}</label>
         <input
@@ -164,6 +210,17 @@ const LeadFormFields = ({
       {submitError && (
         <div className="form-group__error form-group__error--block" role="alert">
           {submitError}
+          {fallbackUrl && (
+            <a
+              href={fallbackUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="form-fallback-whatsapp"
+              onClick={handleFallbackClick}
+            >
+              {t('feedbackForm.fallbackWhatsApp', 'Wyślij przez WhatsApp')}
+            </a>
+          )}
         </div>
       )}
 

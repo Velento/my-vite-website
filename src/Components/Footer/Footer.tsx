@@ -6,7 +6,6 @@ import whatsappIcon from '../images/whatsapp-white.png';
 import viberIcon from '../images/viber-white.png';
 import instagramIcon from '../images/instagram-white.png';
 import { useTranslation } from 'react-i18next';
-import goUpImage from '../images/goUpImage.svg';
 import { trackContactClick } from '../../services/analytics';
 
 /**
@@ -114,13 +113,6 @@ const Footer = () => {
           </p>
         </div>
       </div>
-      <button
-        className="go-up"
-        onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-        aria-label="Scroll to top"
-      >
-        <img src={goUpImage} alt="" />
-      </button>
       <div className="footer-bottom">
         &copy; {new Date().getFullYear()} Velenta Andrei LEGALLINE. {t('footer.rights')}
       </div>
