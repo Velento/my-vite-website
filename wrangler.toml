@@ -8,8 +8,8 @@ compatibility_date = "2026-04-01"
 #   REPORT_TOKEN              — bearer token guarding /report and /export
 
 # ── Public vars ────────────────────────────────────────────────────────────
-# [vars]
-# ALLOWED_ORIGINS = "https://legalline.pl,https://www.legalline.pl"
+[vars]
+ALLOWED_ORIGINS = "https://legalline.pl,https://www.legalline.pl"
 
 # ── KV: server-side interaction log (lead audit trail) ─────────────────────
 # Create the namespace once with:
@@ -19,5 +19,5 @@ compatibility_date = "2026-04-01"
 #   wrangler kv:namespace create INTERACTION_LOG --preview
 [[kv_namespaces]]
 binding = "INTERACTION_LOG"
-id = "REPLACE_WITH_KV_NAMESPACE_ID"
+id = "906303287ee844fdb3f852d2bc5a32b6"
 # preview_id = "REPLACE_WITH_PREVIEW_ID"  # optional, for wrangler dev
