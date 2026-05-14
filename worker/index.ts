@@ -9,7 +9,7 @@
  *                     Logged to INTERACTION_LOG with type='contact_click'.
  *                     Returns 204 No Content; fire-and-forget from the page.
  *   GET  /report    → JSON breakdown for a date range. Bearer-auth via
- *                     REPORT_TOKEN. Used for invoice reconciliation.
+ *                     REPORT_TOKEN.
  *   GET  /export    → CSV dump for the same date range. Same auth.
  *
  * KV entry shape:
@@ -113,13 +113,11 @@ async function makeSessionFingerprint(request: Request): Promise<string> {
   return (await sha256Hex(`${ip}::${ua}`)).slice(0, 24);
 }
 
-/** Hashed phone (or sessionFP) for billing dedup. Last 4 digits kept for matching with Telegram chat. */
-async function makeBillingFingerprint(phone: string | null, sessionFp: string): Promise<string> {
+/** Stable per-lead dedup key: hashed phone when available, session fingerprint otherwise. */
+async function makeFingerprint(phone: string | null, sessionFp: string): Promise<string> {
   if (phone) {
     const digits = phone.replace(/\D/g, '');
-    const tail = digits.slice(-4);
-    const hash = (await sha256Hex(digits)).slice(0, 20);
-    return `p_${hash}_${tail}`;
+    return `p_${(await sha256Hex(digits)).slice(0, 24)}`;
   }
   return `s_${sessionFp}`;
 }
@@ -317,7 +315,7 @@ async function handleFormSubmit(
   }
 
   const sessionFp = await makeSessionFingerprint(request);
-  const fingerprint = await makeBillingFingerprint(lead.phone, sessionFp);
+  const fingerprint = await makeFingerprint(lead.phone, sessionFp);
   const eventId = uuid();
   const ts = new Date().toISOString();
   const url = new URL(request.url);
@@ -385,7 +383,7 @@ async function handleTrack(request: Request, env: Env, cors: HeadersInit): Promi
   }
 
   const sessionFp = await makeSessionFingerprint(request);
-  const fingerprint = await makeBillingFingerprint(null, sessionFp);
+  const fingerprint = await makeFingerprint(null, sessionFp);
   const eventId = uuid();
   const ts = new Date().toISOString();
 
@@ -516,7 +514,7 @@ function buildReport(events: LogEntry[], deduped: LogEntry[]) {
 
   return {
     total_raw: events.length,
-    total_billable: deduped.length,
+    total_unique: deduped.length,
     by_type: byType,
     by_channel: byChannel,
     by_source: bySource,
@@ -644,7 +642,7 @@ function dashboardHtml(p: {
   const entries = Object.entries(report.by_channel || {}).sort(([, a], [, b]) => b - a);
   const maxVal = Math.max(...entries.map(([, n]) => n), 1);
   const forms = report.by_channel.form ?? 0;
-  const clicks = report.total_billable - forms;
+  const clicks = report.total_unique - forms;
 
   const rows = entries.map(([key, count]) => {
     const label = CHANNEL_LABELS[key] ?? key;
@@ -666,7 +664,7 @@ function dashboardHtml(p: {
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Legal Line — Raport Lidów ${monthName} ${year}</title>
+<title>Legal Line — Kontakty ${monthName} ${year}</title>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 body{font-family:system-ui,-apple-system,sans-serif;background:#f5f5f0;color:#1a2332;min-height:100vh}
@@ -699,7 +697,7 @@ body{font-family:system-ui,-apple-system,sans-serif;background:#f5f5f0;color:#1a
 </head>
 <body>
 <div class="hd">
-  <h1>LEGAL LINE &mdash; Rozliczenie Lid&oacute;w</h1>
+  <h1>LEGAL LINE &mdash; Raport Kontakt&oacute;w</h1>
   <p>Cloudflare KV &middot; ${from} &mdash; ${to} &middot; ${generatedAt}</p>
 </div>
 <div class="wrap">
@@ -709,8 +707,8 @@ body{font-family:system-ui,-apple-system,sans-serif;background:#f5f5f0;color:#1a
     <a href="${nextUrl}"${nextDisabled}>&rarr;</a>
   </div>
   <div class="card hero">
-    <div class="num">${report.total_billable}</div>
-    <div class="lbl">rozliczonych lid&oacute;w (dedup 24&nbsp;h)</div>
+    <div class="num">${report.total_unique}</div>
+    <div class="lbl">unikalnych kontakt&oacute;w (dedup 24&nbsp;h)</div>
     <div class="sub">zdarze&#324; w logu: ${report.total_raw}&nbsp;&nbsp;&middot;&nbsp;&nbsp;formularze: ${forms}&nbsp;&nbsp;&middot;&nbsp;&nbsp;klikni&#281;cia: ${clicks}</div>
   </div>
   <div class="card">
@@ -721,7 +719,6 @@ body{font-family:system-ui,-apple-system,sans-serif;background:#f5f5f0;color:#1a
     <a class="csv-btn" href="${csvUrl}">&#8659;&nbsp; Pobierz CSV &mdash; ${from} do ${to}</a>
   </div>
   <p class="note">
-    Obaj widz&#261; t&#281; sam&#261; liczb&#281; &mdash; &#378;r&oacute;d&#322;o prawdy do rozlicze&#324;.<br>
     Timestamp ustawia Cloudflare (nie da si&#281; sfabrykowa&#263;).<br>
     Dedup: jedno zdarzenie na (typ&nbsp;+&nbsp;kana&#322;&nbsp;+&nbsp;identyfikator) w&nbsp;24&nbsp;h.
   </p>
