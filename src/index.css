@@ -361,6 +361,98 @@ img {
   }
 }
 
+/* ── ThankYou modal ────────────────────────────────────────────────────────
+   Plain CSS classes (not Tailwind arbitrary values) because the inline form
+   broke down at runtime: the close button rendered transparent + small
+   enough that taps missed it on phones and visually appeared mid-text on
+   desktop. Real classes give a tappable, visible, predictable target. */
+.thank-you-card {
+  position: relative;
+  width: 92%;
+  max-width: 420px;
+  padding: 56px 32px 36px;
+  background: var(--color-bg);
+  border-radius: var(--radius-lg);
+  text-align: center;
+  box-shadow: var(--shadow-xl);
+  animation: thankYouPop 350ms var(--ease);
+  box-sizing: border-box;
+}
+
+.thank-you-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  background: rgba(15, 23, 42, 0.05);
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  border-radius: 50%;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  z-index: 2;
+  transition:
+    background var(--duration-fast) var(--ease),
+    color var(--duration-fast) var(--ease),
+    transform var(--duration-fast) var(--ease);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.thank-you-close svg {
+  width: 18px;
+  height: 18px;
+  display: block;
+}
+
+.thank-you-close:hover,
+.thank-you-close:focus-visible {
+  background: rgba(15, 23, 42, 0.12);
+  color: var(--color-text);
+  outline: none;
+  transform: scale(1.06);
+}
+
+.thank-you-close:active {
+  transform: scale(0.94);
+  background: rgba(15, 23, 42, 0.18);
+}
+
+.thank-you-title {
+  margin: 0 0 var(--space-md);
+  font-family: var(--font-heading);
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  /* No truncate - long names like "Alexandra-Maria" should wrap, not get
+     chopped with an ellipsis. */
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+.thank-you-text {
+  margin: 0;
+  font-size: 0.92rem;
+  line-height: 1.6;
+  color: var(--color-text-secondary);
+}
+
+@media (max-width: 480px) {
+  .thank-you-card {
+    width: 94%;
+    padding: 52px 22px 28px;
+  }
+  .thank-you-title {
+    font-size: 1.2rem;
+  }
+  .thank-you-text {
+    font-size: 0.88rem;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .benefit-item,
   .service,

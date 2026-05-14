@@ -69,6 +69,7 @@
 .slide-hero {
   position: relative;
   width: 100%;
+  max-width: 100%;
   height: 100%;
   background:
     radial-gradient(ellipse 70% 50% at 80% 20%, rgba(184, 148, 62, 0.18) 0%, transparent 60%),
@@ -77,6 +78,7 @@
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  box-sizing: border-box;
 }
 
 .slide-hero::before {
@@ -184,6 +186,7 @@
 .slide-trust {
   position: relative;
   width: 100%;
+  max-width: 100%;
   height: 100%;
   background:
     radial-gradient(ellipse 50% 40% at 20% 80%, rgba(184, 148, 62, 0.08) 0%, transparent 60%),
@@ -192,6 +195,7 @@
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  box-sizing: border-box;
 }
 
 .slide-trust::after {
@@ -305,33 +309,66 @@
 
 /* Responsive - keep both new slides readable on small screens.
    On phones the title must wrap rather than overflow horizontally, hence the
-   smaller font and explicit overflow-wrap. */
+   smaller font and explicit overflow-wrap. min-width:0 unlocks flex/grid
+   shrinking past content's intrinsic width so long unbreakable runs (URLs,
+   long words) get clipped to the cell instead of pushing the slide wider
+   than the viewport. */
 @media (max-width: 600px) {
+  .slide-hero__inner,
+  .slide-trust__inner {
+    min-width: 0;
+    max-width: 100%;
+    padding-left: 12px;
+    padding-right: 12px;
+  }
   .slide-hero__title,
   .slide-trust__title {
-    font-size: clamp(1.25rem, 5.5vw, 1.7rem);
+    font-size: clamp(1.15rem, 5vw, 1.55rem);
     overflow-wrap: break-word;
-    word-break: normal;
+    word-break: break-word;
     hyphens: auto;
+    max-width: 100%;
   }
   .slide-hero__text {
-    font-size: 0.9rem;
+    font-size: 0.88rem;
     overflow-wrap: break-word;
+    word-break: break-word;
+    max-width: 100%;
+  }
+  .slide-trust__list {
+    max-width: 100%;
   }
   .slide-trust__item {
-    font-size: 0.85rem;
-    padding-left: 34px;
+    font-size: 0.82rem;
+    padding: 8px 12px 8px 32px;
+    min-width: 0;
+    overflow-wrap: break-word;
+    word-break: break-word;
   }
   .slide-trust__item::before {
-    left: 8px;
+    left: 7px;
     width: 18px;
     height: 18px;
     font-size: 0.7rem;
   }
   .slide-hero__cta,
   .slide-trust__cta {
-    font-size: 0.86rem;
-    padding: 12px 22px;
+    font-size: 0.85rem;
+    padding: 11px 20px;
+    white-space: normal;
+  }
+}
+
+/* Extra tiny screens (≤380px - typical iPhone SE / older Android) - one more
+   step down on title size to avoid even a sub-word breaking out. */
+@media (max-width: 380px) {
+  .slide-hero__title,
+  .slide-trust__title {
+    font-size: 1.05rem;
+  }
+  .slide-trust__item {
+    font-size: 0.78rem;
+    padding: 7px 10px 7px 30px;
   }
 }
 

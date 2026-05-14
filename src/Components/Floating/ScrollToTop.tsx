@@ -33,17 +33,18 @@ const ScrollToTop = () => {
   }, []);
 
   const handleClick = () => {
-    // Older mobile Safari ignores the options object form silently, so call
-    // both - the positional form is the universal floor.
-    try {
+    // Use smooth scroll where supported, fall back to instant scroll only
+    // when the browser truly doesn't understand the options object. Calling
+    // both forms kills the smooth animation, which made the page look like
+    // it was being "cut" - the smooth scroll started, then the instant
+    // fallback teleported the viewport to 0 mid-animation.
+    const supportsSmooth =
+      typeof document !== 'undefined' && 'scrollBehavior' in document.documentElement.style;
+    if (supportsSmooth) {
       window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
-    } catch {
+    } else {
       window.scrollTo(0, 0);
     }
-    // Belt-and-braces for browsers that ignore both calls above
-    // (some embedded WebViews on Android).
-    if (document.documentElement) document.documentElement.scrollTop = 0;
-    if (document.body) document.body.scrollTop = 0;
   };
 
   return (
