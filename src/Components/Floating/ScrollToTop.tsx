@@ -33,7 +33,17 @@ const ScrollToTop = () => {
   }, []);
 
   const handleClick = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    // Older mobile Safari ignores the options object form silently, so call
+    // both - the positional form is the universal floor.
+    try {
+      window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+    } catch {
+      window.scrollTo(0, 0);
+    }
+    // Belt-and-braces for browsers that ignore both calls above
+    // (some embedded WebViews on Android).
+    if (document.documentElement) document.documentElement.scrollTop = 0;
+    if (document.body) document.body.scrollTop = 0;
   };
 
   return (

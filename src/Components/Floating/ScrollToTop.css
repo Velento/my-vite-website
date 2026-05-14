@@ -9,8 +9,8 @@
      with a 12px gap, so the two never collide on desktop. Mobile override below
      swaps in the StickyMobileBar clearance instead. */
   bottom: calc(22px + 60px + 12px);
-  width: 44px;
-  height: 44px;
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
   background: #1a2332;
   color: #fff;
@@ -21,22 +21,28 @@
   justify-content: center;
   padding: 0;
   box-shadow:
-    0 6px 18px rgba(0, 0, 0, 0.25),
-    0 2px 6px rgba(0, 0, 0, 0.12);
+    0 6px 18px rgba(0, 0, 0, 0.3),
+    0 2px 6px rgba(0, 0, 0, 0.15);
   opacity: 0;
   visibility: hidden;
+  pointer-events: none;
   transform: translateY(8px);
   transition:
     opacity 0.22s ease,
     transform 0.22s ease,
     visibility 0.22s,
     background-color 0.15s ease;
-  z-index: 920;
+  /* Sit ABOVE the StickyMobileBar (z-index 940) so taps never bleed through
+     to the bar buttons below. */
+  z-index: 950;
+  -webkit-tap-highlight-color: transparent;
+  appearance: none;
 }
 
 .scroll-to-top--visible {
   opacity: 1;
   visibility: visible;
+  pointer-events: auto;
   transform: translateY(0);
 }
 
@@ -47,17 +53,23 @@
   transform: translateY(-2px);
 }
 
-.scroll-to-top svg {
-  width: 18px;
-  height: 18px;
+.scroll-to-top:active {
+  background: #a78237;
+  transform: translateY(0) scale(0.96);
 }
 
-/* Mobile: float above the StickyMobileBar (which occupies bottom: 0 with
-   ~56px of content + safe-area inset). Account for iOS home indicator. */
+.scroll-to-top svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* Mobile: float clearly ABOVE the StickyMobileBar (56px content height +
+   safe-area inset). 22px of breathing room - matches the desktop gap so the
+   two contexts feel consistent. */
 @media (max-width: 768px) {
   .scroll-to-top {
-    right: 14px;
-    bottom: calc(56px + 14px + env(safe-area-inset-bottom, 0));
+    right: 16px;
+    bottom: calc(56px + 22px + env(safe-area-inset-bottom, 0));
   }
 }
 

@@ -6,12 +6,6 @@ import 'swiper/css/effect-fade';
 import 'swiper/css/pagination';
 import './Slider.css';
 
-// Third slide - image background + text overlay, common across all languages.
-import slide3Bg from '../images/slider3.jpg';
-import slide3BgW from '../images/slider3.webp';
-import slide3BgMobile from '../images/slider3_768px.jpg';
-import slide3BgMobileW from '../images/slider3_768px.webp';
-
 const SliderComponent = () => {
   const { i18n, t } = useTranslation();
 
@@ -32,7 +26,7 @@ const SliderComponent = () => {
         a11y={{ enabled: true }}
         slidesPerView={1}
       >
-        {/* Slide 1 - hero positioning slide (CSS-only, dark navy + gold accent) */}
+        {/* Slide 1 - hero positioning (CSS-only, dark navy + gold accent) */}
         <SwiperSlide>
           <div className="slide-hero" role="img" aria-label={t('slider.heroSlide.title')}>
             <div className="slide-hero__inner">
@@ -56,7 +50,7 @@ const SliderComponent = () => {
           </div>
         </SwiperSlide>
 
-        {/* Slide 2 - trust / guarantees slide (CSS-only, light card with bullets) */}
+        {/* Slide 2 - trust / guarantees (CSS-only, light card with bullets) */}
         <SwiperSlide>
           <div className="slide-trust" role="img" aria-label={t('slider.trustSlide.title')}>
             <div className="slide-trust__inner">
@@ -75,31 +69,7 @@ const SliderComponent = () => {
           </div>
         </SwiperSlide>
 
-        {/* Slide 3 - case acceleration (image + text overlay) */}
-        <SwiperSlide>
-          <div className="slide-overlay">
-            <picture>
-              <source media="(max-width: 480px)" type="image/webp" srcSet={slide3BgMobileW} />
-              <source media="(max-width: 480px)" srcSet={slide3BgMobile} />
-              <source type="image/webp" srcSet={slide3BgW} />
-              <img
-                src={slide3Bg}
-                alt={t('slider.newSlide.title')}
-                loading="lazy"
-                className="slide-overlay__bg"
-              />
-            </picture>
-            <div className="slide-overlay__content">
-              <h2 className="slide-overlay__title">{t('slider.newSlide.title')}</h2>
-              <p className="slide-overlay__text">{t('slider.newSlide.text')}</p>
-              <a href="#pricelist" className="slide-overlay__btn">
-                {t('packages.orderBtn')}
-              </a>
-            </div>
-          </div>
-        </SwiperSlide>
-
-        {/* Slide 4 - promotional pricing banner (CSS-only, no image needed) */}
+        {/* Slide 3 - promotional pricing banner (CSS-only, no image needed) */}
         <SwiperSlide>
           <div className="slide-promo" role="img" aria-label={t('slider.promoSlide.title')}>
             <div className="slide-promo__inner">

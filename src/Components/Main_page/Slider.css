@@ -26,9 +26,12 @@
   object-fit: cover;
 }
 
+/* On phones go taller (portrait-ish) so the content-heavy slides (trust list
+   with 4 bullets, hero with title + paragraph + two CTAs) breathe vertically
+   instead of cramming into a landscape rectangle. */
 @media (max-width: 480px) {
   .slider-container .swiper-slide {
-    aspect-ratio: 5 / 4;
+    aspect-ratio: 4 / 5;
   }
 }
 
@@ -91,9 +94,11 @@
 .slide-hero__inner {
   position: relative;
   z-index: 1;
+  width: 100%;
   max-width: 880px;
-  padding: clamp(24px, 5vw, 56px) clamp(20px, 5vw, 64px);
+  padding: clamp(20px, 5vw, 56px) clamp(16px, 5vw, 64px);
   text-align: center;
+  box-sizing: border-box;
 }
 
 .slide-hero__badge {
@@ -204,9 +209,11 @@
 .slide-trust__inner {
   position: relative;
   z-index: 1;
+  width: 100%;
   max-width: 880px;
-  padding: clamp(24px, 5vw, 56px) clamp(20px, 5vw, 64px);
+  padding: clamp(20px, 5vw, 56px) clamp(16px, 5vw, 64px);
   text-align: center;
+  box-sizing: border-box;
 }
 
 .slide-trust__title {
@@ -221,13 +228,24 @@
 
 .slide-trust__list {
   list-style: none;
-  margin: 0 auto clamp(20px, 3vw, 32px);
+  margin: 0 auto clamp(16px, 3vw, 32px);
   padding: 0;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(280px, 100%), 1fr));
+  /* On wide screens fit as many columns of >=280px as possible; on narrow
+     mobile the explicit `1fr` override below stacks them into one column so
+     items never overflow the viewport horizontally. */
+  grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
   gap: clamp(8px, 1.5vw, 14px);
+  width: 100%;
   max-width: 760px;
   text-align: left;
+  box-sizing: border-box;
+}
+
+@media (min-width: 601px) {
+  .slide-trust__list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 .slide-trust__item {
@@ -285,87 +303,39 @@
   color: white;
 }
 
-/* Responsive - keep both new slides readable on small screens */
+/* Responsive - keep both new slides readable on small screens.
+   On phones the title must wrap rather than overflow horizontally, hence the
+   smaller font and explicit overflow-wrap. */
 @media (max-width: 600px) {
   .slide-hero__title,
   .slide-trust__title {
-    font-size: clamp(1.4rem, 6vw, 2rem);
+    font-size: clamp(1.25rem, 5.5vw, 1.7rem);
+    overflow-wrap: break-word;
+    word-break: normal;
+    hyphens: auto;
   }
   .slide-hero__text {
-    font-size: 0.92rem;
+    font-size: 0.9rem;
+    overflow-wrap: break-word;
+  }
+  .slide-trust__item {
+    font-size: 0.85rem;
+    padding-left: 34px;
+  }
+  .slide-trust__item::before {
+    left: 8px;
+    width: 18px;
+    height: 18px;
+    font-size: 0.7rem;
+  }
+  .slide-hero__cta,
+  .slide-trust__cta {
+    font-size: 0.86rem;
+    padding: 12px 22px;
   }
 }
 
-/* ── Text Overlay Slide (third "Ускорение" slide) ── */
-.slide-overlay {
-  position: relative;
-  overflow: hidden;
-  width: 100%;
-  height: 100%;
-}
-
-.slide-overlay__bg {
-  width: 100%;
-  height: 100%;
-  display: block;
-  object-fit: cover;
-  filter: brightness(0.4);
-}
-
-.slide-overlay__content {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: var(--space-2xl);
-  text-align: center;
-}
-
-.slide-overlay__title {
-  font-family: var(--font-heading);
-  font-size: clamp(1.5rem, 4vw, 2.8rem);
-  font-weight: 700;
-  color: white;
-  margin-bottom: var(--space-md);
-  line-height: 1.2;
-  text-shadow: 0 2px 16px rgba(0, 0, 0, 0.4);
-  max-width: 700px;
-}
-
-.slide-overlay__text {
-  font-family: var(--font-body);
-  font-size: clamp(0.95rem, 2vw, 1.2rem);
-  color: rgba(255, 255, 255, 0.85);
-  margin-bottom: var(--space-xl);
-  max-width: 550px;
-  line-height: 1.5;
-  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.3);
-}
-
-.slide-overlay__btn {
-  display: inline-block;
-  padding: 14px 40px;
-  background: var(--color-accent);
-  color: white;
-  font-family: var(--font-body);
-  font-size: 1rem;
-  font-weight: 600;
-  border-radius: var(--radius-sm);
-  text-decoration: none;
-  transition: all var(--duration-base) var(--ease);
-  box-shadow: 0 4px 20px rgba(184, 148, 62, 0.4);
-}
-
-.slide-overlay__btn:hover {
-  background: var(--color-accent-hover);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 28px rgba(184, 148, 62, 0.55);
-  color: white;
-}
-
-/* ── Promo Banner Slide (4th slide - CSS-only, no image needed) ── */
+/* ── Promo Banner Slide (slide 3 - CSS-only, no image needed) ── */
 .slide-promo {
   position: relative;
   width: 100%;
@@ -619,9 +589,6 @@
     padding: 14px 36px;
     font-size: 1rem;
   }
-  .slide-overlay__content {
-    padding: var(--space-lg);
-  }
 }
 
 @media (max-width: 480px) {
@@ -633,9 +600,5 @@
     font-size: 0.95rem;
     width: 100%;
     max-width: 320px;
-  }
-  .slide-overlay__btn {
-    padding: 12px 28px;
-    font-size: 0.9rem;
   }
 }
