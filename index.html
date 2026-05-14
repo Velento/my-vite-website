@@ -2,8 +2,13 @@
 <html lang="pl">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/jpeg" href="/og-image.jpg" />
-    <link rel="apple-touch-icon" href="/og-image.jpg" />
+    <!-- Modern browsers: vector favicon, scales for every UI surface. -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <!-- PNG fallback for older user-agents that ignore SVG favicons. -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <!-- Classic .ico for the few clients that still probe /favicon.ico by name. -->
+    <link rel="alternate icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/manifest.webmanifest" />
     <meta name="theme-color" content="#1a2332" />
     <meta name="apple-mobile-web-app-capable" content="yes" />

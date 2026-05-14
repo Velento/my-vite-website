@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Legal Line">
+  <title>Legal Line</title>
+  <rect width="64" height="64" rx="12" fill="#1a2332"/>
+  <!-- Echoes the logo's rectangular frame -->
+  <rect x="9" y="11" width="46" height="42" rx="3" fill="none" stroke="#ffffff" stroke-width="1.6" opacity="0.55"/>
+  <!-- LL monogram in white -->
+  <path d="M19 19 L19 43 L29 43" fill="none" stroke="#ffffff" stroke-width="4.4" stroke-linecap="square" stroke-linejoin="miter"/>
+  <path d="M33 19 L33 43 L45 43" fill="none" stroke="#ffffff" stroke-width="4.4" stroke-linecap="square" stroke-linejoin="miter"/>
+  <!-- Gold accent line - "the Line" -->
+  <rect x="17" y="47" width="30" height="2.2" rx="1.1" fill="#b8943e"/>
+</svg>
