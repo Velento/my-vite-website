@@ -105,7 +105,9 @@ a.contact-link-infooter {
   font-size: 0.8rem;
   font-weight: 500;
   cursor: pointer;
-  transition: all var(--duration-base) var(--ease);
+  transition:
+    background-color var(--duration-base) var(--ease),
+    color var(--duration-base) var(--ease);
 }
 
 .footer-section button:hover {

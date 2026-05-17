@@ -120,22 +120,21 @@ type MenuProps = {
 };
 
 const horizontalLink =
-  // Premium nav link: balanced padding, underline that grows from the center,
-  // and a subtle icon scale on hover. The underline `left-1/2 -translate-x-1/2`
-  // keeps the growing bar visually centered under each item — looks tidier
-  // than the old left-anchored animation.
-  "group relative inline-flex items-center gap-2 py-2.5 px-2 text-[0.875rem] font-semibold uppercase tracking-[0.1em] text-[var(--color-primary)] transition-colors duration-200 hover:text-[var(--color-accent)] after:content-[''] after:absolute after:left-1/2 after:bottom-0 after:h-[2px] after:w-0 after:-translate-x-1/2 after:rounded-full after:bg-[var(--color-accent)] after:transition-[width] after:duration-300 hover:after:w-[calc(100%-1rem)] max-lg:text-[0.75rem] max-lg:tracking-[0.08em] max-lg:gap-1.5";
+  // Premium nav link: a soft rounded pill with a faint gold wash on hover and
+  // a subtle icon scale. Matches the mobile slide-out menu, so navigation
+  // reads the same across breakpoints.
+  'group inline-flex items-center gap-2 rounded-lg px-3.5 py-2.5 text-[0.875rem] font-semibold uppercase tracking-[0.09em] text-[var(--color-primary)] transition-colors duration-200 hover:bg-[var(--color-accent-subtle)] hover:text-[var(--color-accent)] max-lg:gap-1.5 max-lg:px-2.5 max-lg:text-[0.75rem] max-lg:tracking-[0.06em]';
 
 const verticalLink =
-  'group grid w-full grid-cols-[40px_1fr_20px] items-center gap-3 rounded-xl px-4 py-3.5 text-[0.95rem] font-semibold uppercase tracking-[0.08em] text-[var(--color-primary)] transition-[background-color,color,transform] duration-200 hover:bg-[var(--color-bg-alt)] hover:text-[var(--color-accent)] active:scale-[0.98] active:bg-[var(--color-bg-subtle)]';
+  'group grid w-full grid-cols-[40px_1fr_40px] items-center gap-3 rounded-xl bg-[var(--color-bg-alt)] px-4 py-4 text-[0.95rem] font-semibold uppercase tracking-[0.08em] text-[var(--color-primary)] transition-[background-color,color,transform] duration-200 hover:bg-[var(--color-accent-subtle)] hover:text-[var(--color-accent)] active:scale-[0.98]';
 
 const Menu = ({ vertical = false, onItemClick }: MenuProps) => {
   const { t } = useTranslation();
 
   if (vertical) {
     return (
-      <nav className="w-full">
-        <ul className="m-0 flex w-full list-none flex-col items-stretch gap-1 p-0">
+      <nav className="w-full" aria-label="Mobile navigation">
+        <ul className="m-0 flex w-full list-none flex-col items-stretch gap-2 p-0">
           {MENU_ITEMS.map(({ href, key, icon }) => (
             <li key={key}>
               <a href={href} className={verticalLink} onClick={onItemClick}>
@@ -147,8 +146,8 @@ const Menu = ({ vertical = false, onItemClick }: MenuProps) => {
                 >
                   {icon}
                 </span>
-                {/* Left-aligned label so the icon and text read as one unit. */}
-                <span className="text-left">{t(key)}</span>
+                {/* Centered label, bracketed by the icon and chevron. */}
+                <span className="text-center">{t(key)}</span>
                 {/* Chevron stays visible (touch has no hover) as a tap cue. */}
                 <span
                   className="justify-self-end text-[var(--color-accent)] opacity-40 transition-[opacity,transform] duration-200 group-hover:translate-x-0.5 group-hover:opacity-100"
@@ -188,11 +187,11 @@ const Menu = ({ vertical = false, onItemClick }: MenuProps) => {
       {/* Outer flex container centers the inline-flex list. Using inline-flex
           on the <ul> means it sizes to its content (not max-width), so items
           form a tight centered group instead of stretching edge-to-edge. */}
-      <div className="flex w-full justify-center px-[var(--content-padding)] py-3">
+      <div className="flex w-full justify-center px-[var(--content-padding)] py-4">
         <ul
           className={[
             'm-0 inline-flex list-none flex-wrap items-center justify-center',
-            'gap-x-7 gap-y-1 lg:gap-x-8 xl:gap-x-10 max-lg:gap-x-5',
+            'gap-x-1.5 gap-y-1 lg:gap-x-2',
             'max-w-full p-0',
           ].join(' ')}
         >

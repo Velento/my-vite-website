@@ -51,7 +51,9 @@
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.45);
   opacity: 1;
   margin: 0 5px;
-  transition: all var(--duration-base) var(--ease);
+  transition:
+    background-color var(--duration-base) var(--ease),
+    transform var(--duration-base) var(--ease);
 }
 
 .slider-container .swiper-pagination-bullet:hover {
@@ -156,7 +158,10 @@
   border-radius: var(--radius-sm);
   text-decoration: none;
   box-shadow: 0 4px 20px rgba(184, 148, 62, 0.4);
-  transition: all var(--duration-base) var(--ease);
+  transition:
+    background-color var(--duration-base) var(--ease),
+    transform var(--duration-base) var(--ease),
+    box-shadow var(--duration-base) var(--ease);
   white-space: nowrap;
 }
 
@@ -299,7 +304,10 @@
   border-radius: var(--radius-sm);
   text-decoration: none;
   box-shadow: 0 4px 18px rgba(26, 35, 50, 0.25);
-  transition: all var(--duration-base) var(--ease);
+  transition:
+    background-color var(--duration-base) var(--ease),
+    transform var(--duration-base) var(--ease),
+    box-shadow var(--duration-base) var(--ease);
 }
 
 .slide-trust__cta:hover {
@@ -485,7 +493,10 @@
   border-radius: var(--radius-sm);
   text-decoration: none;
   box-shadow: 0 4px 20px rgba(184, 148, 62, 0.35);
-  transition: all var(--duration-base) var(--ease);
+  transition:
+    background-color var(--duration-base) var(--ease),
+    transform var(--duration-base) var(--ease),
+    box-shadow var(--duration-base) var(--ease);
   white-space: nowrap;
 }
 
@@ -568,7 +579,7 @@
 @media (max-width: 680px) {
   .slide-promo__inner {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
     padding: clamp(16px, 5vw, 32px) clamp(14px, 5vw, 32px);
     min-width: 0;
   }
@@ -576,6 +587,12 @@
     min-width: 0;
     max-width: 100%;
     width: 100%;
+    /* Center the promo copy on phones - left-aligned looked lopsided once
+       the price cards drop away. */
+    text-align: center;
+  }
+  .slide-promo__ctas {
+    justify-content: center;
   }
   .slide-promo__cards {
     display: none;
@@ -623,7 +640,10 @@
   border-radius: var(--radius-sm);
   text-decoration: none;
   box-shadow: 0 4px 20px rgba(184, 148, 62, 0.4);
-  transition: all var(--duration-base) var(--ease);
+  transition:
+    background-color var(--duration-base) var(--ease),
+    transform var(--duration-base) var(--ease),
+    box-shadow var(--duration-base) var(--ease);
   white-space: nowrap;
 }
 

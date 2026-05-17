@@ -20,7 +20,15 @@ const Footer = () => {
         <address className="footer-section contacts">
           <h2>{t('footer.contacts')}</h2>
           <div className="icon-text">
-            <img src={phoneIcon} alt="" className="contact-icon" loading="lazy" />
+            <img
+              src={phoneIcon}
+              alt=""
+              className="contact-icon"
+              width={22}
+              height={22}
+              loading="lazy"
+              decoding="async"
+            />
             <a
               href="tel:+48883734171"
               className="footer-contact-link"
@@ -31,7 +39,15 @@ const Footer = () => {
             </a>
           </div>
           <div className="icon-text">
-            <img src={telegramIcon} alt="" className="contact-icon" loading="lazy" />
+            <img
+              src={telegramIcon}
+              alt=""
+              className="contact-icon"
+              width={22}
+              height={22}
+              loading="lazy"
+              decoding="async"
+            />
             <a
               href="https://t.me/LegalLine_pl"
               className="footer-contact-link"
@@ -44,7 +60,15 @@ const Footer = () => {
             </a>
           </div>
           <div className="icon-text">
-            <img src={whatsappIcon} alt="" className="contact-icon" loading="lazy" />
+            <img
+              src={whatsappIcon}
+              alt=""
+              className="contact-icon"
+              width={22}
+              height={22}
+              loading="lazy"
+              decoding="async"
+            />
             <a
               href="https://wa.me/+48883734171"
               className="footer-contact-link"
@@ -57,7 +81,15 @@ const Footer = () => {
             </a>
           </div>
           <div className="icon-text">
-            <img src={viberIcon} alt="" className="contact-icon" loading="lazy" />
+            <img
+              src={viberIcon}
+              alt=""
+              className="contact-icon"
+              width={22}
+              height={22}
+              loading="lazy"
+              decoding="async"
+            />
             <a
               href="viber://chat?number=%2B48883734171"
               className="footer-contact-link"
@@ -70,7 +102,15 @@ const Footer = () => {
             </a>
           </div>
           <div className="icon-text">
-            <img src={instagramIcon} alt="" className="contact-icon" loading="lazy" />
+            <img
+              src={instagramIcon}
+              alt=""
+              className="contact-icon"
+              width={22}
+              height={22}
+              loading="lazy"
+              decoding="async"
+            />
             <a
               href="https://www.instagram.com/legal_line_pl/"
               className="footer-contact-link"

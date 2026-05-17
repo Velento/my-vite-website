@@ -1,4 +1,5 @@
 import { useTranslation } from 'react-i18next';
+import { useCountUp } from '../../hooks/useCountUp';
 import './TrustBar.css';
 
 const TrustBar = () => {
@@ -17,11 +18,18 @@ const TrustBar = () => {
 
 type TrustItemProps = { number: string; label: string };
 
-const TrustItem = ({ number, label }: TrustItemProps) => (
-  <div className="trust-item">
-    <strong className="trust-item__number">{number}</strong>
-    <span className="trust-item__label">{label}</span>
-  </div>
-);
+const TrustItem = ({ number, label }: TrustItemProps) => {
+  // Count the figure up from zero the first time it scrolls into view.
+  const { ref, display } = useCountUp(number);
+
+  return (
+    <div className="trust-item">
+      <strong className="trust-item__number" ref={ref}>
+        {display}
+      </strong>
+      <span className="trust-item__label">{label}</span>
+    </div>
+  );
+};
 
 export default TrustBar;

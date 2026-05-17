@@ -29,11 +29,27 @@ const Section = memo(function Section({
     <article className="section">
       <h3 className="section__title">{title}</h3>
       {iconSrc && (
-        <img src={iconSrc} alt="" className="section__icon" width={40} height={40} loading="lazy" />
+        <img
+          src={iconSrc}
+          alt=""
+          className="section__icon"
+          width={40}
+          height={40}
+          loading="lazy"
+          decoding="async"
+        />
       )}
       <div className="section__content">
         <p>{content}</p>
-        {imgSrc && <img src={imgSrc} alt={title} className="section__image" loading="lazy" />}
+        {imgSrc && (
+          <img
+            src={imgSrc}
+            alt={title}
+            className="section__image"
+            loading="lazy"
+            decoding="async"
+          />
+        )}
       </div>
       {buttonLink ? (
         <a href={buttonLink} target="_blank" rel="noopener noreferrer" className="section__cta">
@@ -57,7 +73,14 @@ type BenefitItemProps = {
 const BenefitItem = memo(function BenefitItem({ title, content }: BenefitItemProps) {
   return (
     <div className="benefit-item">
-      <img src={icon1} alt="" className="benefit-item__icon" />
+      <img
+        src={icon1}
+        alt=""
+        className="benefit-item__icon"
+        width={24}
+        height={24}
+        decoding="async"
+      />
       <strong className="benefit-item__title">{title}</strong>
       <p className="benefit-item__content">{content}</p>
     </div>

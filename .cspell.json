@@ -1,0 +1,27 @@
+{
+  "version": "0.2",
+  "language": "en",
+  "words": [
+    "autorun",
+    "hcaptcha",
+    "lhci",
+    "lighthouserc",
+    "vite",
+    "vitest",
+    "swiper",
+    "partytown",
+    "legalline",
+    "velenta",
+    "gdansk",
+    "webmanifest",
+    "upsz",
+    "opsz",
+    "woff",
+    "prerender",
+    "prerendered",
+    "prerendering",
+    "hydrateroot",
+    "createroot"
+  ],
+  "ignorePaths": ["node_modules", "dist", "dist-ssr", "coverage", "*.lock"]
+}

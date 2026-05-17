@@ -26,6 +26,8 @@ export type LeadPayload = {
   promo?: string;
   /** Optional file attachment (PDF / JPG / PNG / WEBP / DOC / DOCX, max 10 MB). */
   file?: File | null;
+  /** hCaptcha response token, verified server-side by the Worker. */
+  captchaToken?: string;
 };
 
 export const MAX_LEAD_FILE_BYTES = 10 * 1024 * 1024;
@@ -81,6 +83,7 @@ async function sendViaProxy(proxyUrl: string, payload: LeadPayload): Promise<Ser
           fd.append('name', payload.name);
           fd.append('phone', payload.phone);
           if (payload.promo) fd.append('promo', payload.promo);
+          if (payload.captchaToken) fd.append('captchaToken', payload.captchaToken);
           fd.append('file', payload.file as File, (payload.file as File).name);
           return fd;
         })(),
@@ -92,6 +95,7 @@ async function sendViaProxy(proxyUrl: string, payload: LeadPayload): Promise<Ser
           name: payload.name,
           phone: payload.phone,
           promo: payload.promo,
+          captchaToken: payload.captchaToken,
         }),
       };
 

@@ -46,7 +46,14 @@ const PackageCard = ({ pkg, t, onOrder }: PackageCardProps) => {
       <ul className="pkg-features">
         {features.map((f, i) => (
           <li key={i}>
-            <img src={iconCheak} alt="" className="pkg-feature-icon" />
+            <img
+              src={iconCheak}
+              alt=""
+              className="pkg-feature-icon"
+              width={16}
+              height={16}
+              decoding="async"
+            />
             <span>{f}</span>
           </li>
         ))}
@@ -128,13 +135,27 @@ const Pricelist = () => {
         {services.map((service, index) => (
           <div className="service" key={index}>
             <div className="service-header">
-              <img src={iconPobit} alt="" className="service-icon" />
-              <h2 className="service-title">{service.title}</h2>
+              <img
+                src={iconPobit}
+                alt=""
+                className="service-icon"
+                width={40}
+                height={40}
+                decoding="async"
+              />
+              <h3 className="service-title">{service.title}</h3>
             </div>
             <ul className="service-points">
               {service.points.map((point, pointIndex) => (
                 <li key={pointIndex}>
-                  <img src={iconCheak} alt="" className="point-icon" />
+                  <img
+                    src={iconCheak}
+                    alt=""
+                    className="point-icon"
+                    width={18}
+                    height={18}
+                    decoding="async"
+                  />
                   <span className="point-text">{point}</span>
                 </li>
               ))}

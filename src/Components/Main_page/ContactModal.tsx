@@ -78,7 +78,14 @@ const ContactModal = ({ show, onClose }: ContactModalProps) => {
                   rel="noopener noreferrer"
                   onClick={() => trackContactClick('telegram')}
                 >
-                  <img src={telegramIcon} alt="Telegram" className="contact-icon" />
+                  <img
+                    src={telegramIcon}
+                    alt="Telegram"
+                    className="contact-icon"
+                    width={32}
+                    height={32}
+                    decoding="async"
+                  />
                 </a>
                 <a
                   href="https://wa.me/+48883734171"
@@ -86,7 +93,14 @@ const ContactModal = ({ show, onClose }: ContactModalProps) => {
                   rel="noopener noreferrer"
                   onClick={() => trackContactClick('whatsapp')}
                 >
-                  <img src={whatsappIcon} alt="WhatsApp" className="contact-icon" />
+                  <img
+                    src={whatsappIcon}
+                    alt="WhatsApp"
+                    className="contact-icon"
+                    width={32}
+                    height={32}
+                    decoding="async"
+                  />
                 </a>
                 <a
                   href="#!"
@@ -96,10 +110,17 @@ const ContactModal = ({ show, onClose }: ContactModalProps) => {
                   }}
                   rel="noopener noreferrer"
                 >
-                  <img src={viberIcon} alt="Viber" className="contact-icon" />
+                  <img
+                    src={viberIcon}
+                    alt="Viber"
+                    className="contact-icon"
+                    width={32}
+                    height={32}
+                    decoding="async"
+                  />
                 </a>
               </div>
-              <button className="feedback-button" onClick={handleOpenFeedbackForm}>
+              <button type="button" className="feedback-button" onClick={handleOpenFeedbackForm}>
                 {t('modal.feedbackButton')}
               </button>
             </div>

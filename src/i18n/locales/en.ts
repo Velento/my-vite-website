@@ -178,6 +178,18 @@ const translations = {
   'map.address': 'Gdańsk, Poland',
   'reviews.title': 'What Our Clients Say',
   'reviews.cta': 'Leave a review on Google',
+  'reviews.0.author': 'Yevhenia K.',
+  'reviews.0.city': 'Gdańsk',
+  'reviews.0.text':
+    "I contacted Legal Line for help with my residence card and couldn't be happier. The team was professional and guided me through every step. I received my permit faster than expected.",
+  'reviews.1.author': 'Sergei M.',
+  'reviews.1.city': 'Gdynia',
+  'reviews.1.text':
+    'Exceptional service from start to finish. They handled all the paperwork for my family reunification case and kept me informed throughout. Highly recommend to anyone navigating Polish immigration.',
+  'reviews.2.author': 'Alina B.',
+  'reviews.2.city': 'Sopot',
+  'reviews.2.text':
+    'Fair price for complete peace of mind. Legal Line took care of everything and I never felt lost in the process. My residence card arrived without any issues.',
   cookieMessage:
     'We use cookies! This site uses essential cookies to ensure its proper operation and tracking cookies to understand how you interact with it. The latter will only be set after consent.',
   allowMeToChoose: 'Allow me to choose',

@@ -43,7 +43,9 @@
   align-items: center;
   justify-content: center;
   border-radius: var(--radius-full);
-  transition: all var(--duration-fast) var(--ease);
+  transition:
+    background-color var(--duration-fast) var(--ease),
+    color var(--duration-fast) var(--ease);
   padding: 0;
   line-height: 1;
 }

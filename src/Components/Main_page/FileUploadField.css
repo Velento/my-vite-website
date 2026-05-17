@@ -30,7 +30,10 @@
   font-size: 0.9rem;
   font-weight: 500;
   cursor: pointer;
-  transition: all var(--duration-base) var(--ease);
+  transition:
+    border-color var(--duration-base) var(--ease),
+    background-color var(--duration-base) var(--ease),
+    color var(--duration-base) var(--ease);
 }
 
 .file-upload-trigger:hover:not(:disabled) {
@@ -103,7 +106,9 @@
   color: var(--color-text-tertiary);
   cursor: pointer;
   flex-shrink: 0;
-  transition: all var(--duration-fast) var(--ease);
+  transition:
+    background-color var(--duration-fast) var(--ease),
+    color var(--duration-fast) var(--ease);
 }
 
 .file-upload-remove:hover:not(:disabled) {

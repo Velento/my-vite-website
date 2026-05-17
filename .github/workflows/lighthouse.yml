@@ -1,10 +1,10 @@
 name: Lighthouse
 
 on:
-  pull_request:
+  push:
     branches: [my-vite-website]
 
-# Cancel an in-flight run if a newer commit lands on the same PR.
+# Cancel an in-flight run if a newer push lands before this one finishes.
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
@@ -28,6 +28,7 @@ jobs:
         env:
           VITE_FORM_PROXY_URL: ${{ secrets.VITE_FORM_PROXY_URL || '' }}
           VITE_GOOGLE_ADS_CONVERSION_ID: ${{ secrets.VITE_GOOGLE_ADS_CONVERSION_ID || '' }}
+          VITE_HCAPTCHA_SITE_KEY: ${{ secrets.VITE_HCAPTCHA_SITE_KEY || '' }}
 
       - name: Run Lighthouse CI
         run: |
