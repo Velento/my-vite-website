@@ -21,3 +21,18 @@ ALLOWED_ORIGINS = "https://legalline.pl,https://www.legalline.pl"
 binding = "INTERACTION_LOG"
 id = "906303287ee844fdb3f852d2bc5a32b6"
 # preview_id = "REPLACE_WITH_PREVIEW_ID"  # optional, for wrangler dev
+
+# ── Rate limiting (config-only binding - no namespace to provision) ────────
+# Caps abusive bursts per visitor fingerprint (hashed IP + UA). A real visitor
+# never trips these; a script hammering the endpoint gets 429 / silent-dropped.
+# `period` must be 10 or 60 (seconds). The worker no-ops gracefully if these
+# bindings are absent, so an older deploy keeps working.
+[[ratelimits]]
+binding = "FORM_RATE_LIMITER"
+namespace_id = "1001"
+simple = { limit = 6, period = 60 }
+
+[[ratelimits]]
+binding = "TRACK_RATE_LIMITER"
+namespace_id = "1002"
+simple = { limit = 40, period = 60 }

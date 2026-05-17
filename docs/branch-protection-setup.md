@@ -1,9 +1,13 @@
 
-# Branch protection setup
+# Repository hardening setup
 
-The repo currently has **no branch protection** on `my-vite-website` or `main`. Anyone with push access can rewrite history. The workflow at [`.github/workflows/branch-protection.yml`](../.github/workflows/branch-protection.yml) is wired up to configure protection but needs a real Personal Access Token to run.
+The repo currently has **no branch protection** on `my-vite-website` or `main`. Anyone with push access can rewrite history. The workflow at [`.github/workflows/branch-protection.yml`](../.github/workflows/branch-protection.yml) applies, in one run:
 
-There are three ways to apply protection. Pick whichever you prefer.
+1. Branch protection on `main` and `my-vite-website`
+2. Repository settings (squash-only merges, auto-delete merged branches, description, homepage, wiki off)
+3. HTTPS enforcement on GitHub Pages
+
+It needs a Personal Access Token with admin rights on the repo. There are three ways to apply this hardening. Pick whichever you prefer.
 
 ---
 
@@ -38,7 +42,7 @@ There are three ways to apply protection. Pick whichever you prefer.
    ```
 3. Run the workflow:
    ```bash
-   gh workflow run "Configure branch protection" --repo Velento/my-vite-website
+   gh workflow run "Configure repository hardening" --repo Velento/my-vite-website
    ```
 4. Watch:
    ```bash
@@ -72,13 +76,26 @@ done
 
 ## What this configuration does
 
-- **PRs required** — no direct pushes to `main` / `my-vite-website`
-- **CI must pass** — Lint, Tests, Build all green
-- **Branch must be up to date** — rebase before merge
-- **Linear history** — squash or rebase merges only, no merge commits with multiple parents
-- **No force-push, no deletion** — protects against accidental history loss
-- **Stale approvals dismissed** — pushing new commits invalidates earlier approvals
-- **0 required approvals** — you're solo; you can self-merge once CI is green
-- **`enforce_admins: false`** — admins can override in genuine emergencies (use sparingly)
+Branch protection (`main` and `my-vite-website`):
+
+- **PRs required** - no direct pushes to `main` / `my-vite-website`
+- **CI must pass** - Lint, Tests, Build all green
+- **Branch must be up to date** - rebase before merge
+- **Linear history** - squash merges only, no merge commits with multiple parents
+- **No force-push, no deletion** - protects against accidental history loss
+- **Stale approvals dismissed** - pushing new commits invalidates earlier approvals
+- **0 required approvals** - you're solo; you can self-merge once CI is green
+- **`enforce_admins: false`** - admins can override in genuine emergencies (use sparingly)
+
+Repository settings:
+
+- **Squash-only merges** - merge commits and rebase merges are turned off (keeps history linear)
+- **Auto-delete merged branches** - the branch list stays clean
+- **Wiki disabled** - it is unused and an editable public surface
+- **Description + homepage set** - shown on the repo landing page
+
+GitHub Pages:
+
+- **HTTPS enforced** - plain-http requests are redirected to the secure origin
 
 If you later add collaborators, raise `required_approving_review_count` to `1`.

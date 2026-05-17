@@ -7,8 +7,30 @@ import FileUploadField from './FileUploadField';
 import { sendLeadToTelegram } from '../../services/telegram';
 import { trackContactClick, trackFormStart, trackLeadConversion } from '../../services/analytics';
 import { leadFormSchema, type LeadFormValues } from '../../services/validation';
+import { loadDraft, useFormDraft } from '../../hooks/useFormDraft';
 
 const WHATSAPP_FALLBACK_NUMBER = '+48883734171';
+
+/** sessionStorage key for the cached form draft. Shared by every form
+ *  instance so typing in the inline form pre-fills the modal one and back. */
+const DRAFT_STORAGE_KEY = 'll_lead_draft';
+
+/** Text fields mirrored into the draft cache (no file - a FileList can't be
+ *  serialized, and no honeypot - it must never round-trip). */
+const DRAFT_FIELDS = ['name', 'phone', 'promo'] as const;
+
+/** Off-screen styling for the honeypot input - kept out of the layout and the
+ *  accessibility tree, but still present in the DOM for bots to fill. */
+const HONEYPOT_STYLE: React.CSSProperties = {
+  position: 'absolute',
+  width: 1,
+  height: 1,
+  padding: 0,
+  margin: -1,
+  overflow: 'hidden',
+  clipPath: 'inset(50%)',
+  border: 0,
+};
 
 /** Builds a pre-filled WhatsApp deeplink so a failed form submission can still
  *  reach the team. The agent gets all the data the user already typed. */
@@ -65,12 +87,17 @@ const LeadFormFields = ({
     handleSubmit,
     reset,
     getValues,
+    watch,
     formState: { errors, isSubmitting, touchedFields },
   } = useForm<LeadFormValues>({
     resolver: zodResolver(leadFormSchema),
     mode: 'onTouched',
-    defaultValues: { name: '', phone: '', promo: '' },
+    // Seed from the cached draft so a refresh mid-typing keeps the visitor's
+    // data. `loadDraft` only ever returns name/phone/promo strings.
+    defaultValues: { name: '', phone: '', promo: '', website: '', ...loadDraft(DRAFT_STORAGE_KEY) },
   });
+
+  const { clearDraft } = useFormDraft(DRAFT_STORAGE_KEY, watch, DRAFT_FIELDS);
 
   useEffect(() => {
     return () => {
@@ -79,6 +106,14 @@ const LeadFormFields = ({
   }, []);
 
   const onSubmit: SubmitHandler<LeadFormValues> = async (values) => {
+    // Honeypot: humans can't see or fill `website`. Any value means a bot -
+    // show the same success UI so it moves on, but never hit the network.
+    if (values.website) {
+      setSubmitted(true);
+      timerRef.current = setTimeout(() => setShowThankYou(true), thankYouDelayMs);
+      return;
+    }
+
     setSubmitError('');
     setFallbackUrl(null);
     const trimmed = {
@@ -92,6 +127,7 @@ const LeadFormFields = ({
         file: values.file && values.file.length > 0 ? values.file[0] : null,
       });
       trackLeadConversion({ value: 750, currency: 'PLN' });
+      clearDraft();
       setSubmitted(true);
       timerRef.current = setTimeout(() => setShowThankYou(true), thankYouDelayMs);
     } catch (error) {
@@ -101,6 +137,7 @@ const LeadFormFields = ({
       const code = (error as { code?: string } | null)?.code;
       if (code === 'FILE_PROXY_MISSING') {
         trackLeadConversion({ value: 750, currency: 'PLN' });
+        clearDraft();
         setSubmitError(
           t(
             'feedbackForm.fileProxyMissing',
@@ -199,6 +236,17 @@ const LeadFormFields = ({
           {...register('promo')}
         />
       </div>
+
+      {/* Honeypot - off-screen and hidden from assistive tech. A real visitor
+          never sees it; a form-filling bot does. Checked in onSubmit. */}
+      <input
+        type="text"
+        tabIndex={-1}
+        autoComplete="off"
+        aria-hidden="true"
+        style={HONEYPOT_STYLE}
+        {...register('website')}
+      />
 
       <FileUploadField
         id={fileId}
