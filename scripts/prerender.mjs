@@ -21,6 +21,7 @@ const DIST_INDEX = resolve(ROOT, 'dist/index.html');
 const DIST_404 = resolve(ROOT, 'dist/404.html');
 const SSR_DIR = resolve(ROOT, 'dist-ssr');
 const ROOT_PLACEHOLDER = '<div id="root"></div>';
+const PRERENDER_LANG = 'ru';
 
 async function prerender() {
   // 1. Build the server bundle from src/entry-server.tsx.
@@ -41,7 +42,9 @@ async function prerender() {
   if (!template.includes(ROOT_PLACEHOLDER)) {
     throw new Error(`"${ROOT_PLACEHOLDER}" not found in dist/index.html`);
   }
-  const html = template.replace(ROOT_PLACEHOLDER, `<div id="root">${appHtml}</div>`);
+  const html = template
+    .replace(ROOT_PLACEHOLDER, `<div id="root">${appHtml}</div>`)
+    .replace(/(<html\b[^>]*?\blang=")[^"]*"/, `$1${PRERENDER_LANG}"`);
   writeFileSync(DIST_INDEX, html);
   writeFileSync(DIST_404, html);
   console.log(`prerender: injected ${appHtml.length} chars into index.html + 404.html`);
