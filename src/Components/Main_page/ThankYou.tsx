@@ -18,6 +18,7 @@ const ThankYou = ({ name, onClose }: ThankYouProps) => {
         onKeyDown={(e) => e.key === 'Escape' && onClose()}
         role="dialog"
         aria-modal="true"
+        aria-labelledby="thank-you-title"
       >
         {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */}
         <div className="thank-you-card" onClick={(e) => e.stopPropagation()}>
@@ -32,7 +33,7 @@ const ThankYou = ({ name, onClose }: ThankYouProps) => {
               />
             </svg>
           </button>
-          <h3 className="thank-you-title">
+          <h3 className="thank-you-title" id="thank-you-title">
             {t('textThankYou')}, {name}
           </h3>
           <p className="thank-you-text">{t('textThank')}</p>

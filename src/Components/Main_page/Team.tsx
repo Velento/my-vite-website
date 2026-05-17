@@ -40,7 +40,14 @@ const Team = () => {
         {TEAM_MEMBERS.map((src, i) => (
           <SwiperSlide key={i}>
             <div className="team-slide">
-              <img className="team-slide__img" src={src} alt={t('team.memberAlt')} loading="lazy" />
+              <img
+                className="team-slide__img"
+                src={src}
+                alt={t('team.memberAlt')}
+                width={600}
+                height={600}
+                loading="lazy"
+              />
             </div>
           </SwiperSlide>
         ))}
