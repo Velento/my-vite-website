@@ -16,7 +16,14 @@ function Contacts() {
           onClick={() => trackContactClick('telegram')}
         >
           <span className="tooltip">Telegram</span>
-          <img src={telegramIcon} alt="Telegram" className="contact-icon" />
+          <img
+            src={telegramIcon}
+            alt="Telegram"
+            className="contact-icon"
+            width={22}
+            height={22}
+            decoding="async"
+          />
         </a>
         <a
           href="https://wa.me/+48883734171"
@@ -25,7 +32,14 @@ function Contacts() {
           onClick={() => trackContactClick('whatsapp')}
         >
           <span className="tooltip">WhatsApp</span>
-          <img src={whatsappIcon} alt="WhatsApp" className="contact-icon" />
+          <img
+            src={whatsappIcon}
+            alt="WhatsApp"
+            className="contact-icon"
+            width={22}
+            height={22}
+            decoding="async"
+          />
         </a>
         <a
           href="#!"
@@ -36,7 +50,14 @@ function Contacts() {
           rel="noopener noreferrer"
         >
           <span className="tooltip">Viber</span>
-          <img src={viberIcon} alt="Viber" className="contact-icon" />
+          <img
+            src={viberIcon}
+            alt="Viber"
+            className="contact-icon"
+            width={22}
+            height={22}
+            decoding="async"
+          />
         </a>
       </div>
     </div>

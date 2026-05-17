@@ -13,6 +13,9 @@ jobs:
   lighthouse:
     name: Lighthouse audit
     runs-on: ubuntu-latest
+    # Skip for fork PRs: secrets are unavailable there and LHCI cannot post
+    # results back to GitHub. Same-repo PRs have full secret access.
+    if: github.event.pull_request.head.repo.full_name == github.repository
     steps:
       - uses: actions/checkout@v6
 

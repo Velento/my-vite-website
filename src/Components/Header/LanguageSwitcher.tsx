@@ -63,7 +63,15 @@ function LanguageSwitcher() {
         aria-expanded={dropdownOpen}
         aria-label={t('header.switchLanguage', 'Switch language')}
       >
-        <img src={globeIcon} alt="" className="globe-icon" aria-hidden="true" />
+        <img
+          src={globeIcon}
+          alt=""
+          className="globe-icon"
+          width={22}
+          height={22}
+          decoding="async"
+          aria-hidden="true"
+        />
         {currentLang}
       </button>
       {dropdownOpen && (

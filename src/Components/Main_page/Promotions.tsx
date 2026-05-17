@@ -30,13 +30,27 @@ const Pricelist = () => {
           {servicespromo.map((service, index) => (
             <div className="service" key={index}>
               <div className="service-header">
-                <img src={iconPromo} alt="" className="service-icon" />
+                <img
+                  src={iconPromo}
+                  alt=""
+                  className="service-icon"
+                  width={40}
+                  height={40}
+                  decoding="async"
+                />
                 <h2 className="service-title">{service.title}</h2>
               </div>
               <ul className="service-points">
                 {service.points.map((point, pointIndex) => (
                   <li key={pointIndex}>
-                    <img src={iconCheak} alt="" className="point-icon" />
+                    <img
+                      src={iconCheak}
+                      alt=""
+                      className="point-icon"
+                      width={18}
+                      height={18}
+                      decoding="async"
+                    />
                     {point}
                   </li>
                 ))}

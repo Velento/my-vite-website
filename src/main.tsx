@@ -17,11 +17,13 @@ initI18n().then(() => {
     </StrictMode>
   );
 
-  // The production build ships a prerendered #root (scripts/prerender.mjs):
-  // adopt that markup with hydrateRoot so the painted content is not thrown
-  // away. In dev, or if prerender was skipped, #root is empty and we fall
-  // back to a clean createRoot render.
-  if (rootEl.hasChildNodes()) {
+  // The production build ships a prerendered #root rendered in 'ru'
+  // (see scripts/prerender.mjs). Hydrate only when the client language
+  // matches so React can attach event listeners without re-rendering.
+  // Any other language means the text content differs — use createRoot
+  // for a clean render and avoid hydration mismatch warnings in console.
+  const prerenderedLang = 'ru';
+  if (rootEl.hasChildNodes() && i18n.language === prerenderedLang) {
     hydrateRoot(rootEl, app);
   } else {
     createRoot(rootEl).render(app);
