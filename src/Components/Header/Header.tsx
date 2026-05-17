@@ -16,7 +16,7 @@ function Header() {
         <a
           href="tel:+48883734171"
           className="header-phone-cta"
-          aria-label="Call us"
+          aria-label={t('header.callAriaLabel', 'Call us')}
           onClick={() => trackContactClick('phone')}
         >
           <span className="header-phone-cta__label">

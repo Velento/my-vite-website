@@ -168,7 +168,9 @@ const translations = {
   'slider.promoSlide.list.2': 'Ultra Package (with attorney) - 2,400 PLN',
   'slider.promoSlide.cta': 'View pricing',
   'slider.promoSlide.ctaSecondary': 'Free consultation',
-  'team.memberAlt': 'Legal Line team member',
+  'team.memberAlt': 'Legal Line specialist #{{index}}',
+  'header.callAriaLabel': 'Call us for a free consultation',
+  'header.callLabel': 'Free consultation',
   textThankYou: 'Thank you',
   textThank: 'Your application has been successfully submitted. We will call you!',
   messageAlert:
