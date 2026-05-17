@@ -81,6 +81,7 @@ jobs:
         env:
           VITE_FORM_PROXY_URL: ${{ secrets.VITE_FORM_PROXY_URL }}
           VITE_GOOGLE_ADS_CONVERSION_ID: ${{ secrets.VITE_GOOGLE_ADS_CONVERSION_ID }}
+          VITE_HCAPTCHA_SITE_KEY: ${{ secrets.VITE_HCAPTCHA_SITE_KEY }}
 
       - name: Upload build artifact
         uses: actions/upload-artifact@v7

@@ -6,6 +6,7 @@ compatibility_date = "2026-04-01"
 #   TELEGRAM_BOT_TOKEN
 #   TELEGRAM_CHAT_ID
 #   REPORT_TOKEN              — bearer token guarding /report and /export
+#   HCAPTCHA_SECRET           — optional; when set, form submits must pass hCaptcha
 
 # ── Public vars ────────────────────────────────────────────────────────────
 [vars]

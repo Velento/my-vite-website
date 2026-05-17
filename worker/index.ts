@@ -25,6 +25,7 @@
  *   TELEGRAM_BOT_TOKEN
  *   TELEGRAM_CHAT_ID
  *   REPORT_TOKEN          — bearer token for /report and /export
+ *   HCAPTCHA_SECRET       — optional; when set, form submits must pass hCaptcha
  *
  * Bindings (in wrangler.toml):
  *   INTERACTION_LOG       — kv_namespaces entry
@@ -53,6 +54,8 @@ interface Env {
   FORM_RATE_LIMITER?: RateLimit;
   /** Rate limiter for POST /track (click pings). Optional - no-ops if not bound. */
   TRACK_RATE_LIMITER?: RateLimit;
+  /** hCaptcha secret. When set, form submits must carry a valid captcha token. */
+  HCAPTCHA_SECRET?: string;
 }
 
 /** Honeypot field name - must match the hidden input rendered by the form. */
@@ -144,6 +147,34 @@ async function constantTimeEqual(a: string, b: string): Promise<boolean> {
 /** True when the honeypot field carries a value - i.e. a bot filled it. */
 function isHoneypotTripped(value: unknown): boolean {
   return typeof value === 'string' && value.trim() !== '';
+}
+
+/**
+ * Verifies an hCaptcha response token server-side against hCaptcha's
+ * siteverify API. When HCAPTCHA_SECRET is not configured the check is skipped
+ * (returns true) so the form keeps working until captcha is set up; once the
+ * secret is set, a missing or invalid token is rejected.
+ */
+async function verifyHcaptcha(
+  env: Env,
+  token: string | null,
+  ip: string | null
+): Promise<boolean> {
+  if (!env.HCAPTCHA_SECRET) return true;
+  if (!token) return false;
+  const body = new URLSearchParams({ secret: env.HCAPTCHA_SECRET, response: token });
+  if (ip) body.set('remoteip', ip);
+  try {
+    const res = await fetch('https://api.hcaptcha.com/siteverify', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body,
+    });
+    const data = (await res.json()) as { success?: boolean };
+    return data.success === true;
+  } catch {
+    return false;
+  }
 }
 
 /** Stable per-visitor signal for dedup: hashed IP + UA. Not stored. */
@@ -304,6 +335,7 @@ async function handleFormSubmit(
   const contentType = request.headers.get('Content-Type') || '';
   let lead: Lead;
   let file: File | null = null;
+  let captchaToken: string | null = null;
 
   if (contentType.includes('multipart/form-data')) {
     let formData: FormData;
@@ -332,6 +364,9 @@ async function handleFormSubmit(
       return jsonResponse({ ok: false, error: validated.error }, 400, cors);
     }
     lead = validated.lead;
+
+    const tokenEntry = formData.get('captchaToken');
+    if (typeof tokenEntry === 'string') captchaToken = tokenEntry;
 
     const fileEntry = formData.get('file');
     if (
@@ -372,6 +407,19 @@ async function handleFormSubmit(
       return jsonResponse({ ok: false, error: validated.error }, 400, cors);
     }
     lead = validated.lead;
+    const tokenValue = (body as Record<string, unknown>).captchaToken;
+    if (typeof tokenValue === 'string') captchaToken = tokenValue;
+  }
+
+  // Verify the captcha before logging or forwarding anything. Skipped when
+  // HCAPTCHA_SECRET is not configured (see wrangler.toml).
+  const captchaOk = await verifyHcaptcha(
+    env,
+    captchaToken,
+    request.headers.get('CF-Connecting-IP')
+  );
+  if (!captchaOk) {
+    return jsonResponse({ ok: false, error: 'Captcha verification failed' }, 403, cors);
   }
 
   const fingerprint = await makeFingerprint(lead.phone, sessionFp);

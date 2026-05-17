@@ -8,8 +8,13 @@ import { sendLeadToTelegram } from '../../services/telegram';
 import { trackContactClick, trackFormStart, trackLeadConversion } from '../../services/analytics';
 import { leadFormSchema, type LeadFormValues } from '../../services/validation';
 import { loadDraft, useFormDraft } from '../../hooks/useFormDraft';
+import HCaptcha from '@hcaptcha/react-hcaptcha';
 
 const WHATSAPP_FALLBACK_NUMBER = '+48883734171';
+
+/** hCaptcha site key (public). When unset, the captcha widget is omitted and
+ *  the form submits without it, so the lead form never breaks on a misconfig. */
+const HCAPTCHA_SITE_KEY = import.meta.env.VITE_HCAPTCHA_SITE_KEY as string | undefined;
 
 /** sessionStorage key for the cached form draft. Shared by every form
  *  instance so typing in the inline form pre-fills the modal one and back. */
@@ -75,6 +80,8 @@ const LeadFormFields = ({
   const [fallbackUrl, setFallbackUrl] = useState<string | null>(null);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const formStartedRef = useRef(false);
+  const [captchaToken, setCaptchaToken] = useState<string | null>(null);
+  const captchaRef = useRef<HCaptcha>(null);
 
   const handleFormStart = useCallback(() => {
     if (formStartedRef.current) return;
@@ -114,6 +121,12 @@ const LeadFormFields = ({
       return;
     }
 
+    // Captcha gate: when hCaptcha is configured, a solved token is required.
+    if (HCAPTCHA_SITE_KEY && !captchaToken) {
+      setSubmitError(t('feedbackForm.captchaRequired', 'Potwierdź, że nie jesteś robotem.'));
+      return;
+    }
+
     setSubmitError('');
     setFallbackUrl(null);
     const trimmed = {
@@ -125,6 +138,7 @@ const LeadFormFields = ({
       await sendLeadToTelegram({
         ...trimmed,
         file: values.file && values.file.length > 0 ? values.file[0] : null,
+        captchaToken: captchaToken ?? undefined,
       });
       trackLeadConversion({ value: 750, currency: 'PLN' });
       clearDraft();
@@ -152,6 +166,9 @@ const LeadFormFields = ({
       // missing — anything). Don't lose the lead: show a WhatsApp deeplink
       // pre-filled with whatever the user already typed so they can reach
       // the team with one tap.
+      // hCaptcha tokens are single-use; clear it so a retry re-solves.
+      captchaRef.current?.resetCaptcha();
+      setCaptchaToken(null);
       setFallbackUrl(buildWhatsAppFallbackUrl(trimmed));
       setSubmitError(
         t(
@@ -171,6 +188,8 @@ const LeadFormFields = ({
     setSubmitted(false);
     setSubmitError('');
     setFallbackUrl(null);
+    captchaRef.current?.resetCaptcha();
+    setCaptchaToken(null);
     reset();
     onClose?.();
   };
@@ -181,6 +200,8 @@ const LeadFormFields = ({
 
   const nameError = touchedFields.name ? errors.name : undefined;
   const phoneError = touchedFields.phone ? errors.phone : undefined;
+  // With hCaptcha configured, the submit stays disabled until it is solved.
+  const captchaSatisfied = !HCAPTCHA_SITE_KEY || Boolean(captchaToken);
 
   const nameId = `${idPrefix}-name`;
   const phoneId = `${idPrefix}-phone`;
@@ -255,6 +276,18 @@ const LeadFormFields = ({
         errorMessage={errors.file?.message}
       />
 
+      {HCAPTCHA_SITE_KEY && (
+        <div className="form-group">
+          <HCaptcha
+            ref={captchaRef}
+            sitekey={HCAPTCHA_SITE_KEY}
+            onVerify={(token) => setCaptchaToken(token)}
+            onExpire={() => setCaptchaToken(null)}
+            onError={() => setCaptchaToken(null)}
+          />
+        </div>
+      )}
+
       {submitError && (
         <div className="form-group__error form-group__error--block" role="alert">
           {submitError}
@@ -281,8 +314,10 @@ const LeadFormFields = ({
       <div className="form-buttons">
         <button
           type="submit"
-          disabled={isSubmitting || submitted}
-          className={`submit-button ${!isSubmitting && !submitted ? 'submit-button--active' : ''}`}
+          disabled={isSubmitting || submitted || !captchaSatisfied}
+          className={`submit-button ${
+            !isSubmitting && !submitted && captchaSatisfied ? 'submit-button--active' : ''
+          }`}
         >
           {isSubmitting ? '...' : t('feedbackForm.submit')}
         </button>
