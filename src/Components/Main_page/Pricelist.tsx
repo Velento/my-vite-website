@@ -59,7 +59,7 @@ const PackageCard = ({ pkg, t, onOrder }: PackageCardProps) => {
         ))}
       </ul>
       {note && <p className="pkg-note">{note}</p>}
-      <button className="pkg-order-btn" onClick={onOrder}>
+      <button type="button" className="pkg-order-btn" onClick={onOrder}>
         {t('packages.orderBtn')}
       </button>
     </div>
@@ -161,10 +161,10 @@ const Pricelist = () => {
               ))}
             </ul>
             <div className="buttons">
-              <button className="price-button" disabled>
+              <button type="button" className="price-button" disabled>
                 {service.price}
               </button>
-              <button className="service-btn" onClick={handleShowModal}>
+              <button type="button" className="service-btn" onClick={handleShowModal}>
                 {t('consult_button')}
               </button>
             </div>

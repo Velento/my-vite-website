@@ -10,7 +10,7 @@ const SliderComponent = () => {
   const { i18n, t } = useTranslation();
 
   return (
-    <section className="slider-container" aria-label="Banner">
+    <section className="slider-container" aria-label={t('slider.bannerLabel')}>
       <h1 className="visually-hidden">{t('seo.h1')}</h1>
       {/* `key={i18n.language}` forces Swiper to remount on language switch so
           the text inside CSS slides refreshes immediately. */}

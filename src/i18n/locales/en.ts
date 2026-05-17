@@ -143,6 +143,7 @@ const translations = {
   'exitPopup.perk3': 'Money-back guarantee',
   'exitPopup.ctaWhatsApp': 'Message on WhatsApp',
   'exitPopup.ctaForm': 'Fill out form',
+  'slider.bannerLabel': 'Legal Line offer slideshow',
   'slider.alt': 'Legal Line - immigration services in Gdansk, slide {{index}}',
   'slider.heroSlide.badge': 'RESIDENCE CARD · LEGALIZATION · CITIZENSHIP',
   'slider.heroSlide.title': 'Your residence card - no stress, no mistakes',
