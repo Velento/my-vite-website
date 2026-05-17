@@ -28,7 +28,7 @@ const MainPage = () => {
   }, []);
 
   return (
-    <main className="main-page">
+    <main className="main-page" id="main-content">
       <Menu />
       <SliderComponent />
       <FadeInOnScroll>
