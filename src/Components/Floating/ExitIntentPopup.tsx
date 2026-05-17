@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import FocusTrap from 'focus-trap-react';
 import { useTranslation } from 'react-i18next';
 import { trackContactClick, trackPopupShown } from '../../services/analytics';
 import './ExitIntentPopup.css';
@@ -70,60 +71,79 @@ const ExitIntentPopup = () => {
   };
 
   return (
-    <div className="exit-popup" role="dialog" aria-modal="true" aria-labelledby="exit-popup-title">
-      <button
-        className="exit-popup__backdrop"
-        type="button"
-        onClick={close}
-        aria-label={t('exitPopup.close', 'Zamknij')}
-      />
-      <div className="exit-popup__card">
+    <FocusTrap focusTrapOptions={{ allowOutsideClick: true }}>
+      <div
+        className="exit-popup"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="exit-popup-title"
+      >
         <button
-          className="exit-popup__close"
+          className="exit-popup__backdrop"
           type="button"
           onClick={close}
           aria-label={t('exitPopup.close', 'Zamknij')}
-        >
-          ×
-        </button>
-        <span className="exit-popup__badge">{t('exitPopup.badge', 'Czekaj!')}</span>
-        <h2 id="exit-popup-title" className="exit-popup__title">
-          {t('exitPopup.title', 'Bezpłatna konsultacja')}
-        </h2>
-        <p className="exit-popup__text">
-          {t(
-            'exitPopup.text',
-            'Zostaw kontakt — oddzwonimy w ciągu 30 minut i wycenimy Twoją sprawę za darmo.'
-          )}
-        </p>
-        <ul className="exit-popup__perks">
-          <li>{t('exitPopup.perk1', 'Pierwsza konsultacja — bezpłatna')}</li>
-          <li>{t('exitPopup.perk2', 'Karta pobytu już od 750 PLN')}</li>
-          <li>{t('exitPopup.perk3', 'Gwarancja zwrotu pieniędzy')}</li>
-        </ul>
-        <div className="exit-popup__ctas">
-          <a
-            href={`https://wa.me/${WHATSAPP_NUMBER.replace(/\D/g, '')}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="exit-popup__cta exit-popup__cta--primary"
-            onClick={() => {
-              trackContactClick('whatsapp');
-              close();
-            }}
+        />
+        <div className="exit-popup__card">
+          <button
+            className="exit-popup__close"
+            type="button"
+            onClick={close}
+            aria-label={t('exitPopup.close', 'Zamknij')}
           >
-            {t('exitPopup.ctaWhatsApp', 'Napisz na WhatsApp')}
-          </a>
-          <a
-            href="#leedform"
-            className="exit-popup__cta exit-popup__cta--ghost"
-            onClick={scrollToForm}
-          >
-            {t('exitPopup.ctaForm', 'Wypełnij formularz')}
-          </a>
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.5"
+              strokeLinecap="round"
+              aria-hidden="true"
+            >
+              <line x1="6" y1="6" x2="18" y2="18" />
+              <line x1="18" y1="6" x2="6" y2="18" />
+            </svg>
+          </button>
+          <span className="exit-popup__badge">{t('exitPopup.badge', 'Czekaj!')}</span>
+          <h2 id="exit-popup-title" className="exit-popup__title">
+            {t('exitPopup.title', 'Bezpłatna konsultacja')}
+          </h2>
+          <p className="exit-popup__text">
+            {t(
+              'exitPopup.text',
+              'Zostaw kontakt — oddzwonimy w ciągu 30 minut i wycenimy Twoją sprawę za darmo.'
+            )}
+          </p>
+          <ul className="exit-popup__perks">
+            <li>{t('exitPopup.perk1', 'Pierwsza konsultacja — bezpłatna')}</li>
+            <li>{t('exitPopup.perk2', 'Karta pobytu już od 750 PLN')}</li>
+            <li>{t('exitPopup.perk3', 'Gwarancja zwrotu pieniędzy')}</li>
+          </ul>
+          <div className="exit-popup__ctas">
+            <a
+              href={`https://wa.me/${WHATSAPP_NUMBER.replace(/\D/g, '')}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="exit-popup__cta exit-popup__cta--primary"
+              onClick={() => {
+                trackContactClick('whatsapp');
+                close();
+              }}
+            >
+              {t('exitPopup.ctaWhatsApp', 'Napisz na WhatsApp')}
+            </a>
+            <a
+              href="#leedform"
+              className="exit-popup__cta exit-popup__cta--ghost"
+              onClick={scrollToForm}
+            >
+              {t('exitPopup.ctaForm', 'Wypełnij formularz')}
+            </a>
+          </div>
         </div>
       </div>
-    </div>
+    </FocusTrap>
   );
 };
 

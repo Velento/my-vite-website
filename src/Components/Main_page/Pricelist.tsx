@@ -143,7 +143,7 @@ const Pricelist = () => {
                 height={40}
                 decoding="async"
               />
-              <h2 className="service-title">{service.title}</h2>
+              <h3 className="service-title">{service.title}</h3>
             </div>
             <ul className="service-points">
               {service.points.map((point, pointIndex) => (
