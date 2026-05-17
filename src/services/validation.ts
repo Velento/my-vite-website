@@ -33,6 +33,13 @@ export const leadFormSchema = z.object({
     .regex(NAME_REGEX, { message: 'feedbackForm.nameError' }),
   phone: z.string().trim().regex(PHONE_REGEX, { message: 'feedbackForm.phoneError' }),
   promo: z.string().trim().max(30).optional().or(z.literal('')),
+  /**
+   * Honeypot. Hidden from humans via off-screen styling; only bots that fill
+   * every field will populate it. Accepts any value so validation never fails
+   * (a visible error would teach a bot what tripped it) - the form checks this
+   * field at submit time and silently drops bot submissions.
+   */
+  website: z.string().optional(),
   file: z
     .custom<FileList | undefined>((v) => v === undefined || v instanceof FileList, {
       message: 'feedbackForm.fileError',

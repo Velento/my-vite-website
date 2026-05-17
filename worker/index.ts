@@ -26,9 +26,22 @@
  *   TELEGRAM_CHAT_ID
  *   REPORT_TOKEN          — bearer token for /report and /export
  *
- * KV namespace binding (in wrangler.toml):
+ * Bindings (in wrangler.toml):
  *   INTERACTION_LOG       — kv_namespaces entry
+ *   FORM_RATE_LIMITER     - [[ratelimits]] entry, caps form-submit bursts
+ *   TRACK_RATE_LIMITER    - [[ratelimits]] entry, caps /track ping bursts
+ *
+ * Anti-abuse: bot User-Agents are rejected, a honeypot field silently drops
+ * scripted submissions, and both public routes are rate-limited per visitor.
  */
+
+/**
+ * Cloudflare native rate limiting binding. Declared locally so the worker
+ * typechecks regardless of the installed @cloudflare/workers-types version.
+ */
+interface RateLimit {
+  limit(options: { key: string }): Promise<{ success: boolean }>;
+}
 
 interface Env {
   TELEGRAM_BOT_TOKEN: string;
@@ -36,7 +49,14 @@ interface Env {
   REPORT_TOKEN?: string;
   ALLOWED_ORIGINS?: string;
   INTERACTION_LOG?: KVNamespace;
+  /** Rate limiter for POST / (form submit). Optional - no-ops if not bound. */
+  FORM_RATE_LIMITER?: RateLimit;
+  /** Rate limiter for POST /track (click pings). Optional - no-ops if not bound. */
+  TRACK_RATE_LIMITER?: RateLimit;
 }
+
+/** Honeypot field name - must match the hidden input rendered by the form. */
+const HONEYPOT_FIELD = 'website';
 
 const DEFAULT_ALLOWED = ['https://legalline.pl', 'https://www.legalline.pl'];
 
@@ -104,6 +124,26 @@ async function sha256Hex(input: string): Promise<string> {
   return Array.from(new Uint8Array(digest))
     .map((b) => b.toString(16).padStart(2, '0'))
     .join('');
+}
+
+/**
+ * Constant-time string comparison. Both inputs are hashed to a fixed-length
+ * (64-char) SHA-256 hex digest first, so the XOR loop always runs the same
+ * number of iterations and the comparison time never leaks how many leading
+ * characters of a guessed token were correct.
+ */
+async function constantTimeEqual(a: string, b: string): Promise<boolean> {
+  const [ha, hb] = await Promise.all([sha256Hex(a), sha256Hex(b)]);
+  let diff = 0;
+  for (let i = 0; i < ha.length; i++) {
+    diff |= ha.charCodeAt(i) ^ hb.charCodeAt(i);
+  }
+  return diff === 0;
+}
+
+/** True when the honeypot field carries a value - i.e. a bot filled it. */
+function isHoneypotTripped(value: unknown): boolean {
+  return typeof value === 'string' && value.trim() !== '';
 }
 
 /** Stable per-visitor signal for dedup: hashed IP + UA. Not stored. */
@@ -250,6 +290,17 @@ async function handleFormSubmit(
     return jsonResponse({ ok: false, error: 'Bot blocked' }, 403, cors);
   }
 
+  // Rate limit by per-visitor fingerprint to cap spam bursts hitting the
+  // Telegram chat and the KV log. No-ops gracefully when the binding is not
+  // provisioned (see wrangler.toml [[ratelimits]]).
+  const sessionFp = await makeSessionFingerprint(request);
+  if (env.FORM_RATE_LIMITER) {
+    const { success } = await env.FORM_RATE_LIMITER.limit({ key: sessionFp });
+    if (!success) {
+      return jsonResponse({ ok: false, error: 'Too many requests' }, 429, cors);
+    }
+  }
+
   const contentType = request.headers.get('Content-Type') || '';
   let lead: Lead;
   let file: File | null = null;
@@ -260,6 +311,11 @@ async function handleFormSubmit(
       formData = await request.formData();
     } catch {
       return jsonResponse({ ok: false, error: 'Invalid multipart' }, 400, cors);
+    }
+
+    if (isHoneypotTripped(formData.get(HONEYPOT_FIELD))) {
+      // Honeypot filled - acknowledge with a fake success and deliver nothing.
+      return jsonResponse({ ok: true, id: uuid() }, 200, cors);
     }
 
     const candidate = {
@@ -307,6 +363,10 @@ async function handleFormSubmit(
     if (!body || typeof body !== 'object') {
       return jsonResponse({ ok: false, error: 'Invalid payload' }, 400, cors);
     }
+    if (isHoneypotTripped((body as Record<string, unknown>)[HONEYPOT_FIELD])) {
+      // Honeypot filled - acknowledge with a fake success and deliver nothing.
+      return jsonResponse({ ok: true, id: uuid() }, 200, cors);
+    }
     const validated = validateLead(body as Partial<Lead>);
     if (!validated.ok) {
       return jsonResponse({ ok: false, error: validated.error }, 400, cors);
@@ -314,7 +374,6 @@ async function handleFormSubmit(
     lead = validated.lead;
   }
 
-  const sessionFp = await makeSessionFingerprint(request);
   const fingerprint = await makeFingerprint(lead.phone, sessionFp);
   const eventId = uuid();
   const ts = new Date().toISOString();
@@ -370,6 +429,13 @@ async function handleTrack(request: Request, env: Env, cors: HeadersInit): Promi
     return new Response(null, { status: 204, headers: cors });
   }
 
+  const sessionFp = await makeSessionFingerprint(request);
+  if (env.TRACK_RATE_LIMITER) {
+    const { success } = await env.TRACK_RATE_LIMITER.limit({ key: sessionFp });
+    // /track is fire-and-forget - silently drop instead of returning an error.
+    if (!success) return new Response(null, { status: 204, headers: cors });
+  }
+
   let body: TrackPayload;
   try {
     body = (await request.json()) as TrackPayload;
@@ -382,7 +448,6 @@ async function handleTrack(request: Request, env: Env, cors: HeadersInit): Promi
     return jsonResponse({ ok: false, error: 'Invalid channel' }, 400, cors);
   }
 
-  const sessionFp = await makeSessionFingerprint(request);
   const fingerprint = await makeFingerprint(null, sessionFp);
   const eventId = uuid();
   const ts = new Date().toISOString();
@@ -412,14 +477,15 @@ async function handleTrack(request: Request, env: Env, cors: HeadersInit): Promi
 
 // ── reporting / export ───────────────────────────────────────────────────────
 
-function checkToken(request: Request, env: Env): boolean {
+async function checkToken(request: Request, env: Env): Promise<boolean> {
   const token = env.REPORT_TOKEN;
   if (!token) return false;
   const header = request.headers.get('Authorization') ?? '';
   const match = /^Bearer\s+(.+)$/i.exec(header.trim());
-  if (match !== null && match[1] === token) return true;
-  // Also accept ?token= so dashboard bookmarks and CSV links work without JS
-  return new URL(request.url).searchParams.get('token') === token;
+  if (match !== null && (await constantTimeEqual(match[1]!, token))) return true;
+  // Also accept ?token= so dashboard bookmarks and CSV links work without JS.
+  const queryToken = new URL(request.url).searchParams.get('token');
+  return queryToken !== null && (await constantTimeEqual(queryToken, token));
 }
 
 interface ReportParams {
@@ -523,7 +589,7 @@ function buildReport(events: LogEntry[], deduped: LogEntry[]) {
 }
 
 async function handleReport(request: Request, env: Env): Promise<Response> {
-  if (!checkToken(request, env)) {
+  if (!(await checkToken(request, env))) {
     return jsonResponse({ ok: false, error: 'Unauthorized' }, 401);
   }
   const url = new URL(request.url);
@@ -557,7 +623,7 @@ function csvEscape(value: string): string {
 }
 
 async function handleExport(request: Request, env: Env): Promise<Response> {
-  if (!checkToken(request, env)) {
+  if (!(await checkToken(request, env))) {
     return jsonResponse({ ok: false, error: 'Unauthorized' }, 401);
   }
   const url = new URL(request.url);
@@ -728,7 +794,7 @@ body{font-family:system-ui,-apple-system,sans-serif;background:#f5f5f0;color:#1a
 }
 
 async function handleDashboard(request: Request, env: Env): Promise<Response> {
-  if (!checkToken(request, env)) {
+  if (!(await checkToken(request, env))) {
     return new Response(
       '<!DOCTYPE html><html lang="pl"><body style="font-family:sans-serif;text-align:center;padding:80px">' +
       '<h2 style="color:#c0392b">401 &mdash; Brak dost&#281;pu</h2>' +

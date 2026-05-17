@@ -2,17 +2,11 @@ import { useTranslation } from 'react-i18next';
 import './MapAndReviews.css';
 
 /**
- * Google Maps embed + Reviews section.
+ * Google Maps embed + a "leave a review" call-to-action.
  *
- * Reviews: Using a static Google Reviews link for now.
- * For real-time reviews, consider:
- *   1. Elfsight widget (no-code, ~$5/mo) — drop-in iframe
- *   2. Google Places API (server-side) — requires API key + backend proxy
- *   3. Manual testimonials — curated, no API needed
- *
- * The Google Places API approach is the most flexible but requires a backend
- * to keep the API key secure. For a static site on GitHub Pages,
- * Elfsight or manual testimonials are recommended.
+ * Reviews are surfaced via a static Google search link rather than a live
+ * widget: a third-party reviews embed (Elfsight, Google Places API) would add
+ * an API key plus another render-blocking script for marginal gain.
  */
 
 const GOOGLE_MAPS_EMBED_URL =
@@ -48,13 +42,6 @@ const MapAndReviews = () => {
         <div className="map-reviews__reviews-col">
           <h2 className="map-reviews__heading">{t('reviews.title')}</h2>
           <div className="map-reviews__reviews-placeholder">
-            {/*
-              TODO: Replace with Elfsight widget or Google Places API.
-              Example Elfsight embed:
-              <div className="elfsight-app-XXXXXXXX" data-elfsight-app-lazy></div>
-
-              For now, a CTA to leave a review:
-            */}
             <div className="map-reviews__review-cta">
               <div className="map-reviews__stars">★★★★★</div>
               <p className="map-reviews__review-text">

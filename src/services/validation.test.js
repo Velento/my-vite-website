@@ -164,4 +164,16 @@ describe('leadFormSchema', () => {
     });
     expect(result.success).toBe(true);
   });
+
+  it('accepts the honeypot field without failing validation', () => {
+    // The honeypot must parse cleanly even when filled - the form (not the
+    // schema) decides what to do with a populated value, so a bot never sees
+    // a validation error that would reveal the trap.
+    const result = leadFormSchema.safeParse({
+      name: 'Anna',
+      phone: '+48883734171',
+      website: 'http://spam.example',
+    });
+    expect(result.success).toBe(true);
+  });
 });
