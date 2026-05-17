@@ -28,7 +28,9 @@ const Section = memo(function Section({
   return (
     <article className="section">
       <h3 className="section__title">{title}</h3>
-      {iconSrc && <img src={iconSrc} alt="" className="section__icon" loading="lazy" />}
+      {iconSrc && (
+        <img src={iconSrc} alt="" className="section__icon" width={40} height={40} loading="lazy" />
+      )}
       <div className="section__content">
         <p>{content}</p>
         {imgSrc && <img src={imgSrc} alt={title} className="section__image" loading="lazy" />}

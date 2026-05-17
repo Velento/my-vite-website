@@ -5,10 +5,12 @@ import type { ReactNode } from 'react';
 type ModalProps = {
   show: boolean;
   onClose: () => void;
+  /** Accessible name for the dialog. Falls back to a generic label. */
+  ariaLabel?: string;
   children?: ReactNode;
 };
 
-const Modal = ({ show, onClose, children }: ModalProps) => {
+const Modal = ({ show, onClose, ariaLabel, children }: ModalProps) => {
   const { t } = useTranslation();
   if (!show) return null;
 
@@ -21,6 +23,7 @@ const Modal = ({ show, onClose, children }: ModalProps) => {
         onKeyDown={(e) => e.key === 'Escape' && onClose()}
         role="dialog"
         aria-modal="true"
+        aria-label={ariaLabel ?? t('modal.title')}
       >
         {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */}
         <div className="modal-content" onClick={(e) => e.stopPropagation()}>

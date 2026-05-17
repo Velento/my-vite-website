@@ -127,7 +127,7 @@ const horizontalLink =
   "group relative inline-flex items-center gap-2 py-2.5 px-2 text-[0.875rem] font-semibold uppercase tracking-[0.1em] text-[var(--color-primary)] transition-colors duration-200 hover:text-[var(--color-accent)] after:content-[''] after:absolute after:left-1/2 after:bottom-0 after:h-[2px] after:w-0 after:-translate-x-1/2 after:rounded-full after:bg-[var(--color-accent)] after:transition-[width] after:duration-300 hover:after:w-[calc(100%-1rem)] max-lg:text-[0.75rem] max-lg:tracking-[0.08em] max-lg:gap-1.5";
 
 const verticalLink =
-  'group grid w-full grid-cols-[40px_1fr_24px] items-center gap-3 rounded-lg px-4 py-3.5 text-[0.95rem] font-semibold uppercase tracking-[0.08em] text-[var(--color-primary)] transition-[background-color,color,transform] duration-200 hover:bg-[var(--color-bg-alt)] hover:text-[var(--color-accent)] active:scale-[0.98] active:bg-[var(--color-bg-subtle)]';
+  'group grid w-full grid-cols-[40px_1fr_20px] items-center gap-3 rounded-xl px-4 py-3.5 text-[0.95rem] font-semibold uppercase tracking-[0.08em] text-[var(--color-primary)] transition-[background-color,color,transform] duration-200 hover:bg-[var(--color-bg-alt)] hover:text-[var(--color-accent)] active:scale-[0.98] active:bg-[var(--color-bg-subtle)]';
 
 const Menu = ({ vertical = false, onItemClick }: MenuProps) => {
   const { t } = useTranslation();
@@ -139,20 +139,32 @@ const Menu = ({ vertical = false, onItemClick }: MenuProps) => {
           {MENU_ITEMS.map(({ href, key, icon }) => (
             <li key={key}>
               <a href={href} className={verticalLink} onClick={onItemClick}>
+                {/* Gold-tinted icon chip — visible on touch where there is no
+                    hover, so the menu keeps its branded look on phones. */}
                 <span
-                  className="flex h-9 w-9 items-center justify-center justify-self-start rounded-md bg-[var(--color-bg-alt)] text-[var(--color-accent)] transition-colors duration-200 group-hover:bg-[var(--color-accent)] group-hover:text-white [&>svg]:h-[18px] [&>svg]:w-[18px]"
+                  className="flex h-9 w-9 items-center justify-center justify-self-start rounded-lg bg-[rgba(184,148,62,0.12)] text-[var(--color-accent)] transition-colors duration-200 group-hover:bg-[var(--color-accent)] group-hover:text-white [&>svg]:h-[18px] [&>svg]:w-[18px]"
                   aria-hidden="true"
                 >
                   {icon}
                 </span>
-                {/* Centered label — middle column. The icon stays on the left
-                    edge but visually balances the trailing arrow on the right. */}
-                <span className="text-center">{t(key)}</span>
+                {/* Left-aligned label so the icon and text read as one unit. */}
+                <span className="text-left">{t(key)}</span>
+                {/* Chevron stays visible (touch has no hover) as a tap cue. */}
                 <span
-                  className="justify-self-end text-[var(--color-accent)] opacity-0 transition-[opacity,transform] duration-200 group-hover:translate-x-0.5 group-hover:opacity-100"
+                  className="justify-self-end text-[var(--color-accent)] opacity-40 transition-[opacity,transform] duration-200 group-hover:translate-x-0.5 group-hover:opacity-100"
                   aria-hidden="true"
                 >
-                  →
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2.6"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="h-[14px] w-[14px]"
+                  >
+                    <polyline points="9 18 15 12 9 6" />
+                  </svg>
                 </span>
               </a>
             </li>

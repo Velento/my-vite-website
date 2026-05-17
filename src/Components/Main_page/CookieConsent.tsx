@@ -57,7 +57,12 @@ const CookieConsent = () => {
   return (
     <FocusTrap focusTrapOptions={{ allowOutsideClick: true, escapeDeactivates: false }}>
       <aside className="cookie-consent-overlay" aria-label={t('cookieSettings', 'Cookie consent')}>
-        <div className="cookie-consent" role="dialog" aria-modal="true">
+        <div
+          className="cookie-consent"
+          role="dialog"
+          aria-modal="true"
+          aria-label={t('cookieSettings', 'Cookie consent')}
+        >
           <button
             type="button"
             className="close-button"
