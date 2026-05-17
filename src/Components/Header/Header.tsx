@@ -5,6 +5,7 @@ import Contacts from './Contacts';
 import LanguageSwitcher from './LanguageSwitcher';
 import Burger from './Burger';
 import { trackContactClick } from '../../services/analytics';
+import { PHONE_HREF } from '../../constants/contact';
 
 function Header() {
   const { t } = useTranslation();
@@ -14,7 +15,7 @@ function Header() {
       <Logo />
       <div className="header-center">
         <a
-          href="tel:+48883734171"
+          href={PHONE_HREF}
           className="header-phone-cta"
           aria-label={t('header.callAriaLabel', 'Call us')}
           onClick={() => trackContactClick('phone')}

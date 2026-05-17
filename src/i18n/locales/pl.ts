@@ -177,6 +177,7 @@ const translations = {
   'map.address': 'Gdańsk, Polska',
   'reviews.title': 'Co mówią nasi klienci',
   'reviews.cta': 'Zostaw opinię na Google',
+  'reviews.starsAria': '5 na 5 gwiazdek',
   'reviews.0.author': 'Olena K.',
   'reviews.0.city': 'Gdańsk',
   'reviews.0.text':
@@ -211,6 +212,8 @@ const translations = {
     timework: 'Codziennie od 9:00 do 17:00, sobota-niedziela - nieczynne',
     privacyPolicy: 'Polityka prywatności',
     question: 'Zadaj pytanie za darmo',
+    serviceLink1: 'Karta czasowego pobytu',
+    serviceLink2: 'Karta stałego pobytu',
     rights: 'Wszelkie prawa zastrzeżone.',
   },
   modal: {

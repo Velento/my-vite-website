@@ -177,6 +177,7 @@ const translations = {
   'map.address': 'Гданьск, Польша',
   'reviews.title': 'Что говорят наши клиенты',
   'reviews.cta': 'Оставить отзыв в Google',
+  'reviews.starsAria': '5 из 5 звёзд',
   'reviews.0.author': 'Дмитрий С.',
   'reviews.0.city': 'Гданьск',
   'reviews.0.text':
@@ -211,6 +212,8 @@ const translations = {
     timework: 'Ежедневно с 9:00 по 17:00, Сб-Вс выходной',
     privacyPolicy: 'Политика конфиденциальности',
     question: 'Задать вопрос бесплатно',
+    serviceLink1: 'Карта временного проживания',
+    serviceLink2: 'Карта постоянного проживания',
     rights: 'Все права защищены.',
   },
   header: {

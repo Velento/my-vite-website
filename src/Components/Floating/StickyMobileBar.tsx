@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { trackContactClick } from '../../services/analytics';
+import { PHONE_HREF, WHATSAPP_HREF } from '../../constants/contact';
 import './StickyMobileBar.css';
 
-const PHONE_NUMBER = '+48883734171';
 const SCROLL_THRESHOLD_PX = 380;
 
 const StickyMobileBar = () => {
@@ -51,7 +51,7 @@ const StickyMobileBar = () => {
       aria-hidden={!visible}
     >
       <a
-        href={`tel:${PHONE_NUMBER}`}
+        href={PHONE_HREF}
         className="sticky-mobile-bar__btn"
         onClick={() => trackContactClick('phone')}
       >
@@ -64,7 +64,7 @@ const StickyMobileBar = () => {
         <span>{t('stickyBar.call', 'Zadzwoń')}</span>
       </a>
       <a
-        href={`https://wa.me/${PHONE_NUMBER.replace(/\D/g, '')}`}
+        href={WHATSAPP_HREF}
         target="_blank"
         rel="noopener noreferrer"
         className="sticky-mobile-bar__btn"

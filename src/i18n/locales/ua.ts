@@ -178,6 +178,7 @@ const translations = {
   'map.address': 'Гданськ, Польща',
   'reviews.title': 'Що кажуть наші клієнти',
   'reviews.cta': 'Залишити відгук у Google',
+  'reviews.starsAria': '5 з 5 зірок',
   'reviews.0.author': 'Марія Т.',
   'reviews.0.city': 'Гданськ',
   'reviews.0.text':
@@ -213,6 +214,8 @@ const translations = {
     timework: 'Щодня з 9:00 до 17:00, сб-нд вихідний',
     privacyPolicy: 'Політика конфіденційності',
     question: 'Задати питання безкоштовно',
+    serviceLink1: 'Картка тимчасового проживання',
+    serviceLink2: 'Картка постійного проживання',
     rights: 'Всі права захищені.',
   },
   modal: {

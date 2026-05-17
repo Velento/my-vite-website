@@ -180,6 +180,7 @@ const translations = {
   'map.address': 'Gdańsk, Poland',
   'reviews.title': 'What Our Clients Say',
   'reviews.cta': 'Leave a review on Google',
+  'reviews.starsAria': '5 out of 5 stars',
   'reviews.0.author': 'Yevhenia K.',
   'reviews.0.city': 'Gdańsk',
   'reviews.0.text':
@@ -214,6 +215,8 @@ const translations = {
     timework: 'Daily from 9:00 AM to 5:00 PM, closed on Sat-Sun',
     privacyPolicy: 'Privacy Policy',
     question: 'Ask a question for free',
+    serviceLink1: 'Temporary residence card',
+    serviceLink2: 'Permanent residence card',
     rights: 'All rights reserved.',
   },
   header: {

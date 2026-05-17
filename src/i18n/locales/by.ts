@@ -176,6 +176,7 @@ const translations = {
   'map.address': 'Гданьск, Польшча',
   'reviews.title': 'Што кажуць нашы кліенты',
   'reviews.cta': 'Пакінуць водгук у Google',
+  'reviews.starsAria': '5 з 5 зорак',
   'reviews.0.author': 'Сяргей К.',
   'reviews.0.city': 'Гданьск',
   'reviews.0.text':
@@ -210,6 +211,8 @@ const translations = {
     timework: 'Штодня з 9:00 да 17:00, субота-нядзеля - выхадны',
     privacyPolicy: 'Палітыка прыватнасці',
     question: 'Задаць пытанне бясплатна',
+    serviceLink1: 'Картка часовага пражывання',
+    serviceLink2: 'Картка пастаяннага пражывання',
     rights: 'Усе правы абаронены.',
   },
   header: {
