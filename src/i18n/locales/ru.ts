@@ -165,7 +165,9 @@ const translations = {
   'slider.promoSlide.list.2': 'Пакет Ультра (с адвокатом) - 2 400 PLN',
   'slider.promoSlide.cta': 'Смотреть цены',
   'slider.promoSlide.ctaSecondary': 'Бесплатная консультация',
-  'team.memberAlt': 'Член команды Legal Line',
+  'team.memberAlt': 'Специалист Legal Line №{{index}}',
+  'header.callAriaLabel': 'Позвонить нам бесплатно',
+  'header.callLabel': 'Бесплатная консультация',
   textThankYou: 'Спасибо',
   textThank: 'Ваша заявка оформлена успешно. Мы вам позвоним!',
   messageAlert:

@@ -43,7 +43,7 @@ const Team = () => {
               <img
                 className="team-slide__img"
                 src={src}
-                alt={t('team.memberAlt')}
+                alt={t('team.memberAlt', { index: i + 1 })}
                 width={600}
                 height={600}
                 loading="lazy"

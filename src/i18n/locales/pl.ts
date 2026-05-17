@@ -165,7 +165,9 @@ const translations = {
   'slider.promoSlide.list.2': 'Pakiet Ultra (z adwokatem) - 2 400 PLN',
   'slider.promoSlide.cta': 'Zobacz cennik',
   'slider.promoSlide.ctaSecondary': 'Bezpłatna konsultacja',
-  'team.memberAlt': 'Członek zespołu Legal Line',
+  'team.memberAlt': 'Specjalista Legal Line nr {{index}}',
+  'header.callAriaLabel': 'Zadzwoń do nas bezpłatnie',
+  'header.callLabel': 'Bezpłatna konsultacja',
   textThankYou: 'Dziękuję',
   textThank: 'Twoje zgłoszenie zostało pomyślnie złożone. Zadzwonimy do Ciebie!',
   messageAlert:
