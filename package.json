@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "postbuild": "cp dist/index.html dist/404.html",
+    "postbuild": "node scripts/prerender.mjs",
     "preview": "vite preview",
     "prepare": "husky",
     "lint": "eslint src --ext js,jsx,ts,tsx --report-unused-disable-directives",
