@@ -1,10 +1,10 @@
 name: Lighthouse
 
 on:
-  pull_request:
+  push:
     branches: [my-vite-website]
 
-# Cancel an in-flight run if a newer commit lands on the same PR.
+# Cancel an in-flight run if a newer push lands before this one finishes.
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
@@ -13,9 +13,6 @@ jobs:
   lighthouse:
     name: Lighthouse audit
     runs-on: ubuntu-latest
-    # Skip for fork PRs: secrets are unavailable there and LHCI cannot post
-    # results back to GitHub. Same-repo PRs have full secret access.
-    if: github.event.pull_request.head.repo.full_name == github.repository
     steps:
       - uses: actions/checkout@v6
 
