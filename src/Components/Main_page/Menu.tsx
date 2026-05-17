@@ -133,7 +133,7 @@ const Menu = ({ vertical = false, onItemClick }: MenuProps) => {
 
   if (vertical) {
     return (
-      <nav className="w-full">
+      <nav className="w-full" aria-label="Mobile navigation">
         <ul className="m-0 flex w-full list-none flex-col items-stretch gap-2 p-0">
           {MENU_ITEMS.map(({ href, key, icon }) => (
             <li key={key}>

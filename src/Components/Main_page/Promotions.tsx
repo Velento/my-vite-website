@@ -5,7 +5,7 @@ import iconCheak from '../images/play_point.svg';
 import iconPromo from '../images/icon_promo.svg';
 import { useTranslation } from 'react-i18next';
 
-const Pricelist = () => {
+const Promotions = () => {
   const { t } = useTranslation();
 
   const servicespromo = useMemo(
@@ -63,4 +63,4 @@ const Pricelist = () => {
   );
 };
 
-export default Pricelist;
+export default Promotions;

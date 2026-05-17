@@ -193,7 +193,12 @@ button {
   cursor: pointer;
   padding: 0;
   border-radius: var(--radius-sm);
-  transition: all var(--duration-base) var(--ease);
+  transition:
+    background-color var(--duration-base) var(--ease),
+    color var(--duration-base) var(--ease),
+    box-shadow var(--duration-base) var(--ease),
+    border-color var(--duration-base) var(--ease),
+    opacity var(--duration-base) var(--ease);
 }
 
 button:focus-visible {
@@ -226,7 +231,9 @@ textarea:focus-visible {
   cursor: pointer;
   text-decoration: none;
   text-align: center;
-  transition: all var(--duration-base) var(--ease);
+  transition:
+    background-color var(--duration-base) var(--ease),
+    color var(--duration-base) var(--ease);
 }
 
 .btn-primary:hover {
@@ -248,7 +255,10 @@ textarea:focus-visible {
   text-decoration: none;
   text-align: center;
   box-shadow: 0 2px 12px rgba(184, 148, 62, 0.25);
-  transition: all var(--duration-base) var(--ease);
+  transition:
+    background-color var(--duration-base) var(--ease),
+    transform var(--duration-base) var(--ease),
+    box-shadow var(--duration-base) var(--ease);
 }
 
 .btn-accent:hover {
