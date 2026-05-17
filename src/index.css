@@ -98,6 +98,10 @@
 
 html {
   scroll-behavior: smooth;
+  /* Offset anchor jumps (#pricelist, #services, ...) so the target section
+     lands below the sticky header instead of hidden behind it. Larger on
+     md+ where the horizontal nav adds a second sticky row. */
+  scroll-padding-top: 5.5rem;
   -webkit-text-size-adjust: 100%;
   /* Belt-and-braces: clip any stray horizontal overflow at the document root.
      `clip` (rather than `hidden`) doesn't create a scroll container, so it
@@ -111,6 +115,14 @@ body {
   min-height: 100vh;
   overflow-x: clip;
   max-width: 100%;
+}
+
+/* On md+ the horizontal nav sits below the header as a second sticky row,
+   so anchor jumps need a deeper offset to clear both. */
+@media (min-width: 768px) {
+  html {
+    scroll-padding-top: 9rem;
+  }
 }
 
 /* Catch any descendant that would otherwise blow out the viewport. Picture,
