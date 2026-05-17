@@ -126,7 +126,7 @@ const horizontalLink =
   'group inline-flex items-center gap-2 rounded-lg px-3.5 py-2.5 text-[0.875rem] font-semibold uppercase tracking-[0.09em] text-[var(--color-primary)] transition-colors duration-200 hover:bg-[var(--color-accent-subtle)] hover:text-[var(--color-accent)] max-lg:gap-1.5 max-lg:px-2.5 max-lg:text-[0.75rem] max-lg:tracking-[0.06em]';
 
 const verticalLink =
-  'group grid w-full grid-cols-[40px_1fr_20px] items-center gap-3 rounded-xl px-4 py-3.5 text-[0.95rem] font-semibold uppercase tracking-[0.08em] text-[var(--color-primary)] transition-[background-color,color,transform] duration-200 hover:bg-[var(--color-bg-alt)] hover:text-[var(--color-accent)] active:scale-[0.98] active:bg-[var(--color-bg-subtle)]';
+  'group grid w-full grid-cols-[40px_1fr_40px] items-center gap-3 rounded-xl bg-[var(--color-bg-alt)] px-4 py-4 text-[0.95rem] font-semibold uppercase tracking-[0.08em] text-[var(--color-primary)] transition-[background-color,color,transform] duration-200 hover:bg-[var(--color-accent-subtle)] hover:text-[var(--color-accent)] active:scale-[0.98]';
 
 const Menu = ({ vertical = false, onItemClick }: MenuProps) => {
   const { t } = useTranslation();
@@ -134,7 +134,7 @@ const Menu = ({ vertical = false, onItemClick }: MenuProps) => {
   if (vertical) {
     return (
       <nav className="w-full">
-        <ul className="m-0 flex w-full list-none flex-col items-stretch gap-1 p-0">
+        <ul className="m-0 flex w-full list-none flex-col items-stretch gap-2 p-0">
           {MENU_ITEMS.map(({ href, key, icon }) => (
             <li key={key}>
               <a href={href} className={verticalLink} onClick={onItemClick}>
@@ -146,8 +146,8 @@ const Menu = ({ vertical = false, onItemClick }: MenuProps) => {
                 >
                   {icon}
                 </span>
-                {/* Left-aligned label so the icon and text read as one unit. */}
-                <span className="text-left">{t(key)}</span>
+                {/* Centered label, bracketed by the icon and chevron. */}
+                <span className="text-center">{t(key)}</span>
                 {/* Chevron stays visible (touch has no hover) as a tap cue. */}
                 <span
                   className="justify-self-end text-[var(--color-accent)] opacity-40 transition-[opacity,transform] duration-200 group-hover:translate-x-0.5 group-hover:opacity-100"

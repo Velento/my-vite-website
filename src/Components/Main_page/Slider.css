@@ -568,7 +568,7 @@
 @media (max-width: 680px) {
   .slide-promo__inner {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
     padding: clamp(16px, 5vw, 32px) clamp(14px, 5vw, 32px);
     min-width: 0;
   }
@@ -576,6 +576,12 @@
     min-width: 0;
     max-width: 100%;
     width: 100%;
+    /* Center the promo copy on phones - left-aligned looked lopsided once
+       the price cards drop away. */
+    text-align: center;
+  }
+  .slide-promo__ctas {
+    justify-content: center;
   }
   .slide-promo__cards {
     display: none;
