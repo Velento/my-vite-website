@@ -175,6 +175,18 @@ const translations = {
   'map.address': 'Gdańsk, Polska',
   'reviews.title': 'Co mówią nasi klienci',
   'reviews.cta': 'Zostaw opinię na Google',
+  'reviews.0.author': 'Olena K.',
+  'reviews.0.city': 'Gdańsk',
+  'reviews.0.text':
+    'Bardzo polecam Legal Line! Dzięki ich pomocy otrzymałam kartę pobytu bez zbędnego stresu. Specjaliści wyjaśnili każdy krok, zebrali dokumenty i złożyli wniosek w moim imieniu. Czas oczekiwania był krótszy niż się spodziewałam.',
+  'reviews.1.author': 'Andrij M.',
+  'reviews.1.city': 'Gdynia',
+  'reviews.1.text':
+    'Profesjonalne i uczciwe podejście. Byłem sceptyczny co do ceny, ale po zakończeniu procesu widzę, że warto było zapłacić za spokój. Moja karta pobytu jest już w portfelu.',
+  'reviews.2.author': 'Natalia V.',
+  'reviews.2.city': 'Sopot',
+  'reviews.2.text':
+    'Zgłosiłam się z bardzo skomplikowaną sprawą - połączenie rodziny. Prawnicy Legal Line poradzili sobie świetnie. Jestem wdzięczna za cierpliwość i wsparcie przez cały czas.',
   cookieMessage:
     'Używamy pliki cookie! Ta strona używa niezbędnych plików cookie, aby zapewnić jej prawidłowe działanie i śledzących plików cookie, aby zrozumieć, w jaki sposób wchodzisz z nią w interakcję. Te ostatnie zostaną ustawione dopiero po wyrażeniu zgody.',
   allowMeToChoose: 'Pozwól mi wybrać',
