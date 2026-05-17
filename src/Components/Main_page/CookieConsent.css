@@ -50,7 +50,9 @@
   align-items: center;
   justify-content: center;
   border-radius: var(--radius-full);
-  transition: all var(--duration-fast) var(--ease);
+  transition:
+    background-color var(--duration-fast) var(--ease),
+    color var(--duration-fast) var(--ease);
   padding: 0;
 }
 
@@ -85,7 +87,10 @@
   font-size: 0.85rem;
   font-weight: 600;
   min-height: 44px;
-  transition: all var(--duration-base) var(--ease);
+  transition:
+    background-color var(--duration-base) var(--ease),
+    color var(--duration-base) var(--ease),
+    border-color var(--duration-base) var(--ease);
 }
 
 .accept-button {

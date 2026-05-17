@@ -51,7 +51,9 @@
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.45);
   opacity: 1;
   margin: 0 5px;
-  transition: all var(--duration-base) var(--ease);
+  transition:
+    background-color var(--duration-base) var(--ease),
+    transform var(--duration-base) var(--ease);
 }
 
 .slider-container .swiper-pagination-bullet:hover {
@@ -156,7 +158,10 @@
   border-radius: var(--radius-sm);
   text-decoration: none;
   box-shadow: 0 4px 20px rgba(184, 148, 62, 0.4);
-  transition: all var(--duration-base) var(--ease);
+  transition:
+    background-color var(--duration-base) var(--ease),
+    transform var(--duration-base) var(--ease),
+    box-shadow var(--duration-base) var(--ease);
   white-space: nowrap;
 }
 
@@ -299,7 +304,10 @@
   border-radius: var(--radius-sm);
   text-decoration: none;
   box-shadow: 0 4px 18px rgba(26, 35, 50, 0.25);
-  transition: all var(--duration-base) var(--ease);
+  transition:
+    background-color var(--duration-base) var(--ease),
+    transform var(--duration-base) var(--ease),
+    box-shadow var(--duration-base) var(--ease);
 }
 
 .slide-trust__cta:hover {
@@ -485,7 +493,10 @@
   border-radius: var(--radius-sm);
   text-decoration: none;
   box-shadow: 0 4px 20px rgba(184, 148, 62, 0.35);
-  transition: all var(--duration-base) var(--ease);
+  transition:
+    background-color var(--duration-base) var(--ease),
+    transform var(--duration-base) var(--ease),
+    box-shadow var(--duration-base) var(--ease);
   white-space: nowrap;
 }
 
@@ -629,7 +640,10 @@
   border-radius: var(--radius-sm);
   text-decoration: none;
   box-shadow: 0 4px 20px rgba(184, 148, 62, 0.4);
-  transition: all var(--duration-base) var(--ease);
+  transition:
+    background-color var(--duration-base) var(--ease),
+    transform var(--duration-base) var(--ease),
+    box-shadow var(--duration-base) var(--ease);
   white-space: nowrap;
 }
 

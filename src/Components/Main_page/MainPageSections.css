@@ -34,7 +34,7 @@
   padding: var(--space-xl);
   background: var(--color-bg);
   border-radius: var(--radius-md);
-  transition: all var(--duration-base) var(--ease);
+  transition: background-color var(--duration-base) var(--ease);
 }
 
 .benefit-item:hover {
@@ -83,7 +83,9 @@
   background: var(--color-bg);
   border-radius: var(--radius-lg);
   padding: var(--space-2xl);
-  transition: all var(--duration-base) var(--ease);
+  transition:
+    background-color var(--duration-base) var(--ease),
+    border-color var(--duration-base) var(--ease);
   border: 1px solid transparent;
 }
 
@@ -146,7 +148,9 @@
   border: 2px solid var(--color-primary);
   border-radius: var(--radius-sm);
   cursor: pointer;
-  transition: all var(--duration-base) var(--ease);
+  transition:
+    background-color var(--duration-base) var(--ease),
+    color var(--duration-base) var(--ease);
   text-decoration: none;
   text-align: center;
 }
@@ -224,7 +228,9 @@
   align-items: center;
   justify-content: center;
   border-radius: var(--radius-full);
-  transition: all var(--duration-fast) var(--ease);
+  transition:
+    background-color var(--duration-fast) var(--ease),
+    color var(--duration-fast) var(--ease);
   padding: 0;
   line-height: 1;
 }
@@ -260,7 +266,9 @@
   width: 30px;
   height: 30px;
   opacity: 0.7;
-  transition: all var(--duration-base) var(--ease);
+  transition:
+    opacity var(--duration-base) var(--ease),
+    transform var(--duration-base) var(--ease);
 }
 
 .contact-icons img:hover {

@@ -48,7 +48,9 @@
   border: 1px solid transparent;
   border-radius: var(--radius-md);
   background: var(--color-bg);
-  transition: all var(--duration-base) var(--ease);
+  transition:
+    background-color var(--duration-base) var(--ease),
+    border-color var(--duration-base) var(--ease);
   text-align: left;
   color: var(--color-text);
   position: relative;
@@ -99,7 +101,9 @@
   background: none;
   border: none;
   cursor: pointer;
-  transition: all var(--duration-fast) var(--ease);
+  transition:
+    color var(--duration-fast) var(--ease),
+    background-color var(--duration-fast) var(--ease);
 }
 
 .service-p:hover {
@@ -123,7 +127,13 @@
   border-radius: var(--radius-sm);
   cursor: pointer;
   margin: var(--space-sm) var(--space-sm) var(--space-sm) 0;
-  transition: all var(--duration-base) var(--ease);
+  /* Only the properties that actually change on hover - avoids `transition:
+     all` quietly animating layout properties (the non-composited-animation
+     Lighthouse insight). */
+  transition:
+    background-color var(--duration-base) var(--ease),
+    color var(--duration-base) var(--ease),
+    box-shadow var(--duration-base) var(--ease);
   position: relative;
   overflow: hidden;
 }
@@ -145,7 +155,9 @@
   font-size: 0.85rem;
   font-weight: 600;
   cursor: pointer;
-  transition: all var(--duration-base) var(--ease);
+  transition:
+    background-color var(--duration-base) var(--ease),
+    transform var(--duration-base) var(--ease);
 }
 
 .cost-details-btn:hover {

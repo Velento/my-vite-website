@@ -46,7 +46,9 @@
   font-size: 0.95rem;
   color: var(--color-text);
   background: var(--color-bg);
-  transition: all var(--duration-base) var(--ease);
+  transition:
+    border-color var(--duration-base) var(--ease),
+    box-shadow var(--duration-base) var(--ease);
   outline: none;
   line-height: 1.5;
   text-overflow: ellipsis;
@@ -152,7 +154,11 @@
   font-size: 0.95rem;
   font-weight: 600;
   cursor: pointer;
-  transition: all var(--duration-base) var(--ease);
+  transition:
+    background-color var(--duration-base) var(--ease),
+    color var(--duration-base) var(--ease),
+    transform var(--duration-base) var(--ease),
+    box-shadow var(--duration-base) var(--ease);
   background-color: var(--color-border);
   color: var(--color-text-tertiary);
   min-height: 48px;
@@ -191,7 +197,9 @@
   font-size: 0.9rem;
   font-weight: 500;
   cursor: pointer;
-  transition: all var(--duration-fast) var(--ease);
+  transition:
+    border-color var(--duration-fast) var(--ease),
+    color var(--duration-fast) var(--ease);
   min-height: 48px;
 }
 
