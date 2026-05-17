@@ -103,6 +103,11 @@ html {
      md+ where the horizontal nav adds a second sticky row. */
   scroll-padding-top: 5.5rem;
   -webkit-text-size-adjust: 100%;
+  /* Light-themed site: keep native UI (form controls, date pickers, scrollbars)
+     light even when the OS is in dark mode, and tint controls with the brand
+     accent instead of the browser-default blue. */
+  color-scheme: light;
+  accent-color: var(--color-accent);
   /* Belt-and-braces: clip any stray horizontal overflow at the document root.
      `clip` (rather than `hidden`) doesn't create a scroll container, so it
      prevents the page from being draggable sideways on touch devices while
@@ -194,6 +199,17 @@ button {
 button:focus-visible {
   outline: none;
   box-shadow: var(--shadow-focus);
+}
+
+/* Consistent keyboard-focus ring for links and native controls that do not
+   define their own. Outline (not box-shadow) so it is never clipped by an
+   overflow:hidden ancestor and follows the element's border-radius. */
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
 }
 
 /* ── Shared CTA Button Patterns ── */
