@@ -2,12 +2,12 @@
  * Server entry — used only at build time by scripts/prerender.mjs.
  *
  * Renders the app to a static HTML string so the browser can paint the
- * above-the-fold content before the client JS boots. The client still mounts
- * with `createRoot` (a clean render, not hydration), so this snapshot can
- * never cause a hydration mismatch — worst case it is replaced seamlessly.
+ * above-the-fold content before the client JS boots. The snapshot is rendered
+ * in the fallback language ('ru'); on boot the client hydrates it with
+ * `hydrateRoot` when the detected language matches, otherwise it does a clean
+ * `createRoot` render (see src/main.tsx) — either way no hydration mismatch.
  *
- * i18n is initialised synchronously with the fallback-language bundle; the
- * client re-detects the real language on boot and re-renders.
+ * i18n is initialised synchronously with the fallback-language bundle.
  */
 
 import { StrictMode } from 'react';

@@ -1,35 +1,72 @@
-import { Swiper, SwiperSlide } from 'swiper/react';
-import { Autoplay, EffectFade, Pagination, A11y } from 'swiper/modules';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { WHATSAPP_HREF } from '../../constants/contact';
-import 'swiper/css';
-import 'swiper/css/effect-fade';
-import 'swiper/css/pagination';
 import './Slider.css';
 
+const SLIDE_COUNT = 3;
+const AUTOPLAY_MS = 4500;
+const SWIPE_THRESHOLD_PX = 40;
+
+/**
+ * Lightweight hero slider — a crossfade carousel for three CSS-only slides.
+ * Replaces Swiper (~124 kB) since the banner has no images and only needs a
+ * fade, autoplay, dots and touch swipe.
+ */
 const SliderComponent = () => {
-  const { i18n, t } = useTranslation();
+  const { t } = useTranslation();
+  const [active, setActive] = useState(0);
+  const [paused, setPaused] = useState(false);
+  const touchStartX = useRef<number | null>(null);
+
+  const go = useCallback((index: number) => {
+    setActive(((index % SLIDE_COUNT) + SLIDE_COUNT) % SLIDE_COUNT);
+  }, []);
+
+  // Autoplay — the timer resets whenever `active` changes (autoplay or manual
+  // nav) so a manual jump gets the full interval before the next advance.
+  useEffect(() => {
+    if (paused) return undefined;
+    if (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) return undefined;
+    const id = setTimeout(() => setActive((a) => (a + 1) % SLIDE_COUNT), AUTOPLAY_MS);
+    return () => clearTimeout(id);
+  }, [active, paused]);
+
+  const onTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0]?.clientX ?? null;
+  };
+  const onTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartX.current === null) return;
+    const dx = (e.changedTouches[0]?.clientX ?? 0) - touchStartX.current;
+    if (Math.abs(dx) > SWIPE_THRESHOLD_PX) go(active + (dx < 0 ? 1 : -1));
+    touchStartX.current = null;
+  };
+
+  const slideLabel = (n: number) =>
+    t('slider.slideLabel', {
+      number: n,
+      total: SLIDE_COUNT,
+      defaultValue: `${n} / ${SLIDE_COUNT}`,
+    });
 
   return (
-    <section className="slider-container" aria-label={t('slider.bannerLabel')}>
+    <section
+      className="slider-container"
+      aria-label={t('slider.bannerLabel')}
+      aria-roledescription="carousel"
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+    >
       <h1 className="visually-hidden">{t('seo.h1')}</h1>
-      {/* `key={i18n.language}` forces Swiper to remount on language switch so
-          the text inside CSS slides refreshes immediately. */}
-      <Swiper
-        key={i18n.language}
-        modules={[Autoplay, EffectFade, Pagination, A11y]}
-        effect="fade"
-        fadeEffect={{ crossFade: true }}
-        loop
-        autoplay={{ delay: 4500, disableOnInteraction: false, pauseOnMouseEnter: true }}
-        speed={700}
-        pagination={{ clickable: true }}
-        a11y={{ enabled: true }}
-        slidesPerView={1}
-      >
+      <div className="slider-track" onTouchStart={onTouchStart} onTouchEnd={onTouchEnd}>
         {/* Slide 1 - hero positioning (CSS-only, dark navy + gold accent) */}
-        <SwiperSlide>
-          <div className="slide-hero" role="img" aria-label={t('slider.heroSlide.title')}>
+        <div
+          className={`slider-slide${active === 0 ? ' is-active' : ''}`}
+          role="group"
+          aria-roledescription="slide"
+          aria-label={slideLabel(1)}
+          aria-hidden={active !== 0}
+        >
+          <div className="slide-hero">
             <div className="slide-hero__inner">
               <span className="slide-hero__badge">{t('slider.heroSlide.badge')}</span>
               <h2 className="slide-hero__title">{t('slider.heroSlide.title')}</h2>
@@ -49,11 +86,17 @@ const SliderComponent = () => {
               </div>
             </div>
           </div>
-        </SwiperSlide>
+        </div>
 
         {/* Slide 2 - trust / guarantees (CSS-only, light card with bullets) */}
-        <SwiperSlide>
-          <div className="slide-trust" role="img" aria-label={t('slider.trustSlide.title')}>
+        <div
+          className={`slider-slide${active === 1 ? ' is-active' : ''}`}
+          role="group"
+          aria-roledescription="slide"
+          aria-label={slideLabel(2)}
+          aria-hidden={active !== 1}
+        >
+          <div className="slide-trust">
             <div className="slide-trust__inner">
               <h2 className="slide-trust__title">{t('slider.trustSlide.title')}</h2>
               <ul className="slide-trust__list">
@@ -68,11 +111,17 @@ const SliderComponent = () => {
               </a>
             </div>
           </div>
-        </SwiperSlide>
+        </div>
 
         {/* Slide 3 - promotional pricing banner (CSS-only, no image needed) */}
-        <SwiperSlide>
-          <div className="slide-promo" role="img" aria-label={t('slider.promoSlide.title')}>
+        <div
+          className={`slider-slide${active === 2 ? ' is-active' : ''}`}
+          role="group"
+          aria-roledescription="slide"
+          aria-label={slideLabel(3)}
+          aria-hidden={active !== 2}
+        >
+          <div className="slide-promo">
             <div className="slide-promo__inner">
               <div className="slide-promo__copy">
                 <span className="slide-promo__badge">{t('slider.promoSlide.badge')}</span>
@@ -102,8 +151,22 @@ const SliderComponent = () => {
               </div>
             </div>
           </div>
-        </SwiperSlide>
-      </Swiper>
+        </div>
+      </div>
+
+      {/* Pagination dots */}
+      <div className="slider-dots">
+        {([0, 1, 2] as const).map((i) => (
+          <button
+            key={i}
+            type="button"
+            className={`slider-dot${active === i ? ' is-active' : ''}`}
+            aria-label={slideLabel(i + 1)}
+            aria-current={active === i}
+            onClick={() => go(i)}
+          />
+        ))}
+      </div>
 
       <div className="hero-cta">
         <p className="hero-cta__subtitle">

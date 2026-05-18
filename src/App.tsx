@@ -1,4 +1,5 @@
 import { lazy, Suspense } from 'react';
+import { useTranslation } from 'react-i18next';
 import Header from './Components/Header/Header';
 import Footer from './Components/Footer/Footer';
 import MainPage from './Components/Main_page/Main_page';
@@ -10,10 +11,12 @@ import ScrollToTop from './Components/Floating/ScrollToTop';
 const CookieConsent = lazy(() => import('./Components/Main_page/CookieConsent'));
 
 function App() {
+  const { t } = useTranslation();
+
   return (
     <div className="App">
       <a href="#main-content" className="skip-nav">
-        Skip to main content
+        {t('a11y.skipToContent', 'Skip to main content')}
       </a>
       <Header />
       <MainPage />

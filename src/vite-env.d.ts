@@ -1,13 +1,11 @@
 /// <reference types="vite/client" />
 
-declare module 'swiper/css';
-declare module 'swiper/css/*';
-
 interface ImportMetaEnv {
   readonly VITE_GOOGLE_ADS_CONVERSION_ID?: string;
   readonly VITE_TELEGRAM_BOT_TOKEN?: string;
   readonly VITE_TELEGRAM_CHAT_ID?: string;
   readonly VITE_FORM_PROXY_URL?: string;
+  readonly VITE_HCAPTCHA_SITE_KEY?: string;
 }
 
 interface ImportMeta {

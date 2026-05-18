@@ -1,4 +1,4 @@
-/* ── Hero Slider - Swiper Edition ── */
+/* ── Hero Slider - lightweight custom crossfade ── */
 .slider-container {
   width: 100%;
   margin: 0 auto;
@@ -6,61 +6,82 @@
   position: relative;
 }
 
-/* Wymusza spójną wysokość każdego slajdu w trybie fade - bez tego slajdy o
-   różnych proporcjach (zwłaszcza overlay slide 3) powodują skoki layoutu. */
-.slider-container .swiper-slide {
+/* The track holds the stacked slides and locks the banner aspect ratio so
+   slides of different content height never cause a layout shift. */
+.slider-track {
+  position: relative;
+  width: 100%;
   aspect-ratio: 1961 / 582;
-  width: 100%;
 }
 
-.slider-container .swiper-slide picture {
-  display: block;
-  width: 100%;
-  height: 100%;
+/* Slides are absolutely stacked; only the active one is opaque. visibility
+   (delayed off) keeps the outgoing slide painted through the crossfade, then
+   removes it from the tab order + accessibility tree. */
+.slider-slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 700ms var(--ease),
+    visibility 0s linear 700ms;
 }
 
-.slider-container .swiper-slide img {
-  width: 100%;
-  height: 100%;
-  display: block;
-  object-fit: cover;
+.slider-slide.is-active {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 700ms var(--ease);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .slider-slide {
+    transition: none;
+  }
 }
 
 /* On phones go taller (portrait-ish) so the content-heavy slides (trust list
    with 4 bullets, hero with title + paragraph + two CTAs) breathe vertically
    instead of cramming into a landscape rectangle. */
 @media (max-width: 480px) {
-  .slider-container .swiper-slide {
+  .slider-track {
     aspect-ratio: 4 / 5;
   }
 }
 
 /* ── Pagination dots ── */
-.slider-container .swiper-pagination {
+.slider-dots {
+  position: absolute;
+  left: 0;
+  right: 0;
   bottom: var(--space-lg);
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
 }
 
 /* Two-tone bullets so they stay visible on both light and dark slide
    backgrounds - dark fill with a bright white border + soft dark drop
    shadow gives contrast in either direction. */
-.slider-container .swiper-pagination-bullet {
+.slider-dot {
   width: 11px;
   height: 11px;
+  padding: 0;
+  border-radius: 50%;
   background: rgba(0, 0, 0, 0.45);
   border: 2px solid rgba(255, 255, 255, 0.9);
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.45);
-  opacity: 1;
-  margin: 0 5px;
+  cursor: pointer;
   transition:
     background-color var(--duration-base) var(--ease),
     transform var(--duration-base) var(--ease);
 }
 
-.slider-container .swiper-pagination-bullet:hover {
+.slider-dot:hover {
   background: rgba(0, 0, 0, 0.6);
 }
 
-.slider-container .swiper-pagination-bullet-active {
+.slider-dot.is-active {
   background: var(--color-accent);
   border-color: white;
   transform: scale(1.25);

@@ -39,8 +39,9 @@ export default defineConfig({
         background_color: '#ffffff',
         lang: 'pl',
         icons: [
-          { src: '/og-image.jpg', sizes: '192x192', type: 'image/jpeg', purpose: 'any' },
-          { src: '/og-image.jpg', sizes: '512x512', type: 'image/jpeg', purpose: 'any' },
+          { src: '/favicon-192.png', sizes: '192x192', type: 'image/png', purpose: 'any' },
+          { src: '/favicon-512.png', sizes: '512x512', type: 'image/png', purpose: 'any' },
+          { src: '/favicon-512.png', sizes: '512x512', type: 'image/png', purpose: 'maskable' },
         ],
       },
       workbox: {
@@ -108,9 +109,6 @@ export default defineConfig({
             }
             if (id.includes('i18next') || id.includes('react-i18next')) {
               return 'vendor-i18n';
-            }
-            if (id.includes('swiper')) {
-              return 'vendor-swiper';
             }
             // Form libs (react-hook-form, zod, hcaptcha) only load when
             // ContactModal opens — keep them out of the initial bundle.

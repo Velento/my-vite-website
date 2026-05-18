@@ -18,6 +18,7 @@ function Logo() {
           className="logo-image"
           width={600}
           height={244}
+          fetchPriority="high"
           decoding="async"
         />
       </button>

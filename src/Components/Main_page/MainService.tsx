@@ -1,9 +1,10 @@
-import { useState } from 'react';
+import { useState, lazy, Suspense } from 'react';
 import './MainService.css';
 import Modal from './Modal';
-import ContactModal from './ContactModal';
 import { useTranslation } from 'react-i18next';
 import type { TFunction } from 'i18next';
+
+const ContactModal = lazy(() => import('./ContactModal'));
 
 const SERVICE_KEYS = [
   { id: 'Service1', labelKey: 'services.temporaryResidenceCard' },
@@ -227,7 +228,9 @@ const Services = () => {
             {showMoreInfo && <MoreInfoService serviceName={activeService} t={t} />}
             {showProcessingTime && <ProcessingTime serviceName={activeService} t={t} />}
             {showContactModal && (
-              <ContactModal show={showContactModal} onClose={handleCloseModal} />
+              <Suspense fallback={null}>
+                <ContactModal show={showContactModal} onClose={handleCloseModal} />
+              </Suspense>
             )}
           </Modal>
         )}

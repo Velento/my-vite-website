@@ -22,12 +22,46 @@
   margin: var(--space-md) auto 0;
 }
 
-/* ── Slider ── */
+/* ── Carousel - native CSS scroll-snap ── */
+.team-carousel {
+  position: relative;
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+.team-track {
+  list-style: none;
+  margin: 0;
+  padding: 4px;
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.team-track::-webkit-scrollbar {
+  display: none;
+}
+
+/* One card per view on phones, two on tablet, four on desktop. The basis
+   subtracts the inter-card gaps so exactly N cards fill the viewport. */
 .team-slide {
-  padding: 0 var(--space-sm);
-  will-change: transform;
-  transform: translateZ(0);
-  backface-visibility: hidden;
+  flex: 0 0 100%;
+  scroll-snap-align: center;
+}
+
+@media (min-width: 600px) {
+  .team-slide {
+    flex-basis: calc((100% - 16px) / 2);
+  }
+}
+
+@media (min-width: 1024px) {
+  .team-slide {
+    flex-basis: calc((100% - 48px) / 4);
+  }
 }
 
 .team-slide img,
@@ -47,37 +81,47 @@
   box-shadow: var(--shadow-md);
 }
 
-.team-section .swiper-wrapper {
+/* ── Prev / next arrows - overlaid on the carousel edges ── */
+.team-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  display: flex;
   align-items: center;
-}
-
-.team-section .swiper-pagination {
-  position: relative;
-  margin-top: var(--space-lg);
-}
-
-.team-section .swiper-pagination-bullet {
-  background: var(--color-primary);
-  opacity: 0.2;
-  transition: opacity var(--duration-fast) var(--ease);
-}
-
-.team-section .swiper-pagination-bullet-active {
-  background: var(--color-accent);
-  opacity: 0.8;
-}
-
-.team-section .swiper-button-prev,
-.team-section .swiper-button-next {
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--color-bg);
   color: var(--color-accent);
-  width: 36px;
-  height: 36px;
+  box-shadow: var(--shadow-md);
+  transition:
+    background-color var(--duration-base) var(--ease),
+    color var(--duration-base) var(--ease),
+    transform var(--duration-base) var(--ease);
 }
 
-.team-section .swiper-button-prev::after,
-.team-section .swiper-button-next::after {
-  font-size: 18px;
-  font-weight: 700;
+.team-nav svg {
+  width: 18px;
+  height: 18px;
+}
+
+.team-nav--prev {
+  left: -6px;
+}
+
+.team-nav--next {
+  right: -6px;
+}
+
+.team-nav:hover {
+  background: var(--color-accent);
+  color: white;
+}
+
+.team-nav:active {
+  transform: translateY(-50%) scale(0.92);
 }
 
 /* ── Mission ── */
