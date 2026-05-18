@@ -152,20 +152,21 @@ const SliderComponent = () => {
             </div>
           </div>
         </div>
-      </div>
 
-      {/* Pagination dots */}
-      <div className="slider-dots">
-        {([0, 1, 2] as const).map((i) => (
-          <button
-            key={i}
-            type="button"
-            className={`slider-dot${active === i ? ' is-active' : ''}`}
-            aria-label={slideLabel(i + 1)}
-            aria-current={active === i}
-            onClick={() => go(i)}
-          />
-        ))}
+        {/* Pagination dots - inside the track so they overlay the slides,
+            not the hero CTA block that follows. */}
+        <div className="slider-dots">
+          {([0, 1, 2] as const).map((i) => (
+            <button
+              key={i}
+              type="button"
+              className={`slider-dot${active === i ? ' is-active' : ''}`}
+              aria-label={slideLabel(i + 1)}
+              aria-current={active === i}
+              onClick={() => go(i)}
+            />
+          ))}
+        </div>
       </div>
 
       <div className="hero-cta">
