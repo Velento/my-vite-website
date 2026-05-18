@@ -180,7 +180,7 @@ const translations = {
     'Dziękujemy za zgłoszenie! Nasi specjaliści już walczą o to, kto pierwszy do ciebie zadzwoni:)',
   actionToCall: 'Zadzwoń',
   'map.title': 'Nasz Biuro',
-  'map.address': 'Wały Piastowskie 1, 80-854 Gdańsk (Centrum Biznesu Zieleniak)',
+  'map.address': 'Wały Piastowskie 1, 80-958 Gdańsk (Centrum Biznesu Zieleniak)',
   'reviews.title': 'Co mówią nasi klienci',
   'reviews.cta': 'Zostaw opinię na Google',
   'reviews.starsAria': '5 na 5 gwiazdek',

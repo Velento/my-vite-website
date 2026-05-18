@@ -181,7 +181,7 @@ const translations = {
     'Дякуємо за запит! Наші спеціалісти вже змагаються за те, хто швидше до вас зателефонує:)',
   actionToCall: 'Зателефонувати',
   'map.title': 'Наш Офіс',
-  'map.address': 'Wały Piastowskie 1, 80-854 Gdańsk (Centrum Biznesu Zieleniak)',
+  'map.address': 'Wały Piastowskie 1, 80-958 Gdańsk (Centrum Biznesu Zieleniak)',
   'reviews.title': 'Що кажуть наші клієнти',
   'reviews.cta': 'Залишити відгук у Google',
   'reviews.starsAria': '5 з 5 зірок',
