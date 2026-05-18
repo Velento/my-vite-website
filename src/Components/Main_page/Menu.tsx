@@ -191,7 +191,7 @@ const Menu = ({ vertical = false, onItemClick }: MenuProps) => {
         <ul
           className={[
             'm-0 inline-flex list-none flex-wrap items-center justify-center',
-            'gap-x-1.5 gap-y-1 lg:gap-x-2',
+            'gap-x-3 gap-y-1.5 lg:gap-x-5',
             'max-w-full p-0',
           ].join(' ')}
         >
