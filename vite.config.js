@@ -24,6 +24,10 @@ export default defineConfig({
     }),
     VitePWA({
       registerType: 'autoUpdate',
+      // Inline the tiny SW-registration snippet instead of emitting a separate
+      // /registerSW.js — that external script was render-blocking on the
+      // critical path. Inline = no extra request, no blocking.
+      injectRegister: 'inline',
       includeAssets: ['og-image.jpg', '~partytown/*.js'],
       manifestFilename: 'manifest.webmanifest',
       // We already ship a hand-written public/manifest.webmanifest — re-declare

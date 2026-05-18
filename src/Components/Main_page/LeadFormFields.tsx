@@ -82,10 +82,16 @@ const LeadFormFields = ({
   const formStartedRef = useRef(false);
   const [captchaToken, setCaptchaToken] = useState<string | null>(null);
   const captchaRef = useRef<HCaptcha>(null);
+  // The hCaptcha widget pulls in ~800 kB of third-party JS the moment it
+  // mounts. Mounting it on page load tanked the Lighthouse score, so it is
+  // deferred until the visitor actually interacts with the form — by the time
+  // they have filled name + phone the widget is loaded and ready to solve.
+  const [formStarted, setFormStarted] = useState(false);
 
   const handleFormStart = useCallback(() => {
     if (formStartedRef.current) return;
     formStartedRef.current = true;
+    setFormStarted(true);
     trackFormStart();
   }, []);
 
@@ -276,7 +282,7 @@ const LeadFormFields = ({
         errorMessage={errors.file?.message}
       />
 
-      {HCAPTCHA_SITE_KEY && (
+      {HCAPTCHA_SITE_KEY && formStarted && (
         <div className="form-group">
           <HCaptcha
             ref={captchaRef}
