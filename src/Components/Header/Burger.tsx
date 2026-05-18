@@ -73,16 +73,17 @@ function Burger() {
               aria-modal="true"
               aria-label={t('header.menu', 'Menu')}
             >
-              {/* Header strip — brand + close X */}
-              <div className="flex items-center justify-between border-b border-[var(--color-border-light)] bg-[var(--color-bg-alt)] px-6 py-4">
-                <span className="font-[var(--font-heading)] text-[1.05rem] font-bold tracking-[0.18em] text-[var(--color-primary)]">
-                  LEGAL&nbsp;LINE
+              {/* Header strip — brand centered, close X absolute right */}
+              <div className="relative flex items-center justify-center border-b border-[var(--color-border-light)] bg-[var(--color-bg-alt)] px-6 py-5">
+                <span className="font-[var(--font-heading)] text-[1.35rem] font-bold tracking-[0.22em] text-[var(--color-primary)]">
+                  LEGAL LINE
                 </span>
                 <button
                   type="button"
                   onClick={close}
                   aria-label={t('feedbackForm.cancel', 'Close')}
                   className={[
+                    'absolute right-4 top-1/2 -translate-y-1/2',
                     'flex h-10 w-10 items-center justify-center rounded-full border border-[var(--color-border)] bg-white text-[var(--color-primary)]',
                     'transition-[border-color,background-color,color,transform] duration-200',
                     'hover:border-[var(--color-accent)] hover:bg-[var(--color-accent)] hover:text-white hover:shadow-[0_2px_12px_rgba(184,148,62,0.35)]',
