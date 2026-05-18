@@ -33,10 +33,31 @@ const ThankYou = ({ name, onClose }: ThankYouProps) => {
               />
             </svg>
           </button>
+
+          {/* Animated success badge — gold disc with a checkmark that draws in. */}
+          <div className="thank-you-icon" aria-hidden="true">
+            <span className="thank-you-icon__ring" />
+            <svg viewBox="0 0 24 24" focusable="false">
+              <path
+                className="thank-you-icon__tick"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="3"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M5 13l4.5 4.5L19 7"
+              />
+            </svg>
+          </div>
+
           <h3 className="thank-you-title" id="thank-you-title">
             {t('textThankYou')}, {name}
           </h3>
           <p className="thank-you-text">{t('textThank')}</p>
+
+          <button type="button" className="thank-you-action" onClick={onClose}>
+            {t('thankYou.done', 'Gotowe')}
+          </button>
         </div>
       </div>
     </FocusTrap>

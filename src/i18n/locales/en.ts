@@ -177,6 +177,7 @@ const translations = {
   'header.callAriaLabel': 'Call us for a free consultation',
   'header.callLabel': 'Free consultation',
   textThankYou: 'Thank you',
+  'thankYou.done': 'Done',
   textThank: 'Your application has been successfully submitted. We will call you!',
   messageAlert:
     'Thank you for your request! Our specialists are already fighting to see who will call you first:)',

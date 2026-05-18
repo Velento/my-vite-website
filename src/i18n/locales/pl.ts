@@ -174,6 +174,7 @@ const translations = {
   'header.callAriaLabel': 'Zadzwoń do nas bezpłatnie',
   'header.callLabel': 'Bezpłatna konsultacja',
   textThankYou: 'Dziękuję',
+  'thankYou.done': 'Gotowe',
   textThank: 'Twoje zgłoszenie zostało pomyślnie złożone. Zadzwonimy do Ciebie!',
   messageAlert:
     'Dziękujemy za zgłoszenie! Nasi specjaliści już walczą o to, kto pierwszy do ciebie zadzwoni:)',

@@ -437,14 +437,108 @@ img {
 .thank-you-card {
   position: relative;
   width: 92%;
-  max-width: 420px;
-  padding: 56px 32px 36px;
+  max-width: 430px;
+  padding: 44px 34px 34px;
   background: var(--color-bg);
   border-radius: var(--radius-lg);
   text-align: center;
   box-shadow: var(--shadow-xl);
   animation: thankYouPop 350ms var(--ease);
   box-sizing: border-box;
+}
+
+/* Animated success badge — gold disc, soft halo ring, checkmark drawn in. */
+.thank-you-icon {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 22px;
+  border-radius: 50%;
+  color: white;
+  background: linear-gradient(140deg, var(--color-accent) 0%, var(--color-accent-hover) 100%);
+  box-shadow: 0 10px 26px rgba(184, 148, 62, 0.4);
+  animation: thankYouIconPop 480ms var(--ease) both;
+}
+
+.thank-you-icon__ring {
+  position: absolute;
+  inset: -9px;
+  border-radius: 50%;
+  border: 2px solid rgba(184, 148, 62, 0.25);
+  animation: thankYouRing 620ms var(--ease) 120ms both;
+}
+
+.thank-you-icon svg {
+  width: 40px;
+  height: 40px;
+  position: relative;
+}
+
+.thank-you-icon__tick {
+  stroke-dasharray: 26;
+  stroke-dashoffset: 26;
+  animation: thankYouTick 420ms var(--ease) 280ms forwards;
+}
+
+@keyframes thankYouIconPop {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(1.12);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes thankYouRing {
+  0% {
+    transform: scale(0.6);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes thankYouTick {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.thank-you-action {
+  margin-top: 26px;
+  width: 100%;
+  padding: 13px 24px;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: white;
+  background: var(--color-primary);
+  border: 2px solid var(--color-primary);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition:
+    background-color var(--duration-base) var(--ease),
+    color var(--duration-base) var(--ease);
+}
+
+.thank-you-action:hover {
+  background: transparent;
+  color: var(--color-primary);
+}
+
+.thank-you-action:active {
+  transform: scale(0.98);
 }
 
 .thank-you-close {
@@ -490,10 +584,11 @@ img {
 }
 
 .thank-you-title {
-  margin: 0 0 var(--space-md);
+  margin: 0 0 10px;
   font-family: var(--font-heading);
-  font-size: 1.35rem;
+  font-size: 1.5rem;
   font-weight: 600;
+  letter-spacing: -0.01em;
   color: var(--color-primary);
   /* No truncate - long names like "Alexandra-Maria" should wrap, not get
      chopped with an ellipsis. */
@@ -503,21 +598,30 @@ img {
 
 .thank-you-text {
   margin: 0;
-  font-size: 0.92rem;
-  line-height: 1.6;
+  font-size: 0.96rem;
+  line-height: 1.65;
   color: var(--color-text-secondary);
 }
 
 @media (max-width: 480px) {
   .thank-you-card {
     width: 94%;
-    padding: 52px 22px 28px;
+    padding: 38px 22px 28px;
+  }
+  .thank-you-icon {
+    width: 70px;
+    height: 70px;
+    margin-bottom: 18px;
+  }
+  .thank-you-icon svg {
+    width: 35px;
+    height: 35px;
   }
   .thank-you-title {
-    font-size: 1.2rem;
+    font-size: 1.3rem;
   }
   .thank-you-text {
-    font-size: 0.88rem;
+    font-size: 0.9rem;
   }
 }
 
@@ -527,6 +631,14 @@ img {
   .section,
   .team-slide {
     animation: none;
+  }
+  .thank-you-icon,
+  .thank-you-icon__ring {
+    animation: none;
+  }
+  .thank-you-icon__tick {
+    animation: none;
+    stroke-dashoffset: 0;
   }
 }
 

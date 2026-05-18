@@ -174,6 +174,7 @@ const translations = {
   'header.callAriaLabel': 'Позвонить нам бесплатно',
   'header.callLabel': 'Бесплатная консультация',
   textThankYou: 'Спасибо',
+  'thankYou.done': 'Готово',
   textThank: 'Ваша заявка оформлена успешно. Мы вам позвоним!',
   messageAlert:
     'Спасибо за заявку! Наши специалисты уже бьются за то, кто быстрее до вас дозвонится:)',
