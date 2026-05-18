@@ -1,6 +1,7 @@
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, EffectFade, Pagination, A11y } from 'swiper/modules';
 import { useTranslation } from 'react-i18next';
+import { WHATSAPP_HREF } from '../../constants/contact';
 import 'swiper/css';
 import 'swiper/css/effect-fade';
 import 'swiper/css/pagination';
@@ -38,7 +39,7 @@ const SliderComponent = () => {
                   {t('slider.heroSlide.ctaPrimary')}
                 </a>
                 <a
-                  href="https://wa.me/48883734171"
+                  href={WHATSAPP_HREF}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="slide-hero__cta slide-hero__cta--ghost"

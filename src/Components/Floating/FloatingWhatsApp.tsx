@@ -1,15 +1,14 @@
 import { useTranslation } from 'react-i18next';
 import { trackContactClick } from '../../services/analytics';
+import { WHATSAPP_HREF } from '../../constants/contact';
 import './FloatingWhatsApp.css';
-
-const WHATSAPP_NUMBER = '+48883734171';
 
 const FloatingWhatsApp = () => {
   const { t } = useTranslation();
 
   return (
     <a
-      href={`https://wa.me/${WHATSAPP_NUMBER.replace(/\D/g, '')}`}
+      href={WHATSAPP_HREF}
       target="_blank"
       rel="noopener noreferrer"
       aria-label={t('floatingWhatsApp.label', 'Napisz na WhatsApp')}

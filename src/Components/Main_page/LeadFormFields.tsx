@@ -10,7 +10,7 @@ import { leadFormSchema, type LeadFormValues } from '../../services/validation';
 import { loadDraft, useFormDraft } from '../../hooks/useFormDraft';
 import HCaptcha from '@hcaptcha/react-hcaptcha';
 
-const WHATSAPP_FALLBACK_NUMBER = '+48883734171';
+import { WHATSAPP_HREF } from '../../constants/contact';
 
 /** hCaptcha site key (public). When unset, the captcha widget is omitted and
  *  the form submits without it, so the lead form never breaks on a misconfig. */
@@ -51,7 +51,7 @@ function buildWhatsAppFallbackUrl(values: {
   ];
   if (values.promo) lines.push(`Kod promocyjny: ${values.promo}`);
   const text = encodeURIComponent(lines.join('\n'));
-  return `https://wa.me/${WHATSAPP_FALLBACK_NUMBER.replace(/\D/g, '')}?text=${text}`;
+  return `${WHATSAPP_HREF}?text=${text}`;
 }
 
 type LeadFormFieldsProps = {

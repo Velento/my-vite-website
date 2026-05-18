@@ -1,8 +1,5 @@
-/**
- * Viber deep-link helper — shared between Contacts and ContactModal.
- */
+import { VIBER_HREF } from '../constants/contact';
 
-const VIBER_URL = 'viber://chat?number=%2B48883734171';
 const FALLBACK_URL = 'https://www.viber.com/download/';
 const VIBER_REDIRECT_DELAY_MS = 500;
 
@@ -11,7 +8,7 @@ const VIBER_REDIRECT_DELAY_MS = 500;
  */
 export function openViberChat(e: { preventDefault: () => void }): void {
   e.preventDefault();
-  window.location.href = VIBER_URL;
+  window.location.href = VIBER_HREF;
 
   setTimeout(() => {
     if (!document.hasFocus()) return;

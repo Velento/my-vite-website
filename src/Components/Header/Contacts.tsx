@@ -4,13 +4,14 @@ import whatsappIcon from '../images/whatsapp.png';
 import viberIcon from '../images/viber.png';
 import { openViberChat } from '../../services/viber';
 import { trackContactClick } from '../../services/analytics';
+import { WHATSAPP_HREF, TELEGRAM_HREF } from '../../constants/contact';
 
 function Contacts() {
   return (
     <div className="header-contacts burger-header-contacts">
       <div className="div_icons">
         <a
-          href="https://t.me/LegalLine_pl"
+          href={TELEGRAM_HREF}
           target="_blank"
           rel="noopener noreferrer"
           onClick={() => trackContactClick('telegram')}
@@ -26,7 +27,7 @@ function Contacts() {
           />
         </a>
         <a
-          href="https://wa.me/+48883734171"
+          href={WHATSAPP_HREF}
           target="_blank"
           rel="noopener noreferrer"
           onClick={() => trackContactClick('whatsapp')}

@@ -8,6 +8,7 @@ import { useTranslation } from 'react-i18next';
 import FeedbackForm from './FeedBackForm';
 import { openViberChat } from '../../services/viber';
 import { trackContactClick } from '../../services/analytics';
+import { PHONE_NUMBER, PHONE_HREF, WHATSAPP_HREF, TELEGRAM_HREF } from '../../constants/contact';
 
 type ContactModalProps = {
   show: boolean;
@@ -67,13 +68,13 @@ const ContactModal = ({ show, onClose }: ContactModalProps) => {
               <h2>{t('modal.title')}</h2>
               <p style={{ textAlign: 'center' }}>
                 {t('modal.call')}{' '}
-                <a href="tel:+48883734171" onClick={() => trackContactClick('phone')}>
-                  +48883734171
+                <a href={PHONE_HREF} onClick={() => trackContactClick('phone')}>
+                  {PHONE_NUMBER}
                 </a>
               </p>
               <div className="contact-icons">
                 <a
-                  href="https://t.me/LegalLine_pl"
+                  href={TELEGRAM_HREF}
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() => trackContactClick('telegram')}
@@ -88,7 +89,7 @@ const ContactModal = ({ show, onClose }: ContactModalProps) => {
                   />
                 </a>
                 <a
-                  href="https://wa.me/+48883734171"
+                  href={WHATSAPP_HREF}
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() => trackContactClick('whatsapp')}

@@ -14,7 +14,7 @@ const ReviewCard = ({ index }: ReviewCardProps) => {
   const { t } = useTranslation();
   return (
     <article className="review-card">
-      <div className="review-card__stars" aria-label="5 na 5 gwiazdek">
+      <div className="review-card__stars" aria-label={t('reviews.starsAria')}>
         {'★'.repeat(5)}
       </div>
       <p className="review-card__text">{t(`reviews.${index}.text`)}</p>

@@ -7,6 +7,16 @@ import viberIcon from '../images/viber-white.png';
 import instagramIcon from '../images/instagram-white.png';
 import { useTranslation } from 'react-i18next';
 import { trackContactClick } from '../../services/analytics';
+import {
+  PHONE_NUMBER,
+  PHONE_HREF,
+  WHATSAPP_HREF,
+  VIBER_HREF,
+  TELEGRAM_HREF,
+  INSTAGRAM_HREF,
+  EMAIL,
+  EMAIL_HREF,
+} from '../../constants/contact';
 
 /**
  * Site footer — contacts, company info, services links, scroll-to-top button.
@@ -30,12 +40,12 @@ const Footer = () => {
               decoding="async"
             />
             <a
-              href="tel:+48883734171"
+              href={PHONE_HREF}
               className="footer-contact-link"
               onClick={() => trackContactClick('phone')}
             >
               {' '}
-              +48883734171
+              {PHONE_NUMBER}
             </a>
           </div>
           <div className="icon-text">
@@ -49,7 +59,7 @@ const Footer = () => {
               decoding="async"
             />
             <a
-              href="https://t.me/LegalLine_pl"
+              href={TELEGRAM_HREF}
               className="footer-contact-link"
               target="_blank"
               rel="noopener noreferrer"
@@ -70,7 +80,7 @@ const Footer = () => {
               decoding="async"
             />
             <a
-              href="https://wa.me/+48883734171"
+              href={WHATSAPP_HREF}
               className="footer-contact-link"
               target="_blank"
               rel="noopener noreferrer"
@@ -91,7 +101,7 @@ const Footer = () => {
               decoding="async"
             />
             <a
-              href="viber://chat?number=%2B48883734171"
+              href={VIBER_HREF}
               className="footer-contact-link"
               target="_blank"
               rel="noopener noreferrer"
@@ -112,7 +122,7 @@ const Footer = () => {
               decoding="async"
             />
             <a
-              href="https://www.instagram.com/legal_line_pl/"
+              href={INSTAGRAM_HREF}
               className="footer-contact-link"
               target="_blank"
               rel="noopener noreferrer"
@@ -131,8 +141,8 @@ const Footer = () => {
           <p>{t('footer.address')}</p>
           <p>{t('footer.timework')}</p>
           <p>
-            <a href="mailto:legalline.pl@gmail.com" onClick={() => trackContactClick('email')}>
-              legalline.pl@gmail.com
+            <a href={EMAIL_HREF} onClick={() => trackContactClick('email')}>
+              {EMAIL}
             </a>
           </p>
           <p>
@@ -143,12 +153,12 @@ const Footer = () => {
           <h2>{t('footer.services')}</h2>
           <p>
             <a href="#pricelist" className="footer-contact-link">
-              Karta czasowego pobytu
+              {t('footer.serviceLink1')}
             </a>
           </p>
           <p>
             <a href="#pricelist" className="footer-contact-link">
-              Karta stałego pobytu
+              {t('footer.serviceLink2')}
             </a>
           </p>
         </div>

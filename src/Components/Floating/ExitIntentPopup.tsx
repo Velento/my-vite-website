@@ -2,12 +2,12 @@ import { useEffect, useState } from 'react';
 import FocusTrap from 'focus-trap-react';
 import { useTranslation } from 'react-i18next';
 import { trackContactClick, trackPopupShown } from '../../services/analytics';
+import { WHATSAPP_HREF } from '../../constants/contact';
 import './ExitIntentPopup.css';
 
 const STORAGE_KEY = 'll_exit_intent_seen_v1';
 const MIN_TIME_ON_PAGE_MS = 8000;
 const DESKTOP_QUERY = '(min-width: 1024px)';
-const WHATSAPP_NUMBER = '+48883734171';
 
 const ExitIntentPopup = () => {
   const { t } = useTranslation();
@@ -122,7 +122,7 @@ const ExitIntentPopup = () => {
           </ul>
           <div className="exit-popup__ctas">
             <a
-              href={`https://wa.me/${WHATSAPP_NUMBER.replace(/\D/g, '')}`}
+              href={WHATSAPP_HREF}
               target="_blank"
               rel="noopener noreferrer"
               className="exit-popup__cta exit-popup__cta--primary"
