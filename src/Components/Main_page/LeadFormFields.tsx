@@ -82,18 +82,43 @@ const LeadFormFields = ({
   const formStartedRef = useRef(false);
   const [captchaToken, setCaptchaToken] = useState<string | null>(null);
   const captchaRef = useRef<HCaptcha>(null);
+  const formRef = useRef<HTMLFormElement>(null);
   // The hCaptcha widget pulls in ~800 kB of third-party JS the moment it
-  // mounts. Mounting it on page load tanked the Lighthouse score, so it is
-  // deferred until the visitor actually interacts with the form — by the time
-  // they have filled name + phone the widget is loaded and ready to solve.
-  const [formStarted, setFormStarted] = useState(false);
+  // mounts. Mounting it on first paint tanked the Lighthouse score, so it is
+  // deferred until the form scrolls into view (or the visitor focuses a
+  // field) — the widget is on screen by the time anyone reaches the form,
+  // but never loads during the initial above-the-fold paint.
+  const [showCaptcha, setShowCaptcha] = useState(false);
 
   const handleFormStart = useCallback(() => {
+    setShowCaptcha(true);
     if (formStartedRef.current) return;
     formStartedRef.current = true;
-    setFormStarted(true);
     trackFormStart();
   }, []);
+
+  // Mount the captcha once the form nears the viewport. The inline form sits
+  // far below the fold, so this keeps hCaptcha out of the initial page load
+  // (Lighthouse never scrolls) while making it visible for real visitors.
+  useEffect(() => {
+    if (showCaptcha) return undefined;
+    const el = formRef.current;
+    if (!el || typeof IntersectionObserver === 'undefined') {
+      setShowCaptcha(true);
+      return undefined;
+    }
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((entry) => entry.isIntersecting)) {
+          setShowCaptcha(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: '200px' }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [showCaptcha]);
 
   const {
     register,
@@ -215,7 +240,7 @@ const LeadFormFields = ({
   const fileId = `${idPrefix}-file`;
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} onFocus={handleFormStart} noValidate>
+    <form ref={formRef} onSubmit={handleSubmit(onSubmit)} onFocus={handleFormStart} noValidate>
       <div className={`form-group ${nameError ? 'form-group--error' : ''}`}>
         <label htmlFor={nameId}>{t('feedbackForm.name')}</label>
         <input
@@ -282,7 +307,7 @@ const LeadFormFields = ({
         errorMessage={errors.file?.message}
       />
 
-      {HCAPTCHA_SITE_KEY && formStarted && (
+      {HCAPTCHA_SITE_KEY && showCaptcha && (
         <div className="form-group">
           <HCaptcha
             ref={captchaRef}
