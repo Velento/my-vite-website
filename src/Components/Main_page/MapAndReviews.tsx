@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next';
 import './MapAndReviews.css';
 
 const GOOGLE_MAPS_EMBED_URL =
-  'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2324.5!2d18.6466!3d54.352!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNTTCsDIxJzA3LjIiTiAxOMKwMzgnNDcuOCJF!5e0!3m2!1spl!2spl!4v1700000000000';
+  'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2310.86!2d18.6443675!3d54.3585319!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46fd737127f1c78f%3A0x72fedb70b40640db!2sWa%C5%82y%20Piastowskie%201%2C%2080-854%20Gda%C5%84sk!5e0!3m2!1spl!2spl!4v1716999999999';
 
 const GOOGLE_REVIEW_URL = 'https://www.google.com/search?q=Legal+Line+Gdansk';
 
