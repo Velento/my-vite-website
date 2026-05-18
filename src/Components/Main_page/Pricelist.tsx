@@ -5,6 +5,7 @@ import './Pricelist.css';
 import iconCheak from '../images/play_point.svg';
 import iconPobit from '../images/icon_pricelist_pobit.svg';
 import ContactModal from '../Main_page/ContactModal';
+import { trackPackageSelected, trackCTAClick } from '../../services/analytics';
 
 const FEATURE_COUNTS = {
   allInclusive: 6,
@@ -16,10 +17,17 @@ const FEATURE_COUNTS = {
 type PackageKey = keyof typeof FEATURE_COUNTS;
 const PACKAGE_KEYS: PackageKey[] = ['allInclusive', 'standard', 'ultra', 'basic'];
 
+const PACKAGE_VALUES: Record<PackageKey, number> = {
+  basic: 750,
+  standard: 1100,
+  allInclusive: 1850,
+  ultra: 2400,
+};
+
 type PackageCardProps = {
   pkg: PackageKey;
   t: TFunction;
-  onOrder: () => void;
+  onOrder: (pkg: PackageKey) => void;
 };
 
 const PackageCard = ({ pkg, t, onOrder }: PackageCardProps) => {
@@ -59,7 +67,7 @@ const PackageCard = ({ pkg, t, onOrder }: PackageCardProps) => {
         ))}
       </ul>
       {note && <p className="pkg-note">{note}</p>}
-      <button type="button" className="pkg-order-btn" onClick={onOrder}>
+      <button type="button" className="pkg-order-btn" onClick={() => onOrder(pkg)}>
         {t('packages.orderBtn')}
       </button>
     </div>
@@ -116,7 +124,11 @@ const Pricelist = () => {
     [t]
   );
 
-  const handleShowModal = () => setShowContactModal(true);
+  const handleShowModal = (pkg?: PackageKey) => {
+    if (pkg) trackPackageSelected(pkg, PACKAGE_VALUES[pkg]);
+    else trackCTAClick('pricelist_service');
+    setShowContactModal(true);
+  };
   const handleCloseModal = () => setShowContactModal(false);
 
   return (
@@ -126,7 +138,7 @@ const Pricelist = () => {
       <p className="pricelist-promo">{t('packages.promo')}</p>
       <div className="pkg-grid">
         {PACKAGE_KEYS.map((pkg) => (
-          <PackageCard key={pkg} pkg={pkg} t={t} onOrder={handleShowModal} />
+          <PackageCard key={pkg} pkg={pkg} t={t} onOrder={(p) => handleShowModal(p)} />
         ))}
       </div>
 
@@ -164,7 +176,7 @@ const Pricelist = () => {
               <button type="button" className="price-button" disabled>
                 {service.price}
               </button>
-              <button type="button" className="service-btn" onClick={handleShowModal}>
+              <button type="button" className="service-btn" onClick={() => handleShowModal()}>
                 {t('consult_button')}
               </button>
             </div>

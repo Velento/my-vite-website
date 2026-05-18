@@ -2,6 +2,7 @@ import { useState, memo } from 'react';
 import './MainPageSections.css';
 import { useTranslation } from 'react-i18next';
 import ContactModal from './ContactModal';
+import { trackCTAClick } from '../../services/analytics';
 import sectionMoney from '../images/section_money.svg';
 import sectionService from '../images/section_service.svg';
 import icon1 from '../images/icon1.svg';
@@ -56,7 +57,14 @@ const Section = memo(function Section({
           {buttonText}
         </a>
       ) : (
-        <button type="button" className="section__cta" onClick={() => setShowContactModal(true)}>
+        <button
+          type="button"
+          className="section__cta"
+          onClick={() => {
+            trackCTAClick(title);
+            setShowContactModal(true);
+          }}
+        >
           {buttonText}
         </button>
       )}

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import FocusTrap from 'focus-trap-react';
 import { useTranslation } from 'react-i18next';
-import { trackContactClick, trackPopupShown } from '../../services/analytics';
+import { trackContactClick, trackCTAClick, trackPopupShown } from '../../services/analytics';
 import { WHATSAPP_HREF } from '../../constants/contact';
 import './ExitIntentPopup.css';
 
@@ -63,6 +63,7 @@ const ExitIntentPopup = () => {
 
   const scrollToForm = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
+    trackCTAClick('exit_popup_fill_form');
     close();
     requestAnimationFrame(() => {
       const target = document.getElementById('leedform');

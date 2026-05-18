@@ -173,3 +173,37 @@ export function trackPopupShown(name: string): void {
     event_label: name,
   });
 }
+
+/**
+ * Fires when the user clicks a pricing package "Order" button.
+ *
+ * Passing the real package value lets Google Ads Smart Bidding distinguish a
+ * 2 400 PLN Ultra lead from a 750 PLN Basic one and optimize bids accordingly.
+ * Meta Pixel maps this to AddToCart with content_name + value.
+ */
+export function trackPackageSelected(packageName: string, value: number): void {
+  safeDataLayerPush({
+    event: 'package_selected',
+    event_category: 'lead',
+    event_label: packageName,
+    package_name: packageName,
+    value,
+    currency: 'PLN',
+  });
+
+  if (typeof window !== 'undefined' && typeof window.fbq === 'function') {
+    window.fbq('track', 'AddToCart', { content_name: packageName, value, currency: 'PLN' });
+  }
+}
+
+/**
+ * Fires when a generic CTA button (section card, exit popup form link, etc.)
+ * is clicked. Useful as a micro-conversion signal in Google Ads.
+ */
+export function trackCTAClick(label: string): void {
+  safeDataLayerPush({
+    event: 'cta_click',
+    event_category: 'engagement',
+    event_label: label,
+  });
+}
