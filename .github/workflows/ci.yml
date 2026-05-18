@@ -2,7 +2,7 @@ name: CI
 
 on:
   push:
-    branches: [my-vite-website, 'feature/**']
+    branches: [my-vite-website, 'feat/**', 'feature/**']
   pull_request:
     branches: [my-vite-website]
 

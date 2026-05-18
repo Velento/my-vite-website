@@ -12,6 +12,9 @@ const CookieConsent = lazy(() => import('./Components/Main_page/CookieConsent'))
 function App() {
   return (
     <div className="App">
+      <a href="#main-content" className="skip-nav">
+        Skip to main content
+      </a>
       <Header />
       <MainPage />
       <Footer />

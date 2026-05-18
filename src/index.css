@@ -520,3 +520,23 @@ img {
     animation: none;
   }
 }
+
+/* ── Skip navigation (keyboard accessibility) ── */
+.skip-nav {
+  position: absolute;
+  top: -100%;
+  left: 0;
+  padding: 12px 20px;
+  background: var(--color-primary);
+  color: white;
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-decoration: none;
+  border-radius: 0 0 var(--radius-sm) 0;
+  z-index: 10000;
+  transition: top var(--duration-fast) var(--ease);
+}
+
+.skip-nav:focus {
+  top: 0;
+}

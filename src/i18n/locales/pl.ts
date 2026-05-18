@@ -140,6 +140,7 @@ const translations = {
   'exitPopup.perk3': 'Gwarancja zwrotu pieniędzy',
   'exitPopup.ctaWhatsApp': 'Napisz na WhatsApp',
   'exitPopup.ctaForm': 'Wypełnij formularz',
+  'slider.bannerLabel': 'Pokaz slajdów z ofertą Legal Line',
   'slider.alt': 'Legal Line - usługi imigracyjne w Gdańsku, slajd {{index}}',
   'slider.heroSlide.badge': 'KARTA POBYTU · LEGALIZACJA · OBYWATELSTWO',
   'slider.heroSlide.title': 'Twoja karta pobytu - bez stresu, bez błędów',

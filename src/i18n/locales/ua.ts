@@ -141,6 +141,7 @@ const translations = {
   'exitPopup.perk3': 'Гарантія повернення коштів',
   'exitPopup.ctaWhatsApp': 'Написати у WhatsApp',
   'exitPopup.ctaForm': 'Заповнити форму',
+  'slider.bannerLabel': 'Слайдер з пропозиціями Legal Line',
   'slider.alt': 'Legal Line - імміграційні послуги у Гданську, слайд {{index}}',
   'slider.heroSlide.badge': 'КАРТА ПОБУТУ · ЛЕГАЛІЗАЦІЯ · ГРОМАДЯНСТВО',
   'slider.heroSlide.title': 'Твоя карта побуту - без стресу та помилок',
