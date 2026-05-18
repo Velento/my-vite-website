@@ -1,8 +1,9 @@
-import { useState, memo } from 'react';
+import { useState, memo, lazy, Suspense } from 'react';
 import './MainPageSections.css';
 import { useTranslation } from 'react-i18next';
-import ContactModal from './ContactModal';
 import { trackCTAClick } from '../../services/analytics';
+
+const ContactModal = lazy(() => import('./ContactModal'));
 import sectionMoney from '../images/section_money.svg';
 import sectionService from '../images/section_service.svg';
 import icon1 from '../images/icon1.svg';
@@ -68,7 +69,9 @@ const Section = memo(function Section({
           {buttonText}
         </button>
       )}
-      <ContactModal show={showContactModal} onClose={() => setShowContactModal(false)} />
+      <Suspense fallback={null}>
+        <ContactModal show={showContactModal} onClose={() => setShowContactModal(false)} />
+      </Suspense>
     </article>
   );
 });

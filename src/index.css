@@ -330,15 +330,24 @@ img {
   background: var(--color-text-tertiary);
 }
 
-/* ── Scroll-triggered fade-in (replaces framer-motion's whileInView).
-   Component <FadeInOnScroll> toggles `.is-visible` via IntersectionObserver. ── */
+/* ── Scroll-triggered fade-in.
+   Base class has no opacity:0 so prerendered / no-JS content is always visible.
+   JS adds .will-animate only to elements that are off-screen on load, then
+   .fade-animated enables the transition, and .is-visible reveals the element. ── */
 .fade-in-on-scroll {
+  /* visible by default */
+}
+
+.fade-in-on-scroll.will-animate {
   opacity: 0;
   transform: translateY(var(--fade-in-y, 24px));
+  will-change: opacity, transform;
+}
+
+.fade-in-on-scroll.fade-animated {
   transition:
     opacity 600ms var(--ease) var(--fade-in-delay, 0s),
     transform 600ms var(--ease) var(--fade-in-delay, 0s);
-  will-change: opacity, transform;
 }
 
 .fade-in-on-scroll.is-visible {
@@ -347,7 +356,7 @@ img {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .fade-in-on-scroll {
+  .fade-in-on-scroll.will-animate {
     opacity: 1;
     transform: none;
     transition: none;

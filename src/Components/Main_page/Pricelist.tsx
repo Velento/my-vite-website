@@ -1,11 +1,12 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, lazy, Suspense } from 'react';
 import { useTranslation } from 'react-i18next';
 import type { TFunction } from 'i18next';
 import './Pricelist.css';
 import iconCheak from '../images/play_point.svg';
 import iconPobit from '../images/icon_pricelist_pobit.svg';
-import ContactModal from '../Main_page/ContactModal';
 import { trackPackageSelected, trackCTAClick } from '../../services/analytics';
+
+const ContactModal = lazy(() => import('../Main_page/ContactModal'));
 
 const FEATURE_COUNTS = {
   allInclusive: 6,
@@ -183,7 +184,9 @@ const Pricelist = () => {
           </div>
         ))}
       </div>
-      <ContactModal show={showContactModal} onClose={handleCloseModal} />
+      <Suspense fallback={null}>
+        <ContactModal show={showContactModal} onClose={handleCloseModal} />
+      </Suspense>
     </section>
   );
 };

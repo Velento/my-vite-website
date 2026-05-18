@@ -112,6 +112,19 @@ export default defineConfig({
             if (id.includes('swiper')) {
               return 'vendor-swiper';
             }
+            // Form libs (react-hook-form, zod, hcaptcha) only load when
+            // ContactModal opens — keep them out of the initial bundle.
+            if (
+              id.includes('react-hook-form') ||
+              id.includes('@hookform') ||
+              id.includes('/zod/') ||
+              id.includes('hcaptcha')
+            ) {
+              return 'vendor-forms';
+            }
+            if (id.includes('focus-trap') || id.includes('tabbable')) {
+              return 'vendor-focus-trap';
+            }
           }
         },
       },

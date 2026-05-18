@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import type { ReactNode } from 'react';
 
 type FadeInOnScrollProps = {
@@ -9,46 +9,52 @@ type FadeInOnScrollProps = {
 
 const FadeInOnScroll = ({ children, delay = 0, y = 24 }: FadeInOnScrollProps) => {
   const ref = useRef<HTMLDivElement | null>(null);
-  const [visible, setVisible] = useState(false);
 
   useEffect(() => {
     const el = ref.current;
     if (!el) return undefined;
 
-    if (
-      typeof window !== 'undefined' &&
-      window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
-    ) {
-      setVisible(true);
-      return undefined;
-    }
+    if (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) return undefined;
+    if (typeof IntersectionObserver === 'undefined') return undefined;
 
-    if (typeof IntersectionObserver === 'undefined') {
-      setVisible(true);
-      return undefined;
-    }
+    // If element is already at or near the viewport on page load, skip the
+    // animation — hiding visible content after hydration causes a flash.
+    const rect = el.getBoundingClientRect();
+    if (rect.top < window.innerHeight * 1.1 && rect.bottom > 0) return undefined;
+
+    // Element is off-screen — safe to hide and animate on scroll.
+    // Add will-animate WITHOUT transition first so the instant hide is not animated.
+    el.classList.add('will-animate');
+
+    // One frame later: enable the transition so the reveal animates smoothly.
+    const rafId = requestAnimationFrame(() => {
+      el.classList.add('fade-animated');
+    });
 
     const observer = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
           if (entry.isIntersecting) {
-            setVisible(true);
+            el.classList.add('is-visible');
             observer.disconnect();
             break;
           }
         }
       },
-      { threshold: 0.15 }
+      { threshold: 0.05 }
     );
 
     observer.observe(el);
-    return () => observer.disconnect();
+    return () => {
+      observer.disconnect();
+      cancelAnimationFrame(rafId);
+    };
   }, []);
 
   return (
     <div
       ref={ref}
-      className={`fade-in-on-scroll${visible ? ' is-visible' : ''}`}
+      className="fade-in-on-scroll"
       style={
         {
           '--fade-in-y': `${y}px`,
