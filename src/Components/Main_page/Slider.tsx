@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { WHATSAPP_HREF } from '../../constants/contact';
+import { prefersReducedMotion } from '../../utils/motion';
 import './Slider.css';
 
 const SLIDE_COUNT = 3;
@@ -26,7 +27,7 @@ const SliderComponent = () => {
   // nav) so a manual jump gets the full interval before the next advance.
   useEffect(() => {
     if (paused) return undefined;
-    if (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) return undefined;
+    if (prefersReducedMotion()) return undefined;
     const id = setTimeout(() => setActive((a) => (a + 1) % SLIDE_COUNT), AUTOPLAY_MS);
     return () => clearTimeout(id);
   }, [active, paused]);

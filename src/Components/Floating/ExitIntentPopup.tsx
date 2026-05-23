@@ -3,6 +3,8 @@ import FocusTrap from 'focus-trap-react';
 import { useTranslation } from 'react-i18next';
 import { trackContactClick, trackCTAClick, trackPopupShown } from '../../services/analytics';
 import { WHATSAPP_HREF } from '../../constants/contact';
+import { scrollToElement } from '../../utils/scroll';
+import CloseIcon from '../common/CloseIcon';
 import './ExitIntentPopup.css';
 
 const STORAGE_KEY = 'll_exit_intent_seen_v1';
@@ -65,10 +67,7 @@ const ExitIntentPopup = () => {
     e.preventDefault();
     trackCTAClick('exit_popup_fill_form');
     close();
-    requestAnimationFrame(() => {
-      const target = document.getElementById('leedform');
-      if (target) target.scrollIntoView({ behavior: 'smooth' });
-    });
+    scrollToElement('leedform');
   };
 
   return (
@@ -92,19 +91,7 @@ const ExitIntentPopup = () => {
             onClick={close}
             aria-label={t('exitPopup.close', 'Zamknij')}
           >
-            <svg
-              width="16"
-              height="16"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2.5"
-              strokeLinecap="round"
-              aria-hidden="true"
-            >
-              <line x1="6" y1="6" x2="18" y2="18" />
-              <line x1="18" y1="6" x2="6" y2="18" />
-            </svg>
+            <CloseIcon />
           </button>
           <span className="exit-popup__badge">{t('exitPopup.badge', 'Czekaj!')}</span>
           <h2 id="exit-popup-title" className="exit-popup__title">

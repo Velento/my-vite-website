@@ -2,17 +2,17 @@ import { useState, useEffect, useRef } from 'react';
 import './Header.css';
 import globeIcon from '../images/globe.png';
 import { useTranslation } from 'react-i18next';
-import { loadBundle, type Lang } from '../../i18n';
+import { loadBundle, isSupportedLang, LANG_STORAGE_KEY, type Lang } from '../../i18n';
 
-const SUPPORTED_LANGS = ['RU', 'UA', 'PL', 'EN', 'BY'] as const;
-const STORAGE_KEY = 'legal_line_lang';
+/** Display order in the dropdown (intentionally differs from the i18n init order). */
+const DISPLAY_LANGS: readonly Lang[] = ['ru', 'ua', 'pl', 'en', 'by'];
 
 function LanguageSwitcher() {
   const { i18n, t } = useTranslation();
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement | null>(null);
 
-  const currentLang = (i18n.language ?? 'ru').toUpperCase();
+  const currentLang = (i18n.language ?? 'ru').toLowerCase();
 
   useEffect(() => {
     if (!dropdownOpen) return undefined;
@@ -32,20 +32,18 @@ function LanguageSwitcher() {
     };
   }, [dropdownOpen]);
 
-  const selectLanguage = async (lang: string) => {
-    const lower = lang.toLowerCase() as Lang;
-    await loadBundle(lower);
-    void i18n.changeLanguage(lower);
-    localStorage.setItem(STORAGE_KEY, lower);
+  const selectLanguage = async (lang: Lang) => {
+    await loadBundle(lang);
+    void i18n.changeLanguage(lang);
+    localStorage.setItem(LANG_STORAGE_KEY, lang);
 
     // Sync URL path so the language is shareable / refresh-safe.
     const url = new URL(window.location.href);
     const pathSegments = url.pathname.split('/').filter(Boolean);
-    const langs = ['ru', 'pl', 'ua', 'en', 'by'];
-    if (pathSegments.length && langs.includes(pathSegments[0]?.toLowerCase() ?? '')) {
-      pathSegments[0] = lower;
+    if (pathSegments.length && isSupportedLang(pathSegments[0]?.toLowerCase())) {
+      pathSegments[0] = lang;
     } else {
-      pathSegments.unshift(lower);
+      pathSegments.unshift(lang);
     }
     url.pathname = '/' + pathSegments.join('/') + '/';
     window.history.pushState({}, '', url);
@@ -72,14 +70,14 @@ function LanguageSwitcher() {
           decoding="async"
           aria-hidden="true"
         />
-        {currentLang}
+        {currentLang.toUpperCase()}
       </button>
       {dropdownOpen && (
         <ul className="language-dropdown" role="listbox">
-          {SUPPORTED_LANGS.map((lang) => (
+          {DISPLAY_LANGS.map((lang) => (
             <li key={lang} role="option" aria-selected={lang === currentLang}>
               <button type="button" onClick={() => selectLanguage(lang)}>
-                {lang}
+                {lang.toUpperCase()}
               </button>
             </li>
           ))}

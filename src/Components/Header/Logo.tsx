@@ -1,10 +1,7 @@
 import './Header.css';
 import logo from '../images/logo_legal_line.png';
 import { useTranslation } from 'react-i18next';
-
-function scrollToTop() {
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-}
+import { scrollToTop } from '../../utils/scroll';
 
 function Logo() {
   const { t } = useTranslation();

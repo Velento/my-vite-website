@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react';
 import type { ReactNode } from 'react';
+import { prefersReducedMotion } from '../../utils/motion';
 
 type FadeInOnScrollProps = {
   children: ReactNode;
@@ -14,7 +15,7 @@ const FadeInOnScroll = ({ children, delay = 0, y = 24 }: FadeInOnScrollProps) =>
     const el = ref.current;
     if (!el) return undefined;
 
-    if (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) return undefined;
+    if (prefersReducedMotion()) return undefined;
     if (typeof IntersectionObserver === 'undefined') return undefined;
 
     // If element is already at or near the viewport on page load, skip the

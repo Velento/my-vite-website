@@ -5,6 +5,7 @@ import MainPageSections from './MainPageSections';
 import Pricelist from './Pricelist';
 import Menu from './Menu';
 import FadeInOnScroll from './FadeInOnScroll';
+import { scrollToElement } from '../../utils/scroll';
 
 const LeedForm = lazy(() => import('./LeedForm'));
 const Promotions = lazy(() => import('./Promotions'));
@@ -16,14 +17,8 @@ const MapAndReviews = lazy(() => import('./MapAndReviews'));
 
 const MainPage = () => {
   useEffect(() => {
-    const hash = window.location.hash;
-    if (hash === '#leedform') {
-      requestAnimationFrame(() => {
-        const targetElement = document.getElementById('leedform');
-        if (targetElement) {
-          targetElement.scrollIntoView({ behavior: 'smooth' });
-        }
-      });
+    if (window.location.hash === '#leedform') {
+      scrollToElement('leedform');
     }
   }, []);
 

@@ -1,10 +1,16 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, lazy, Suspense } from 'react';
 import FocusTrap from 'focus-trap-react';
 import Contacts from './Contacts';
 import Menu from '../Main_page/Menu';
 import LanguageSwitcher from './LanguageSwitcher';
+import CloseIcon from '../common/CloseIcon';
 import { useTranslation } from 'react-i18next';
-import ContactModal from '../Main_page/ContactModal';
+
+// Lazy-loaded: a static import here would pull ContactModal — and its form
+// deps (react-hook-form, zod, hCaptcha) — into the eager Header bundle,
+// defeating the code-splitting set up in vite.config.js. Match the other
+// consumers (Pricelist, MainService, MainPageSections) and load on demand.
+const ContactModal = lazy(() => import('../Main_page/ContactModal'));
 
 function Burger() {
   const [isOpen, setIsOpen] = useState(false);
@@ -90,19 +96,7 @@ function Burger() {
                     'active:scale-95',
                   ].join(' ')}
                 >
-                  <svg
-                    width="18"
-                    height="18"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2.5"
-                    strokeLinecap="round"
-                    aria-hidden="true"
-                  >
-                    <line x1="6" y1="6" x2="18" y2="18" />
-                    <line x1="18" y1="6" x2="6" y2="18" />
-                  </svg>
+                  <CloseIcon size={18} />
                 </button>
               </div>
 
@@ -125,7 +119,12 @@ function Burger() {
                 >
                   {t('footer.question')}
                 </button>
-                <ContactModal show={showContactModal} onClose={() => setShowContactModal(false)} />
+                <Suspense fallback={null}>
+                  <ContactModal
+                    show={showContactModal}
+                    onClose={() => setShowContactModal(false)}
+                  />
+                </Suspense>
                 <div className="mt-4 flex items-center justify-center">
                   <Contacts />
                 </div>

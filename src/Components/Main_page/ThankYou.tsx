@@ -1,5 +1,6 @@
 import FocusTrap from 'focus-trap-react';
 import { useTranslation } from 'react-i18next';
+import CloseIcon from '../common/CloseIcon';
 
 type ThankYouProps = {
   name: string;
@@ -23,15 +24,7 @@ const ThankYou = ({ name, onClose }: ThankYouProps) => {
         {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */}
         <div className="thank-you-card" onClick={(e) => e.stopPropagation()}>
           <button type="button" className="thank-you-close" onClick={onClose} aria-label="Close">
-            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-              <path
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2.4"
-                strokeLinecap="round"
-                d="M6 6l12 12M18 6L6 18"
-              />
-            </svg>
+            <CloseIcon size={18} />
           </button>
 
           {/* Animated success badge — gold disc with a checkmark that draws in. */}

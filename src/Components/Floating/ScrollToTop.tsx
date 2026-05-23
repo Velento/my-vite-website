@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { scrollToTop } from '../../utils/scroll';
 import './ScrollToTop.css';
 
 const VISIBLE_AFTER_PX = 480;
@@ -32,26 +33,11 @@ const ScrollToTop = () => {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  const handleClick = () => {
-    // Use smooth scroll where supported, fall back to instant scroll only
-    // when the browser truly doesn't understand the options object. Calling
-    // both forms kills the smooth animation, which made the page look like
-    // it was being "cut" - the smooth scroll started, then the instant
-    // fallback teleported the viewport to 0 mid-animation.
-    const supportsSmooth =
-      typeof document !== 'undefined' && 'scrollBehavior' in document.documentElement.style;
-    if (supportsSmooth) {
-      window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
-    } else {
-      window.scrollTo(0, 0);
-    }
-  };
-
   return (
     <button
       type="button"
       className={`scroll-to-top ${visible ? 'scroll-to-top--visible' : ''}`}
-      onClick={handleClick}
+      onClick={scrollToTop}
       aria-label="Scroll to top"
       tabIndex={visible ? 0 : -1}
     >

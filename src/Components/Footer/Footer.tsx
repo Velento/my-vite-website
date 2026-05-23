@@ -1,5 +1,4 @@
 import './Footer.css';
-import '../Main_page/Modal.css';
 import phoneIcon from '../images/phone-white.png';
 import telegramIcon from '../images/telegram-white.png';
 import whatsappIcon from '../images/whatsapp-white.png';

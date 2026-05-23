@@ -10,6 +10,7 @@
  */
 
 import { useEffect, useRef, useState } from 'react';
+import { prefersReducedMotion } from '../utils/motion';
 
 /** Ease-out cubic — fast start, gentle settle. */
 const easeOutCubic = (t: number): number => 1 - Math.pow(1 - t, 3);
@@ -31,10 +32,7 @@ export function useCountUp(
     const [, prefix, digits, suffix] = match;
     const target = Number(digits);
 
-    const reducedMotion =
-      typeof window !== 'undefined' &&
-      window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
-    if (reducedMotion || typeof IntersectionObserver === 'undefined') {
+    if (prefersReducedMotion() || typeof IntersectionObserver === 'undefined') {
       return undefined; // Leave the final value in place.
     }
 

@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { trackContactClick } from '../../services/analytics';
 import { PHONE_HREF, WHATSAPP_HREF } from '../../constants/contact';
+import { scrollToTop, scrollToElement } from '../../utils/scroll';
 import './StickyMobileBar.css';
 
 const SCROLL_THRESHOLD_PX = 380;
@@ -29,19 +30,7 @@ const StickyMobileBar = () => {
 
   const scrollToForm = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
-    const target = document.getElementById('leedform');
-    if (target) target.scrollIntoView({ behavior: 'smooth' });
-  };
-
-  const scrollToTop = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    const supportsSmooth =
-      typeof document !== 'undefined' && 'scrollBehavior' in document.documentElement.style;
-    if (supportsSmooth) {
-      window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
-    } else {
-      window.scrollTo(0, 0);
-    }
+    scrollToElement('leedform');
   };
 
   return (

@@ -1,10 +1,18 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 
-const SUPPORTED_LANGS = ['ru', 'pl', 'ua', 'en', 'by'] as const;
+export const SUPPORTED_LANGS = ['ru', 'pl', 'ua', 'en', 'by'] as const;
 type Lang = (typeof SUPPORTED_LANGS)[number];
 
+/** localStorage key for the visitor's chosen language. Single source of truth. */
+export const LANG_STORAGE_KEY = 'legal_line_lang';
+
 const FALLBACK: Lang = 'ru';
+
+/** Type guard: true when `value` is one of the supported language codes. */
+export function isSupportedLang(value: string | null | undefined): value is Lang {
+  return typeof value === 'string' && (SUPPORTED_LANGS as readonly string[]).includes(value);
+}
 
 // Each locale is its own chunk — only the detected language is loaded for
 // the initial paint. Other languages are fetched on first switch.
@@ -19,13 +27,9 @@ const loaders: Record<Lang, () => Promise<{ default: Record<string, unknown> }>>
 function detectLanguage(): Lang {
   if (typeof window === 'undefined') return FALLBACK;
   const segment = window.location.pathname.split('/')[1]?.toLowerCase();
-  if (segment && (SUPPORTED_LANGS as readonly string[]).includes(segment)) {
-    return segment as Lang;
-  }
-  const saved = window.localStorage?.getItem('legal_line_lang');
-  if (saved && (SUPPORTED_LANGS as readonly string[]).includes(saved)) {
-    return saved as Lang;
-  }
+  if (isSupportedLang(segment)) return segment;
+  const saved = window.localStorage?.getItem(LANG_STORAGE_KEY);
+  if (isSupportedLang(saved)) return saved;
   return FALLBACK;
 }
 
@@ -78,8 +82,8 @@ i18n.on('languageChanged', (lng) => {
   if (typeof document !== 'undefined') {
     document.documentElement.lang = htmlLangFor(lng);
   }
-  if ((SUPPORTED_LANGS as readonly string[]).includes(lng)) {
-    void loadBundle(lng as Lang);
+  if (isSupportedLang(lng)) {
+    void loadBundle(lng);
   }
 });
 
