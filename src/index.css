@@ -364,6 +364,27 @@ img {
   }
 }
 
+/* Shared modal/overlay animations (used by Modal, FeedBackForm, CookieConsent). */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(12px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
 /* ── CRO: Scroll Reveal Animation ── */
 @keyframes revealUp {
   from {
