@@ -112,13 +112,15 @@ const MainPageSections = () => {
     <>
       <section className="benefits-intro" id="advantages">
         <h2 className="benefits-intro__title">{t('benefits.title')}</h2>
-        {BENEFIT_KEYS.map((key) => (
-          <BenefitItem
-            key={key}
-            title={t(`benefits.${key}.title`)}
-            content={t(`benefits.${key}.content`)}
-          />
-        ))}
+        <div className="benefits-grid">
+          {BENEFIT_KEYS.map((key) => (
+            <BenefitItem
+              key={key}
+              title={t(`benefits.${key}.title`)}
+              content={t(`benefits.${key}.content`)}
+            />
+          ))}
+        </div>
       </section>
 
       <section className="main-page-sections">

@@ -29,25 +29,40 @@
   margin: var(--space-md) auto 0;
 }
 
+.benefits-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: var(--space-lg);
+}
+
 .benefit-item {
-  margin-bottom: var(--space-lg);
   padding: var(--space-xl);
   background: var(--color-bg);
+  border: 1px solid var(--color-border-light);
   border-radius: var(--radius-md);
-  transition: background-color var(--duration-base) var(--ease);
+  transition:
+    transform var(--duration-base) var(--ease),
+    box-shadow var(--duration-base) var(--ease),
+    border-color var(--duration-base) var(--ease);
 }
 
 .benefit-item:hover {
-  background: var(--color-bg-alt);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--color-accent);
 }
 
+/* Icon in a soft gold chip at the top of the card. */
 .benefit-item__icon,
 .benefit-icon {
-  width: 24px;
-  height: 24px;
-  margin-right: var(--space-sm);
-  vertical-align: middle;
-  opacity: 0.6;
+  width: 22px;
+  height: 22px;
+  padding: 10px;
+  box-sizing: content-box;
+  display: block;
+  margin: 0 0 var(--space-md);
+  background: rgba(184, 148, 62, 0.12);
+  border-radius: var(--radius-md);
 }
 
 .benefit-item__title,
@@ -80,18 +95,22 @@
 
 /* ── Section Card - weightless ── */
 .section {
+  display: flex;
+  flex-direction: column;
   background: var(--color-bg);
   border-radius: var(--radius-lg);
   padding: var(--space-2xl);
   transition:
-    background-color var(--duration-base) var(--ease),
+    transform var(--duration-base) var(--ease),
+    box-shadow var(--duration-base) var(--ease),
     border-color var(--duration-base) var(--ease);
-  border: 1px solid transparent;
+  border: 1px solid var(--color-border-light);
 }
 
 .section:hover {
-  background: var(--color-bg-alt);
-  border-color: var(--color-border-light);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--color-accent);
 }
 
 .section__title,
@@ -105,11 +124,19 @@
 
 .section__icon,
 .section-icon {
-  width: 40px;
-  height: auto;
+  width: 26px;
+  height: 26px;
+  padding: 12px;
+  box-sizing: content-box;
   display: block;
   margin: 0 auto var(--space-md);
-  opacity: 0.7;
+  background: rgba(184, 148, 62, 0.12);
+  border-radius: var(--radius-md);
+}
+
+/* Push the CTA to the bottom so the two cards line up. */
+.section__cta {
+  margin-top: auto;
 }
 
 .section__content,

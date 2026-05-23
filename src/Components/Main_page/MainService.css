@@ -32,7 +32,7 @@
 }
 
 .service-item-wrapper {
-  margin-bottom: 6px;
+  margin-bottom: var(--space-sm);
 }
 
 /* ── Accordion Item ── */
@@ -77,8 +77,9 @@
 }
 
 .service-item.active {
-  background: var(--color-bg-alt);
-  border-color: var(--color-border);
+  background: var(--color-bg);
+  border-color: var(--color-accent);
+  box-shadow: 0 2px 14px rgba(184, 148, 62, 0.12);
 }
 
 /* ── Expanded Details ── */
