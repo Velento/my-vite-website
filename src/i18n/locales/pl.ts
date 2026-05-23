@@ -8,13 +8,21 @@ const translations = {
   'menu.about': 'O nas',
   'menu.contact': 'Informacje',
   'menu.feedback': 'Zostaw zapytanie',
-  'servicespromo.0.title': 'PROMOCJE',
-  'servicespromo.0.points.0':
-    'Zdobądź pakiet "Podstawowy" za 700 zł. Aby skorzystać z promocji, podaj naszemu specjaliście ds. obsługi klienta kod promocyjny "Start24". Promocja obowiązuje tylko do końca miesiąca.',
-  'servicespromo.0.points.1':
-    'Zdobądź pakiet "Wszystko w cenie" za 1450 zł. Aby skorzystać z promocji, podaj naszemu specjaliście ds. obsługi klienta kod promocyjny "Start24". Promocja obowiązuje tylko do końca miesiąca.',
-  'servicespromo.0.points.2':
-    'Dokumenty na obywatelstwo za 1500 zł. Aby skorzystać z promocji, podaj naszemu specjaliście ds. obsługi klienta kod promocyjny "Start24". Promocja obowiązuje tylko do końca miesiąca.',
+  'promo.title': 'Promocje',
+  'promo.badge': 'PROMOCJA',
+  'promo.codeLabel': 'Kod promocyjny:',
+  'promo.code': 'Start24',
+  'promo.deadline': 'Oferta ważna do końca miesiąca',
+  'promo.cta': 'Skorzystaj z promocji',
+  'promo.0.name': 'Pakiet „Podstawowy”',
+  'promo.0.old': '750 zł',
+  'promo.0.new': '700 zł',
+  'promo.1.name': 'Pakiet „Wszystko w cenie”',
+  'promo.1.old': '1850 zł',
+  'promo.1.new': '1450 zł',
+  'promo.2.name': 'Dokumenty na obywatelstwo',
+  'promo.2.old': '',
+  'promo.2.new': '1500 zł',
 
   'pricelistservices.0.title':
     'Kompleksowa pomoc w przygotowaniu dokumentów do złożenia wniosku o kartę pobytu',

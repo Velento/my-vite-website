@@ -9,13 +9,21 @@ const translations = {
   'menu.contact': 'Information',
   'menu.feedback': 'Submit a request',
 
-  'servicespromo.0.title': 'PROMOTIONS',
-  'servicespromo.0.points.0':
-    'Get the "Basic" package for 700 PLN. To take advantage of the promotion, mention the promo code "Start24" to our customer service specialist. The promotion is valid only until the end of the month.',
-  'servicespromo.0.points.1':
-    'Get the "All-Inclusive" package for 1450 PLN. To take advantage of the promotion, mention the promo code "Start24" to our customer service specialist. The promotion is valid only until the end of the month.',
-  'servicespromo.0.points.2':
-    'Citizenship documents for 1500 PLN. To take advantage of the promotion, mention the promo code "Start24" to our customer service specialist. The promotion is valid only until the end of the month.',
+  'promo.title': 'Promotions',
+  'promo.badge': 'PROMO',
+  'promo.codeLabel': 'Promo code:',
+  'promo.code': 'Start24',
+  'promo.deadline': 'Offer valid until the end of the month',
+  'promo.cta': 'Claim the offer',
+  'promo.0.name': 'Basic package',
+  'promo.0.old': '750 zł',
+  'promo.0.new': '700 zł',
+  'promo.1.name': 'All-inclusive package',
+  'promo.1.old': '1850 zł',
+  'promo.1.new': '1450 zł',
+  'promo.2.name': 'Citizenship documents',
+  'promo.2.old': '',
+  'promo.2.new': '1500 zł',
 
   'pricelistservices.0.title':
     'Comprehensive assistance with documents for residence card application',

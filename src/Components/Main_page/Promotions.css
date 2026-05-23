@@ -1,27 +1,170 @@
-/* ── Promotions ── */
-.pricelist#promotions {
-  background-color: var(--color-bg-alt);
-  border-radius: var(--radius-lg);
-  margin: var(--space-xl) auto;
+/* ── Promotions ──
+   A dark, attention-grabbing band (it sits between two light sections) with
+   gold accents and three offer cards. */
+.promo {
   max-width: var(--max-width);
+  margin: var(--space-2xl) auto;
+  padding: var(--space-3xl) var(--content-padding);
+  background: linear-gradient(135deg, #1b2738 0%, #0e1620 100%);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
 }
 
-.pricelist#promotions .service {
-  border-color: var(--color-accent-subtle);
-  background: var(--color-bg);
+.promo__head {
+  text-align: center;
+  margin-bottom: var(--space-2xl);
 }
 
-.pricelist#promotions .service:hover {
-  border-color: var(--color-accent);
+.promo__eyebrow {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin-bottom: var(--space-sm);
 }
 
-.pricelist#promotions .service-points li {
-  text-align: left;
+.promo__title {
+  font-family: var(--font-heading);
+  font-size: clamp(1.6rem, 4vw, 2.4rem);
+  font-weight: 700;
+  color: #fff;
+  margin: 0 0 var(--space-md);
+}
+
+.promo__deadline {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm) var(--space-md);
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.6);
+  margin: 0;
+}
+
+.promo__code {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border: 1px dashed rgba(184, 148, 62, 0.5);
+  border-radius: var(--radius-full);
+}
+
+.promo__code strong {
+  color: var(--color-accent);
+  letter-spacing: 0.04em;
+}
+
+/* ── Cards ── */
+.promo__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-lg);
+}
+
+.promo-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border-radius: var(--radius-md);
+  padding: var(--space-xl);
+  border: 1px solid transparent;
+  transition:
+    transform var(--duration-base) var(--ease),
+    box-shadow var(--duration-base) var(--ease);
+}
+
+.promo-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.25);
+}
+
+.promo-card__badge {
+  position: absolute;
+  top: var(--space-md);
+  right: var(--space-md);
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #fff;
+  background: var(--color-accent);
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+}
+
+.promo-card__name {
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  margin: var(--space-sm) 0 var(--space-lg);
+  padding-right: 60px; /* clear the badge */
+  line-height: 1.35;
+}
+
+.promo-card__pricing {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-lg);
+}
+
+.promo-card__old {
+  font-size: 1rem;
+  color: var(--color-text-tertiary);
+  text-decoration: line-through;
+}
+
+.promo-card__new {
+  font-family: var(--font-heading);
+  font-size: 1.9rem;
+  font-weight: 800;
+  color: var(--color-accent);
+  line-height: 1;
+}
+
+.promo-card__cta {
+  margin-top: auto;
+  width: 100%;
+  padding: 12px 20px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #fff;
+  background: var(--color-primary);
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition:
+    background-color var(--duration-base) var(--ease),
+    transform var(--duration-base) var(--ease);
+}
+
+.promo-card__cta:hover {
+  background: var(--color-accent);
+  transform: translateY(-1px);
+}
+
+.promo-card__cta:active {
+  transform: translateY(0);
+}
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  .promo__grid {
+    grid-template-columns: 1fr;
+    max-width: 420px;
+    margin: 0 auto;
+  }
 }
 
 @media (max-width: 768px) {
-  .pricelist#promotions {
+  .promo {
     margin: var(--space-md);
-    border-radius: var(--radius-md);
+    padding: var(--space-2xl) var(--space-lg);
   }
 }
