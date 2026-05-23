@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import type { ReactElement } from 'react';
 
@@ -112,6 +113,54 @@ const MENU_ITEMS = [
   { href: '#leedform', key: 'menu.feedback', icon: Icon.send },
 ] as const;
 
+const SECTION_IDS = MENU_ITEMS.map((item) => item.href.slice(1));
+
+/**
+ * Scrollspy: returns the id of the section currently under the header so the
+ * nav can highlight it. Queries the DOM on each (rAF-throttled) scroll, so it
+ * stays correct even as lazy sections mount in below the fold.
+ */
+function useActiveSection(): string {
+  const [active, setActive] = useState('');
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return undefined;
+    let ticking = false;
+
+    const compute = () => {
+      ticking = false;
+      const threshold = 140; // a little below the sticky header
+      let current = '';
+      const atBottom = window.innerHeight + window.scrollY >= document.body.scrollHeight - 4;
+      if (atBottom) {
+        current = SECTION_IDS[SECTION_IDS.length - 1] ?? '';
+      } else {
+        for (const id of SECTION_IDS) {
+          const el = document.getElementById(id);
+          if (el && el.getBoundingClientRect().top <= threshold) current = id;
+        }
+      }
+      setActive(current);
+    };
+
+    const onScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(compute);
+    };
+
+    compute();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll, { passive: true });
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onScroll);
+    };
+  }, []);
+
+  return active;
+}
+
 type MenuProps = {
   /** When true, renders as a vertical column (used inside the mobile burger panel). */
   vertical?: boolean;
@@ -130,44 +179,58 @@ const verticalLink =
 
 const Menu = ({ vertical = false, onItemClick }: MenuProps) => {
   const { t } = useTranslation();
+  const activeHref = useActiveSection();
 
   if (vertical) {
     return (
       <nav className="w-full" aria-label="Mobile navigation">
         <ul className="m-0 flex w-full list-none flex-col items-stretch gap-2 p-0">
-          {MENU_ITEMS.map(({ href, key, icon }) => (
-            <li key={key}>
-              <a href={href} className={verticalLink} onClick={onItemClick}>
-                {/* Gold-tinted icon chip — visible on touch where there is no
-                    hover, so the menu keeps its branded look on phones. */}
-                <span
-                  className="flex h-9 w-9 items-center justify-center justify-self-start rounded-lg bg-[rgba(184,148,62,0.12)] text-[var(--color-accent)] transition-colors duration-200 group-hover:bg-[var(--color-accent)] group-hover:text-white [&>svg]:h-[18px] [&>svg]:w-[18px]"
-                  aria-hidden="true"
+          {MENU_ITEMS.map(({ href, key, icon }) => {
+            const isActive = href === `#${activeHref}`;
+            return (
+              <li key={key}>
+                <a
+                  href={href}
+                  aria-current={isActive ? 'true' : undefined}
+                  className={`${verticalLink}${isActive ? ' bg-[var(--color-accent-subtle)] text-[var(--color-accent)]' : ''}`}
+                  onClick={onItemClick}
                 >
-                  {icon}
-                </span>
-                {/* Centered label, bracketed by the icon and chevron. */}
-                <span className="text-center">{t(key)}</span>
-                {/* Chevron stays visible (touch has no hover) as a tap cue. */}
-                <span
-                  className="justify-self-end text-[var(--color-accent)] opacity-40 transition-[opacity,transform] duration-200 group-hover:translate-x-0.5 group-hover:opacity-100"
-                  aria-hidden="true"
-                >
-                  <svg
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2.6"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="h-[14px] w-[14px]"
+                  {/* Gold-tinted icon chip — solid gold when the section is active. */}
+                  <span
+                    className={`flex h-9 w-9 items-center justify-center justify-self-start rounded-lg transition-colors duration-200 [&>svg]:h-[18px] [&>svg]:w-[18px] ${
+                      isActive
+                        ? 'bg-[var(--color-accent)] text-white'
+                        : 'bg-[rgba(184,148,62,0.12)] text-[var(--color-accent)] group-hover:bg-[var(--color-accent)] group-hover:text-white'
+                    }`}
+                    aria-hidden="true"
                   >
-                    <polyline points="9 18 15 12 9 6" />
-                  </svg>
-                </span>
-              </a>
-            </li>
-          ))}
+                    {icon}
+                  </span>
+                  {/* Centered label, bracketed by the icon and chevron. */}
+                  <span className="text-center">{t(key)}</span>
+                  {/* Chevron stays visible (touch has no hover) as a tap cue. */}
+                  <span
+                    className={`justify-self-end text-[var(--color-accent)] transition-[opacity,transform] duration-200 group-hover:translate-x-0.5 group-hover:opacity-100 ${
+                      isActive ? 'opacity-100' : 'opacity-40'
+                    }`}
+                    aria-hidden="true"
+                  >
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2.6"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="h-[14px] w-[14px]"
+                    >
+                      <polyline points="9 18 15 12 9 6" />
+                    </svg>
+                  </span>
+                </a>
+              </li>
+            );
+          })}
         </ul>
       </nav>
     );
@@ -195,19 +258,29 @@ const Menu = ({ vertical = false, onItemClick }: MenuProps) => {
             'max-w-full p-0',
           ].join(' ')}
         >
-          {MENU_ITEMS.map(({ href, key, icon }) => (
-            <li key={key}>
-              <a href={href} className={horizontalLink} onClick={onItemClick}>
-                <span
-                  className="inline-flex h-[18px] w-[18px] align-[-3px] text-[var(--color-accent)] transition-transform duration-200 group-hover:scale-110 [&>svg]:h-full [&>svg]:w-full"
-                  aria-hidden="true"
+          {MENU_ITEMS.map(({ href, key, icon }) => {
+            const isActive = href === `#${activeHref}`;
+            return (
+              <li key={key}>
+                <a
+                  href={href}
+                  aria-current={isActive ? 'true' : undefined}
+                  className={`${horizontalLink}${isActive ? ' bg-[var(--color-accent-subtle)] text-[var(--color-accent)]' : ''}`}
+                  onClick={onItemClick}
                 >
-                  {icon}
-                </span>
-                <span>{t(key)}</span>
-              </a>
-            </li>
-          ))}
+                  <span
+                    className={`inline-flex h-[18px] w-[18px] align-[-3px] text-[var(--color-accent)] transition-transform duration-200 [&>svg]:h-full [&>svg]:w-full ${
+                      isActive ? 'scale-110' : 'group-hover:scale-110'
+                    }`}
+                    aria-hidden="true"
+                  >
+                    {icon}
+                  </span>
+                  <span>{t(key)}</span>
+                </a>
+              </li>
+            );
+          })}
         </ul>
       </div>
     </nav>
