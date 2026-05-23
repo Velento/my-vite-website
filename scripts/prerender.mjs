@@ -17,7 +17,7 @@
  */
 
 import { build } from 'vite';
-import { readFileSync, writeFileSync, rmSync, mkdirSync } from 'node:fs';
+import { readFileSync, writeFileSync, rmSync, mkdirSync, existsSync } from 'node:fs';
 import { pathToFileURL } from 'node:url';
 import { resolve } from 'node:path';
 
@@ -144,6 +144,18 @@ async function prerender() {
   console.log(
     `prerender: wrote / + 404 + ${PRERENDER_LANGS.length} language pages (${PRERENDER_LANGS.join(', ')})`
   );
+
+  // Stamp the sitemap with the build date so search engines see fresh lastmod.
+  const sitemapPath = resolve(DIST, 'sitemap.xml');
+  if (existsSync(sitemapPath)) {
+    const today = new Date().toISOString().slice(0, 10);
+    const sitemap = readFileSync(sitemapPath, 'utf-8').replace(
+      /<lastmod>[^<]*<\/lastmod>/g,
+      `<lastmod>${today}</lastmod>`
+    );
+    writeFileSync(sitemapPath, sitemap);
+    console.log(`prerender: stamped sitemap.xml lastmod = ${today}`);
+  }
 }
 
 prerender()
