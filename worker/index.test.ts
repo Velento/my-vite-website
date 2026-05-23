@@ -134,6 +134,21 @@ describe('POST / (lead submission)', () => {
     expect(fetch).not.toHaveBeenCalled();
   });
 
+  it.each(['Googlebot/2.1 (+http://www.google.com/bot.html)', 'Mozilla/5.0 (compatible; bingbot/2.0)', 'AhrefsBot/7.0'])(
+    'blocks crawler name %s (no separator before "bot")',
+    async (ua) => {
+      const res = await worker.fetch(jsonRequest('/', VALID_LEAD, { 'User-Agent': ua }), makeEnv());
+      expect(res.status).toBe(403);
+    }
+  );
+
+  it('still accepts a normal browser user-agent', async () => {
+    const ua =
+      'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0 Safari/537.36';
+    const res = await worker.fetch(jsonRequest('/', VALID_LEAD, { 'User-Agent': ua }), makeEnv());
+    expect(res.status).toBe(200);
+  });
+
   it('silently accepts but drops honeypot submissions', async () => {
     const res = await worker.fetch(
       jsonRequest('/', { ...VALID_LEAD, website: 'http://spam.example' }),

@@ -193,9 +193,17 @@ async function makeFingerprint(phone: string | null, sessionFp: string): Promise
   return `s_${sessionFp}`;
 }
 
+// Matches automated clients: search/social crawlers, scrapers, headless
+// browsers and HTTP libraries. Substring match (no word boundaries) so names
+// like "Googlebot", "Bingbot", "AhrefsBot" are caught despite having no
+// separator before "bot". Mainstream browser UAs contain none of these tokens,
+// so false positives against real visitors are not a practical concern.
+const BOT_UA_REGEX =
+  /bot|crawl|spider|scrape|headless|phantom|selenium|playwright|puppeteer|slurp|mediapartners|facebookexternalhit|python-requests|\bcurl\b|\bwget\b|axios|okhttp|go-http|java\//i;
+
 function isBotUserAgent(ua: string | null): boolean {
   if (!ua) return false;
-  return /\b(bot|crawler|spider|crawling|preview|scrape|headless|phantom|selenium)\b/i.test(ua);
+  return BOT_UA_REGEX.test(ua);
 }
 
 // ── KV log entry ─────────────────────────────────────────────────────────────
