@@ -17,6 +17,7 @@
     "typecheck": "tsc --noEmit",
     "typecheck:worker": "tsc --noEmit -p worker/tsconfig.json",
     "check:i18n": "node scripts/check-i18n.mjs",
+    "og": "node scripts/generate-og-image.mjs",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
