@@ -193,6 +193,13 @@
   color: white;
 }
 
+/* Tactile press feedback, consistent across all hero CTAs. */
+.slide-hero__cta:active,
+.slide-trust__cta:active,
+.slide-promo__cta:active {
+  transform: translateY(0);
+}
+
 .slide-hero__cta--ghost {
   background: transparent;
   border: 1.5px solid rgba(255, 255, 255, 0.35);
