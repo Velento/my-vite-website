@@ -7,6 +7,8 @@ import './Promotions.css';
 const ContactModal = lazy(() => import('./ContactModal'));
 
 const PROMOS = [0, 1, 2] as const;
+/** Index of the offer to spotlight as the most popular one. */
+const FEATURED = 1;
 
 const Promotions = () => {
   const { t } = useTranslation();
@@ -35,8 +37,10 @@ const Promotions = () => {
       <div className="promo__grid">
         {PROMOS.map((i) => {
           const oldPrice = t(`promo.${i}.old` as TranslationKey);
+          const featured = i === FEATURED;
           return (
-            <article className="promo-card" key={i}>
+            <article className={`promo-card${featured ? ' promo-card--featured' : ''}`} key={i}>
+              {featured && <span className="promo-card__ribbon">{t('promo.popular')}</span>}
               <span className="promo-card__badge">{t('promo.badge')}</span>
               <h3 className="promo-card__name">{t(`promo.${i}.name` as TranslationKey)}</h3>
               <div className="promo-card__pricing">

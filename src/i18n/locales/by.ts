@@ -15,6 +15,7 @@ const translations = {
   'promo.code': 'Start24',
   'promo.deadline': 'Прапанова дзейнічае да канца месяца',
   'promo.cta': 'Скарыстацца акцыяй',
+  'promo.popular': 'Самае папулярнае',
   'promo.0.name': 'Пакет «Базавы»',
   'promo.0.old': '750 zł',
   'promo.0.new': '700 zł',

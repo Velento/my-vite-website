@@ -83,6 +83,38 @@
   box-shadow: 0 16px 40px rgba(0, 0, 0, 0.25);
 }
 
+/* Spotlight the most popular offer. */
+.promo-card--featured {
+  border-color: var(--color-accent);
+  box-shadow: 0 12px 36px rgba(184, 148, 62, 0.28);
+}
+
+@media (min-width: 901px) {
+  .promo-card--featured {
+    transform: scale(1.05);
+  }
+  .promo-card--featured:hover {
+    transform: scale(1.05) translateY(-4px);
+  }
+}
+
+.promo-card__ribbon {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  white-space: nowrap;
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-primary);
+  background: linear-gradient(135deg, #d8b15f, #b8943e);
+  padding: 5px 16px;
+  border-radius: var(--radius-full);
+  box-shadow: 0 4px 12px rgba(184, 148, 62, 0.4);
+}
+
 .promo-card__badge {
   position: absolute;
   top: var(--space-md);
