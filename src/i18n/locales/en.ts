@@ -125,6 +125,22 @@ const translations = {
   'seo.title': 'Residence card in Gdańsk from 750 zł | Legal Line',
   'seo.description':
     'Residence legalization in Gdańsk: temporary and permanent residence cards, family reunification, business visas. Free consultation, from 750 zł.',
+  'faq.title': 'Frequently asked questions',
+  'faq.0.q': 'How much does a residence card cost?',
+  'faq.0.a':
+    'The basic package starts at 750 zł. The final price depends on the card type and complexity - we give an exact quote during the free consultation.',
+  'faq.1.q': 'How long does the process take?',
+  'faq.1.a':
+    'Filing the documents takes a few days. The voivode decision usually takes 1 to 6 months depending on the office and card type.',
+  'faq.2.q': 'What documents are required?',
+  'faq.2.a':
+    'Passport, grounds for stay (work, business, studies, marriage), proof of address and insurance. We prepare the full list for your situation.',
+  'faq.3.q': 'Do you help with family reunification?',
+  'faq.3.a':
+    'Yes. We arrange residence cards for spouses and children, prepare all documents and handle the case through to the decision.',
+  'faq.4.q': 'Is there a money-back guarantee?',
+  'faq.4.a':
+    'Yes. If a decision is negative through our fault, we help with the appeal and refund our service fee.',
   'slider.subtitle': 'Residence card, legalization, documents',
   'slider.cta': 'Free consultation',
   'trustBar.clients': '500+ satisfied clients',

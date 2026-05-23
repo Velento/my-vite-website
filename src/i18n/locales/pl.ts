@@ -122,6 +122,22 @@ const translations = {
   'seo.title': 'Karta pobytu Gdańsk od 750 zł | Legal Line',
   'seo.description':
     'Pomoc w legalizacji pobytu w Gdańsku: karta czasowego i stałego pobytu, łączenie rodzin, wizy biznesowe. Bezpłatna konsultacja, od 750 zł.',
+  'faq.title': 'Najczęstsze pytania',
+  'faq.0.q': 'Ile kosztuje karta pobytu?',
+  'faq.0.a':
+    'Pakiet podstawowy od 750 zł. Ostateczna cena zależy od rodzaju karty i złożoności sprawy - dokładną wycenę podamy na bezpłatnej konsultacji.',
+  'faq.1.q': 'Ile trwa załatwienie sprawy?',
+  'faq.1.a':
+    'Złożenie dokumentów to kilka dni. Decyzja wojewody zwykle zajmuje od 1 do 6 miesięcy, zależnie od urzędu i rodzaju karty.',
+  'faq.2.q': 'Jakie dokumenty są potrzebne?',
+  'faq.2.a':
+    'Paszport, podstawa pobytu (praca, biznes, studia, małżeństwo), potwierdzenie zamieszkania i ubezpieczenie. Pełną listę przygotujemy pod Twoją sytuację.',
+  'faq.3.q': 'Czy pomagacie w łączeniu rodzin?',
+  'faq.3.a':
+    'Tak. Załatwiamy karty pobytu dla małżonków i dzieci, kompletujemy dokumenty i prowadzimy sprawę aż do decyzji.',
+  'faq.4.q': 'Czy jest gwarancja zwrotu pieniędzy?',
+  'faq.4.a':
+    'Tak. Przy negatywnej decyzji z naszej winy pomagamy z odwołaniem i zwracamy opłatę za nasze usługi.',
   'slider.subtitle': 'Karta pobytu, legalizacja, dokumenty',
   'slider.cta': 'Bezpłatna konsultacja',
   'trustBar.clients': '500+ zadowolonych klientów',

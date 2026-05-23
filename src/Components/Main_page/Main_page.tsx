@@ -5,6 +5,7 @@ import MainPageSections from './MainPageSections';
 import Pricelist from './Pricelist';
 import Menu from './Menu';
 import FadeInOnScroll from './FadeInOnScroll';
+import FAQ from './FAQ';
 import { scrollToElement } from '../../utils/scroll';
 
 const LeedForm = lazy(() => import('./LeedForm'));
@@ -52,6 +53,9 @@ const MainPage = () => {
           <MapAndReviews />
         </FadeInOnScroll>
       </Suspense>
+      <FadeInOnScroll>
+        <FAQ />
+      </FadeInOnScroll>
     </main>
   );
 };

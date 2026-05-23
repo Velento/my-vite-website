@@ -16,6 +16,7 @@ import { renderToString } from 'react-dom/server';
 import { I18nextProvider, initReactI18next } from 'react-i18next';
 import i18n from 'i18next';
 import App from './App';
+import type { TranslationKey } from './i18n/keys';
 import ru from './i18n/locales/ru';
 import pl from './i18n/locales/pl';
 import ua from './i18n/locales/ua';
@@ -33,7 +34,11 @@ export type RenderResult = {
   title: string;
   /** Localised meta description. */
   description: string;
+  /** Localised FAQ entries, for the FAQPage JSON-LD. */
+  faq: { q: string; a: string }[];
 };
+
+const FAQ_COUNT = 5;
 
 let initialized = false;
 
@@ -71,5 +76,9 @@ export async function render(lng: PrerenderLang = 'ru'): Promise<RenderResult> {
     html,
     title: i18n.t('seo.title'),
     description: i18n.t('seo.description'),
+    faq: Array.from({ length: FAQ_COUNT }, (_, i) => ({
+      q: i18n.t(`faq.${i}.q` as TranslationKey),
+      a: i18n.t(`faq.${i}.a` as TranslationKey),
+    })),
   };
 }

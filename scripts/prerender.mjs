@@ -43,7 +43,23 @@ function setMetaContent(html, attr, name, value) {
   return html.replace(re, `$1${escapeAttr(value)}$2`);
 }
 
-function buildPage(template, { appHtml, lang, path, title, description }) {
+/** Build a FAQPage JSON-LD <script> from the localised Q&A pairs. */
+function faqJsonLd(faq) {
+  const data = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faq.map(({ q, a }) => ({
+      '@type': 'Question',
+      name: q,
+      acceptedAnswer: { '@type': 'Answer', text: a },
+    })),
+  };
+  // Escape `<` so the payload can never break out of the <script> element.
+  const json = JSON.stringify(data).replace(/</g, '\\u003c');
+  return `<script type="application/ld+json">${json}</script>`;
+}
+
+function buildPage(template, { appHtml, lang, path, title, description, faq }) {
   const canonical = `${SITE}${path}`;
   let html = template
     .replace(ROOT_PLACEHOLDER, `<div id="root">${appHtml}</div>`)
@@ -69,6 +85,11 @@ function buildPage(template, { appHtml, lang, path, title, description }) {
   html = setMetaContent(html, 'property', 'og:description', description);
   html = setMetaContent(html, 'name', 'twitter:title', title);
   html = setMetaContent(html, 'name', 'twitter:description', description);
+
+  // Inject a per-language FAQPage schema just before </head>.
+  if (faq?.length) {
+    html = html.replace('</head>', `${faqJsonLd(faq)}\n  </head>`);
+  }
   return html;
 }
 
@@ -101,13 +122,14 @@ async function prerender() {
     path: '/',
     title: root.title,
     description: root.description,
+    faq: root.faq,
   });
   writeFileSync(DIST_INDEX, rootPage);
   writeFileSync(DIST_404, rootPage);
 
   // 5. One translated page per language at /<lang>/index.html.
   for (const lang of PRERENDER_LANGS) {
-    const { html, title, description } = await render(lang);
+    const { html, title, description, faq } = await render(lang);
     if (!html) {
       throw new Error(`render(${lang}) returned empty output`);
     }
@@ -115,7 +137,7 @@ async function prerender() {
     mkdirSync(dir, { recursive: true });
     writeFileSync(
       resolve(dir, 'index.html'),
-      buildPage(template, { appHtml: html, lang, path: `/${lang}/`, title, description })
+      buildPage(template, { appHtml: html, lang, path: `/${lang}/`, title, description, faq })
     );
   }
 
