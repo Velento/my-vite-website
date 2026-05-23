@@ -531,53 +531,6 @@ const translations = {
       content:
         'The processing time for the preparation of civil documents in Gdańsk is on average 10 months.',
     },
-    pricelistservices: [
-      {
-        title: 'Comprehensive assistance with documents for residence card application',
-        points: [
-          'Based on employment',
-          'Based on business',
-          'Based on family residence',
-          'Based on marriage with a Polish citizen',
-        ],
-        price: 'From 500 to 1500 PLN',
-      },
-      {
-        title: 'Assistance with citizenship application documents',
-        points: [],
-        price: 'From 1500 PLN',
-      },
-      {
-        title: "Labor disputes: From 'Umowy zlecenia' to 'Umowy o pracę'",
-        points: [
-          "Achieve transition from 'Umowy zlecenia' to 'Umowy o pracę'",
-          'Submit complaints to employer',
-          'File lawsuits',
-          'Demand compensation for illegal employment',
-        ],
-        price: 'From 2500 to 3500 PLN',
-      },
-      {
-        title: 'Preparation of documents for marriage registration',
-        points: [],
-        price: 'From 500 to 1500 PLN',
-      },
-      {
-        title: "Driver's license replacement",
-        points: [],
-        price: 'From 500 to 1500 PLN',
-      },
-      {
-        title: 'Legal consultation',
-        points: ['Consultation duration up to 60 minutes', 'Online or by phone'],
-        price: 'From 200 PLN',
-      },
-      {
-        title: 'Resume (CV) preparation',
-        points: ['With cover letter', 'Without cover letter'],
-        price: 'From 150 to 250 PLN',
-      },
-    ],
   },
 } as const;
 
