@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import './MapAndReviews.css';
 
@@ -28,6 +29,7 @@ const ReviewCard = ({ index }: ReviewCardProps) => {
 
 const MapAndReviews = () => {
   const { t } = useTranslation();
+  const [mapLoaded, setMapLoaded] = useState(false);
 
   return (
     <section className="map-reviews" id="map">
@@ -36,16 +38,38 @@ const MapAndReviews = () => {
         <div className="map-reviews__map-col">
           <h2 className="map-reviews__heading">{t('map.title')}</h2>
           <div className="map-reviews__map-wrap">
-            <iframe
-              src={GOOGLE_MAPS_EMBED_URL}
-              width="100%"
-              height="400"
-              style={{ border: 0 }}
-              allowFullScreen
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-              title={t('map.title')}
-            />
+            {mapLoaded ? (
+              <iframe
+                src={GOOGLE_MAPS_EMBED_URL}
+                width="100%"
+                height="400"
+                style={{ border: 0 }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                title={t('map.title')}
+              />
+            ) : (
+              /* Facade: no request reaches Google Maps until the visitor opts in
+                 (faster first load + RODO). */
+              <button type="button" className="map-facade" onClick={() => setMapLoaded(true)}>
+                <svg
+                  className="map-facade__pin"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.8"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                  <circle cx="12" cy="10" r="3" />
+                </svg>
+                <span className="map-facade__btn">{t('map.load')}</span>
+                <span className="map-facade__hint">{t('map.address')}</span>
+              </button>
+            )}
           </div>
           <p className="map-reviews__address">{t('map.address')}</p>
         </div>

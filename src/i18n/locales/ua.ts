@@ -210,6 +210,7 @@ const translations = {
   actionToCall: 'Зателефонувати',
   'map.title': 'Наш Офіс',
   'map.address': 'Wały Piastowskie 1, 80-958 Gdańsk (Centrum Biznesu Zieleniak)',
+  'map.load': 'Показати карту',
   'reviews.title': 'Що кажуть наші клієнти',
   'reviews.cta': 'Залишити відгук у Google',
   'reviews.starsAria': '5 з 5 зірок',
