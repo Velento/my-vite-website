@@ -272,20 +272,9 @@
       }
     </script>
 
-    <!-- Google Tag Manager -->
-    <script>
-      (function (w, d, s, l, i) {
-        w[l] = w[l] || [];
-        w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
-        var f = d.getElementsByTagName(s)[0],
-          j = d.createElement(s),
-          dl = l != 'dataLayer' ? '&l=' + l : '';
-        j.async = true;
-        j.src = 'https://www.googletagmanager.com/gtm.js?id=' + i + dl;
-        f.parentNode.insertBefore(j, f);
-      })(window, document, 'script', 'dataLayer', 'GTM-KWWX8WJZ');
-    </script>
-    <!-- End Google Tag Manager -->
+    <!-- Google Tag Manager is NOT loaded here. It boots only after the visitor
+         grants analytics consent in the cookie banner (RODO/GDPR), via
+         src/services/analyticsConsent.ts. -->
 
     <!-- dataLayer + gtag shim.
          The real gtag.js is loaded by the GTM container tag, so we do NOT load
@@ -315,15 +304,6 @@
     <!-- See src/Components/Main_page/CookieConsent.jsx for the consent gate. -->
   </head>
   <body>
-    <!-- Google Tag Manager (noscript) -->
-    <noscript
-      ><iframe
-        src="https://www.googletagmanager.com/ns.html?id=GTM-KWWX8WJZ"
-        height="0"
-        width="0"
-        style="display: none; visibility: hidden"
-      ></iframe
-    ></noscript>
     <!-- End Google Tag Manager (noscript) -->
 
     <div id="root"></div>

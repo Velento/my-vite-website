@@ -18,9 +18,15 @@ vi.mock('../../services/marketingConsent', () => ({
   applyMarketingConsent: (c: unknown) => applyMarketingConsent(c),
 }));
 
+const applyAnalyticsConsent = vi.fn();
+vi.mock('../../services/analyticsConsent', () => ({
+  applyAnalyticsConsent: (c: unknown) => applyAnalyticsConsent(c),
+}));
+
 beforeEach(() => {
   localStorage.clear();
   applyMarketingConsent.mockClear();
+  applyAnalyticsConsent.mockClear();
 });
 
 describe('CookieConsent', () => {
@@ -40,6 +46,9 @@ describe('CookieConsent', () => {
     });
     expect(applyMarketingConsent).toHaveBeenCalledWith(
       expect.objectContaining({ marketing: true })
+    );
+    expect(applyAnalyticsConsent).toHaveBeenCalledWith(
+      expect.objectContaining({ analytics: true })
     );
     expect(container).toBeEmptyDOMElement();
   });

@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import FocusTrap from 'focus-trap-react';
 import { useTranslation } from 'react-i18next';
 import { applyMarketingConsent } from '../../services/marketingConsent';
+import { applyAnalyticsConsent } from '../../services/analyticsConsent';
 import './CookieConsent.css';
 
 const STORAGE_KEY = 'cookieConsent';
@@ -35,6 +36,7 @@ const CookieConsent = () => {
     if (stored) {
       setCookies(stored);
       setIsVisible(false);
+      applyAnalyticsConsent(stored);
       applyMarketingConsent(stored);
     }
   }, []);
@@ -43,6 +45,7 @@ const CookieConsent = () => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(consent));
     setCookies(consent);
     setIsVisible(false);
+    applyAnalyticsConsent(consent);
     applyMarketingConsent(consent);
   };
 
