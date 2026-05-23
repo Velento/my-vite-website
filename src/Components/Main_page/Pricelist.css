@@ -193,32 +193,40 @@
 
 /* ── Service Card ── */
 .service {
+  display: flex;
+  flex-direction: column;
   background: var(--color-bg);
   border-radius: var(--radius-lg);
   padding: var(--space-2xl);
   border: 1px solid var(--color-border-light);
   transition:
     border-color var(--duration-base) var(--ease),
-    box-shadow var(--duration-base) var(--ease);
+    box-shadow var(--duration-base) var(--ease),
+    transform var(--duration-base) var(--ease);
 }
 
 .service:hover {
-  border-color: var(--color-border);
-  box-shadow: var(--shadow-sm);
+  border-color: var(--color-accent);
+  box-shadow: 0 10px 30px rgba(26, 35, 50, 0.08);
+  transform: translateY(-3px);
 }
 
 .service-header {
   display: flex;
   align-items: center;
+  gap: var(--space-md);
   margin-bottom: var(--space-lg);
 }
 
+/* Icon sits in a soft gold chip for a consistent, premium accent. */
 .service-icon {
-  width: 40px;
-  height: 40px;
-  margin-right: var(--space-md);
+  width: 22px;
+  height: 22px;
+  padding: 11px;
+  box-sizing: content-box;
   flex-shrink: 0;
-  opacity: 0.7;
+  background: rgba(184, 148, 62, 0.12);
+  border-radius: var(--radius-md);
 }
 
 .service-title {
@@ -265,19 +273,22 @@
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-sm);
-  margin-top: var(--space-lg);
+  /* Pin the price + CTA to the bottom so they line up across cards of
+     different content height. */
+  margin-top: auto;
+  padding-top: var(--space-lg);
   align-items: center;
 }
 
 .price-button {
-  padding: 8px 20px;
-  background-color: var(--color-bg-alt);
+  padding: 8px 18px;
+  background-color: rgba(184, 148, 62, 0.1);
   color: var(--color-accent);
-  border: 1px dashed var(--color-accent);
-  border-radius: var(--radius-sm);
+  border: none;
+  border-radius: var(--radius-full);
   font-family: var(--font-heading);
   font-size: 1rem;
-  font-weight: 600;
+  font-weight: 700;
   line-height: 1.4;
   cursor: default;
 }

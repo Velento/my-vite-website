@@ -205,7 +205,7 @@
 }
 
 .header-contacts a {
-  color: var(--color-text);
+  color: var(--color-text-secondary);
   text-decoration: none;
   font-size: 0.9rem;
   font-weight: 500;
@@ -214,6 +214,15 @@
 
 .header-contacts a:hover {
   color: var(--color-accent);
+}
+
+/* Crisp, full-strength glyphs (the shared base sets 0.85 for the footer). */
+.header-contacts .contact-icon {
+  opacity: 1;
+}
+
+.header-contacts a:hover .contact-icon {
+  background-color: rgba(184, 148, 62, 0.14);
 }
 
 .div_icons {
@@ -275,18 +284,18 @@ a:hover .tooltip {
   background-color: var(--color-bg-alt);
 }
 
-/* Globe icon — same 22px footprint as the messenger icons so the header
-   right-side line of icons is visually aligned. */
+/* Globe icon — same 22px footprint and muted slate as the messenger icons so
+   the header right-side line of icons reads as one consistent set. */
 .globe-icon {
   width: 22px;
   height: 22px;
   margin-right: 6px;
-  opacity: 0.7;
-  transition: opacity var(--duration-fast) var(--ease);
+  color: var(--color-text-secondary);
+  transition: color var(--duration-fast) var(--ease);
 }
 
 .language-selected:hover .globe-icon {
-  opacity: 1;
+  color: var(--color-accent);
 }
 
 .language-selected__code {
