@@ -20,13 +20,14 @@ initI18n().then(() => {
     </StrictMode>
   );
 
-  // The production build ships a prerendered #root rendered in 'ru'
-  // (see scripts/prerender.mjs). Hydrate only when the client language
-  // matches so React can attach event listeners without re-rendering.
-  // Any other language means the text content differs — use createRoot
-  // for a clean render and avoid hydration mismatch warnings in console.
-  const prerenderedLang = 'ru';
-  if (rootEl.hasChildNodes() && i18n.language === prerenderedLang) {
+  // The production build ships a prerendered #root per language; each page
+  // tags <html data-prerender-lang="…"> with the language it was rendered in
+  // (see scripts/prerender.mjs). Hydrate only when the detected language
+  // matches that snapshot so React attaches listeners without re-rendering;
+  // any mismatch means the text differs, so do a clean createRoot render to
+  // avoid hydration-mismatch warnings.
+  const prerenderedLang = document.documentElement.dataset.prerenderLang;
+  if (rootEl.hasChildNodes() && prerenderedLang && i18n.language === prerenderedLang) {
     hydrateRoot(rootEl, app);
   } else {
     createRoot(rootEl).render(app);
