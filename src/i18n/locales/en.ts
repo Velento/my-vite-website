@@ -122,6 +122,9 @@ const translations = {
     phonePlaceholder: '+48 123 456 789',
   },
   'seo.h1': 'Legalization of foreigners in Gdansk - Legal Line',
+  'seo.title': 'Residence card in Gdańsk from 750 zł | Legal Line',
+  'seo.description':
+    'Residence legalization in Gdańsk: temporary and permanent residence cards, family reunification, business visas. Free consultation, from 750 zł.',
   'slider.subtitle': 'Residence card, legalization, documents',
   'slider.cta': 'Free consultation',
   'trustBar.clients': '500+ satisfied clients',

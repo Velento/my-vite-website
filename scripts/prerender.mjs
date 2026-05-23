@@ -33,12 +33,23 @@ const SITE = 'https://legalline.pl';
 const HTML_LANG = { ru: 'ru', pl: 'pl', ua: 'uk', en: 'en', by: 'be' };
 const OG_LOCALE = { ru: 'ru_RU', pl: 'pl_PL', ua: 'uk_UA', en: 'en_US', by: 'be_BY' };
 
-function buildPage(template, { appHtml, lang, path }) {
+function escapeAttr(value) {
+  return value.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
+}
+
+/** Replace the content="" of a <meta> (works across the multi-line tags in index.html). */
+function setMetaContent(html, attr, name, value) {
+  const re = new RegExp(`(<meta\\s+${attr}="${name}"\\s+content=")[^"]*(")`, 's');
+  return html.replace(re, `$1${escapeAttr(value)}$2`);
+}
+
+function buildPage(template, { appHtml, lang, path, title, description }) {
   const canonical = `${SITE}${path}`;
-  return template
+  let html = template
     .replace(ROOT_PLACEHOLDER, `<div id="root">${appHtml}</div>`)
     .replace(/(<html\b[^>]*?\blang=")[^"]*"/, `$1${HTML_LANG[lang]}"`)
     .replace(/<html\b/, `<html data-prerender-lang="${lang}"`)
+    .replace(/<title>[\s\S]*?<\/title>/, `<title>${escapeAttr(title)}</title>`)
     .replace(
       '<link rel="canonical" href="https://legalline.pl/" />',
       `<link rel="canonical" href="${canonical}" />`
@@ -51,6 +62,14 @@ function buildPage(template, { appHtml, lang, path }) {
       '<meta property="og:locale" content="pl_PL" />',
       `<meta property="og:locale" content="${OG_LOCALE[lang]}" />`
     );
+
+  // Localise the description + social titles/descriptions per language.
+  html = setMetaContent(html, 'name', 'description', description);
+  html = setMetaContent(html, 'property', 'og:title', title);
+  html = setMetaContent(html, 'property', 'og:description', description);
+  html = setMetaContent(html, 'name', 'twitter:title', title);
+  html = setMetaContent(html, 'name', 'twitter:description', description);
+  return html;
 }
 
 async function prerender() {
@@ -72,23 +91,32 @@ async function prerender() {
   }
 
   // 4. Root (/) + SPA fallback — default language.
-  const rootHtml = await render('ru');
-  if (typeof rootHtml !== 'string' || rootHtml.length === 0) {
+  const root = await render('ru');
+  if (!root.html) {
     throw new Error('render() returned empty output');
   }
-  const rootPage = buildPage(template, { appHtml: rootHtml, lang: 'ru', path: '/' });
+  const rootPage = buildPage(template, {
+    appHtml: root.html,
+    lang: 'ru',
+    path: '/',
+    title: root.title,
+    description: root.description,
+  });
   writeFileSync(DIST_INDEX, rootPage);
   writeFileSync(DIST_404, rootPage);
 
   // 5. One translated page per language at /<lang>/index.html.
   for (const lang of PRERENDER_LANGS) {
-    const appHtml = await render(lang);
-    if (typeof appHtml !== 'string' || appHtml.length === 0) {
+    const { html, title, description } = await render(lang);
+    if (!html) {
       throw new Error(`render(${lang}) returned empty output`);
     }
     const dir = resolve(DIST, lang);
     mkdirSync(dir, { recursive: true });
-    writeFileSync(resolve(dir, 'index.html'), buildPage(template, { appHtml, lang, path: `/${lang}/` }));
+    writeFileSync(
+      resolve(dir, 'index.html'),
+      buildPage(template, { appHtml: html, lang, path: `/${lang}/`, title, description })
+    );
   }
 
   console.log(

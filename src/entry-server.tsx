@@ -26,9 +26,18 @@ const locales = { ru, pl, ua, en, by };
 export type PrerenderLang = keyof typeof locales;
 export const PRERENDER_LANGS = Object.keys(locales) as PrerenderLang[];
 
+export type RenderResult = {
+  /** Serialised app markup for the #root container. */
+  html: string;
+  /** Localised <title>. */
+  title: string;
+  /** Localised meta description. */
+  description: string;
+};
+
 let initialized = false;
 
-export async function render(lng: PrerenderLang = 'ru'): Promise<string> {
+async function ensureLanguage(lng: PrerenderLang): Promise<void> {
   if (!initialized) {
     await i18n.use(initReactI18next).init({
       resources: Object.fromEntries(
@@ -45,12 +54,22 @@ export async function render(lng: PrerenderLang = 'ru'): Promise<string> {
   } else {
     await i18n.changeLanguage(lng);
   }
+}
 
-  return renderToString(
+export async function render(lng: PrerenderLang = 'ru'): Promise<RenderResult> {
+  await ensureLanguage(lng);
+
+  const html = renderToString(
     <StrictMode>
       <I18nextProvider i18n={i18n}>
         <App />
       </I18nextProvider>
     </StrictMode>
   );
+
+  return {
+    html,
+    title: i18n.t('seo.title'),
+    description: i18n.t('seo.description'),
+  };
 }

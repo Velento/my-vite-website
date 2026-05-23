@@ -119,6 +119,9 @@ const translations = {
     phonePlaceholder: '+48 123 456 789',
   },
   'seo.h1': 'Legalizacja cudzoziemców w Gdańsku - Legal Line',
+  'seo.title': 'Karta pobytu Gdańsk od 750 zł | Legal Line',
+  'seo.description':
+    'Pomoc w legalizacji pobytu w Gdańsku: karta czasowego i stałego pobytu, łączenie rodzin, wizy biznesowe. Bezpłatna konsultacja, od 750 zł.',
   'slider.subtitle': 'Karta pobytu, legalizacja, dokumenty',
   'slider.cta': 'Bezpłatna konsultacja',
   'trustBar.clients': '500+ zadowolonych klientów',
