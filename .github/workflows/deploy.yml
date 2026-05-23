@@ -1,22 +1,29 @@
 name: Deploy
 
-# This file intentionally has only push triggers so that secrets are always
-# available. Secrets access in pull_request contexts is unreliable for fork
-# PRs — build validation without secrets lives in ci.yml instead.
+# Official GitHub Pages deployment: build once, upload the artifact, deploy in a
+# single pipeline. Replaces the peaceiris -> gh-pages branch -> separate
+# "pages-build-deployment" chain, which intermittently failed on credentials and
+# needed manual re-runs.
 on:
   push:
     branches: [my-vite-website]
+  workflow_dispatch:
 
+# Permissions the deploy-pages action needs.
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Never cancel an in-progress deployment; queue the next one instead.
 concurrency:
-  group: deploy-${{ github.ref }}
-  cancel-in-progress: true
+  group: pages
+  cancel-in-progress: false
 
 jobs:
-  deploy:
-    name: Deploy to GitHub Pages
+  build:
+    name: Build
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
     steps:
       - uses: actions/checkout@v6
 
@@ -34,11 +41,22 @@ jobs:
           VITE_GOOGLE_ADS_CONVERSION_ID: ${{ secrets.VITE_GOOGLE_ADS_CONVERSION_ID }}
           VITE_HCAPTCHA_SITE_KEY: ${{ secrets.VITE_HCAPTCHA_SITE_KEY }}
 
-      - name: Deploy
-        uses: peaceiris/actions-gh-pages@v4
-        env:
-          FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist
-          cname: ${{ vars.CUSTOM_DOMAIN }}
+          path: ./dist
+
+  deploy:
+    name: Deploy to GitHub Pages
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v4

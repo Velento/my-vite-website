@@ -1,9 +1,0 @@
-# SPA fallback for Cloudflare Pages.
-# Any path that does not match a real file (so /pl/, /ru/, /ua/, /en/, /by/,
-# plus any unknown URL) gets index.html with a 200 status. This replaces the
-# GitHub Pages 404.html workaround with a clean 200, which is what Google
-# wants for the per-language routes the SPA reads on boot.
-#
-# GitHub Pages ignores this file. Cloudflare Pages parses it and applies the
-# rules during request handling.
-/*  /index.html  200
