@@ -289,6 +289,26 @@ a:hover .tooltip {
   opacity: 1;
 }
 
+.language-selected__code {
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.04em;
+}
+
+.language-selected__chevron {
+  width: 12px;
+  height: 12px;
+  margin-left: 5px;
+  opacity: 0.55;
+  transition:
+    transform var(--duration-fast) var(--ease),
+    opacity var(--duration-fast) var(--ease);
+}
+
+.language-selected[aria-expanded='true'] .language-selected__chevron {
+  transform: rotate(180deg);
+  opacity: 0.9;
+}
+
 .language-dropdown {
   position: absolute;
   background-color: var(--color-bg);
@@ -372,13 +392,17 @@ a.contact-link-infooter {
     height: 20px;
     padding: 6px;
   }
-  /* Hide top-of-header contacts/lang switcher on mobile — Burger panel
-     re-exposes them inside the slide-out menu. */
-  .header-contacts,
-  .header-language-switcher {
+  /* Hide the messenger icons on mobile (Burger panel re-exposes them), but
+     keep the language switcher visible in the header — shifted left of the
+     absolutely-positioned hamburger so the two never overlap. */
+  .header-contacts {
     display: none;
   }
+  .header-language-switcher {
+    margin-right: 52px;
+  }
   .language-dropdown {
+    right: 0;
     background-color: var(--color-bg);
     box-shadow: var(--shadow-md);
   }

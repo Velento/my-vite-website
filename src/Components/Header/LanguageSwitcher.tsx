@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
 import './Header.css';
-import globeIcon from '../images/globe.png';
 import { useTranslation } from 'react-i18next';
 import { loadBundle, isSupportedLang, LANG_STORAGE_KEY, type Lang } from '../../i18n';
 
@@ -61,16 +60,33 @@ function LanguageSwitcher() {
         aria-expanded={dropdownOpen}
         aria-label={t('header.switchLanguage', 'Switch language')}
       >
-        <img
-          src={globeIcon}
-          alt=""
+        <svg
           className="globe-icon"
-          width={22}
-          height={22}
-          decoding="async"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.7"
+          strokeLinecap="round"
+          strokeLinejoin="round"
           aria-hidden="true"
-        />
-        {currentLang.toUpperCase()}
+        >
+          <circle cx="12" cy="12" r="9" />
+          <line x1="3" y1="12" x2="21" y2="12" />
+          <ellipse cx="12" cy="12" rx="4" ry="9" />
+        </svg>
+        <span className="language-selected__code">{currentLang.toUpperCase()}</span>
+        <svg
+          className="language-selected__chevron"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2.4"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          aria-hidden="true"
+        >
+          <polyline points="6 9 12 15 18 9" />
+        </svg>
       </button>
       {dropdownOpen && (
         <ul className="language-dropdown" role="listbox">
