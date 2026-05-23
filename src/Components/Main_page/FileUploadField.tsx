@@ -3,6 +3,7 @@ import type { ChangeEvent, FocusEvent } from 'react';
 import { useTranslation } from 'react-i18next';
 import type { UseFormRegisterReturn } from 'react-hook-form';
 import CloseIcon from '../common/CloseIcon';
+import type { TranslationKey } from '../../i18n/keys';
 import './FileUploadField.css';
 
 type FileUploadFieldProps = {
@@ -149,7 +150,7 @@ const FileUploadField = ({ id, registration, disabled, errorMessage }: FileUploa
 
       {errorMessage && (
         <span className="form-group__error" role="alert">
-          {t(errorMessage)}
+          {t(errorMessage as TranslationKey)}
         </span>
       )}
     </div>

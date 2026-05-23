@@ -98,8 +98,9 @@ const BenefitItem = memo(function BenefitItem({ title, content }: BenefitItemPro
   );
 });
 
-/** @type {string[]} Translation keys for benefit items */
-const BENEFIT_KEYS = ['reason1', 'reason2', 'reason3', 'reason4', 'reason5', 'reason6'];
+/** Translation key suffixes for benefit items. `as const` keeps the
+ *  `benefits.<key>.title` lookups statically checked against the locale. */
+const BENEFIT_KEYS = ['reason1', 'reason2', 'reason3', 'reason4', 'reason5', 'reason6'] as const;
 
 /**
  * Main page sections: benefits list + two-column content cards.

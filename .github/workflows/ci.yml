@@ -35,6 +35,12 @@ jobs:
       - name: TypeScript check
         run: npm run typecheck
 
+      - name: TypeScript check (worker)
+        run: npm run typecheck:worker
+
+      - name: i18n parity check
+        run: npm run check:i18n
+
   # ── 2. Тесты ────────────────────────────────────────────────────────────
   test:
     name: Tests

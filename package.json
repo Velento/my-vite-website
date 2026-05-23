@@ -16,6 +16,7 @@
     "format:check": "prettier --check \"src/**/*.{js,jsx,ts,tsx,css}\"",
     "typecheck": "tsc --noEmit",
     "typecheck:worker": "tsc --noEmit -p worker/tsconfig.json",
+    "check:i18n": "node scripts/check-i18n.mjs",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",

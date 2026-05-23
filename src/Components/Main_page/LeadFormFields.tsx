@@ -8,6 +8,7 @@ import { sendLeadToTelegram } from '../../services/telegram';
 import { trackContactClick, trackFormStart, trackLeadConversion } from '../../services/analytics';
 import { leadFormSchema, type LeadFormValues } from '../../services/validation';
 import { loadDraft, useFormDraft } from '../../hooks/useFormDraft';
+import type { TranslationKey } from '../../i18n/keys';
 import HCaptcha from '@hcaptcha/react-hcaptcha';
 
 import { WHATSAPP_HREF } from '../../constants/contact';
@@ -254,7 +255,7 @@ const LeadFormFields = ({
         />
         {nameError?.message && (
           <span className="form-group__error" role="alert">
-            {t(nameError.message)}
+            {t(nameError.message as TranslationKey)}
           </span>
         )}
       </div>
@@ -272,7 +273,7 @@ const LeadFormFields = ({
         />
         {phoneError?.message && (
           <span className="form-group__error" role="alert">
-            {t(phoneError.message)}
+            {t(phoneError.message as TranslationKey)}
           </span>
         )}
       </div>

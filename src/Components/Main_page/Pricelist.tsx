@@ -5,6 +5,7 @@ import './Pricelist.css';
 import iconCheak from '../images/play_point.svg';
 import iconPobit from '../images/icon_pricelist_pobit.svg';
 import { trackPackageSelected, trackCTAClick } from '../../services/analytics';
+import type { TranslationKey } from '../../i18n/keys';
 
 const ContactModal = lazy(() => import('../Main_page/ContactModal'));
 
@@ -39,7 +40,9 @@ const PackageCard = ({ pkg, t, onOrder }: PackageCardProps) => {
 
   const features: string[] = [];
   for (let i = 0; i < featureCount; i++) {
-    features.push(t(`packages.${pkg}.features.${i}`));
+    // Numeric index can't be narrowed to the finite feature set at compile
+    // time; FEATURE_COUNTS guarantees it stays in range at runtime.
+    features.push(t(`packages.${pkg}.features.${i}` as TranslationKey));
   }
 
   return (
