@@ -16,6 +16,7 @@ const translations = {
   'promo.deadline': 'Offer valid until the end of the month',
   'promo.cta': 'Claim the offer',
   'promo.popular': 'Most popular',
+  'promo.endsIn': 'Ends in',
   'promo.0.name': 'Basic package',
   'promo.0.old': '750 zł',
   'promo.0.new': '700 zł',

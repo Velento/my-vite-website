@@ -58,6 +58,47 @@
   letter-spacing: 0.04em;
 }
 
+/* ── Countdown ── */
+.promo__countdown {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-md);
+  margin-top: var(--space-lg);
+  padding: 10px 20px;
+  border-radius: var(--radius-full);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(184, 148, 62, 0.3);
+}
+
+.promo__countdown-label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.promo__countdown-time {
+  display: inline-flex;
+  align-items: baseline;
+  font-family: var(--font-heading);
+  color: var(--color-accent);
+}
+
+.promo__countdown-time b {
+  font-size: 1.35rem;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+
+.promo__countdown-time i {
+  font-style: normal;
+  font-size: 0.95rem;
+  font-weight: 600;
+  opacity: 0.7;
+  padding: 0 2px;
+}
+
 /* ── Cards ── */
 .promo__grid {
   display: grid;

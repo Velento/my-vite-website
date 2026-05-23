@@ -15,6 +15,7 @@ const translations = {
   'promo.deadline': 'Oferta ważna do końca miesiąca',
   'promo.cta': 'Skorzystaj z promocji',
   'promo.popular': 'Najpopularniejsze',
+  'promo.endsIn': 'Pozostało',
   'promo.0.name': 'Pakiet „Podstawowy”',
   'promo.0.old': '750 zł',
   'promo.0.new': '700 zł',

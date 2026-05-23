@@ -16,6 +16,7 @@ const translations = {
   'promo.deadline': 'Пропозиція діє до кінця місяця',
   'promo.cta': 'Скористатися акцією',
   'promo.popular': 'Найпопулярніше',
+  'promo.endsIn': 'Залишилось',
   'promo.0.name': 'Пакет «Базовий»',
   'promo.0.old': '750 zł',
   'promo.0.new': '700 zł',

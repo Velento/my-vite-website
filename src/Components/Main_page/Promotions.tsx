@@ -1,4 +1,4 @@
-import { useState, lazy, Suspense } from 'react';
+import { useState, useEffect, lazy, Suspense } from 'react';
 import { useTranslation } from 'react-i18next';
 import type { TranslationKey } from '../../i18n/keys';
 import { trackCTAClick } from '../../services/analytics';
@@ -10,9 +10,33 @@ const PROMOS = [0, 1, 2] as const;
 /** Index of the offer to spotlight as the most popular one. */
 const FEATURED = 1;
 
+const pad = (n: number) => String(n).padStart(2, '0');
+
+/** Live countdown to the last moment of the current month (the promo deadline). */
+function useMonthEndCountdown() {
+  const [diff, setDiff] = useState(() => msToMonthEnd());
+  useEffect(() => {
+    const id = setInterval(() => setDiff(msToMonthEnd()), 1000);
+    return () => clearInterval(id);
+  }, []);
+  return {
+    days: Math.floor(diff / 86400000),
+    hours: Math.floor((diff % 86400000) / 3600000),
+    minutes: Math.floor((diff % 3600000) / 60000),
+    seconds: Math.floor((diff % 60000) / 1000),
+  };
+}
+
+function msToMonthEnd() {
+  const now = new Date();
+  const end = new Date(now.getFullYear(), now.getMonth() + 1, 0, 23, 59, 59, 999);
+  return Math.max(0, end.getTime() - now.getTime());
+}
+
 const Promotions = () => {
   const { t } = useTranslation();
   const [showModal, setShowModal] = useState(false);
+  const { days, hours, minutes, seconds } = useMonthEndCountdown();
 
   const openModal = () => {
     trackCTAClick('promotions');
@@ -32,6 +56,22 @@ const Promotions = () => {
             {t('promo.codeLabel')} <strong>{t('promo.code')}</strong>
           </span>
         </p>
+        <div className="promo__countdown" role="timer" aria-label={t('promo.endsIn')}>
+          <span className="promo__countdown-label">{t('promo.endsIn')}</span>
+          <span className="promo__countdown-time">
+            {days > 0 && (
+              <>
+                <b>{days}</b>
+                <i>d</i>
+              </>
+            )}
+            <b>{pad(hours)}</b>
+            <i>:</i>
+            <b>{pad(minutes)}</b>
+            <i>:</i>
+            <b>{pad(seconds)}</b>
+          </span>
+        </div>
       </div>
 
       <div className="promo__grid">

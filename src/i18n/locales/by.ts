@@ -16,6 +16,7 @@ const translations = {
   'promo.deadline': 'Прапанова дзейнічае да канца месяца',
   'promo.cta': 'Скарыстацца акцыяй',
   'promo.popular': 'Самае папулярнае',
+  'promo.endsIn': 'Засталося',
   'promo.0.name': 'Пакет «Базавы»',
   'promo.0.old': '750 zł',
   'promo.0.new': '700 zł',
