@@ -122,9 +122,13 @@ export function trackLeadConversion(options: LeadConversionOptions = {}): void {
 /**
  * Fires when a user clicks a direct-contact link (phone, messenger app).
  *
- * Three sinks:
+ * Four sinks:
  *  - dataLayer push (GTM)
  *  - Meta Pixel `Contact` event
+ *  - Google Ads conversion — phone/WhatsApp/messenger clicks are real leads for
+ *    a legal service, so reporting them lets "Maximize conversions" bidding
+ *    bring MORE of them (not just form fills). Fires only when
+ *    `VITE_GOOGLE_ADS_CONTACT_CONVERSION_ID` (AW-XXXX/LABEL) is configured.
  *  - Cloudflare Worker `/track` beacon — survives ad-blockers
  *
  * Wire this via `onClick` on every tel:, wa.me, t.me, viber, instagram,
@@ -140,6 +144,15 @@ export function trackContactClick(channel: ContactChannel): void {
 
   if (typeof window !== 'undefined' && typeof window.fbq === 'function') {
     window.fbq('track', 'Contact', { contact_channel: channel });
+  }
+
+  const contactAdsId = import.meta.env.VITE_GOOGLE_ADS_CONTACT_CONVERSION_ID;
+  if (contactAdsId && typeof window !== 'undefined' && typeof window.gtag === 'function') {
+    window.gtag('event', 'conversion', {
+      send_to: contactAdsId,
+      event_category: 'lead',
+      contact_channel: channel,
+    });
   }
 
   trackOnWorker(channel);
