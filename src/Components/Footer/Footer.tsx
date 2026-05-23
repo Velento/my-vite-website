@@ -1,9 +1,11 @@
 import './Footer.css';
-import phoneIcon from '../images/phone-white.png';
-import telegramIcon from '../images/telegram-white.png';
-import whatsappIcon from '../images/whatsapp-white.png';
-import viberIcon from '../images/viber-white.png';
-import instagramIcon from '../images/instagram-white.png';
+import {
+  PhoneIcon,
+  TelegramIcon,
+  WhatsAppIcon,
+  ViberIcon,
+  InstagramIcon,
+} from '../common/SocialIcons';
 import { useTranslation } from 'react-i18next';
 import { trackContactClick } from '../../services/analytics';
 import {
@@ -29,15 +31,7 @@ const Footer = () => {
         <address className="footer-section contacts">
           <h2>{t('footer.contacts')}</h2>
           <div className="icon-text">
-            <img
-              src={phoneIcon}
-              alt=""
-              className="contact-icon"
-              width={22}
-              height={22}
-              loading="lazy"
-              decoding="async"
-            />
+            <PhoneIcon className="contact-icon" />
             <a
               href={PHONE_HREF}
               className="footer-contact-link"
@@ -48,15 +42,7 @@ const Footer = () => {
             </a>
           </div>
           <div className="icon-text">
-            <img
-              src={telegramIcon}
-              alt=""
-              className="contact-icon"
-              width={22}
-              height={22}
-              loading="lazy"
-              decoding="async"
-            />
+            <TelegramIcon className="contact-icon" />
             <a
               href={TELEGRAM_HREF}
               className="footer-contact-link"
@@ -69,15 +55,7 @@ const Footer = () => {
             </a>
           </div>
           <div className="icon-text">
-            <img
-              src={whatsappIcon}
-              alt=""
-              className="contact-icon"
-              width={22}
-              height={22}
-              loading="lazy"
-              decoding="async"
-            />
+            <WhatsAppIcon className="contact-icon" />
             <a
               href={WHATSAPP_HREF}
               className="footer-contact-link"
@@ -90,15 +68,7 @@ const Footer = () => {
             </a>
           </div>
           <div className="icon-text">
-            <img
-              src={viberIcon}
-              alt=""
-              className="contact-icon"
-              width={22}
-              height={22}
-              loading="lazy"
-              decoding="async"
-            />
+            <ViberIcon className="contact-icon" />
             <a
               href={VIBER_HREF}
               className="footer-contact-link"
@@ -111,15 +81,7 @@ const Footer = () => {
             </a>
           </div>
           <div className="icon-text">
-            <img
-              src={instagramIcon}
-              alt=""
-              className="contact-icon"
-              width={22}
-              height={22}
-              loading="lazy"
-              decoding="async"
-            />
+            <InstagramIcon className="contact-icon" />
             <a
               href={INSTAGRAM_HREF}
               className="footer-contact-link"

@@ -1,7 +1,5 @@
 import './Header.css';
-import telegramIcon from '../images/telegram.png';
-import whatsappIcon from '../images/whatsapp.png';
-import viberIcon from '../images/viber.png';
+import { TelegramIcon, WhatsAppIcon, ViberIcon } from '../common/SocialIcons';
 import { openViberChat } from '../../services/viber';
 import { trackContactClick } from '../../services/analytics';
 import { WHATSAPP_HREF, TELEGRAM_HREF } from '../../constants/contact';
@@ -14,36 +12,25 @@ function Contacts() {
           href={TELEGRAM_HREF}
           target="_blank"
           rel="noopener noreferrer"
+          aria-label="Telegram"
           onClick={() => trackContactClick('telegram')}
         >
           <span className="tooltip">Telegram</span>
-          <img
-            src={telegramIcon}
-            alt="Telegram"
-            className="contact-icon"
-            width={22}
-            height={22}
-            decoding="async"
-          />
+          <TelegramIcon className="contact-icon" />
         </a>
         <a
           href={WHATSAPP_HREF}
           target="_blank"
           rel="noopener noreferrer"
+          aria-label="WhatsApp"
           onClick={() => trackContactClick('whatsapp')}
         >
           <span className="tooltip">WhatsApp</span>
-          <img
-            src={whatsappIcon}
-            alt="WhatsApp"
-            className="contact-icon"
-            width={22}
-            height={22}
-            decoding="async"
-          />
+          <WhatsAppIcon className="contact-icon" />
         </a>
         <a
           href="#!"
+          aria-label="Viber"
           onClick={(e) => {
             trackContactClick('viber');
             openViberChat(e);
@@ -51,14 +38,7 @@ function Contacts() {
           rel="noopener noreferrer"
         >
           <span className="tooltip">Viber</span>
-          <img
-            src={viberIcon}
-            alt="Viber"
-            className="contact-icon"
-            width={22}
-            height={22}
-            decoding="async"
-          />
+          <ViberIcon className="contact-icon" />
         </a>
       </div>
     </div>

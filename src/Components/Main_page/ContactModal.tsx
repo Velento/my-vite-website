@@ -1,11 +1,9 @@
 import { useState } from 'react';
-import telegramIcon from '../images/telegram.png';
-import whatsappIcon from '../images/whatsapp.png';
-import viberIcon from '../images/viber.png';
 import './ContactModal.css';
 import { useTranslation } from 'react-i18next';
 import Modal from './Modal';
 import FeedbackForm from './FeedBackForm';
+import { TelegramIcon, WhatsAppIcon, ViberIcon } from '../common/SocialIcons';
 import { openViberChat } from '../../services/viber';
 import { trackContactClick } from '../../services/analytics';
 import { PHONE_NUMBER, PHONE_HREF, WHATSAPP_HREF, TELEGRAM_HREF } from '../../constants/contact';
@@ -42,48 +40,30 @@ const ContactModal = ({ show, onClose }: ContactModalProps) => {
           href={TELEGRAM_HREF}
           target="_blank"
           rel="noopener noreferrer"
+          aria-label="Telegram"
           onClick={() => trackContactClick('telegram')}
         >
-          <img
-            src={telegramIcon}
-            alt="Telegram"
-            className="contact-icon"
-            width={32}
-            height={32}
-            decoding="async"
-          />
+          <TelegramIcon className="contact-icon" size={32} />
         </a>
         <a
           href={WHATSAPP_HREF}
           target="_blank"
           rel="noopener noreferrer"
+          aria-label="WhatsApp"
           onClick={() => trackContactClick('whatsapp')}
         >
-          <img
-            src={whatsappIcon}
-            alt="WhatsApp"
-            className="contact-icon"
-            width={32}
-            height={32}
-            decoding="async"
-          />
+          <WhatsAppIcon className="contact-icon" size={32} />
         </a>
         <a
           href="#!"
+          aria-label="Viber"
           onClick={(e) => {
             trackContactClick('viber');
             openViberChat(e);
           }}
           rel="noopener noreferrer"
         >
-          <img
-            src={viberIcon}
-            alt="Viber"
-            className="contact-icon"
-            width={32}
-            height={32}
-            decoding="async"
-          />
+          <ViberIcon className="contact-icon" size={32} />
         </a>
       </div>
       <button
