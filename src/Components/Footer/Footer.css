@@ -133,11 +133,32 @@ a.contact-link-infooter {
 
 /* ── Responsive ── */
 @media (max-width: 768px) {
+  .footer {
+    padding-top: var(--space-2xl);
+  }
+
   .footer-content {
     flex-direction: column;
-    gap: var(--space-lg);
+    gap: var(--space-xl);
   }
-  .footer-section {
+
+  /* In a column, `flex: 1` becomes `flex: 1 1 0%`, which stretches every
+     section to equal height — the short "services" block then gets a tall
+     empty box and the footer looks scattered. Size each section to its own
+     content instead and let the column `gap` handle the spacing. */
+  .footer-section,
+  .footer-section.services {
+    flex: none;
+    width: 100%;
+    margin-top: 0;
     text-align: left;
+  }
+
+  .footer-section h2 {
+    margin-bottom: var(--space-md);
+  }
+
+  .footer-section .icon-text {
+    margin-bottom: var(--space-sm);
   }
 }
