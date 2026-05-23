@@ -27,29 +27,17 @@
     <link rel="alternate" hreflang="be" href="https://legalline.pl/by/" />
     <link rel="alternate" hreflang="x-default" href="https://legalline.pl/" />
 
-    <!-- Preconnect to critical third-party origins (font CSS + the woff2 host) -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-
-    <!-- Non-blocking Google Fonts: load as a print stylesheet, then swap to all on load.
-         Falls back to a regular <link> for the rare browser that ignores the swap. -->
+    <!-- Self-hosted fonts (see src/fonts.css). Nothing is fetched from Google's
+         font CDN, which is faster (no extra origin/handshake) and avoids sending
+         the visitor's IP to a third party (RODO). Preload the above-the-fold
+         Latin Inter face so first paint isn't blocked on it. -->
     <link
       rel="preload"
-      as="style"
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300..700&family=Playfair+Display:wght@500..700&display=swap"
+      as="font"
+      type="font/woff2"
+      href="/fonts/inter-latin.woff2"
+      crossorigin
     />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300..700&family=Playfair+Display:wght@500..700&display=swap"
-      media="print"
-      onload="this.media = 'all'"
-    />
-    <noscript>
-      <link
-        rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300..700&family=Playfair+Display:wght@500..700&display=swap"
-      />
-    </noscript>
 
     <link rel="dns-prefetch" href="https://connect.facebook.net" />
     <title>Legal Line | Karta pobytu Gdańsk od 750 PLN | Легализация в Польше</title>
