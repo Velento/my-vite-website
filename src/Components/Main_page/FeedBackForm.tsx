@@ -2,6 +2,7 @@ import FocusTrap from 'focus-trap-react';
 import { useTranslation } from 'react-i18next';
 import LeadFormFields from './LeadFormFields';
 import CloseIcon from '../common/CloseIcon';
+import { useBodyScrollLock } from '../../hooks/useBodyScrollLock';
 import './FeedBackForm.css';
 
 type FeedbackFormProps = {
@@ -10,6 +11,7 @@ type FeedbackFormProps = {
 
 const FeedbackForm = ({ onClose }: FeedbackFormProps) => {
   const { t } = useTranslation();
+  useBodyScrollLock(true);
   const handleClose = () => onClose?.();
 
   return (

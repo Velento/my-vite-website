@@ -4,6 +4,7 @@ import Contacts from './Contacts';
 import Menu from '../Main_page/Menu';
 import LanguageSwitcher from './LanguageSwitcher';
 import CloseIcon from '../common/CloseIcon';
+import { useBodyScrollLock } from '../../hooks/useBodyScrollLock';
 import { useTranslation } from 'react-i18next';
 
 // Lazy-loaded: a static import here would pull ContactModal — and its form
@@ -16,16 +17,13 @@ function Burger() {
   const [isOpen, setIsOpen] = useState(false);
   const { t } = useTranslation();
   const [showContactModal, setShowContactModal] = useState(false);
+  useBodyScrollLock(isOpen);
 
   useEffect(() => {
     if (!isOpen) return undefined;
-    document.body.style.overflow = 'hidden';
     const onEsc = (e: KeyboardEvent) => e.key === 'Escape' && setIsOpen(false);
     document.addEventListener('keydown', onEsc);
-    return () => {
-      document.body.style.overflow = '';
-      document.removeEventListener('keydown', onEsc);
-    };
+    return () => document.removeEventListener('keydown', onEsc);
   }, [isOpen]);
 
   const close = useCallback(() => setIsOpen(false), []);

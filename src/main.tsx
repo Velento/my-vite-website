@@ -4,6 +4,7 @@ import App from './App';
 import './index.css';
 import i18n, { initI18n } from './i18n';
 import { I18nextProvider } from 'react-i18next';
+import ErrorBoundary from './Components/common/ErrorBoundary';
 
 const rootEl = document.getElementById('root');
 if (!rootEl) throw new Error('Root element #root not found');
@@ -12,7 +13,9 @@ initI18n().then(() => {
   const app = (
     <StrictMode>
       <I18nextProvider i18n={i18n}>
-        <App />
+        <ErrorBoundary>
+          <App />
+        </ErrorBoundary>
       </I18nextProvider>
     </StrictMode>
   );

@@ -1,6 +1,7 @@
 import FocusTrap from 'focus-trap-react';
 import { useTranslation } from 'react-i18next';
 import CloseIcon from '../common/CloseIcon';
+import { useBodyScrollLock } from '../../hooks/useBodyScrollLock';
 
 type ThankYouProps = {
   name: string;
@@ -9,6 +10,7 @@ type ThankYouProps = {
 
 const ThankYou = ({ name, onClose }: ThankYouProps) => {
   const { t } = useTranslation();
+  useBodyScrollLock(true);
 
   return (
     <FocusTrap focusTrapOptions={{ allowOutsideClick: true }}>

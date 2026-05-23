@@ -2,6 +2,7 @@ import FocusTrap from 'focus-trap-react';
 import { useTranslation } from 'react-i18next';
 import type { ReactNode } from 'react';
 import CloseIcon from '../common/CloseIcon';
+import { useBodyScrollLock } from '../../hooks/useBodyScrollLock';
 import './Modal.css';
 
 type ModalProps = {
@@ -14,6 +15,7 @@ type ModalProps = {
 
 const Modal = ({ show, onClose, ariaLabel, children }: ModalProps) => {
   const { t } = useTranslation();
+  useBodyScrollLock(show);
   if (!show) return null;
 
   return (

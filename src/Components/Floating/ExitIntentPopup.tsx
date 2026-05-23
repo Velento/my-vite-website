@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { trackContactClick, trackCTAClick, trackPopupShown } from '../../services/analytics';
 import { WHATSAPP_HREF } from '../../constants/contact';
 import { scrollToElement } from '../../utils/scroll';
+import { useBodyScrollLock } from '../../hooks/useBodyScrollLock';
 import CloseIcon from '../common/CloseIcon';
 import './ExitIntentPopup.css';
 
@@ -14,6 +15,7 @@ const DESKTOP_QUERY = '(min-width: 1024px)';
 const ExitIntentPopup = () => {
   const { t } = useTranslation();
   const [open, setOpen] = useState(false);
+  useBodyScrollLock(open);
 
   useEffect(() => {
     if (typeof window === 'undefined') return undefined;
@@ -51,12 +53,7 @@ const ExitIntentPopup = () => {
       if (e.key === 'Escape') setOpen(false);
     };
     document.addEventListener('keydown', onKey);
-    const prevOverflow = document.body.style.overflow;
-    document.body.style.overflow = 'hidden';
-    return () => {
-      document.removeEventListener('keydown', onKey);
-      document.body.style.overflow = prevOverflow;
-    };
+    return () => document.removeEventListener('keydown', onKey);
   }, [open]);
 
   if (!open) return null;
