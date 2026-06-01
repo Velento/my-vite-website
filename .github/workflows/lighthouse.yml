@@ -9,6 +9,11 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
+# Build + audit only read the repo; the LHCI status upload uses its own
+# LHCI_GITHUB_APP_TOKEN, not the default GITHUB_TOKEN.
+permissions:
+  contents: read
+
 jobs:
   lighthouse:
     name: Lighthouse audit
