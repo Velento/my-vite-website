@@ -7,7 +7,7 @@ name: Configure repository hardening
 #   3. HTTPS enforcement on GitHub Pages
 #
 # Requires `REPO_ADMIN_TOKEN` (a PAT with admin rights on this repo) as a
-# repository secret. See docs/branch-protection-setup.md.
+# repository secret (Account -> Developer settings -> Personal access tokens).
 #
 # To run: GitHub UI -> Actions -> "Configure repository hardening" -> Run workflow.
 
