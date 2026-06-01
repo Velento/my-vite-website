@@ -29,11 +29,11 @@ id = "906303287ee844fdb3f852d2bc5a32b6"
 # `period` must be 10 or 60 (seconds). The worker no-ops gracefully if these
 # bindings are absent, so an older deploy keeps working.
 [[ratelimits]]
-binding = "FORM_RATE_LIMITER"
+name = "FORM_RATE_LIMITER"
 namespace_id = "1001"
 simple = { limit = 6, period = 60 }
 
 [[ratelimits]]
-binding = "TRACK_RATE_LIMITER"
+name = "TRACK_RATE_LIMITER"
 namespace_id = "1002"
 simple = { limit = 40, period = 60 }
