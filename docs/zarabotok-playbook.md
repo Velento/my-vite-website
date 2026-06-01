@@ -1,375 +1,196 @@
-# Как заработать на разнице - полная инструкция
+# Как заработать на разнице - короткий план
 
-Босс пишет: *«Я плачу за Лида 3,5$. Если ты настроишь грамотно воронку и лид будет дешевле, то разницу забираешь себе»*.
+Босс: *«Я плачу за лида 3,5$. Настроишь воронку грамотно и лид будет дешевле - разницу забираешь себе»*.
 
-Это руководство - пошаговый план как из этой фразы превратить деньги в кармане. Без воды, в порядке выполнения. Если выполнить всё, что ниже, не пропуская - система заработает.
+**Суть:** $3,5 ≈ **14 PLN за лид**. Всё, что лид стоит тебе **дешевле 14 PLN**, - твоя маржа.
+Цель: держать **CPL ≤ 11 PLN** (≈3 PLN маржи на каждом лиде после потерь на атрибуцию).
 
----
-
-## Часть 0 - что уже сделано (тебе не надо)
-
-- ✅ Воронка на сайте: формы, всплывашка на выход, плавающая WhatsApp кнопка, мобильная нижняя панель, fallback на WhatsApp если форма падает
-- ✅ Аналитика: события lead_form_start / lead_form_submit / contact_click летят в GTM и Google Ads (если ID указан)
-- ✅ Серверный аудит лидов (Cloudflare KV): каждый лид логируется на стороне сервера, обойти его клиент не может
-- ✅ Дашборд счёта лидов на `/dashboard?token=<REPORT_TOKEN>` - у обеих сторон одна правда
-- ✅ Cloudflare Worker задеплоен на `https://legalline-form-proxy.legalline.workers.dev`
-- ✅ KV namespace создан, `REPORT_TOKEN` установлен
-- ✅ GitHub Secret `VITE_FORM_PROXY_URL` установлен → деплой сайта забилит URL прокси
+**Что нужно сделать (3 шага):**
+1. Доделать 2 технические настройки (15 минут) - раздел 1.
+2. Договориться с боссом письменно (3 пункта) - раздел 2.
+3. Запустить кампанию по копипасту - раздел 3. Дальше - ритм из раздела 4.
 
 ---
 
-## Часть 1 - финиш технического сетапа (15 минут)
+## 0. Что уже готово (не трогай)
 
-### 1.1 Установить Telegram секреты воркера
+- Воронка: формы, всплывашка на выход, плавающая WhatsApp-кнопка, мобильная панель, fallback на WhatsApp если форма падает.
+- Аналитика: события `lead_form_start` / `lead_form_submit` / `contact_click` летят в GTM и Google Ads.
+- Серверный аудит лидов (Cloudflare KV) - клиент не может его обойти или подделать.
+- Дашборд счёта лидов - одна правда для тебя и босса.
+- Воркер задеплоен: `https://legalline-form-proxy.legalline.workers.dev`, `REPORT_TOKEN` и `VITE_FORM_PROXY_URL` установлены.
 
-Прямо сейчас форма падает на WhatsApp fallback, потому что воркер не знает в какой Telegram бот слать. Открой терминал в проекте и выполни (на месте `<…>` подставь реальные значения - те же, что в GitHub Secrets `VITE_TELEGRAM_BOT_TOKEN` и `VITE_TELEGRAM_CHAT_ID`):
+---
+
+## 1. Доделать сетап (15 минут) - 2 вещи
+
+### 1.1 Telegram-секреты воркера
+Без них форма падает на WhatsApp-fallback (хуже конверсия → дороже лид). Подставь реальные значения (те же, что в GitHub Secrets `VITE_TELEGRAM_BOT_TOKEN` / `VITE_TELEGRAM_CHAT_ID`):
 
 ```bash
 echo "<bot_token>" | npx wrangler secret put TELEGRAM_BOT_TOKEN
 echo "<chat_id>"   | npx wrangler secret put TELEGRAM_CHAT_ID
 ```
 
-Если не помнишь токен - пиши `@BotFather` в Telegram, команда `/mybots`, выбери бота, "API Token". Chat ID - открой бот, отправь любое сообщение, потом `curl https://api.telegram.org/bot<TOKEN>/getUpdates` и в JSON ищи `"chat":{"id":-100…}`.
-
-Проверка:
-```bash
-npx wrangler secret list
-# должно показать TELEGRAM_BOT_TOKEN, TELEGRAM_CHAT_ID, REPORT_TOKEN
-```
-
-Smoke test:
+Проверка (должно прийти сообщение в Telegram, ответ `{"ok":true,...}`):
 ```bash
 curl -s -X POST "https://legalline-form-proxy.legalline.workers.dev/" \
-  -H "Content-Type: application/json" \
-  -H "Origin: https://legalline.pl" \
+  -H "Content-Type: application/json" -H "Origin: https://legalline.pl" \
   -d '{"name":"TEST","phone":"+48123456789"}'
-# ожидаем {"ok":true,"id":"…"}, а не {"ok":false,"error":"Upstream error"}
 ```
 
-И в Telegram должно прилететь тестовое сообщение.
+### 1.2 Google Ads conversion label
+Сейчас в GitHub Secret `VITE_GOOGLE_ADS_CONVERSION_ID` стоит `AW-802543735` (только ID аккаунта, без метки). **Без `/LABEL` Google Ads молча выбрасывает конверсии** - Smart Bidding не учится.
 
-### 1.2 Добить Google Ads Conversion Label
-
-Сейчас в GitHub Secrets `VITE_GOOGLE_ADS_CONVERSION_ID` стоит `AW-802543735` - это только ID аккаунта, без метки конкретного события. Google Ads такие конверсии молча отбрасывает.
-
-1. Зайти на https://ads.google.com → **Инструменты и настройки → Измерения → Конверсии**
-2. Создать новое действие-конверсия → Веб-сайт
-3. Настройки:
-   - Цель: **Лид (Lead)**
-   - Имя: `LegalLine - Lead Form Submit`
-   - Ценность: одинаковая для каждой конверсии → **750 PLN**
-   - Подсчёт: один (один лид с клика)
-   - Окно атрибуции: 30 дней
-4. Сохранить → выбрать "Использовать Google Tag Manager"
-5. Google покажет ID + Label вида `AW-802543735/abcDEFghi123` - это и есть полный идентификатор
-6. Обновить GitHub секрет:
+1. ads.google.com → **Инструменты → Конверсии → + Новое действие → Веб-сайт**.
+2. Цель **Лид**, имя `LegalLine - Lead Form Submit`, ценность **750 PLN**, окно 30 дней, способ **Google Tag Manager**.
+3. Скопируй полный ID вида `AW-802543735/abcDEFghi123` и сохрани секрет:
    ```bash
-   gh secret set VITE_GOOGLE_ADS_CONVERSION_ID --body "AW-802543735/abcDEFghi123"
+   gh secret set VITE_GOOGLE_ADS_CONVERSION_ID --body "AW-802543735/<LABEL>"
    ```
-7. Любой коммит в `my-vite-website` → CI ребилд → новый сайт знает про label
+4. Любой коммит в `my-vite-website` → CI пересоберёт сайт с правильной меткой.
 
-После этого каждый `lead_form_submit` будет считаться как Google Ads конверсия.
+> Опционально: `VITE_GOOGLE_ADS_CONTACT_CONVERSION_ID` (по той же схеме) включит конверсии и на клики по телефону/мессенджерам - можно докрутить позже.
 
 ---
 
-## Часть 2 - договорённость с боссом ДО запуска кампании
+## 2. Договорись с боссом письменно (хоть в чате)
 
-**Не запускай рекламу пока эти пункты не подтверждены письменно** (хоть в чате - но письменно, чтобы было где сослаться).
+Не запускай рекламу, пока не согласованы 3 пункта:
 
-### 2.1 Что считается лидом?
+1. **Что = лид.** Рекомендация: **успешная отправка формы** (имя + телефон, доставлено в Telegram). Не клики. Дедуп: один телефон за 24 ч = 1 лид. Аргумент - серверный аудит, обе стороны видят одно число.
+2. **Кто платит за рекламу.** Если **ты** - вся разница твоя (и весь риск). Если **босс** - тебе платят только за работу, на разнице не заработаешь. Уточни это первым.
+3. **Кап в месяц.** Сколько лидов босс готов принять. Превысил - ставь паузу.
 
-Самый чистый вариант: **каждая успешная отправка формы = 1 лид**. Не клики на WhatsApp, не клики на номер. Только форма с именем + телефоном.
-
-Аргументы:
-- На сайте есть сервер-сайд аудит → невозможно сфальсифицировать
-- Дашборд показывает обоим одно и то же число
-- Дедуп: один и тот же телефон в 24 часа = 1 лид
-
-Альтернативный сценарий, который босс может предложить: «лид = тот, до кого мы дозвонились». Этого избегай - слишком субъективно, можно занижать. Если соглашаешься - требуй акт сверки еженедельно, не помесячно.
-
-### 2.2 Цена и валюта
-
-$3.5 ≈ 14 PLN (по курсу на 2026-05). Уточни:
-- В каких единицах оплачивается - USD или PLN
-- На какую дату фиксируется курс если в USD (рекомендую: средний за период)
-- Как часто платит - еженедельно/раз в две недели/раз в месяц
-
-### 2.3 Лимит и кап
-
-- Сколько лидов в месяц босс готов принять? (есть бизнес-ёмкость - больше N лидов в день обработать не смогут)
-- При превышении - пауза кампании или скидка?
-- Минимум: при < X лидов в месяц штраф/перерасчёт?
-
-### 2.4 Качество и брак
-
-Часть лидов будут «битые»: фейковые номера, неотвечающие, не релевантные (не нужна карта побыту, а что-то другое). Заранее договорись:
-- Что считается браком (предложение: 3 неудачные попытки дозвона за 48 часов = брак)
-- Какой % брака допустим (норма 10-20% - выше тревога)
-- Как компенсировать брак (предложение: брак не оплачивается, его доказывает скрин трёх звонков из CRM)
-
-### 2.5 Как оплачивается реклама
-
-Самый частый вариант - **ты оплачиваешь рекламу из своего кармана**, а босс платит за лид. Тогда вся разница твоя, и вся ответственность за результат тоже.
-
-Менее частый - **босс оплачивает рекламу**. Тогда тебе платят только за работу (например, 5 PLN за лид). Это другая модель - на разнице ты ничего не заработаешь.
-
-Уточни сразу - кто платит карту Google Ads. От этого зависит всё дальше.
-
-### 2.6 Доступ к дашборду
-
-Дай боссу `REPORT_TOKEN` чтобы он мог независимо открыть дашборд. Сам токен в файле `.report-token.local` в корне проекта (gitignored). Сгенерируй URL для босса так:
-
+Дай боссу ссылку на дашборд (токен лежит в `.report-token.local`, в репо его не коммить):
 ```bash
 echo "https://legalline-form-proxy.legalline.workers.dev/dashboard?token=$(cat .report-token.local)"
 ```
 
-И отправь этот URL боссу в личку. **Никогда** не коммить токен в репо - gitleaks в CI блокирует пуш. Если случайно закоммитил - сразу:
-```bash
-NEW=$(openssl rand -hex 32) && echo "$NEW" | npx wrangler secret put REPORT_TOKEN && echo "$NEW" > .report-token.local
-```
-…и пересоздай URL.
-
 ---
 
-## Часть 3 - запуск Google Ads кампании
+## 3. Запусти кампанию (копипаст)
 
-Перед запуском проверь чек-лист:
-- [ ] Telegram секреты воркера установлены (см. 1.1)
-- [ ] Conversion label установлен в GitHub Secret (см. 1.2)
-- [ ] CI прокатился (push любого коммита → проверь `gh run list`)
-- [ ] Платёжная карта привязана к Google Ads аккаунту (если платишь ты)
-- [ ] Точно понятно, кто платит - ты или босс (см. 2.5)
-- [ ] Договорённость с боссом письменно зафиксирована
+### Настройки
+- Тип: **Поиск (Search)**. Цель: **Лиды**.
+- Сети: **только поиск Google**. Display и Search Partners - ВЫКЛ.
+- Язык: **польский** (язык сайта).
+- Гео: **Pomorskie + Mazowieckie** (Гданьск + Варшава); можно добавить Kraków, Wrocław, Poznań.
+- Стратегия (первые 3 недели): **Максимум конверсий**, без лимита CPA.
+- Бюджет: **60-80 PLN/день**.
 
-### 3.1 Структура кампании
+### 3 группы объявлений + ключи (вставлять как есть)
 
-Одна **Поисковая кампания** (Search), три группы объявлений по интенту:
-
-| Группа | Интент | Темы ключевиков | Приоритет ставки |
-|---|---|---|---|
-| `karta-pobytu` | Высокий | Прямые запросы карты побыту | Максимум |
-| `legalizacja` | Средний | Легализация, разрешения на работу | Средний |
-| `pomoc-prawna` | Низкий | Общая юр-помощь | Минимум |
-
-### 3.2 Настройки кампании
-
-- **Тип**: Поиск (Search)
-- **Цель**: Лиды (Leads)
-- **Сети**: Только поиск Google. ВЫКЛ Display Network, ВЫКЛ Search Partners (на старте - потом можно протестить)
-- **Локация**: Польша → Województwo Pomorskie + Mazowieckie (фокус на регион Гданьска и Варшаву). Можно добавить ещё крупные города: Krakow, Wroclaw, Poznan, Lodz
-- **Язык**: Polish (ОБЯЗАТЕЛЬНО - это язык сайта)
-- **Стратегия ставок (первые 3 недели)**: Максимум конверсий, **без ограничения CPA**
-- **Дневной бюджет**: 60-80 PLN
-
-### 3.3 Ключевые слова (вставлять как есть)
-
-#### Группа `karta-pobytu`:
+**`karta-pobytu`** (высокий интент, макс. ставка):
 ```
-[karta pobytu warszawa]
 [karta pobytu gdansk]
+[karta pobytu warszawa]
 "karta pobytu czasowego"
 "karta pobytu stałego"
 "karta pobytu cena"
 "karta pobytu dla cudzoziemca"
-"karta pobytu jak złożyć"
-"pomoc karta pobytu"
 +karta +pobytu +pomoc
 +karta +pobytu +prawnik
 ```
 
-#### Группа `legalizacja`:
+**`legalizacja`** (средний интент):
 ```
 "legalizacja pobytu"
 "legalizacja pracy cudzoziemca"
 "zezwolenie na pobyt czasowy"
 "zezwolenie na pracę"
 "pobyt rezydenta długoterminowego"
-"oświadczenie o powierzeniu pracy"
-"pobyt czasowy wniosek"
 ```
 
-#### Группа `pomoc-prawna`:
+**`pomoc-prawna`** (низкий интент, мин. ставка):
 ```
 "prawnik dla cudzoziemca"
 "pomoc prawna karta pobytu"
-"adwokat cudzoziemcy warszawa"
-"radca prawny imigracja"
+"adwokat cudzoziemcy"
 "prawnik imigracyjny"
 ```
 
-### 3.4 Минус-слова (ОБЯЗАТЕЛЬНО - добавить на уровне кампании)
-
+### Минус-слова (на уровне кампании - ОБЯЗАТЕЛЬНО)
+Убивают мусорный трафик, который раздувает CPL:
 ```
-darmowy darmowa darmowe
-free
-forum
-wzór wzor
-sample
-template
-wikipedia
-praca
-oferty
-oferta pracy
-work.ua
-pracuj.pl
-ambasada
-konsulat
-mfa
-sejm
-pdf
-download
-youtube
-filmik
-film
+darmowy darmowa darmowe free
+forum wzór wzor sample template wikipedia pdf download
+praca oferty "oferta pracy" work.ua pracuj.pl
+ambasada konsulat mfa sejm
+youtube film filmik
 ```
 
-### 3.5 Объявления (по 2 RSA в каждой группе)
+### Объявления (по 2 RSA на группу; заголовок ≤30 знаков, описание ≤90)
+Закрепить на позиции 1 (с ключом):
+- `Karta pobytu - pomoc prawna`
+- `Karta pobytu już od 750 zł`
+- `Karta pobytu w Gdańsku`
 
-**Объявление для karta-pobytu (Headlines 30 знаков, Descriptions 90 знаков):**
+Незакреплённые (ещё 6-8):
+`Bezpłatna konsultacja` · `Złóż wniosek bez błędów` · `Doświadczeni prawnicy` · `Reprezentacja w urzędzie` · `1500+ zamkniętych spraw` · `Pomoc w 5 językach` · `Oddzwonimy w 30 minut`
 
-Headlines (pinned position 1):
-- Karta pobytu - pomoc prawna
-- Karta pobytu już od 750 zł
-- Karta pobytu w Warszawie
+Описания:
+- `Załatwimy kartę pobytu szybko i bez stresu. Sprawdzimy dokumenty, wypełnimy wniosek, reprezentujemy.`
+- `Pierwsza konsultacja gratis. Zostaw numer - oddzwonimy w 30 minut. Tysiące zadowolonych klientów.`
 
-Headlines (unpinned, ещё 6-10):
-- Bezpłatna konsultacja
-- Złóż wniosek bez błędów
-- Doświadczeni prawnicy
-- Gwarancja zwrotu pieniędzy
-- Reprezentacja w urzędzie
-- 1500+ zamkniętych spraw
-- Pierwsza konsultacja gratis
-- Pomoc w 5 językach
-
-Descriptions:
-- Załatwimy kartę pobytu szybko i bez stresu. Sprawdzimy dokumenty, wypełnimy wniosek, reprezentujemy.
-- Pierwsza konsultacja gratis. Zostaw numer - oddzwonimy w 30 minut. Tysiące zadowolonych klientów.
-
-### 3.6 Расширения (Assets)
-
-- **Sitelinks** (4 шт):
-  - *Bezpłatna konsultacja* → `https://legalline.pl/#leedform`
-  - *Cennik usług* → `https://legalline.pl/#pricelist`
-  - *Opinie klientów* → `https://legalline.pl/#reviews-section`
-  - *FAQ* → `https://legalline.pl/#faq-section`
-- **Callouts**: «Bezpłatna konsultacja», «Gwarancja zwrotu», «1500+ spraw», «5 języków»
-- **Call extension**: `+48 883 734 171`
-- **Structured snippets** → Services: «Karta pobytu», «Legalizacja», «Obywatelstwo», «Pomoc prawna»
+### Расширения (Assets) - якоря проверены против сайта
+- **Sitelinks:**
+  - Bezpłatna konsultacja → `https://legalline.pl/#leedform`
+  - Cennik usług → `https://legalline.pl/#pricelist`
+  - Opinie i mapa → `https://legalline.pl/#map`
+  - FAQ → `https://legalline.pl/#faq`
+- **Call extension:** `+48 883 734 171`
+- **Callouts:** `Bezpłatna konsultacja` · `Gwarancja zwrotu` · `1500+ spraw` · `5 języków`
+- **Structured snippets** (Usługi): `Karta pobytu`, `Legalizacja`, `Obywatelstwo`, `Pomoc prawna`
 
 ---
 
-## Часть 4 - рабочий ритм (первый месяц)
+## 4. Рабочий ритм
 
-### 4.1 Ежедневно (2 минуты)
+**Ежедневно (2 мин):** глянуть CPL в Ads + сверить число с дашбордом `/dashboard?token=…`. Если CPL > 15 PLN три дня подряд → пауза, идти в «если CPL высокий».
 
-- Открыть Ads → глянуть CPL и количество конверсий
-- Открыть дашборд лидов: `/dashboard?token=…` - совпадает ли число с Ads
-- Если за 3 дня подряд CPL > 15 PLN → **поставить кампанию на паузу** и переходить к 4.3
+**Еженедельно (15 мин - самое важное):** отчёт **Search Terms** (Keywords → Search Terms). Всё нерелевантное → в минус-слова; что хорошо конвертит → добавить точным соответствием. Первый месяц это +5-15 минусов в неделю.
 
-### 4.2 Еженедельно (15 минут - самая важная активность)
+**Если CPL высокий (> 14 PLN), по порядку:**
+1. Добавить минус-слов (в 75% случаев проблема тут).
+2. Отключить broad-match, оставить phrase/exact.
+3. Переписать объявления (упор на цену + гарантию).
+4. Сузить гео до Gdańsk + Warszawa.
+5. Отключить ночь и выходные, если плохо конвертят.
 
-- **Отчёт по поисковым запросам** (Keywords → Search Terms):
-  - Найти всё что не подходит → добавить как минус-слово
-  - Найти то что хорошо конвертит → добавить как точное соответствие в keywords
-- Девайсы: если мобильный CPL вдвое больше десктопа - снизить ставки для мобильных
-- Дни недели/часы: если ночные часы конвертят плохо → отключить
-- Объявления: запаузить худшее в группе, клонировать лучшее с одним изменением
+**Через 3-4 недели (30+ конверсий):** переключить стратегию на **Target CPA = 11 PLN**. Если объём сильно падает - 12 PLN, **никогда выше 13**.
 
-### 4.3 Если CPL высокий (> 14 PLN) - что делать в порядке приоритета
-
-1. **Search Terms** - добавить минус-слов больше (75% случаев - проблема тут)
-2. **Релевантность ключевиков** - отключить broad match, оставить только phrase/exact
-3. **Качество объявлений** - переписать ad copy с упором на цену и гарантию
-4. **Геотаргетинг** - оставить только Warszawa и Gdansk
-5. **Время показа** - отключить ночь и выходные
-
-### 4.4 Через 3-4 недели - переключение на Target CPA
-
-После накопления 30+ конверсий:
-- Стратегия: **Target CPA**
-- Целевая CPA: 11 PLN
-- Если объём сильно упал - повысить до 12 PLN, **никогда выше 13**
-
-### 4.5 Сверка с боссом
-
-- В конце недели/месяца открыть `/dashboard?token=…` обоим
-- Сверить число `total_unique` (или `total_billable` если ещё старая терминология)
-- Опционально - выгрузить CSV для архива:
-  ```bash
-  curl -sH "Authorization: Bearer $TOKEN" \
-    "$WORKER/export?from=2026-06-01&to=2026-06-30&dedup=true" \
-    -o leads-2026-06.csv
-  ```
-- Если есть споры по конкретным лидам - открыть CSV, посмотреть на timestamp/UTM/source
+**Сверка с боссом:** в конце периода оба открывают дашборд, сверяют `total_unique`. Спор - выгрузить CSV:
+```bash
+TOKEN=$(cat .report-token.local); W=https://legalline-form-proxy.legalline.workers.dev
+curl -sH "Authorization: Bearer $TOKEN" "$W/export?from=2026-06-01&to=2026-06-30&dedup=true" -o leads.csv
+```
 
 ---
 
-## Часть 5 - экономика
+## 5. Экономика
 
-### 5.1 Реалистичные ожидания CPL
-
-| Сценарий | CPL | Что значит |
+| Сценарий | CPL | Маржа на лид (при выплате 14 PLN) |
 |---|---|---|
-| Идеал | 7-10 PLN | Узкое гео, хорошие минус-слова, оптимизированная воронка → маржа 4-7 PLN/лид |
-| Норма | 11-15 PLN | Первый месяц - учится. CPA-цель достижима за 4-6 недель → маржа 0-3 PLN/лид |
-| Плохо | > 18 PLN | Что-то не так - ключи слишком широкие, нет минус-слов → **СТОП**, разбирайся |
+| Идеал | 7-10 PLN | 4-7 PLN |
+| Норма (1-й месяц) | 11-14 PLN | 0-3 PLN |
+| Плохо | > 18 PLN | минус → **СТОП и чинить** |
 
-### 5.2 Точка безубыточности
+Воронка (всплывашка, мобильная панель, WhatsApp-fallback) уже поднимает конверсию на 15-30% - это и есть разница между 14 PLN (в ноль) и 10 PLN (в плюс).
 
-При 14 PLN выплате от босса:
-- Если ты платишь рекламу → CPL должен быть < 14 PLN, иначе ты в минусе
-- Если босс платит рекламу → ты в плюсе всегда, но размер плюса зависит от модели оплаты (см. 2.5)
-
-### 5.3 Куда уйдёт время - реалистично
-
-- Сетап (один раз): 4-6 часов вместе с этой инструкцией
-- Первая неделя: 30-60 мин/день (мониторинг + поисковые запросы)
-- После стабилизации: 1-2 часа/неделю
-
-### 5.4 Когда выходить из кампании
-
-Кампанию **точно** надо остановить если:
-- 2 недели подряд CPL > 16 PLN и оптимизация не помогает
-- Меньше 50 PLN/день можешь выделять (smart bidding не учится)
-- Босс перестаёт платить или меняет условия в одностороннем порядке
-- Конверсии не пишутся в Google Ads (проверь conversion label!)
+**Останавливай кампанию если:** 2 недели CPL > 16 и оптимизация не помогает; бюджет < 50 PLN/день (Smart Bidding не учится); конверсии не пишутся (проверь label из 1.2); босс меняет условия в одностороннем порядке.
 
 ---
 
-## Часть 6 - чек-лист «всё ли я сделал»
+## 6. Шпаргалка - где смотреть
 
-Перед тем как нажать «Launch» в Ads:
-
-- [ ] Telegram секреты воркера установлены (1.1)
-- [ ] Smoke test формы возвращает `{"ok":true}` и сообщение приходит в Telegram (1.1)
-- [ ] Conversion Label установлен в GitHub Secret (1.2)
-- [ ] CI ребилд прошёл успешно (gh run list)
-- [ ] Договорённость с боссом письменно (части 2.1-2.6)
-- [ ] Платёжная карта в Google Ads привязана и работает
-- [ ] Кампания настроена: 1 search, 3 ad groups, ключи и минус-слова из 3.3-3.4
-- [ ] Минимум 2 RSA объявления в каждой группе с 8+ headlines
-- [ ] Все 4 sitelinks работают (кликни - должно открыться)
-- [ ] Дневной бюджет 60-80 PLN, стратегия Maximize Conversions
-- [ ] Звонок самому себе через ссылку из ad preview работает (тест мобильного CTA)
-
-После запуска:
-- [ ] Через 24 часа: в Ads → Conversions появилось хотя бы 1 «Recording conversions» (значит label правильный)
-- [ ] Через 3 дня: дашборд показывает > 0 уникальных лидов, число совпадает с Ads
-- [ ] Через 7 дней: первый review с боссом, добавление минус-слов
-
----
-
-## Что под капотом - короткая шпаргалка
-
-| Действие | Где смотреть |
+| Что | Где |
 |---|---|
-| Запустить/остановить рекламу | https://ads.google.com |
-| Аналитика по конверсиям | Ads → Conversions → Status |
-| Что реально пишется в БД | `https://.../dashboard?token=…` |
-| Сырая выгрузка лидов | `GET /export?from=…&to=…` |
-| Тест формы как пользователь | https://legalline.pl/#leedform |
-| Логи воркера в реальном времени | `npx wrangler tail` |
-| Логи CI | `gh run watch` |
+| Запуск/стоп рекламы, CPL | https://ads.google.com |
+| Считаются ли конверсии | Ads → Conversions → Status (через ~24 ч после первого лида) |
+| Реальное число лидов | `https://legalline-form-proxy.legalline.workers.dev/dashboard?token=…` |
+| Сырая выгрузка | `GET /report?from=…&to=…` и `/export?…` |
+| Тест формы как юзер | https://legalline.pl/#leedform |
+| Ошибки воркера в реальном времени | `npx wrangler tail` |
 
-Если что-то идёт не так - первым делом смотри `wrangler tail`, там видно ошибки воркера в момент когда форма падает.
+Подробный технический разбор биллинга - в `lead-billing.md`. Расширенный список ключей и тонкости кампании - в `google-ads-campaign.md`.
