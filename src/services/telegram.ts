@@ -13,6 +13,13 @@
  *      multipart and the bot token, both of which we don't want in the client).
  */
 
+import { ALLOWED_LEAD_FILE_TYPES, escapeHtml, MAX_LEAD_FILE_BYTES } from '../shared/leadRules';
+
+// Re-exported so the attachment limits stay importable from this module (part of
+// the lead payload's public contract); they are defined in the shared module
+// that the Worker proxy validates against too.
+export { ALLOWED_LEAD_FILE_TYPES, MAX_LEAD_FILE_BYTES };
+
 const TELEGRAM_API_BASE = 'https://api.telegram.org';
 
 // Note: do NOT hardcode bot tokens or chat IDs in client source.
@@ -30,25 +37,11 @@ export type LeadPayload = {
   captchaToken?: string;
 };
 
-export const MAX_LEAD_FILE_BYTES = 10 * 1024 * 1024;
-export const ALLOWED_LEAD_FILE_TYPES: readonly string[] = [
-  'application/pdf',
-  'image/jpeg',
-  'image/png',
-  'image/webp',
-  'application/msword',
-  'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-];
-
 type ServiceResponse = {
   ok: boolean;
   description?: string;
   error?: string;
 };
-
-function escapeHtml(value: string): string {
-  return value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-}
 
 function buildMessage({ name, phone, promo }: LeadPayload): string {
   const safeName = escapeHtml(name);

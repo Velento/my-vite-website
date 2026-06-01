@@ -76,6 +76,20 @@ describe('LeadFormFields', () => {
     );
   });
 
+  it('surfaces a WhatsApp fallback link when the network submit fails', async () => {
+    sendLeadToTelegram.mockRejectedValueOnce(new Error('network down'));
+    const user = userEvent.setup();
+    render(<LeadFormFields idPrefix="test" />);
+
+    await user.type(screen.getByLabelText('feedbackForm.name'), 'Anna');
+    await user.type(screen.getByLabelText('feedbackForm.phone'), '+48883734171');
+    await user.click(screen.getByRole('button', { name: 'feedbackForm.submit' }));
+
+    await waitFor(() => expect(screen.getByRole('alert')).toBeInTheDocument());
+    const fallback = screen.getByRole('link', { name: /WhatsApp/i });
+    expect(fallback.getAttribute('href')).toContain('text=');
+  });
+
   it('treats a filled honeypot as a bot: shows success without calling the network', async () => {
     const user = userEvent.setup();
     const { container } = render(<LeadFormFields idPrefix="test" thankYouDelayMs={10} />);

@@ -10,7 +10,7 @@
 
 import { describe, it, expect, vi, beforeEach, beforeAll } from 'vitest';
 import { webcrypto } from 'node:crypto';
-import worker from './index';
+import worker, { fileSignatureMatches } from './index';
 
 // jsdom ships a partial `crypto` without `subtle`/`randomUUID`; the worker
 // needs both. Swap in Node's full Web Crypto when the stub is incomplete.
@@ -118,6 +118,17 @@ describe('routing & CORS', () => {
     expect(fetch).not.toHaveBeenCalled();
   });
 
+  it('rejects a form POST with no Origin header (non-browser client)', async () => {
+    const req = new Request('https://proxy.example/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'User-Agent': 'Mozilla/5.0' },
+      body: JSON.stringify(VALID_LEAD),
+    });
+    const res = await worker.fetch(req, makeEnv());
+    expect(res.status).toBe(403);
+    expect(fetch).not.toHaveBeenCalled();
+  });
+
   it('returns 404 for an unknown route', async () => {
     const res = await worker.fetch(jsonRequest('/nope', {}), makeEnv());
     expect(res.status).toBe(404);
@@ -200,6 +211,47 @@ describe('POST / (lead submission)', () => {
     const res = await worker.fetch(jsonRequest('/', VALID_LEAD), env);
     expect(res.status).toBe(429);
     expect(fetch).not.toHaveBeenCalled();
+  });
+});
+
+describe('fileSignatureMatches (magic-byte check)', () => {
+  const file = (bytes: number[], type: string) =>
+    new File([new Uint8Array(bytes)], 'upload', { type });
+
+  it('accepts files whose leading bytes match the declared type', async () => {
+    const pdf = file([0x25, 0x50, 0x44, 0x46, 0x2d], 'application/pdf');
+    const png = file([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a], 'image/png');
+    const jpeg = file([0xff, 0xd8, 0xff, 0xe0], 'image/jpeg');
+    const webp = file([0x52, 0x49, 0x46, 0x46, 0, 0, 0, 0, 0x57, 0x45, 0x42, 0x50], 'image/webp');
+    const docx = file([0x50, 0x4b, 0x03, 0x04], 'application/vnd.openxmlformats-officedocument.wordprocessingml.document');
+    const doc = file([0xd0, 0xcf, 0x11, 0xe0, 0xa1, 0xb1, 0x1a, 0xe1], 'application/msword');
+
+    expect(await fileSignatureMatches(pdf, 'application/pdf')).toBe(true);
+    expect(await fileSignatureMatches(png, 'image/png')).toBe(true);
+    expect(await fileSignatureMatches(jpeg, 'image/jpeg')).toBe(true);
+    expect(await fileSignatureMatches(webp, 'image/webp')).toBe(true);
+    expect(
+      await fileSignatureMatches(
+        docx,
+        'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+      )
+    ).toBe(true);
+    expect(await fileSignatureMatches(doc, 'application/msword')).toBe(true);
+  });
+
+  it('rejects a payload spoofing an allowed type', async () => {
+    const fakePng = file([0x4d, 0x5a, 0x90, 0x00], 'image/png'); // MZ = Windows executable
+    expect(await fileSignatureMatches(fakePng, 'image/png')).toBe(false);
+  });
+
+  it('rejects a WEBP with the RIFF header but wrong format tag', async () => {
+    const notWebp = file([0x52, 0x49, 0x46, 0x46, 0, 0, 0, 0, 0x41, 0x56, 0x49, 0x20], 'image/webp');
+    expect(await fileSignatureMatches(notWebp, 'image/webp')).toBe(false);
+  });
+
+  it('rejects an unsupported declared type outright', async () => {
+    const svg = file([0x3c, 0x73, 0x76, 0x67], 'image/svg+xml');
+    expect(await fileSignatureMatches(svg, 'image/svg+xml')).toBe(false);
   });
 });
 

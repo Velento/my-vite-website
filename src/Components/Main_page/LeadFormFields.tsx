@@ -84,6 +84,7 @@ const LeadFormFields = ({
   const [captchaToken, setCaptchaToken] = useState<string | null>(null);
   const captchaRef = useRef<HCaptcha>(null);
   const formRef = useRef<HTMLFormElement>(null);
+  const submitErrorRef = useRef<HTMLDivElement>(null);
   // The hCaptcha widget pulls in ~800 kB of third-party JS the moment it
   // mounts. Mounting it on first paint tanked the Lighthouse score, so it is
   // deferred until the form scrolls into view (or the visitor focuses a
@@ -143,6 +144,18 @@ const LeadFormFields = ({
       if (timerRef.current) clearTimeout(timerRef.current);
     };
   }, []);
+
+  // A submit-time failure (network/proxy down) renders below the button, where
+  // a keyboard or screen-reader user who just pressed Submit may not notice it.
+  // Move focus to the alert and scroll it into view so the WhatsApp fallback is
+  // never missed. Field-level validation errors already focus their input
+  // (react-hook-form shouldFocusError), so this only handles the submit alert.
+  useEffect(() => {
+    if (submitError && submitErrorRef.current) {
+      submitErrorRef.current.focus();
+      submitErrorRef.current.scrollIntoView({ block: 'center', behavior: 'smooth' });
+    }
+  }, [submitError]);
 
   const onSubmit: SubmitHandler<LeadFormValues> = async (values) => {
     // Honeypot: humans can't see or fill `website`. Any value means a bot -
@@ -248,6 +261,7 @@ const LeadFormFields = ({
           id={nameId}
           type="text"
           maxLength={50}
+          autoComplete="name"
           placeholder={t('feedbackForm.namePlaceholder', 'Anna')}
           aria-invalid={Boolean(nameError)}
           disabled={isSubmitting}
@@ -265,7 +279,9 @@ const LeadFormFields = ({
         <input
           id={phoneId}
           type="tel"
+          inputMode="tel"
           maxLength={20}
+          autoComplete="tel"
           placeholder={t('feedbackForm.phonePlaceholder', '+48123123123')}
           aria-invalid={Boolean(phoneError)}
           disabled={isSubmitting}
@@ -284,6 +300,7 @@ const LeadFormFields = ({
           id={promoId}
           type="text"
           maxLength={30}
+          autoComplete="off"
           placeholder={t('feedbackForm.promoPlaceholder', 'PROMO2024')}
           disabled={isSubmitting}
           {...register('promo')}
@@ -321,7 +338,12 @@ const LeadFormFields = ({
       )}
 
       {submitError && (
-        <div className="form-group__error form-group__error--block" role="alert">
+        <div
+          ref={submitErrorRef}
+          tabIndex={-1}
+          className="form-group__error form-group__error--block"
+          role="alert"
+        >
           {submitError}
           {fallbackUrl && (
             <a

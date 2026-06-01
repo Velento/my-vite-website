@@ -1,0 +1,41 @@
+name: CodeQL
+
+# Static security analysis (code scanning). Free on public repositories.
+# Results appear under the repo's Security -> Code scanning alerts tab.
+on:
+  push:
+    branches: [my-vite-website]
+  pull_request:
+    branches: [my-vite-website]
+  schedule:
+    # Weekly, so newly published rules catch issues even without a push.
+    - cron: '27 3 * * 1'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  analyze:
+    name: Analyze (javascript-typescript)
+    runs-on: ubuntu-latest
+    permissions:
+      # Required to upload scan results to the code-scanning dashboard.
+      security-events: write
+      contents: read
+      actions: read
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v3
+        with:
+          # One language covers the whole app + the Cloudflare Worker.
+          languages: javascript-typescript
+          # Broader ruleset than the default for a more thorough audit.
+          queries: security-extended
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v3
+        with:
+          category: '/language:javascript-typescript'

@@ -36,6 +36,14 @@
  * scripted submissions, and both public routes are rate-limited per visitor.
  */
 
+import {
+  ALLOWED_LEAD_FILE_TYPES,
+  escapeHtml,
+  MAX_LEAD_FILE_BYTES,
+  NAME_REGEX,
+  PHONE_REGEX,
+} from '../src/shared/leadRules';
+
 /**
  * Cloudflare native rate limiting binding. Declared locally so the worker
  * typechecks regardless of the installed @cloudflare/workers-types version.
@@ -63,20 +71,10 @@ const HONEYPOT_FIELD = 'website';
 
 const DEFAULT_ALLOWED = ['https://legalline.pl', 'https://www.legalline.pl'];
 
-// `\p{L}` matches any Unicode letter — Latin (incl. Polish ą ć ę ł ń ó ś ź ż),
-// Cyrillic, Ukrainian, Belarusian, etc. `\p{M}` covers combining marks.
-const NAME_REGEX = /^[\p{L}\p{M}\s'-]{2,50}$/u;
-const PHONE_REGEX = /^\+?[\d\s\-()]{9,20}$/;
-
-const MAX_FILE_BYTES = 10 * 1024 * 1024;
-const ALLOWED_FILE_TYPES = new Set([
-  'application/pdf',
-  'image/jpeg',
-  'image/png',
-  'image/webp',
-  'application/msword',
-  'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-]);
+// Field formats + upload limits come from the shared module (src/shared/
+// leadRules.ts) so the client and this proxy validate leads identically.
+const MAX_FILE_BYTES = MAX_LEAD_FILE_BYTES;
+const ALLOWED_FILE_TYPES = new Set(ALLOWED_LEAD_FILE_TYPES);
 
 const ALLOWED_CHANNELS = new Set([
   'phone',
@@ -110,10 +108,6 @@ function jsonResponse(data: unknown, status: number, extraHeaders: HeadersInit =
     status,
     headers: { 'Content-Type': 'application/json', ...extraHeaders },
   });
-}
-
-function escapeHtml(value: string): string {
-  return value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 }
 
 function uuid(): string {
@@ -307,6 +301,36 @@ async function sendTelegramMessage(env: Env, text: string): Promise<Response> {
   });
 }
 
+/**
+ * Confirms an upload's leading bytes match its declared MIME type. The
+ * Content-Type on a multipart part is attacker-controlled, so a type-only
+ * allowlist can be bypassed by renaming a payload (e.g. an .exe announced as
+ * image/png). This checks the actual file signature (magic number) as defense
+ * in depth before the file is forwarded to the private Telegram chat.
+ */
+export async function fileSignatureMatches(file: File, declaredType: string): Promise<boolean> {
+  const header = new Uint8Array(await file.slice(0, 16).arrayBuffer());
+  const startsWith = (sig: number[], offset = 0): boolean =>
+    sig.every((b, i) => header[offset + i] === b);
+  switch (declaredType) {
+    case 'application/pdf':
+      return startsWith([0x25, 0x50, 0x44, 0x46]); // %PDF
+    case 'image/jpeg':
+      return startsWith([0xff, 0xd8, 0xff]);
+    case 'image/png':
+      return startsWith([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]);
+    case 'image/webp':
+      // "RIFF" .... "WEBP"
+      return startsWith([0x52, 0x49, 0x46, 0x46]) && startsWith([0x57, 0x45, 0x42, 0x50], 8);
+    case 'application/vnd.openxmlformats-officedocument.wordprocessingml.document':
+      return startsWith([0x50, 0x4b, 0x03, 0x04]); // PK.. (zip-based .docx)
+    case 'application/msword':
+      return startsWith([0xd0, 0xcf, 0x11, 0xe0, 0xa1, 0xb1, 0x1a, 0xe1]); // OLE compound (.doc)
+    default:
+      return false;
+  }
+}
+
 async function sendTelegramDocument(env: Env, caption: string, file: File): Promise<Response> {
   const tgForm = new FormData();
   tgForm.append('chat_id', env.TELEGRAM_CHAT_ID);
@@ -392,6 +416,9 @@ async function handleFormSubmit(
         }
         if (!ALLOWED_FILE_TYPES.has(f.type)) {
           return jsonResponse({ ok: false, error: 'File type not allowed' }, 415, cors);
+        }
+        if (!(await fileSignatureMatches(f, f.type))) {
+          return jsonResponse({ ok: false, error: 'File content does not match its type' }, 415, cors);
         }
         file = f;
       }
@@ -959,6 +986,13 @@ export default {
       return handleTrack(request, env, cors);
     }
     if (path === '/' && request.method === 'POST') {
+      // The lead form is a cross-origin POST (legalline.pl -> *.workers.dev),
+      // so a real browser always sends Origin. A missing Origin means a
+      // non-browser client (curl/script); reject it alongside the
+      // disallowed-origin guard above. /track stays lenient for beacons.
+      if (!origin || !allowed.includes(origin)) {
+        return jsonResponse({ ok: false, error: 'Forbidden origin' }, 403, cors);
+      }
       return handleFormSubmit(request, env, cors);
     }
 

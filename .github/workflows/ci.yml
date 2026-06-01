@@ -11,6 +11,11 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
+# Least privilege: every job here only reads the repo (no contents/PR/package
+# writes), so cap the default GITHUB_TOKEN to read-only.
+permissions:
+  contents: read
+
 jobs:
   # ── 1. Линтинг ─────────────────────────────────────────────────────────
   lint:
@@ -40,6 +45,12 @@ jobs:
 
       - name: i18n parity check
         run: npm run check:i18n
+
+      # Supply-chain gate: fail the build on a known high/critical vulnerability
+      # in a production dependency. Dev-only tooling is excluded to avoid noise
+      # from build-chain advisories that never ship to visitors.
+      - name: Audit production dependencies
+        run: npm audit --omit=dev --audit-level=high
 
   # ── 2. Тесты ────────────────────────────────────────────────────────────
   test:

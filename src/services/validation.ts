@@ -4,19 +4,16 @@
  */
 
 import { z } from 'zod';
-import { ALLOWED_LEAD_FILE_TYPES, MAX_LEAD_FILE_BYTES } from './telegram';
+import {
+  ALLOWED_LEAD_FILE_TYPES,
+  MAX_LEAD_FILE_BYTES,
+  NAME_REGEX,
+  PHONE_REGEX,
+} from '../shared/leadRules';
 
-/**
- * Matches names in any script (Latin with Polish/PL diacritics, Cyrillic,
- * Ukrainian, Belarusian, etc.). `\p{L}` is the Unicode “letter” class — covers
- * ą ć ę ł ń ó ś ź ż, ä ö ü, ñ, õ and the rest without hand-enumerating ranges.
- * `\p{M}` is included so combining marks (e.g. accents in normalized form) pass.
- * Min 2 chars.
- */
-export const NAME_REGEX = /^[\p{L}\p{M}\s'-]{2,}$/u;
-
-/** Matches international phone numbers (min 9 digits, allows +, spaces, dashes, parens). */
-export const PHONE_REGEX = /^\+?[\d\s\-()]{9,}$/;
+// Re-exported so existing importers (and tests) keep resolving them from here;
+// the definitions now live in the shared module used by the Worker too.
+export { NAME_REGEX, PHONE_REGEX };
 
 /**
  * Zod schema for lead capture form. Use with @hookform/resolvers/zod.

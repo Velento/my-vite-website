@@ -5,6 +5,67 @@ import { ViteImageOptimizer } from 'vite-plugin-image-optimizer';
 import { VitePWA } from 'vite-plugin-pwa';
 import { fileURLToPath, URL } from 'node:url';
 
+/**
+ * Content-Security-Policy for the production build.
+ *
+ * GitHub Pages serves static files and cannot set HTTP response headers, so the
+ * policy is delivered as a <meta http-equiv> tag instead (injected below). Two
+ * consequences of the meta delivery worth knowing:
+ *   - `frame-ancestors` (clickjacking) and `report-uri` are ignored in meta and
+ *     are therefore omitted; they would only work as a real header.
+ *   - The policy must sit as early as possible, so it is anchored right after
+ *     <meta charset> (see securityMetaPlugin).
+ *
+ * `'unsafe-inline'` + `'unsafe-eval'` are unavoidable for this stack: Partytown
+ * runs the third-party tags (gtag, fbq, GTM) inside a worker via eval, and
+ * index.html ships two tiny inline bootstrap scripts (dataLayer + Partytown
+ * config). Every allow-listed host below maps to code that actually runs:
+ * googletagmanager/ads/analytics + doubleclick (GTM, Google Ads conversions),
+ * connect.facebook.net + *.facebook.com (Meta Pixel), *.hcaptcha.com (captcha),
+ * www.google.com/maps (the click-to-load Maps facade), *.workers.dev (the form
+ * proxy Worker) and api.telegram.org (direct fallback when no proxy is set).
+ */
+const CSP = [
+  "default-src 'self'",
+  "base-uri 'self'",
+  "object-src 'none'",
+  "form-action 'self'",
+  "frame-src https://www.google.com https://maps.google.com https://hcaptcha.com https://*.hcaptcha.com https://td.doubleclick.net https://bid.g.doubleclick.net",
+  "img-src 'self' data: https:",
+  "font-src 'self'",
+  "style-src 'self' 'unsafe-inline' https://*.hcaptcha.com",
+  "worker-src 'self' blob:",
+  "manifest-src 'self'",
+  "media-src 'self'",
+  "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.googleadservices.com https://googleads.g.doubleclick.net https://www.google-analytics.com https://www.google.com https://connect.facebook.net https://hcaptcha.com https://*.hcaptcha.com",
+  "connect-src 'self' https://api.telegram.org https://*.workers.dev https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com https://stats.g.doubleclick.net https://googleads.g.doubleclick.net https://connect.facebook.net https://*.facebook.com https://hcaptcha.com https://*.hcaptcha.com",
+  'upgrade-insecure-requests',
+].join('; ');
+
+const CHARSET_TAG = '<meta charset="UTF-8" />';
+
+/**
+ * Injects the CSP + Referrer-Policy meta tags into the built index.html only
+ * (`apply: 'build'`). Kept out of `vite dev` on purpose: an enforcing CSP would
+ * block the HMR websocket and Vite's eval-based client. Anchored immediately
+ * after <meta charset> so the charset declaration stays within the first 1024
+ * bytes the HTML parser requires.
+ */
+function securityMetaPlugin() {
+  return {
+    name: 'legalline-security-meta',
+    apply: 'build',
+    transformIndexHtml(html) {
+      if (!html.includes(CHARSET_TAG)) return html;
+      const meta =
+        `${CHARSET_TAG}\n` +
+        `    <meta http-equiv="Content-Security-Policy" content="${CSP}" />\n` +
+        `    <meta name="referrer" content="strict-origin-when-cross-origin" />`;
+      return html.replace(CHARSET_TAG, meta);
+    },
+  };
+}
+
 export default defineConfig({
   plugins: [
     react(),
@@ -88,6 +149,7 @@ export default defineConfig({
         ],
       },
     }),
+    securityMetaPlugin(),
   ],
   base: '/',
   resolve: {
