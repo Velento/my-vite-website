@@ -49,15 +49,14 @@
 }
 
 /* ── Pagination dots ── */
+/* In normal flow, centered below the banner - never overlaps a slide's CTA.
+   Same dark background as the CTA block below, so there is no light seam. */
 .slider-dots {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: var(--space-lg);
-  z-index: 2;
   display: flex;
   justify-content: center;
   gap: 10px;
+  padding: 18px 0 6px;
+  background: var(--color-primary);
 }
 
 /* Two-tone bullets so they stay visible on both light and dark slide
